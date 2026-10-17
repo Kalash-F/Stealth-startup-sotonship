@@ -347,12 +347,12 @@ make test
 **Goal:** PDF → valid `Invoice` with high field accuracy.
 
 ### Tasks
-- [ ] 2.1 Text extraction with pdfplumber (text + tables). Store raw text for debugging.
-- [ ] 2.2 LLM structuring: send raw text + the `Invoice` JSON schema; require JSON output; validate with Pydantic; on validation failure, retry once with the error message included; on second failure, return partial result with warnings.
-- [ ] 2.3 Address type: classify `address_type` (commercial / residential / unknown) with simple heuristics first (keywords: "Flat", "Apt", "House", "Unit", "Industrial Estate", "Warehouse", "Ltd"), LLM fallback.
-- [ ] 2.4 Set `extraction_confidence` per line (e.g. lower when numbers needed repair or fields were missing).
-- [ ] 2.5 Cache LLM responses keyed by file hash so reruns are free and deterministic.
-- [ ] 2.6 Write `tests/test_extract.py` comparing extraction against truth JSON for all 60 synthetic invoices. Field-level accuracy report: numeric fields must match within 0.01; strings by normalised equality.
+- [x] 2.1 Text extraction with pdfplumber (text + tables). Store raw text for debugging.
+- [x] 2.2 LLM structuring: send raw text + the `Invoice` JSON schema; require JSON output; validate with Pydantic; on validation failure, retry once with the error message included; on second failure, return partial result with warnings.
+- [x] 2.3 Address type: classify `address_type` (commercial / residential / unknown) with simple heuristics first (keywords: "Flat", "Apt", "House", "Unit", "Industrial Estate", "Warehouse", "Ltd"), LLM fallback.
+- [x] 2.4 Set `extraction_confidence` per line (e.g. lower when numbers needed repair or fields were missing).
+- [x] 2.5 Cache LLM responses keyed by file hash so reruns are free and deterministic.
+- [x] 2.6 Write `tests/test_extract.py` comparing extraction against truth JSON for all 60 synthetic invoices. Field-level accuracy report: numeric fields must match within 0.01; strings by normalised equality.
 - [ ] 2.7 (Stretch) vision fallback for scanned PDFs.
 
 ### 🔒 CHECKPOINT 2
