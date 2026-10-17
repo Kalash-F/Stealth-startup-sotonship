@@ -418,26 +418,26 @@ pytest backend/tests/test_classify.py backend/tests/test_benchmark.py backend/te
 - Thresholds live in `backend/tbml/rules/config.yaml`, not in code.
 
 ### 4.2 Rules
-- [ ] R1 `PRICE_OUTLIER` — compare `unit_price_usd` to the band on a log scale.
+- [x] R1 `PRICE_OUTLIER` — compare `unit_price_usd` to the band on a log scale.
   - `log_dev = ln(stated / median)`; `spread = ln(p90 / p10)`.
   - medium if outside p10–p90; high if `|log_dev| > spread` (more than one full band-width away).
   - Fires both directions; reason says "over-invoiced" or "under-invoiced".
   - Skips (no flag) if no benchmark or null price — add a warning instead.
-- [ ] R2 `QTY_VALUE_IMPLAUSIBLE` — line value very high relative to quantity for the commodity (uses the band's p90 × quantity × 10 as the ceiling), or invoice total disproportionate to item count.
-- [ ] R3 `PLACEHOLDER_DESC` — regex list (`product [A-Z]{2,3}`, `item \d+`, `goods as per`, `various`, `misc`) + description shorter than 3 words + classifier returned null.
-- [ ] R4 `GEO_INCONSISTENT` — country of origin text checked against a city→country gazetteer (`data/reference/cities.csv`, top ~500 trade cities); origin vs port of loading country mismatch.
-- [ ] R5 `ROUTE_NO_ECONOMIC_SENSE` — if origin and destination medians for the HS6 are within ±15% of each other AND stated price is above p75, flag: shipping makes little economic sense at this price.
-- [ ] R6 `ARITHMETIC_ERROR` — qty × price vs line total (tolerance 0.5% or 1 currency unit); sum of lines vs stated total.
-- [ ] R7 `RESIDENTIAL_CONSIGNEE` — consignee or buyer `address_type == residential` and invoice total above a threshold in config.
-- [ ] R8 `LOW_CONFIDENCE` — any line with extraction or classification confidence < 0.5 → low-severity flag telling the officer to check that line manually.
+- [x] R2 `QTY_VALUE_IMPLAUSIBLE` — line value very high relative to quantity for the commodity (uses the band's p90 × quantity × 10 as the ceiling), or invoice total disproportionate to item count.
+- [x] R3 `PLACEHOLDER_DESC` — regex list (`product [A-Z]{2,3}`, `item \d+`, `goods as per`, `various`, `misc`) + description shorter than 3 words + classifier returned null.
+- [x] R4 `GEO_INCONSISTENT` — country of origin text checked against a city→country gazetteer (`data/reference/cities.csv`, top ~500 trade cities); origin vs port of loading country mismatch.
+- [x] R5 `ROUTE_NO_ECONOMIC_SENSE` — if origin and destination medians for the HS6 are within ±15% of each other AND stated price is above p75, flag: shipping makes little economic sense at this price.
+- [x] R6 `ARITHMETIC_ERROR` — qty × price vs line total (tolerance 0.5% or 1 currency unit); sum of lines vs stated total.
+- [x] R7 `RESIDENTIAL_CONSIGNEE` — consignee or buyer `address_type == residential` and invoice total above a threshold in config.
+- [x] R8 `LOW_CONFIDENCE` — any line with extraction or classification confidence < 0.5 → low-severity flag telling the officer to check that line manually.
 
 ### 4.3 Scoring
-- [ ] 4.4 Weighted sum: high = 40, medium = 15, low = 5 points per flag, capped at 100. Bands: ≥ 60 `review_now`, 25–59 `review`, < 25 `low`. Weights in config.
-- [ ] 4.5 Report sorted: highest severity flags first.
+- [x] 4.4 Weighted sum: high = 40, medium = 15, low = 5 points per flag, capped at 100. Bands: ≥ 60 `review_now`, 25–59 `review`, < 25 `low`. Weights in config.
+- [x] 4.5 Report sorted: highest severity flags first.
 
 ### 4.4 Tests
-- [ ] 4.6 One unit test file per rule with at least: one true positive, one true negative, one edge case (exactly on threshold), one missing-data case.
-- [ ] 4.7 `test_rules_on_synthetic.py`: run every rule on truth invoices (bypassing extraction) and report per-rule precision and recall against `labels.csv`.
+- [x] 4.6 One unit test file per rule with at least: one true positive, one true negative, one edge case (exactly on threshold), one missing-data case.
+- [x] 4.7 `test_rules_on_synthetic.py`: run every rule on truth invoices (bypassing extraction) and report per-rule precision and recall against `labels.csv`.
 
 ### 🔒 CHECKPOINT 4
 **Verify:**

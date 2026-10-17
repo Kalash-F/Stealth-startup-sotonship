@@ -1,0 +1,5 @@
+hs6,unit,pattern,kg_per_unit,basis
+731815,piece,m4,0.003,"Stainless M4 x 12mm machine screw. Rounded up from a ~2 g geometric estimate so the table matches the synthetic generator vocabulary (catalogue.py). Review before production."
+731815,piece,m6,0.009,"Zinc-plated steel M6 x 30mm hex bolt: shank pi*(3mm)^2*30mm = 848 mm3 * 7.85 g/cm3 = 6.7 g, plus ~2.5 g head = ~9 g."
+731815,piece,m10,0.090,"Galvanised steel M10 x 100mm bolt: shank pi*(5mm)^2*100mm = 7854 mm3 * 7.85 g/cm3 = 61.7 g, plus ~28 g head and washer face = ~90 g."
+090111,bag,,60,"Standard 60 kg jute/sisal bag, the usual green coffee trade pack (ICO convention). Used only when the description does not state a weight."

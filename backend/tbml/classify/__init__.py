@@ -1,12 +1,51 @@
-"""P2: line item -> HS6 + normalised quantity. Phase 0 stub: one fixture-shaped line per item."""
+"""P2: line item -> HS6 + normalised quantity and USD price per benchmark unit."""
 
-from tbml.fixtures import load_fixture
+from tbml.classify.classifier import Classification, classify_description
+from tbml.classify.normalise import Normalised, normalise
+from tbml.classify.proposers import (
+    AnthropicProposer,
+    CachedProposer,
+    KeywordProposer,
+    Proposer,
+    ProposerError,
+    default_proposer,
+)
 from tbml.schemas import EnrichedLine, Invoice
 
 
-def enrich(invoice: Invoice) -> list[EnrichedLine]:
-    template = EnrichedLine.model_validate(load_fixture("enriched_line"))
-    return [template.model_copy(update={"line_id": item.line_id}) for item in invoice.line_items]
+def enrich(invoice: Invoice, proposer: Proposer | None = None) -> list[EnrichedLine]:
+    proposer = proposer or default_proposer()
+    lines: list[EnrichedLine] = []
+    for item in invoice.line_items:
+        cls = classify_description(item.description, proposer)
+        norm = normalise(item, cls.hs6, invoice.currency)
+        note = norm.note if cls.hs6 else f"not classified: {cls.reason}; {norm.note}"
+        lines.append(
+            EnrichedLine(
+                line_id=item.line_id,
+                hs6=cls.hs6,
+                hs6_description=cls.description,
+                hs6_candidates=cls.candidates,
+                classification_confidence=cls.confidence,
+                normalised_quantity=norm.quantity,
+                benchmark_unit=norm.unit,
+                unit_price_usd=norm.unit_price_usd,
+                normalisation_note=note,
+            )
+        )
+    return lines
 
 
-__all__ = ["enrich"]
+__all__ = [
+    "AnthropicProposer",
+    "CachedProposer",
+    "Classification",
+    "KeywordProposer",
+    "Normalised",
+    "Proposer",
+    "ProposerError",
+    "classify_description",
+    "default_proposer",
+    "enrich",
+    "normalise",
+]
