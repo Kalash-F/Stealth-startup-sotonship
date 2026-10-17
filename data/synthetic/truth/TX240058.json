@@ -1,0 +1,54 @@
+{
+  "invoice_id": "TX240058",
+  "invoice_date": "2024-08-04",
+  "seller": {
+    "name": "Golden Crane Distribution Co., Ltd.",
+    "address": "No. 392 Xinghai Industrial Park Road, Huangpu District, Guangzhou 482748, China",
+    "country": "CN",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Starbridge Trading Ltd",
+    "address": "Unit 9, Oakhurst Trading Estate, Manchester M98 7ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "consignee": null,
+  "country_of_origin": "P.R. China",
+  "port_of_loading": "Shenzhen (Yantian), China",
+  "port_of_discharge": "Southampton, United Kingdom",
+  "incoterm": "EXW",
+  "currency": "USD",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Branded M6 x 30mm hex bolts, zinc plated",
+      "quantity": 86000.0,
+      "unit": "pcs",
+      "unit_price": 0.0714,
+      "line_total": 6140.4,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "Men's crew-neck T-shirt, 100% cotton jersey knit",
+      "quantity": 21000.0,
+      "unit": "pcs",
+      "unit_price": 2.6279,
+      "line_total": 55185.9,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L3",
+      "description": "Lemon soft drink 330ml cans, carton of 24",
+      "quantity": 6950.0,
+      "unit": "cartons",
+      "unit_price": 7.5924,
+      "line_total": 52767.18,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 114093.48,
+  "source_file": "TX240058.pdf",
+  "is_synthetic": true
+}

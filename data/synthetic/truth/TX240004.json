@@ -1,0 +1,36 @@
+{
+  "invoice_id": "TX240004",
+  "invoice_date": "2024-04-22",
+  "seller": {
+    "name": "Meridian Bay Merchants FZCO",
+    "address": "Office 539, Harrowdene Business Centre, Al Qusais, Abu Dhabi, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Ashcombe Global Sourcing Limited",
+    "address": "Unit 7, Riverside Industrial Estate, Manchester M97 7ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "consignee": null,
+  "country_of_origin": "Ethiopia (re-exported from United Arab Emirates; certificate of origin attached)",
+  "port_of_loading": "Jebel Ali, Dubai, UAE",
+  "port_of_discharge": "London Gateway, UK",
+  "incoterm": "CIF",
+  "currency": "GBP",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Unroasted Arabica coffee, washed, screen 17/18",
+      "quantity": 11.8,
+      "unit": "MT",
+      "unit_price": 2738.14,
+      "line_total": 32310.05,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 32310.05,
+  "source_file": "TX240004.pdf",
+  "is_synthetic": true
+}

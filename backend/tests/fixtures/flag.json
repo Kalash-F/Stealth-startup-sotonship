@@ -1,0 +1,23 @@
+{
+  "flag_id": "F1",
+  "rule": "PRICE_OUTLIER",
+  "line_id": "L1",
+  "severity": "high",
+  "expected": "$1.80–$8.50 per kg",
+  "stated": "$5,555.56 per kg",
+  "variance_pct": 146098.9,
+  "reason": "Over-invoiced: the stated price is about 1,460 times the typical price for screws and bolts on the China to UK route, far outside the normal range.",
+  "evidence": {
+    "unit_price_usd": 5555.56,
+    "median": 3.8,
+    "p10": 1.8,
+    "p90": 8.5,
+    "log_dev": 7.29,
+    "spread": 1.55,
+    "benchmark_route": "CN-GB",
+    "benchmark_sources": [
+      "mock (test fixture)"
+    ],
+    "benchmark_is_mock": true
+  }
+}

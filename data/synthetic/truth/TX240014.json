@@ -1,0 +1,59 @@
+{
+  "invoice_id": "TX240014",
+  "invoice_date": "2024-04-22",
+  "seller": {
+    "name": "Golden Crane Wholesale LLC",
+    "address": "P.O. Box 66179, Dubai, United Arab Emirates",
+    "country": "AE",
+    "address_type": "unknown"
+  },
+  "buyer": {
+    "name": "Northgate Distribution Limited",
+    "address": "Unit 14, Millbrook Business Park, Leeds LS94 7ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "consignee": {
+    "name": "Moravia Line Trading Limited",
+    "address": "Unit 2, Oakhurst Business Park, Bristol BS94 2ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "country_of_origin": "Bangladesh",
+  "port_of_loading": "Port Khalid, Sharjah, UAE",
+  "port_of_discharge": "London Gateway, UK",
+  "incoterm": "FCA",
+  "currency": "AED",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Women's V-neck T-shirt, cotton knitted, assorted sizes",
+      "quantity": 8.0,
+      "unit": "pcs",
+      "unit_price": 370967.06,
+      "line_total": 2967736.48,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "13-inch ultraportable laptop, 8GB RAM, 256GB SSD",
+      "quantity": 1750.0,
+      "unit": "pcs",
+      "unit_price": 1744.42,
+      "line_total": 3052735.0,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L3",
+      "description": "Sparkling flavoured water 500ml PET bottles",
+      "quantity": 26500.0,
+      "unit": "bottles",
+      "unit_price": 2.3479,
+      "line_total": 62219.35,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 6082690.83,
+  "source_file": "TX240014.pdf",
+  "is_synthetic": true
+}

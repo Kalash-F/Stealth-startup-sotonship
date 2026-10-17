@@ -1,0 +1,24 @@
+{
+  "line_id": "L1",
+  "hs6": "731815",
+  "hs6_description": "Other screws and bolts, whether or not with their nuts or washers",
+  "hs6_candidates": [
+    {
+      "hs6": "731815",
+      "score": 0.92
+    },
+    {
+      "hs6": "731814",
+      "score": 0.04
+    },
+    {
+      "hs6": "731816",
+      "score": 0.02
+    }
+  ],
+  "classification_confidence": 0.92,
+  "normalised_quantity": 900.0,
+  "benchmark_unit": "kg",
+  "unit_price_usd": 5555.56,
+  "normalisation_note": "100,000 pcs x 0.009 kg/pc (unit_weights.csv, M6 x 30mm hex bolt) = 900 kg; invoice in USD so no FX; 5,000,000.00 USD / 900 kg = 5,555.56 USD/kg."
+}

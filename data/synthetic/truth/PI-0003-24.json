@@ -1,0 +1,54 @@
+{
+  "invoice_id": "PI-0003-24",
+  "invoice_date": "2024-07-04",
+  "seller": {
+    "name": "Copperleaf Commodities Industrial Co., Ltd.",
+    "address": "No. 224 Changjiang Industrial Park Road, Huangpu District, Guangzhou 305461, China",
+    "country": "CN",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Starbridge Supply Ltd",
+    "address": "Unit 29, Riverside Trading Estate, Leicester LE95 8ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "consignee": null,
+  "country_of_origin": "People's Republic of China",
+  "port_of_loading": "Shenzhen (Yantian), China",
+  "port_of_discharge": "London Gateway, UK",
+  "incoterm": "DAP",
+  "currency": "USD",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Lemon soft drink 330ml cans, carton of 24",
+      "quantity": 1650.0,
+      "unit": "cartons",
+      "unit_price": 4.6891,
+      "line_total": 7737.01,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "Men's crew-neck T-shirt, 100% cotton jersey knit",
+      "quantity": 37000.0,
+      "unit": "pcs",
+      "unit_price": 3.488,
+      "line_total": 129056.0,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L3",
+      "description": "Lemon soft drink 330ml cans, carton of 24",
+      "quantity": 4900.0,
+      "unit": "cartons",
+      "unit_price": 9.8359,
+      "line_total": 48195.91,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 184988.92,
+  "source_file": "PI-0003-24.pdf",
+  "is_synthetic": true
+}

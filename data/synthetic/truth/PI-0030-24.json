@@ -1,0 +1,54 @@
+{
+  "invoice_id": "PI-0030-24",
+  "invoice_date": "2024-07-22",
+  "seller": {
+    "name": "Longmen Import & Export Ltd",
+    "address": "Unit 39, Brookfield Industrial Estate, Manchester M93 6ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Golden Crane Trading General Trading LLC",
+    "address": "Office 326, Juniper Business Centre, Al Quoz Industrial Area 3, Abu Dhabi, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "consignee": null,
+  "country_of_origin": "UK",
+  "port_of_loading": "Felixstowe, United Kingdom",
+  "port_of_discharge": "Jebel Ali, Dubai, UAE",
+  "incoterm": "DAP",
+  "currency": "GBP",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Carriage bolts M10 x 100mm, galvanised steel",
+      "quantity": 1250.0,
+      "unit": "kg",
+      "unit_price": 3.3433,
+      "line_total": 4179.12,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "13-inch ultraportable laptop, 8GB RAM, 256GB SSD",
+      "quantity": 1300.0,
+      "unit": "pcs",
+      "unit_price": 646.69,
+      "line_total": 840697.0,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L3",
+      "description": "Hex head bolts M6, carton of 1,000 pcs",
+      "quantity": 300.0,
+      "unit": "cartons",
+      "unit_price": 38.42,
+      "line_total": 11526.0,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 856402.12,
+  "source_file": "PI-0030-24.pdf",
+  "is_synthetic": true
+}

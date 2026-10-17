@@ -1,0 +1,59 @@
+{
+  "invoice_id": "INV-2024-0034",
+  "invoice_date": "2024-08-20",
+  "seller": {
+    "name": "Ruifeng Distribution FZCO",
+    "address": "Warehouse 28, Plot S77154, Jebel Ali Free Zone, Dubai, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Vltava Commodities s.r.o.",
+    "address": "Areál Westmere, Zahradní 87, 751 72 Prague, Czech Republic",
+    "country": "CZ",
+    "address_type": "commercial"
+  },
+  "consignee": {
+    "name": "Tidewater Commodities a.s.",
+    "address": "Areál Brookfield, Lipová 39, 654 27 Prague, Czech Republic",
+    "country": "CZ",
+    "address_type": "commercial"
+  },
+  "country_of_origin": "Vietnam (re-exported from United Arab Emirates; certificate of origin attached)",
+  "port_of_loading": "Port Khalid, Sharjah, UAE",
+  "port_of_discharge": "Prague Ruzyně Airport, Czechia",
+  "incoterm": "EXW",
+  "currency": "USD",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Unroasted Arabica coffee, washed, screen 17/18",
+      "quantity": 19.7,
+      "unit": "MT",
+      "unit_price": 5765.14,
+      "line_total": 113573.26,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "Unroasted Arabica coffee, washed, screen 17/18",
+      "quantity": 12.5,
+      "unit": "MT",
+      "unit_price": 3476.85,
+      "line_total": 34158.63,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L3",
+      "description": "Green Arabica coffee beans, unroasted, not decaffeinated",
+      "quantity": 8250.0,
+      "unit": "kg",
+      "unit_price": 4.5273,
+      "line_total": 37350.23,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 185082.12,
+  "source_file": "INV-2024-0034.pdf",
+  "is_synthetic": true
+}

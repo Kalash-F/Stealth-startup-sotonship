@@ -1,0 +1,54 @@
+{
+  "invoice_id": "PI-0018-24",
+  "invoice_date": "2024-09-28",
+  "seller": {
+    "name": "Ruifeng Supply General Trading LLC",
+    "address": "Office 667, Oakhurst Business Centre, Musaffah, Sharjah, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Golden Crane Commodities s.r.o.",
+    "address": "Areál Kingfisher, Lipová 39, 603 78 Brno, Czech Republic",
+    "country": "CZ",
+    "address_type": "commercial"
+  },
+  "consignee": null,
+  "country_of_origin": "U.A.E.",
+  "port_of_loading": "Port Khalid, Sharjah, UAE",
+  "port_of_discharge": "Hamburg, Germany (final destination Czech Republic)",
+  "incoterm": "CIF",
+  "currency": "AED",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "13-inch ultraportable laptop, 8GB RAM, 256GB SSD",
+      "quantity": 780.0,
+      "unit": "pcs",
+      "unit_price": 1657.2,
+      "line_total": 1292616.0,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "Women's V-neck T-shirt, cotton knitted, assorted sizes",
+      "quantity": 22000.0,
+      "unit": "pcs",
+      "unit_price": 8.5177,
+      "line_total": 187389.4,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L3",
+      "description": "Stainless steel machine screws M4 x 12mm",
+      "quantity": 431000.0,
+      "unit": "pcs",
+      "unit_price": 0.0313,
+      "line_total": 13490.3,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 1493495.7,
+  "source_file": "PI-0018-24.pdf",
+  "is_synthetic": true
+}

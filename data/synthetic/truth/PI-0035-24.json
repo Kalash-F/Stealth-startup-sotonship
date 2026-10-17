@@ -1,0 +1,50 @@
+{
+  "invoice_id": "PI-0035-24",
+  "invoice_date": "2024-07-13",
+  "seller": {
+    "name": "Ruifeng Global Sourcing FZE",
+    "address": "Warehouse 54, Plot S47947, Jebel Ali Free Zone, Dubai, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Oasis Arc Industrial Ltd",
+    "address": "Unit 24, Riverside Trading Estate, Birmingham B92 8ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "consignee": {
+    "name": "M. Lindqvist",
+    "address": "Flat 10, 45 Copperfield Court, Bristol BS95 3ZY, United Kingdom",
+    "country": "GB",
+    "address_type": "residential"
+  },
+  "country_of_origin": "India (re-exported from Jebel Ali Free Zone, Dubai)",
+  "port_of_loading": "Jebel Ali, Dubai, UAE",
+  "port_of_discharge": "Southampton, United Kingdom",
+  "incoterm": "DAP",
+  "currency": "USD",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "13-inch ultraportable laptop, 8GB RAM, 256GB SSD",
+      "quantity": 1900.0,
+      "unit": "pcs",
+      "unit_price": 15973.9,
+      "line_total": 30350410.0,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "USB 3.0 flash drive 64GB, metal casing",
+      "quantity": 34000.0,
+      "unit": "pcs",
+      "unit_price": 6.545,
+      "line_total": 222530.0,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 30572940.0,
+  "source_file": "PI-0035-24.pdf",
+  "is_synthetic": true
+}

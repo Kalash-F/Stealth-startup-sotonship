@@ -1,0 +1,45 @@
+{
+  "invoice_id": "TX240040",
+  "invoice_date": "2024-11-12",
+  "seller": {
+    "name": "Starbridge Logistics Co., Ltd.",
+    "address": "No. 778 Minsheng Industrial Park Road, Bao'an District, Shenzhen 435367, China",
+    "country": "CN",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Falconcrest Commodities Limited",
+    "address": "Unit 37, Millbrook Business Park, Birmingham B97 4ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "consignee": null,
+  "country_of_origin": "Made in China",
+  "port_of_loading": "Ningbo, China",
+  "port_of_discharge": "Southampton, United Kingdom",
+  "incoterm": "DAP",
+  "currency": "GBP",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Energy drink 250ml cans, original flavour",
+      "quantity": 67500.0,
+      "unit": "cans",
+      "unit_price": 0.22,
+      "line_total": 14850.0,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "Copper cathodes Grade A, 99.99% Cu",
+      "quantity": 149.8,
+      "unit": "MT",
+      "unit_price": 6458.71,
+      "line_total": 967514.76,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 982364.76,
+  "source_file": "TX240040.pdf",
+  "is_synthetic": true
+}

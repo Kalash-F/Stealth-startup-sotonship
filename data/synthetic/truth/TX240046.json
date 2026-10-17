@@ -1,0 +1,45 @@
+{
+  "invoice_id": "TX240046",
+  "invoice_date": "2024-03-21",
+  "seller": {
+    "name": "Oasis Arc Global Sourcing UK Ltd",
+    "address": "Unit 31, Harrowdene Business Park, Leeds LS91 5ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Thornbury Industrial FZCO",
+    "address": "P.O. Box 51553, Dubai, United Arab Emirates",
+    "country": "AE",
+    "address_type": "unknown"
+  },
+  "consignee": null,
+  "country_of_origin": "Great Britain",
+  "port_of_loading": "Southampton, United Kingdom",
+  "port_of_discharge": "Jebel Ali, Dubai, UAE",
+  "incoterm": "DAP",
+  "currency": "USD",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Copper cathodes Grade A, 99.99% Cu",
+      "quantity": 41.8,
+      "unit": "MT",
+      "unit_price": 8446.14,
+      "line_total": 353048.65,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "Energy drink 250ml cans, original flavour",
+      "quantity": 149500.0,
+      "unit": "cans",
+      "unit_price": 0.1406,
+      "line_total": 21019.7,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 374068.35,
+  "source_file": "TX240046.pdf",
+  "is_synthetic": true
+}

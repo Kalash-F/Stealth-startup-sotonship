@@ -1,0 +1,54 @@
+{
+  "invoice_id": "PI-0027-24",
+  "invoice_date": "2024-11-06",
+  "seller": {
+    "name": "Oasis Arc Import & Export Ltd",
+    "address": "Unit 21, Oakhurst Business Park, Birmingham B92 2ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Eastwind Import & Export General Trading LLC",
+    "address": "Office 850, Harrowdene Business Centre, Musaffah, Sharjah, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "consignee": null,
+  "country_of_origin": "Great Britain",
+  "port_of_loading": "Southampton, United Kingdom",
+  "port_of_discharge": "Jebel Ali, Dubai, UAE",
+  "incoterm": "DAP",
+  "currency": "GBP",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Lemon soft drink 330ml cans, carton of 24",
+      "quantity": 3050.0,
+      "unit": "cartons",
+      "unit_price": 6.107,
+      "line_total": 18626.35,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "13-inch ultraportable laptop, 8GB RAM, 256GB SSD",
+      "quantity": 1500.0,
+      "unit": "pcs",
+      "unit_price": 568.03,
+      "line_total": 852045.0,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L3",
+      "description": "14-inch laptop computer, Intel Core i5, 16GB RAM, 512GB SSD",
+      "quantity": 1350.0,
+      "unit": "pcs",
+      "unit_price": 470.88,
+      "line_total": 635688.0,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 1506359.35,
+  "source_file": "PI-0027-24.pdf",
+  "is_synthetic": true
+}

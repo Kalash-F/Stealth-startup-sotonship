@@ -1,0 +1,37 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Invoice {{ inv.invoice_id }}</title>
+<style>
+  @page { size: A4; margin: 12mm 12mm 18mm; @bottom-right { content: "{{ notice }}"; font-size: 6pt; color: #666; } }
+  body { font-family: "DejaVu Sans Mono", "Liberation Mono", monospace; font-size: 8pt; color: #000; }
+  .head { text-align: center; font-size: 13pt; font-weight: bold; border: 2px solid #000; padding: 4px; }
+  table.grid { width: 100%; border-collapse: collapse; }
+  table.grid td { border: 1px solid #000; padding: 4px 5px; vertical-align: top; width: 50%; }
+  .k { font-size: 6.5pt; font-weight: bold; display: block; margin-bottom: 2px; }
+  table.goods { width: 100%; border-collapse: collapse; margin-top: -1px; }
+  table.goods th, table.goods td { border: 1px solid #000; padding: 4px; }
+  table.goods th { background: #e5e5e5; font-size: 7pt; }
+  .n { text-align: right; white-space: nowrap; }
+  .stamp { margin-top: 20px; border: 1px dashed #000; width: 45%; padding: 18px 6px; font-size: 7pt; }
+</style></head>
+<body>
+<div class="head">INVOICE / PACKING DECLARATION</div>
+<table class="grid">
+  <tr><td rowspan="2"><span class="k">1. SHIPPER / EXPORTER</span>{{ inv.seller.name }}<br>{{ inv.seller.address }}</td>
+      <td><span class="k">2. INVOICE NO. &amp; DATE</span>{{ inv.invoice_id }} &nbsp; DD/MM/YYYY: {{ date }}</td></tr>
+  <tr><td><span class="k">3. TERMS OF DELIVERY</span>{{ inv.incoterm or "N/A" }} &nbsp;&nbsp; CURRENCY: {{ inv.currency }}</td></tr>
+  <tr><td><span class="k">4. CONSIGNEE</span>{% if inv.consignee %}{{ inv.consignee.name }}<br>{{ inv.consignee.address }}{% else %}SAME AS BUYER{% endif %}</td>
+      <td><span class="k">5. BUYER (IF OTHER THAN CONSIGNEE)</span>{{ inv.buyer.name }}<br>{{ inv.buyer.address }}</td></tr>
+  <tr><td><span class="k">6. COUNTRY OF ORIGIN OF GOODS</span>{{ inv.country_of_origin or "N/A" }}</td>
+      <td><span class="k">7. PORT OF LOADING / PORT OF DISCHARGE</span>{{ inv.port_of_loading or "N/A" }} / {{ inv.port_of_discharge or "N/A" }}</td></tr>
+</table>
+<table class="goods">
+  <thead><tr><th>NO.</th><th>DESCRIPTION OF GOODS</th><th>QUANTITY</th><th>UNIT PRICE ({{ inv.currency }})</th><th>VALUE ({{ inv.currency }})</th></tr></thead>
+  <tbody>
+  {% for li in inv.line_items %}
+    <tr><td>{{ loop.index }}</td><td>{{ li.description|upper }}</td><td class="n">{{ li.quantity|qty }} {{ li.unit|upper }}</td><td class="n">{{ li.unit_price|price }}</td><td class="n">{{ li.line_total|money }}</td></tr>
+  {% endfor %}
+    <tr><td colspan="4" class="n"><b>TOTAL INVOICE VALUE {{ inv.currency }}</b></td><td class="n"><b>{{ inv.stated_total|money }}</b></td></tr>
+  </tbody>
+</table>
+<div class="stamp">COMPANY STAMP &amp; SIGNATURE</div>
+</body></html>

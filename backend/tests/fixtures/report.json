@@ -1,0 +1,152 @@
+{
+  "invoice_id": "INV-2024-0001",
+  "schema_version": "1.0",
+  "priority_score": 80.0,
+  "priority_band": "review_now",
+  "flags": [
+    {
+      "flag_id": "F1",
+      "rule": "PRICE_OUTLIER",
+      "line_id": "L1",
+      "severity": "high",
+      "expected": "$1.80–$8.50 per kg",
+      "stated": "$5,555.56 per kg",
+      "variance_pct": 146098.9,
+      "reason": "Over-invoiced: the stated price is about 1,460 times the typical price for screws and bolts on the China to UK route, far outside the normal range.",
+      "evidence": {
+        "unit_price_usd": 5555.56,
+        "median": 3.8,
+        "p10": 1.8,
+        "p90": 8.5,
+        "log_dev": 7.29,
+        "spread": 1.55,
+        "benchmark_route": "CN-GB",
+        "benchmark_sources": [
+          "mock (test fixture)"
+        ],
+        "benchmark_is_mock": true
+      }
+    },
+    {
+      "flag_id": "F2",
+      "rule": "QTY_VALUE_IMPLAUSIBLE",
+      "line_id": "L1",
+      "severity": "high",
+      "expected": "at most $76,500.00 for 900 kg",
+      "stated": "$5,000,000.00 for 900 kg",
+      "variance_pct": 6436.0,
+      "reason": "The line value is far too high for the quantity shipped: 900 kg of bolts would normally be worth well under $76,500, but the invoice charges $5,000,000.",
+      "evidence": {
+        "line_total_usd": 5000000.0,
+        "normalised_quantity": 900.0,
+        "p90": 8.5,
+        "ceiling_multiplier": 10,
+        "ceiling_usd": 76500.0
+      }
+    }
+  ],
+  "lines": [
+    {
+      "line_id": "L1",
+      "description": "M6 x 30mm hex bolts, zinc plated",
+      "quantity": 100000.0,
+      "unit": "pcs",
+      "unit_price": 50.0,
+      "line_total": 5000000.0,
+      "extraction_confidence": 0.97,
+      "hs6": "731815",
+      "hs6_description": "Other screws and bolts, whether or not with their nuts or washers",
+      "hs6_candidates": [
+        {
+          "hs6": "731815",
+          "score": 0.92
+        },
+        {
+          "hs6": "731814",
+          "score": 0.04
+        },
+        {
+          "hs6": "731816",
+          "score": 0.02
+        }
+      ],
+      "classification_confidence": 0.92,
+      "normalised_quantity": 900.0,
+      "benchmark_unit": "kg",
+      "unit_price_usd": 5555.56,
+      "normalisation_note": "100,000 pcs x 0.009 kg/pc (unit_weights.csv, M6 x 30mm hex bolt) = 900 kg; invoice in USD so no FX; 5,000,000.00 USD / 900 kg = 5,555.56 USD/kg.",
+      "benchmark": {
+        "hs6": "731815",
+        "route": "CN-GB",
+        "unit": "kg",
+        "p10": 1.8,
+        "p25": 2.6,
+        "median": 3.8,
+        "p75": 5.5,
+        "p90": 8.5,
+        "n_observations": 214,
+        "years": [
+          2022,
+          2023,
+          2024
+        ],
+        "sources": [
+          "mock (test fixture)"
+        ],
+        "is_mock": true
+      }
+    },
+    {
+      "line_id": "L2",
+      "description": "Stainless steel machine screws M4 x 12mm",
+      "quantity": 50000.0,
+      "unit": "pcs",
+      "unit_price": 0.02,
+      "line_total": 1000.0,
+      "extraction_confidence": 0.95,
+      "hs6": "731815",
+      "hs6_description": "Other screws and bolts, whether or not with their nuts or washers",
+      "hs6_candidates": [
+        {
+          "hs6": "731815",
+          "score": 0.92
+        },
+        {
+          "hs6": "731814",
+          "score": 0.04
+        },
+        {
+          "hs6": "731816",
+          "score": 0.02
+        }
+      ],
+      "classification_confidence": 0.9,
+      "normalised_quantity": 150.0,
+      "benchmark_unit": "kg",
+      "unit_price_usd": 6.67,
+      "normalisation_note": "50,000 pcs x 0.003 kg/pc (unit_weights.csv, M4 machine screw) = 150 kg; invoice in USD so no FX; 1,000.00 USD / 150 kg = 6.67 USD/kg.",
+      "benchmark": {
+        "hs6": "731815",
+        "route": "CN-GB",
+        "unit": "kg",
+        "p10": 1.8,
+        "p25": 2.6,
+        "median": 3.8,
+        "p75": 5.5,
+        "p90": 8.5,
+        "n_observations": 214,
+        "years": [
+          2022,
+          2023,
+          2024
+        ],
+        "sources": [
+          "mock (test fixture)"
+        ],
+        "is_mock": true
+      }
+    }
+  ],
+  "processing_ms": 1840,
+  "warnings": []
+}
