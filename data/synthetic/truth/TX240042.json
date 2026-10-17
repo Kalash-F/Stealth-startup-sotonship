@@ -1,0 +1,45 @@
+{
+  "invoice_id": "TX240042",
+  "invoice_date": "2024-05-27",
+  "seller": {
+    "name": "Al Rimal Supply FZCO",
+    "address": "Warehouse 1, Plot S90584, Jebel Ali Free Zone, Dubai, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Jinhai Logistics s.r.o.",
+    "address": "Areál Juniper, Zahradní 11, 734 56 Brno, Czech Republic",
+    "country": "CZ",
+    "address_type": "commercial"
+  },
+  "consignee": null,
+  "country_of_origin": "UAE",
+  "port_of_loading": "Jebel Ali, Dubai, UAE",
+  "port_of_discharge": "Hamburg, Germany (final destination Czech Republic)",
+  "incoterm": "FCA",
+  "currency": "EUR",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Stainless steel machine screws M4 x 12mm",
+      "quantity": 540000.0,
+      "unit": "pcs",
+      "unit_price": 0.0116,
+      "line_total": 6264.0,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "Refined copper cathode sheets, LME Grade A",
+      "quantity": 28000.0,
+      "unit": "kg",
+      "unit_price": 7.7006,
+      "line_total": 215616.8,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 221880.8,
+  "source_file": "TX240042.pdf",
+  "is_synthetic": true
+}

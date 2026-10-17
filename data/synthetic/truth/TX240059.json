@@ -1,0 +1,50 @@
+{
+  "invoice_id": "TX240059",
+  "invoice_date": "2024-07-13",
+  "seller": {
+    "name": "Falconcrest Merchants FZE",
+    "address": "P.O. Box 14400, Dubai, United Arab Emirates",
+    "country": "AE",
+    "address_type": "unknown"
+  },
+  "buyer": {
+    "name": "Moravia Line Supply s.r.o.",
+    "address": "Areál Oakhurst, Průmyslová 52, 712 39 Brno, Czech Republic",
+    "country": "CZ",
+    "address_type": "commercial"
+  },
+  "consignee": {
+    "name": "Redwell Distribution s.r.o.",
+    "address": "Areál Copperfield, Zahradní 74, 681 83 Ostrava, Czech Republic",
+    "country": "CZ",
+    "address_type": "commercial"
+  },
+  "country_of_origin": "UAE",
+  "port_of_loading": "Jebel Ali, Dubai, UAE",
+  "port_of_discharge": "Hamburg, Germany (final destination Czech Republic)",
+  "incoterm": "CIF",
+  "currency": "AED",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "USB 3.0 flash drive 64GB, metal casing",
+      "quantity": 20000.0,
+      "unit": "pcs",
+      "unit_price": 12.38,
+      "line_total": 247600.0,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "14-inch laptop computer, Intel Core i5, 16GB RAM, 512GB SSD",
+      "quantity": 120.0,
+      "unit": "pcs",
+      "unit_price": 2591.48,
+      "line_total": 310977.6,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 558577.6,
+  "source_file": "TX240059.pdf",
+  "is_synthetic": true
+}

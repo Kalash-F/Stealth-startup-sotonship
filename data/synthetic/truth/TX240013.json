@@ -1,0 +1,72 @@
+{
+  "invoice_id": "TX240013",
+  "invoice_date": "2024-08-31",
+  "seller": {
+    "name": "Hengtai Global Sourcing FZCO",
+    "address": "Warehouse 54, Plot S18161, Jebel Ali Free Zone, Dubai, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Silverfern Global Sourcing a.s.",
+    "address": "Areál Fernhill, Skladová 62, 601 55 Prague, Czech Republic",
+    "country": "CZ",
+    "address_type": "commercial"
+  },
+  "consignee": null,
+  "country_of_origin": "China (re-exported from Jebel Ali Free Zone, Dubai)",
+  "port_of_loading": "Jebel Ali, Dubai, UAE",
+  "port_of_discharge": "Prague Ruzyně Airport, Czechia",
+  "incoterm": "EXW",
+  "currency": "EUR",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Lemon soft drink 330ml cans, carton of 24",
+      "quantity": 3250.0,
+      "unit": "cartons",
+      "unit_price": 7.7769,
+      "line_total": 25274.93,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "Refined copper cathode sheets, LME Grade A",
+      "quantity": 102000.0,
+      "unit": "kg",
+      "unit_price": 7.8475,
+      "line_total": 800445.0,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L3",
+      "description": "Men's crew-neck T-shirt, 100% cotton jersey knit",
+      "quantity": 49000.0,
+      "unit": "pcs",
+      "unit_price": 2.202,
+      "line_total": 107898.0,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L4",
+      "description": "USB-C flash drive 128GB with keyring",
+      "quantity": 11500.0,
+      "unit": "pcs",
+      "unit_price": 6.2361,
+      "line_total": 71715.15,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L5",
+      "description": "Stainless steel machine screws M4 x 12mm",
+      "quantity": 258000.0,
+      "unit": "pcs",
+      "unit_price": 0.00857,
+      "line_total": 2211.06,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 1007544.14,
+  "source_file": "TX240013.pdf",
+  "is_synthetic": true
+}

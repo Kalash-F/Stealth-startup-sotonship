@@ -299,14 +299,14 @@ python -c "from tbml.pipeline import check; r = check('any.pdf'); print(r.model_
 **Goal:** a labelled, reproducible dataset that every other phase tests against. **This unblocks P1 and P3 — build it first.**
 
 ### Tasks
-- [ ] 1.1 Build 2–3 HTML invoice templates (Jinja2) that look different from each other: different layouts, table styles, field labels (e.g. "Qty" vs "Quantity", "Unit Price" vs "Rate"). Real invoices are inconsistent; ours should be too.
-- [ ] 1.2 Build a generator `scripts/generate_invoices.py --seed 42 --n 60` that:
+- [x] 1.1 Build 2–3 HTML invoice templates (Jinja2) that look different from each other: different layouts, table styles, field labels (e.g. "Qty" vs "Quantity", "Unit Price" vs "Rate"). Real invoices are inconsistent; ours should be too.
+- [x] 1.2 Build a generator `scripts/generate_invoices.py --seed 42 --n 60` that:
   - Invents seller/buyer/consignee companies and addresses (clearly fictional).
   - Picks a route from §5.2 and 1–5 line items from §5.1 commodities.
   - Sets *clean* prices by sampling inside the benchmark p25–p75 band (use placeholder bands until Phase 3 lands, then regenerate).
   - Renders to PDF in `data/synthetic/pdfs/`.
   - Writes ground truth in `data/synthetic/truth/{invoice_id}.json` (the full `Invoice` object) and one row per planted anomaly in `labels.csv`.
-- [ ] 1.3 Plant anomalies. ~30% of invoices carry at least one. Each anomaly type must appear at least 4 times:
+- [x] 1.3 Plant anomalies. ~30% of invoices carry at least one. Each anomaly type must appear at least 4 times:
 
 | Label | How to plant |
 |---|---|
@@ -319,14 +319,14 @@ python -c "from tbml.pipeline import check; r = check('any.pdf'); print(r.model_
 | `ARITHMETIC_ERROR` | line totals ≠ qty × price, or sum ≠ stated total |
 | `RESIDENTIAL_CONSIGNEE` | consignee address is a flat/house for commercial-volume goods |
 
-- [ ] 1.4 Plant **hard negatives** (clean invoices that look suspicious): premium goods priced near p90, bulk discounts near p10, legitimate unusual routes. ~10% of the set. Label them `CLEAN_HARD` in a separate column so evaluation can report false positives on them.
-- [ ] 1.5 Write `tests/test_synthetic.py`:
+- [x] 1.4 Plant **hard negatives** (clean invoices that look suspicious): premium goods priced near p90, bulk discounts near p10, legitimate unusual routes. ~10% of the set. Label them `CLEAN_HARD` in a separate column so evaluation can report false positives on them.
+- [x] 1.5 Write `tests/test_synthetic.py`:
   - Same seed → byte-identical `labels.csv` and truth JSON.
   - Every truth JSON validates as `Invoice`.
   - Every anomaly type count ≥ 4.
   - Every planted arithmetic error actually fails the arithmetic (recompute it).
   - Clean invoices actually pass arithmetic.
-- [ ] 1.6 Open 5 random PDFs (render page 1 to PNG) and visually confirm they look like real invoices and that text is selectable.
+- [x] 1.6 Open 5 random PDFs (render page 1 to PNG) and visually confirm they look like real invoices and that text is selectable.
 
 ### 🔒 CHECKPOINT 1
 **Verify:**
@@ -336,10 +336,10 @@ python backend/scripts/generate_invoices.py --seed 42 --n 60 --out /tmp/rerun &&
 make test
 ```
 **Acceptance criteria:**
-- [ ] 60 PDFs, 60 truth files, `labels.csv` present.
-- [ ] Rerun with same seed produces no diff.
-- [ ] Anomaly distribution table printed and pasted into `PROGRESS.md`.
-- [ ] 5 PDFs inspected visually; notes logged.
+- [x] 60 PDFs, 60 truth files, `labels.csv` present.
+- [x] Rerun with same seed produces no diff.
+- [x] Anomaly distribution table printed and pasted into `PROGRESS.md`.
+- [x] 5 PDFs inspected visually; notes logged.
 
 ---
 

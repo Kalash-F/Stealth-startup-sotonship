@@ -1,0 +1,77 @@
+{
+  "invoice_id": "PI-0045-24",
+  "invoice_date": "2024-03-14",
+  "seller": {
+    "name": "Longmen Commodities FZCO",
+    "address": "Warehouse 72, Plot S25435, Jebel Ali Free Zone, Dubai, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Ruifeng Import & Export Ltd",
+    "address": "Unit 32, Copperfield Trading Estate, Manchester M99 5ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "consignee": {
+    "name": "K. Al Mansoori",
+    "address": "Flat 22, 42 Juniper Court, Leeds LS95 2ZY, United Kingdom",
+    "country": "GB",
+    "address_type": "residential"
+  },
+  "country_of_origin": "China (re-exported from Jebel Ali Free Zone, Dubai)",
+  "port_of_loading": "Jebel Ali, Dubai, UAE",
+  "port_of_discharge": "London Gateway, UK",
+  "incoterm": "CIF",
+  "currency": "USD",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Stainless steel machine screws M4 x 12mm",
+      "quantity": 535000.0,
+      "unit": "pcs",
+      "unit_price": 0.009309,
+      "line_total": 4980.31,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "15.6-inch notebook PC, AMD Ryzen 7, 16GB RAM",
+      "quantity": 1000.0,
+      "unit": "units",
+      "unit_price": 465.14,
+      "line_total": 465140.0,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L3",
+      "description": "Copper cathodes Grade A, 99.99% Cu",
+      "quantity": 164.5,
+      "unit": "MT",
+      "unit_price": 9061.76,
+      "line_total": 1490659.52,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L4",
+      "description": "USB-C flash drive 128GB with keyring",
+      "quantity": 20500.0,
+      "unit": "pcs",
+      "unit_price": 5.9386,
+      "line_total": 121741.3,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L5",
+      "description": "Copper cathodes Grade A, 99.99% Cu",
+      "quantity": 157.7,
+      "unit": "MT",
+      "unit_price": 8694.65,
+      "line_total": 1371146.3,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 3453667.43,
+  "source_file": "PI-0045-24.pdf",
+  "is_synthetic": true
+}

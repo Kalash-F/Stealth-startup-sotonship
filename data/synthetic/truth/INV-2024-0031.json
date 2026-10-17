@@ -1,0 +1,59 @@
+{
+  "invoice_id": "INV-2024-0031",
+  "invoice_date": "2024-03-30",
+  "seller": {
+    "name": "Pearl Gulf Global Sourcing Limited",
+    "address": "Unit 2, Brookfield Business Park, Leicester LE98 5ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Jinhai Distribution LLC",
+    "address": "Warehouse 57, Plot S19632, Jebel Ali Free Zone, Dubai, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "consignee": {
+    "name": "Saffron Dune Merchants General Trading LLC",
+    "address": "Office 1299, Harrowdene Business Centre, Musaffah, Abu Dhabi, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "country_of_origin": "Colombia (re-exported from United Kingdom; certificate of origin attached)",
+  "port_of_loading": "London Gateway, UK",
+  "port_of_discharge": "Jebel Ali, Dubai, UAE",
+  "incoterm": "FCA",
+  "currency": "GBP",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Unroasted Arabica coffee, washed, screen 17/18",
+      "quantity": 22.6,
+      "unit": "MT",
+      "unit_price": 2792.48,
+      "line_total": 63110.05,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "Green Arabica coffee beans, unroasted, not decaffeinated",
+      "quantity": 36000.0,
+      "unit": "kg",
+      "unit_price": 3.2191,
+      "line_total": 115887.6,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L3",
+      "description": "Robusta green coffee beans, 60kg jute bags",
+      "quantity": 360.0,
+      "unit": "bags",
+      "unit_price": 205.45,
+      "line_total": 73962.0,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 252959.65,
+  "source_file": "INV-2024-0031.pdf",
+  "is_synthetic": true
+}

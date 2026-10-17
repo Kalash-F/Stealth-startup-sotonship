@@ -1,0 +1,51 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Commercial Invoice {{ inv.invoice_id }}</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm 22mm; @bottom-center { content: "{{ notice }}"; font-size: 6.5pt; color: #777; } }
+  body { font-family: "Liberation Serif", "DejaVu Serif", serif; font-size: 10pt; color: #111; }
+  h1 { font-size: 20pt; letter-spacing: 2px; text-align: center; margin: 0 0 12px; border-bottom: 3px double #1f3a68; padding-bottom: 6px; color: #1f3a68; }
+  .row { display: flex; gap: 16px; margin-bottom: 10px; }
+  .col { flex: 1; }
+  .label { font-weight: bold; font-size: 8.5pt; text-transform: uppercase; color: #1f3a68; }
+  .box { border: 1px solid #1f3a68; padding: 6px 8px; min-height: 52px; }
+  table.meta td { padding: 2px 6px 2px 0; vertical-align: top; }
+  table.items { width: 100%; border-collapse: collapse; margin-top: 12px; }
+  table.items th { background: #1f3a68; color: #fff; font-size: 8.5pt; padding: 5px; text-align: left; }
+  table.items td { border-bottom: 1px solid #c9d3e3; padding: 5px; }
+  td.num, th.num { text-align: right; }
+  .total td { font-weight: bold; border-top: 2px solid #1f3a68; border-bottom: none; }
+  .sign { margin-top: 36px; font-size: 9pt; }
+</style></head>
+<body>
+<h1>COMMERCIAL INVOICE</h1>
+<div class="row">
+  <div class="col"><div class="label">Seller</div><div class="box"><strong>{{ inv.seller.name }}</strong><br>{{ inv.seller.address }}</div></div>
+  <div class="col">
+    <table class="meta">
+      <tr><td class="label">Invoice No.</td><td>{{ inv.invoice_id }}</td></tr>
+      <tr><td class="label">Date</td><td>{{ date }}</td></tr>
+      <tr><td class="label">Incoterms</td><td>{{ inv.incoterm or "" }}</td></tr>
+      <tr><td class="label">Currency</td><td>{{ inv.currency }}</td></tr>
+    </table>
+  </div>
+</div>
+<div class="row">
+  <div class="col"><div class="label">Buyer</div><div class="box"><strong>{{ inv.buyer.name }}</strong><br>{{ inv.buyer.address }}</div></div>
+  <div class="col"><div class="label">Consignee</div><div class="box">{% if inv.consignee %}<strong>{{ inv.consignee.name }}</strong><br>{{ inv.consignee.address }}{% else %}Same as buyer{% endif %}</div></div>
+</div>
+<table class="meta">
+  <tr><td class="label">Country of Origin</td><td>{{ inv.country_of_origin or "" }}</td></tr>
+  <tr><td class="label">Port of Loading</td><td>{{ inv.port_of_loading or "" }}</td></tr>
+  <tr><td class="label">Port of Discharge</td><td>{{ inv.port_of_discharge or "" }}</td></tr>
+</table>
+<table class="items">
+  <thead><tr><th>Description</th><th class="num">Quantity</th><th>Unit</th><th class="num">Unit Price ({{ inv.currency }})</th><th class="num">Amount ({{ inv.currency }})</th></tr></thead>
+  <tbody>
+  {% for li in inv.line_items %}
+    <tr><td>{{ li.description }}</td><td class="num">{{ li.quantity|qty }}</td><td>{{ li.unit }}</td><td class="num">{{ li.unit_price|price }}</td><td class="num">{{ li.line_total|money }}</td></tr>
+  {% endfor %}
+    <tr class="total"><td colspan="4" class="num">TOTAL ({{ inv.currency }})</td><td class="num">{{ inv.stated_total|money }}</td></tr>
+  </tbody>
+</table>
+<p class="sign">We certify that this invoice is true and correct.<br><br>Authorised signatory, for and on behalf of {{ inv.seller.name }}</p>
+</body></html>

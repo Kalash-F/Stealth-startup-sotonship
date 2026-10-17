@@ -1,0 +1,47 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Invoice {{ inv.invoice_id }}</title>
+<style>
+  @page { size: A4; margin: 20mm 18mm 22mm; @bottom-left { content: "{{ notice }}"; font-size: 6.5pt; color: #888; } }
+  body { font-family: "Inter", "Liberation Sans", sans-serif; font-size: 9.5pt; color: #222; }
+  .top { display: flex; justify-content: space-between; align-items: flex-start; }
+  .brand { font-size: 13pt; font-weight: 700; color: #0f766e; max-width: 60%; }
+  .title { font-size: 28pt; font-weight: 800; color: #0f766e; letter-spacing: -1px; text-align: right; }
+  .muted { color: #6b7280; font-size: 8pt; text-transform: uppercase; letter-spacing: 0.5px; }
+  .grid { display: flex; gap: 20px; margin: 18px 0; }
+  .grid > div { flex: 1; }
+  .facts { display: flex; flex-wrap: wrap; gap: 6px 22px; background: #f0fdfa; padding: 10px 12px; border-radius: 6px; }
+  .facts div { min-width: 28%; }
+  table { width: 100%; border-collapse: collapse; margin-top: 18px; }
+  th { text-align: left; font-size: 8pt; color: #6b7280; text-transform: uppercase; border-bottom: 2px solid #0f766e; padding: 6px 4px; }
+  td { padding: 7px 4px; }
+  tbody tr:nth-child(even) td { background: #f9fafb; }
+  .r { text-align: right; }
+  .due { margin-top: 14px; display: flex; justify-content: flex-end; }
+  .due div { background: #0f766e; color: #fff; padding: 10px 16px; border-radius: 6px; font-size: 12pt; font-weight: 700; }
+</style></head>
+<body>
+<div class="top">
+  <div class="brand">{{ inv.seller.name }}<div class="muted" style="text-transform:none;letter-spacing:0;font-weight:400;font-size:8.5pt;color:#444;margin-top:4px">{{ inv.seller.address }}</div></div>
+  <div><div class="title">INVOICE</div><div class="r"># {{ inv.invoice_id }}<br>Issued {{ date }}</div></div>
+</div>
+<div class="grid">
+  <div><div class="muted">Bill to</div><strong>{{ inv.buyer.name }}</strong><br>{{ inv.buyer.address }}</div>
+  <div><div class="muted">Ship to</div>{% if inv.consignee %}<strong>{{ inv.consignee.name }}</strong><br>{{ inv.consignee.address }}{% else %}<strong>{{ inv.buyer.name }}</strong><br>(as billing address){% endif %}</div>
+</div>
+<div class="facts">
+  <div><span class="muted">Origin</span><br>{{ inv.country_of_origin or "-" }}</div>
+  <div><span class="muted">Loading</span><br>{{ inv.port_of_loading or "-" }}</div>
+  <div><span class="muted">Destination port</span><br>{{ inv.port_of_discharge or "-" }}</div>
+  <div><span class="muted">Terms</span><br>{{ inv.incoterm or "-" }}</div>
+  <div><span class="muted">Currency</span><br>{{ inv.currency }}</div>
+</div>
+<table>
+  <thead><tr><th>#</th><th>Item</th><th class="r">Qty</th><th>UoM</th><th class="r">Rate</th><th class="r">Total</th></tr></thead>
+  <tbody>
+  {% for li in inv.line_items %}
+    <tr><td>{{ loop.index }}</td><td>{{ li.description }}</td><td class="r">{{ li.quantity|qty }}</td><td>{{ li.unit }}</td><td class="r">{{ li.unit_price|price }}</td><td class="r">{{ li.line_total|money }}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+<div class="due"><div>Amount due: {{ inv.currency }} {{ inv.stated_total|money }}</div></div>
+</body></html>

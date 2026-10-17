@@ -1,0 +1,59 @@
+{
+  "invoice_id": "PI-0041-24",
+  "invoice_date": "2024-11-05",
+  "seller": {
+    "name": "Vltava Distribution LLC",
+    "address": "Office 950, Brookfield Business Centre, Ras Al Khor, Abu Dhabi, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Ruifeng Distribution Ltd",
+    "address": "Unit 2, Kingfisher Industrial Estate, Bristol BS91 6ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "consignee": {
+    "name": "Redwell Trading Ltd",
+    "address": "Unit 31, Millbrook Trading Estate, Birmingham B97 3ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "country_of_origin": "United Arab Emirates",
+  "port_of_loading": "Jebel Ali, Dubai, UAE",
+  "port_of_discharge": "Felixstowe, United Kingdom",
+  "incoterm": "EXW",
+  "currency": "USD",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Carriage bolts M10 x 100mm, galvanised steel",
+      "quantity": 7650.0,
+      "unit": "kg",
+      "unit_price": 1.185,
+      "line_total": 9065.25,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "M6 x 30mm hex bolts, zinc plated",
+      "quantity": 199500.0,
+      "unit": "pcs",
+      "unit_price": 0.0249,
+      "line_total": 3283.87,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L3",
+      "description": "Sparkling flavoured water 500ml PET bottles",
+      "quantity": 69000.0,
+      "unit": "bottles",
+      "unit_price": 0.5992,
+      "line_total": 41344.8,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 53693.92,
+  "source_file": "PI-0041-24.pdf",
+  "is_synthetic": true
+}

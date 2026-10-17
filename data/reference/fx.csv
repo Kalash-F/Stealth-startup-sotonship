@@ -1,0 +1,7 @@
+currency,units_per_usd,year,source
+USD,1.0,2024,identity
+GBP,0.7826,2024,"approximate 2024 annual average (rounded); verify against a published annual-average table in Phase 3"
+EUR,0.9239,2024,"approximate 2024 annual average (rounded); verify against a published annual-average table in Phase 3"
+CNY,7.1898,2024,"approximate 2024 annual average (rounded); verify against a published annual-average table in Phase 3"
+AED,3.6725,2024,"USD peg (Central Bank of the UAE fixed rate)"
+CZK,23.21,2024,"approximate 2024 annual average (rounded); verify against a published annual-average table in Phase 3"

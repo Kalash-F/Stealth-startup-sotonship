@@ -1,0 +1,63 @@
+{
+  "invoice_id": "INV-2024-0002",
+  "invoice_date": "2024-03-19",
+  "seller": {
+    "name": "Vltava Import & Export International Trading Co., Ltd.",
+    "address": "No. 904 Minsheng Industrial Park Road, Haicang District, Xiamen 338091, China",
+    "country": "CN",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Al Rimal Import & Export UK Ltd",
+    "address": "Unit 13, Larkspur Trading Estate, Leeds LS94 9ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "consignee": null,
+  "country_of_origin": "P.R. China",
+  "port_of_loading": "Ningbo, China",
+  "port_of_discharge": "Southampton, United Kingdom",
+  "incoterm": "FOB",
+  "currency": "USD",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Merchandise",
+      "quantity": 89.3,
+      "unit": "MT",
+      "unit_price": 8951.52,
+      "line_total": 799370.74,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "Plain white cotton T-shirts, packed per dozen",
+      "quantity": 1250.0,
+      "unit": "dozen",
+      "unit_price": 49.26,
+      "line_total": 61575.0,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L3",
+      "description": "M6 x 30mm hex bolts, zinc plated",
+      "quantity": 407500.0,
+      "unit": "pcs",
+      "unit_price": 0.0454,
+      "line_total": 18500.5,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L4",
+      "description": "USB 2.0 memory stick 32GB, carton of 100",
+      "quantity": 190.0,
+      "unit": "cartons",
+      "unit_price": 312.53,
+      "line_total": 59380.7,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 786954.96,
+  "source_file": "INV-2024-0002.pdf",
+  "is_synthetic": true
+}

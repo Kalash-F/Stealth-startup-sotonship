@@ -1,0 +1,54 @@
+{
+  "invoice_id": "TX240023",
+  "invoice_date": "2024-05-29",
+  "seller": {
+    "name": "Sunmark Import & Export FZCO",
+    "address": "Office 1288, Juniper Business Centre, Ras Al Khor, Abu Dhabi, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Saffron Dune Wholesale Limited",
+    "address": "Unit 36, Harrowdene Business Park, Glasgow G97 6ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "consignee": null,
+  "country_of_origin": "India (re-exported from Jebel Ali Free Zone, Dubai)",
+  "port_of_loading": "Jebel Ali, Dubai, UAE",
+  "port_of_discharge": "Southampton, United Kingdom",
+  "incoterm": "FCA",
+  "currency": "AED",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Women's V-neck T-shirt, cotton knitted, assorted sizes",
+      "quantity": 18000.0,
+      "unit": "pcs",
+      "unit_price": 10.02,
+      "line_total": 180360.0,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "Sparkling flavoured water 500ml PET bottles",
+      "quantity": 35000.0,
+      "unit": "bottles",
+      "unit_price": 2.232,
+      "line_total": 78120.0,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L3",
+      "description": "Copper cathodes Grade A, 99.99% Cu",
+      "quantity": 175.5,
+      "unit": "MT",
+      "unit_price": 31363.94,
+      "line_total": 5504371.47,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 5762851.47,
+  "source_file": "TX240023.pdf",
+  "is_synthetic": true
+}

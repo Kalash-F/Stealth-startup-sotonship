@@ -1,0 +1,54 @@
+{
+  "invoice_id": "PI-0043-24",
+  "invoice_date": "2024-07-10",
+  "seller": {
+    "name": "Brightmoor Import & Export Co., Ltd.",
+    "address": "No. 498 Minsheng Industrial Park Road, Haicang District, Xiamen 295566, China",
+    "country": "CN",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Brightmoor Supply Ltd",
+    "address": "Unit 13, Brookfield Business Park, Leicester LE97 1ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "consignee": null,
+  "country_of_origin": "Made in China",
+  "port_of_loading": "Ningbo, China",
+  "port_of_discharge": "London Gateway, UK",
+  "incoterm": "EXW",
+  "currency": "CNY",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "USB 3.0 flash drive 64GB, metal casing",
+      "quantity": 24500.0,
+      "unit": "pcs",
+      "unit_price": 25.53,
+      "line_total": 625485.0,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "13-inch ultraportable laptop, 8GB RAM, 256GB SSD",
+      "quantity": 310.0,
+      "unit": "pcs",
+      "unit_price": 4888.67,
+      "line_total": 1515487.7,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L3",
+      "description": "15.6-inch notebook PC, AMD Ryzen 7, 16GB RAM",
+      "quantity": 320.0,
+      "unit": "units",
+      "unit_price": 2402.58,
+      "line_total": 768825.6,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 2909798.3,
+  "source_file": "PI-0043-24.pdf",
+  "is_synthetic": true
+}

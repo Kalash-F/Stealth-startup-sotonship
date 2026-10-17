@@ -1,0 +1,9 @@
+[
+  {"hs6": "731815", "route": null, "unit": "kg", "p10": 1.8, "p25": 2.6, "median": 3.8, "p75": 5.5, "p90": 8.5, "n_observations": 0, "years": [], "sources": ["placeholder (approximate, not real trade data)"], "is_mock": true},
+  {"hs6": "220210", "route": null, "unit": "l", "p10": 0.35, "p25": 0.55, "median": 0.85, "p75": 1.3, "p90": 2.0, "n_observations": 0, "years": [], "sources": ["placeholder (approximate, not real trade data)"], "is_mock": true},
+  {"hs6": "852351", "route": null, "unit": "u", "p10": 1.5, "p25": 2.8, "median": 4.5, "p75": 7.5, "p90": 12.0, "n_observations": 0, "years": [], "sources": ["placeholder (approximate, not real trade data)"], "is_mock": true},
+  {"hs6": "610910", "route": null, "unit": "u", "p10": 1.2, "p25": 1.9, "median": 2.8, "p75": 4.2, "p90": 6.5, "n_observations": 0, "years": [], "sources": ["placeholder (approximate, not real trade data)"], "is_mock": true},
+  {"hs6": "090111", "route": null, "unit": "kg", "p10": 2.6, "p25": 3.4, "median": 4.2, "p75": 5.2, "p90": 6.4, "n_observations": 0, "years": [], "sources": ["placeholder (approximate, not real trade data)"], "is_mock": true},
+  {"hs6": "740311", "route": null, "unit": "kg", "p10": 7.4, "p25": 8.2, "median": 8.9, "p75": 9.5, "p90": 10.1, "n_observations": 0, "years": [], "sources": ["placeholder (approximate, not real trade data)"], "is_mock": true},
+  {"hs6": "847130", "route": null, "unit": "u", "p10": 180.0, "p25": 320.0, "median": 520.0, "p75": 850.0, "p90": 1300.0, "n_observations": 0, "years": [], "sources": ["placeholder (approximate, not real trade data)"], "is_mock": true}
+]

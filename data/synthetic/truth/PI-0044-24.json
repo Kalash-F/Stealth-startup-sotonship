@@ -1,0 +1,59 @@
+{
+  "invoice_id": "PI-0044-24",
+  "invoice_date": "2024-08-30",
+  "seller": {
+    "name": "Redwell Import & Export General Trading LLC",
+    "address": "Office 970, Riverside Business Centre, Ras Al Khor, Abu Dhabi, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Silverfern Wholesale a.s.",
+    "address": "Areál Riverside, Průmyslová 42, 769 47 Ostrava, Czech Republic",
+    "country": "CZ",
+    "address_type": "commercial"
+  },
+  "consignee": {
+    "name": "Redwell Global Sourcing a.s.",
+    "address": "Areál Kingfisher, Skladová 6, 786 55 Plzeň, Czech Republic",
+    "country": "CZ",
+    "address_type": "commercial"
+  },
+  "country_of_origin": "China (re-exported from Jebel Ali Free Zone, Dubai)",
+  "port_of_loading": "Khalifa Port, Abu Dhabi, UAE",
+  "port_of_discharge": "Prague Ruzyně Airport, Czechia",
+  "incoterm": "CFR",
+  "currency": "AED",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Stainless steel machine screws M4 x 12mm",
+      "quantity": 2.0,
+      "unit": "pcs",
+      "unit_price": 334533.63,
+      "line_total": 669067.26,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "Hex head bolts M6, carton of 1,000 pcs",
+      "quantity": 330.0,
+      "unit": "cartons",
+      "unit_price": 15292.41,
+      "line_total": 5046495.3,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L3",
+      "description": "USB-C flash drive 128GB with keyring",
+      "quantity": 14000.0,
+      "unit": "pcs",
+      "unit_price": 21.39,
+      "line_total": 299460.0,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 6015022.56,
+  "source_file": "PI-0044-24.pdf",
+  "is_synthetic": true
+}

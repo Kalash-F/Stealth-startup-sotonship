@@ -1,0 +1,36 @@
+{
+  "invoice_id": "TX240048",
+  "invoice_date": "2024-08-01",
+  "seller": {
+    "name": "Hengtai Distribution LLC",
+    "address": "Warehouse 62, Plot S70875, Jebel Ali Free Zone, Dubai, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Vltava Logistics Ltd",
+    "address": "Unit 9, Kingfisher Business Park, Birmingham B95 6ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "consignee": null,
+  "country_of_origin": "India (re-exported from Jebel Ali Free Zone, Dubai)",
+  "port_of_loading": "Jebel Ali, Dubai, UAE",
+  "port_of_discharge": "London Gateway, UK",
+  "incoterm": "FOB",
+  "currency": "GBP",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "15.6-inch notebook PC, AMD Ryzen 7, 16GB RAM (bulk order, volume discount applied)",
+      "quantity": 2350.0,
+      "unit": "units",
+      "unit_price": 159.26,
+      "line_total": 374261.0,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 374261.0,
+  "source_file": "TX240048.pdf",
+  "is_synthetic": true
+}

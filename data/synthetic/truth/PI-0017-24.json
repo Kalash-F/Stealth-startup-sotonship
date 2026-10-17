@@ -1,0 +1,45 @@
+{
+  "invoice_id": "PI-0017-24",
+  "invoice_date": "2024-09-06",
+  "seller": {
+    "name": "Copperleaf Wholesale Limited",
+    "address": "Unit 31, Juniper Industrial Estate, Bristol BS97 9ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Saffron Dune Supply General Trading LLC",
+    "address": "P.O. Box 39045, Dubai, United Arab Emirates",
+    "country": "AE",
+    "address_type": "unknown"
+  },
+  "consignee": null,
+  "country_of_origin": "UK",
+  "port_of_loading": "Felixstowe, United Kingdom",
+  "port_of_discharge": "Jebel Ali, Dubai, UAE",
+  "incoterm": "FCA",
+  "currency": "GBP",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "USB-C flash drive 128GB with keyring",
+      "quantity": 10000.0,
+      "unit": "pcs",
+      "unit_price": 5.2166,
+      "line_total": 52166.0,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "15.6-inch notebook PC, AMD Ryzen 7, 16GB RAM",
+      "quantity": 1200.0,
+      "unit": "units",
+      "unit_price": 252.93,
+      "line_total": 303516.0,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 355682.0,
+  "source_file": "PI-0017-24.pdf",
+  "is_synthetic": true
+}

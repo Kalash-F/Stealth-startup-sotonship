@@ -1,0 +1,36 @@
+{
+  "invoice_id": "TX240001",
+  "invoice_date": "2024-04-27",
+  "seller": {
+    "name": "Meridian Bay Logistics UK Ltd",
+    "address": "Unit 9, Copperfield Business Park, Leicester LE97 3ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Al Rimal Supply LLC",
+    "address": "Office 978, Fernhill Business Centre, Ras Al Khor, Abu Dhabi, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "consignee": null,
+  "country_of_origin": "Great Britain",
+  "port_of_loading": "Felixstowe, United Kingdom",
+  "port_of_discharge": "Khalifa Port, Abu Dhabi, UAE",
+  "incoterm": "EXW",
+  "currency": "GBP",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Women's V-neck T-shirt, cotton knitted, assorted sizes",
+      "quantity": 6350.0,
+      "unit": "pcs",
+      "unit_price": 1.7578,
+      "line_total": 11162.03,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 11162.03,
+  "source_file": "TX240001.pdf",
+  "is_synthetic": true
+}

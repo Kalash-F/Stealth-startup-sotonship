@@ -1,0 +1,59 @@
+{
+  "invoice_id": "PI-0056-24",
+  "invoice_date": "2024-11-30",
+  "seller": {
+    "name": "Golden Crane Wholesale International Trading Co., Ltd.",
+    "address": "No. 988 Jinqiao Industrial Park Road, Beilun District, Ningbo 450705, China",
+    "country": "CN",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Tidewater Logistics UK Ltd",
+    "address": "Unit 36, Millbrook Trading Estate, Glasgow G95 7ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "consignee": {
+    "name": "E. Dvořák",
+    "address": "Flat 17, 59 Harrowdene Court, Leeds LS95 2ZY, United Kingdom",
+    "country": "GB",
+    "address_type": "residential"
+  },
+  "country_of_origin": "Made in China",
+  "port_of_loading": "Shenzhen (Yantian), China",
+  "port_of_discharge": "London Gateway, UK",
+  "incoterm": "CIF",
+  "currency": "GBP",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Various",
+      "quantity": 840.0,
+      "unit": "pcs",
+      "unit_price": 480.85,
+      "line_total": 403914.0,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "Women's V-neck T-shirt, cotton knitted, assorted sizes",
+      "quantity": 26000.0,
+      "unit": "pcs",
+      "unit_price": 2.051,
+      "line_total": 53326.0,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L3",
+      "description": "Refined copper cathode sheets, LME Grade A",
+      "quantity": 130000.0,
+      "unit": "kg",
+      "unit_price": 6.5292,
+      "line_total": 848796.0,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 1306036.0,
+  "source_file": "PI-0056-24.pdf",
+  "is_synthetic": true
+}

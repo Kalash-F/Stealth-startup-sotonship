@@ -1,0 +1,54 @@
+{
+  "invoice_id": "INV-2024-0026",
+  "invoice_date": "2024-11-22",
+  "seller": {
+    "name": "Bohemka Distribution General Trading LLC",
+    "address": "Office 319, Copperfield Business Centre, Ras Al Khor, Ajman, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Harbourline Merchants UK Ltd",
+    "address": "Unit 26, Westmere Trading Estate, Leicester LE94 1ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "consignee": null,
+  "country_of_origin": "Bangladesh",
+  "port_of_loading": "Khalifa Port, Abu Dhabi, UAE",
+  "port_of_discharge": "Southampton, United Kingdom",
+  "incoterm": "CIF",
+  "currency": "AED",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Product ABC",
+      "quantity": 2600.0,
+      "unit": "pcs",
+      "unit_price": 14.24,
+      "line_total": 37024.0,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "Women's V-neck T-shirt, cotton knitted, assorted sizes",
+      "quantity": 38000.0,
+      "unit": "pcs",
+      "unit_price": 7.9093,
+      "line_total": 300553.4,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L3",
+      "description": "Women's V-neck T-shirt, cotton knitted, assorted sizes",
+      "quantity": 21500.0,
+      "unit": "pcs",
+      "unit_price": 11.58,
+      "line_total": 248970.0,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 586547.4,
+  "source_file": "INV-2024-0026.pdf",
+  "is_synthetic": true
+}
