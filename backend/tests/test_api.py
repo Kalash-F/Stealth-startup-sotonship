@@ -47,6 +47,14 @@ def test_health_reports_real_pipeline_and_mock_bands():
     from tbml.benchmark import benchmarks_are_mock
 
     assert body["benchmarks"] == ("mock" if benchmarks_are_mock() else "real")
+    assert body["bands"] == "bands.json"  # the real HMRC table ships in the repo
+    assert body["commit"]
+
+
+def test_data_dir_is_the_one_holding_the_band_tables():
+    from tbml.paths import BENCHMARKS_DIR
+
+    assert (BENCHMARKS_DIR / "bands_mock.json").is_file()
 
 
 def test_over_priced_invoice_flags_the_right_line():

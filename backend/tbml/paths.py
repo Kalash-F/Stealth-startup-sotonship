@@ -10,9 +10,13 @@ from pathlib import Path
 PACKAGE_DIR = Path(__file__).resolve().parent
 BACKEND_DIR = PACKAGE_DIR.parent
 REPO_ROOT = BACKEND_DIR.parent
-DATA_DIR = REPO_ROOT / "data"
-if not DATA_DIR.is_dir():
-    DATA_DIR = BACKEND_DIR / "data"
+# The first candidate that holds the band tables wins, so a stray empty data/ next to the
+# bundle cannot hide the copy the build made.
+_CANDIDATES = (REPO_ROOT / "data", BACKEND_DIR / "data")
+DATA_DIR = next(
+    (d for d in _CANDIDATES if (d / "benchmarks" / "bands_mock.json").is_file()),
+    next((d for d in _CANDIDATES if d.is_dir()), _CANDIDATES[0]),
+)
 REFERENCE_DIR = DATA_DIR / "reference"
 SYNTHETIC_DIR = DATA_DIR / "synthetic"
 BENCHMARKS_DIR = DATA_DIR / "benchmarks"
