@@ -1,4 +1,5 @@
 """Task 3.12: band sanity. Reads bands.parquet, or bands_mock.parquet when real data is absent."""
+
 import sys
 from pathlib import Path
 
@@ -48,14 +49,18 @@ def test_route_rows_only_with_enough_observations(bands):
 
 def test_mock_magnitudes():
     m = fb.mock_bands().set_index("hs6")
-    assert 100 < m.loc["847130", "median"] < 2000   # laptop: hundreds of USD per unit
-    assert 5 < m.loc["740311", "median"] < 12       # copper cathode: single-digit USD per kg
+    assert 100 < m.loc["847130", "median"] < 2000  # laptop: hundreds of USD per unit
+    assert 5 < m.loc["740311", "median"] < 12  # copper cathode: single-digit USD per kg
 
 
 def test_compute_bands_pipeline():
     """Synthetic raw records: outliers trimmed, thin route (n<10) falls back to global."""
+
     def rec(i, route):
-        return dict(hs6="731815", year=2023, source="HMRC OTS", route=route, value_usd=float(i + 1), qty=1.0)
+        return dict(
+            hs6="731815", year=2023, source="HMRC OTS", route=route, value_usd=float(i + 1), qty=1.0
+        )
+
     rows = [rec(i, "CN-GB") for i in range(50)] + [rec(i, "GB-AE") for i in range(5)]
     rows.append(rec(1e6, None))  # outlier
     out = fb.compute_bands(pd.DataFrame(rows))
