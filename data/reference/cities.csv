@@ -1,0 +1,615 @@
+city,country
+Shanghai,CN
+Ningbo,CN
+Shenzhen,CN
+Guangzhou,CN
+Qingdao,CN
+Xiamen,CN
+Tianjin,CN
+Dalian,CN
+Beijing,CN
+Suzhou,CN
+Hangzhou,CN
+Wuhan,CN
+Chongqing,CN
+Chengdu,CN
+Nanjing,CN
+Zhuhai,CN
+Dongguan,CN
+Foshan,CN
+Yiwu,CN
+Wenzhou,CN
+Fuzhou,CN
+Lianyungang,CN
+Yantai,CN
+Zhongshan,CN
+Shantou,CN
+Jiangmen,CN
+Taicang,CN
+Zhangjiagang,CN
+Nantong,CN
+Rizhao,CN
+Tangshan,CN
+Xi'an,CN
+Zhengzhou,CN
+Changsha,CN
+Kunming,CN
+Harbin,CN
+Shenyang,CN
+Jinan,CN
+Hefei,CN
+Nanchang,CN
+Taizhou,CN
+Jiaxing,CN
+Shaoxing,CN
+Huizhou,CN
+Haikou,CN
+Nanning,CN
+Urumqi,CN
+Yantian,CN
+Humen,CN
+Changzhou,CN
+Wuxi,CN
+Ningde,CN
+London,GB
+Leeds,GB
+Manchester,GB
+Birmingham,GB
+Bristol,GB
+Glasgow,GB
+Leicester,GB
+Liverpool,GB
+Sheffield,GB
+Newcastle upon Tyne,GB
+Nottingham,GB
+Edinburgh,GB
+Cardiff,GB
+Belfast,GB
+Southampton,GB
+Felixstowe,GB
+Portsmouth,GB
+Hull,GB
+Bradford,GB
+Coventry,GB
+Stoke-on-Trent,GB
+Wolverhampton,GB
+Plymouth,GB
+Derby,GB
+Sunderland,GB
+Aberdeen,GB
+Dundee,GB
+Swansea,GB
+Reading,GB
+Oxford,GB
+Cambridge,GB
+Norwich,GB
+Ipswich,GB
+Dover,GB
+Tilbury,GB
+Grimsby,GB
+Immingham,GB
+Teesport,GB
+Middlesbrough,GB
+Milford Haven,GB
+Harwich,GB
+London Gateway,GB
+Thamesport,GB
+Southend,GB
+Bournemouth,GB
+Brighton,GB
+Exeter,GB
+York,GB
+Preston,GB
+Luton,GB
+Dubai,AE
+Sharjah,AE
+Abu Dhabi,AE
+Ajman,AE
+Jebel Ali,AE
+Fujairah,AE
+Ras Al Khaimah,AE
+Umm Al Quwain,AE
+Al Ain,AE
+Khor Fakkan,AE
+Port Khalid,AE
+Khalifa Port,AE
+Musaffah,AE
+Prague,CZ
+Brno,CZ
+Ostrava,CZ
+Plzeň,CZ
+Liberec,CZ
+Olomouc,CZ
+Ústí nad Labem,CZ
+České Budějovice,CZ
+Hradec Králové,CZ
+Pardubice,CZ
+Zlín,CZ
+Kladno,CZ
+Opava,CZ
+Jihlava,CZ
+Karlovy Vary,CZ
+Hamburg,DE
+Bremerhaven,DE
+Bremen,DE
+Berlin,DE
+Munich,DE
+Frankfurt,DE
+Cologne,DE
+Düsseldorf,DE
+Stuttgart,DE
+Duisburg,DE
+Dortmund,DE
+Essen,DE
+Leipzig,DE
+Dresden,DE
+Hanover,DE
+Nuremberg,DE
+Lübeck,DE
+Rostock,DE
+Wilhelmshaven,DE
+Kiel,DE
+Mannheim,DE
+Karlsruhe,DE
+Augsburg,DE
+Bonn,DE
+Bielefeld,DE
+Münster,DE
+Wiesbaden,DE
+Rotterdam,NL
+Amsterdam,NL
+Utrecht,NL
+The Hague,NL
+Eindhoven,NL
+Vlissingen,NL
+Groningen,NL
+Tilburg,NL
+Breda,NL
+Venlo,NL
+Moerdijk,NL
+Schiphol,NL
+Antwerp,BE
+Brussels,BE
+Ghent,BE
+Zeebrugge,BE
+Liège,BE
+Bruges,BE
+Charleroi,BE
+Leuven,BE
+Paris,FR
+Marseille,FR
+Le Havre,FR
+Lyon,FR
+Dunkirk,FR
+Bordeaux,FR
+Lille,FR
+Toulouse,FR
+Nantes,FR
+Strasbourg,FR
+Nice,FR
+Calais,FR
+Rouen,FR
+Fos-sur-Mer,FR
+Saint-Nazaire,FR
+Cherbourg,FR
+Madrid,ES
+Barcelona,ES
+Algeciras,ES
+Bilbao,ES
+Seville,ES
+Málaga,ES
+Zaragoza,ES
+Vigo,ES
+Las Palmas,ES
+Tarragona,ES
+Santander,ES
+Gijón,ES
+Alicante,ES
+Palma de Mallorca,ES
+Rome,IT
+Milan,IT
+Genoa,IT
+Naples,IT
+Turin,IT
+Venice,IT
+Trieste,IT
+La Spezia,IT
+Livorno,IT
+Gioia Tauro,IT
+Bologna,IT
+Florence,IT
+Palermo,IT
+Verona,IT
+Padua,IT
+Ravenna,IT
+Salerno,IT
+Taranto,IT
+Lisbon,PT
+Porto,PT
+Sines,PT
+Setúbal,PT
+Leixões,PT
+Braga,PT
+Warsaw,PL
+Gdańsk,PL
+Gdynia,PL
+Kraków,PL
+Łódź,PL
+Wrocław,PL
+Poznań,PL
+Szczecin,PL
+Katowice,PL
+Lublin,PL
+Vienna,AT
+Graz,AT
+Linz,AT
+Salzburg,AT
+Innsbruck,AT
+Zurich,CH
+Geneva,CH
+Basel,CH
+Bern,CH
+Lausanne,CH
+Lugano,CH
+Stockholm,SE
+Gothenburg,SE
+Malmö,SE
+Uppsala,SE
+Helsingborg,SE
+Copenhagen,DK
+Aarhus,DK
+Odense,DK
+Aalborg,DK
+Oslo,NO
+Bergen,NO
+Stavanger,NO
+Trondheim,NO
+Helsinki,FI
+Turku,FI
+Tampere,FI
+Kotka,FI
+Hamina,FI
+Dublin,IE
+Cork,IE
+Limerick,IE
+Galway,IE
+Waterford,IE
+Athens,GR
+Piraeus,GR
+Thessaloniki,GR
+Patras,GR
+Istanbul,TR
+Ankara,TR
+Izmir,TR
+Mersin,TR
+Bursa,TR
+Gebze,TR
+Iskenderun,TR
+Antalya,TR
+Konya,TR
+Gaziantep,TR
+Kocaeli,TR
+Bucharest,RO
+Constanța,RO
+Cluj-Napoca,RO
+Timișoara,RO
+Iași,RO
+Budapest,HU
+Debrecen,HU
+Szeged,HU
+Miskolc,HU
+Győr,HU
+Bratislava,SK
+Košice,SK
+Sofia,BG
+Varna,BG
+Burgas,BG
+Plovdiv,BG
+Zagreb,HR
+Rijeka,HR
+Split,HR
+Kyiv,UA
+Odesa,UA
+Kharkiv,UA
+Lviv,UA
+Dnipro,UA
+Moscow,RU
+Saint Petersburg,RU
+Novorossiysk,RU
+Vladivostok,RU
+Kaliningrad,RU
+Yekaterinburg,RU
+Vilnius,LT
+Klaipėda,LT
+Kaunas,LT
+Riga,LV
+Liepāja,LV
+Tallinn,EE
+Tartu,EE
+Belgrade,RS
+Novi Sad,RS
+Ljubljana,SI
+Koper,SI
+Reykjavik,IS
+Valletta,MT
+Marsaxlokk,MT
+Nicosia,CY
+Limassol,CY
+Larnaca,CY
+New York,US
+Los Angeles,US
+Long Beach,US
+Houston,US
+Chicago,US
+Savannah,US
+Seattle,US
+Tacoma,US
+Oakland,US
+Miami,US
+Baltimore,US
+Boston,US
+Charleston,US
+Norfolk,US
+Philadelphia,US
+Atlanta,US
+Dallas,US
+San Francisco,US
+Newark,US
+Jacksonville,US
+New Orleans,US
+Detroit,US
+Denver,US
+San Diego,US
+Phoenix,US
+Las Vegas,US
+Minneapolis,US
+Columbus,US
+Cleveland,US
+Vancouver,CA
+Toronto,CA
+Montreal,CA
+Halifax,CA
+Calgary,CA
+Prince Rupert,CA
+Ottawa,CA
+Edmonton,CA
+Winnipeg,CA
+Mexico City,MX
+Manzanillo,MX
+Veracruz,MX
+Monterrey,MX
+Guadalajara,MX
+Lázaro Cárdenas,MX
+Tijuana,MX
+Altamira,MX
+Ensenada,MX
+Puebla,MX
+São Paulo,BR
+Santos,BR
+Rio de Janeiro,BR
+Paranaguá,BR
+Itajaí,BR
+Manaus,BR
+Salvador,BR
+Recife,BR
+Brasília,BR
+Porto Alegre,BR
+Curitiba,BR
+Belo Horizonte,BR
+Buenos Aires,AR
+Rosario,AR
+Córdoba,AR
+Mendoza,AR
+Santiago,CL
+Valparaíso,CL
+San Antonio,CL
+Antofagasta,CL
+Bogotá,CO
+Medellín,CO
+Barranquilla,CO
+Buenaventura,CO
+Lima,PE
+Callao,PE
+Panama City,PA
+Colón,PA
+Balboa,PA
+Guayaquil,EC
+Quito,EC
+Tokyo,JP
+Yokohama,JP
+Osaka,JP
+Kobe,JP
+Nagoya,JP
+Fukuoka,JP
+Kawasaki,JP
+Chiba,JP
+Sapporo,JP
+Hiroshima,JP
+Seoul,KR
+Busan,KR
+Incheon,KR
+Gwangyang,KR
+Ulsan,KR
+Daegu,KR
+Daejeon,KR
+Gwangju,KR
+Taipei,TW
+Kaohsiung,TW
+Taichung,TW
+Keelung,TW
+Tainan,TW
+Taoyuan,TW
+Ho Chi Minh City,VN
+Hanoi,VN
+Haiphong,VN
+Da Nang,VN
+Cai Mep,VN
+Can Tho,VN
+Bangkok,TH
+Laem Chabang,TH
+Chiang Mai,TH
+Phuket,TH
+Pattaya,TH
+Songkhla,TH
+Kuala Lumpur,MY
+Port Klang,MY
+Penang,MY
+Johor Bahru,MY
+Tanjung Pelepas,MY
+Kuching,MY
+Malacca,MY
+Jakarta,ID
+Surabaya,ID
+Semarang,ID
+Medan,ID
+Belawan,ID
+Bandung,ID
+Makassar,ID
+Tanjung Priok,ID
+Manila,PH
+Cebu,PH
+Davao,PH
+Subic,PH
+Mumbai,IN
+Nhava Sheva,IN
+Chennai,IN
+Kolkata,IN
+Delhi,IN
+New Delhi,IN
+Bengaluru,IN
+Bangalore,IN
+Hyderabad,IN
+Ahmedabad,IN
+Pune,IN
+Mundra,IN
+Kandla,IN
+Cochin,IN
+Kochi,IN
+Visakhapatnam,IN
+Tuticorin,IN
+Surat,IN
+Jaipur,IN
+Ludhiana,IN
+Tiruppur,IN
+Kanpur,IN
+Karachi,PK
+Lahore,PK
+Islamabad,PK
+Faisalabad,PK
+Port Qasim,PK
+Sialkot,PK
+Multan,PK
+Peshawar,PK
+Dhaka,BD
+Chittagong,BD
+Chattogram,BD
+Khulna,BD
+Narayanganj,BD
+Colombo,LK
+Kandy,LK
+Galle,LK
+Hambantota,LK
+Kathmandu,NP
+Jeddah,SA
+Riyadh,SA
+Dammam,SA
+Jubail,SA
+Mecca,SA
+Medina,SA
+Yanbu,SA
+Doha,QA
+Hamad Port,QA
+Kuwait City,KW
+Shuwaikh,KW
+Muscat,OM
+Salalah,OM
+Sohar,OM
+Duqm,OM
+Manama,BH
+Tehran,IR
+Bandar Abbas,IR
+Isfahan,IR
+Shiraz,IR
+Mashhad,IR
+Tabriz,IR
+Baghdad,IQ
+Basra,IQ
+Erbil,IQ
+Umm Qasr,IQ
+Tel Aviv,IL
+Haifa,IL
+Ashdod,IL
+Jerusalem,IL
+Amman,JO
+Aqaba,JO
+Beirut,LB
+Cairo,EG
+Alexandria,EG
+Port Said,EG
+Suez,EG
+Damietta,EG
+Giza,EG
+Ain Sokhna,EG
+Casablanca,MA
+Tangier,MA
+Rabat,MA
+Marrakech,MA
+Tanger Med,MA
+Algiers,DZ
+Oran,DZ
+Tunis,TN
+Sfax,TN
+Lagos,NG
+Abuja,NG
+Port Harcourt,NG
+Kano,NG
+Apapa,NG
+Onitsha,NG
+Accra,GH
+Tema,GH
+Kumasi,GH
+Takoradi,GH
+Nairobi,KE
+Mombasa,KE
+Dar es Salaam,TZ
+Dodoma,TZ
+Zanzibar,TZ
+Johannesburg,ZA
+Cape Town,ZA
+Durban,ZA
+Pretoria,ZA
+Port Elizabeth,ZA
+Gqeberha,ZA
+Richards Bay,ZA
+Addis Ababa,ET
+Dakar,SN
+Abidjan,CI
+Douala,CM
+Luanda,AO
+Maputo,MZ
+Beira,MZ
+Port Louis,MU
+Kampala,UG
+Sydney,AU
+Melbourne,AU
+Brisbane,AU
+Perth,AU
+Fremantle,AU
+Adelaide,AU
+Botany,AU
+Port Hedland,AU
+Darwin,AU
+Auckland,NZ
+Wellington,NZ
+Christchurch,NZ
+Tauranga,NZ
+Napier,NZ
+Almaty,KZ
+Astana,KZ
+Nur-Sultan,KZ
+Tashkent,UZ
+Baku,AZ
+Tbilisi,GE
+Batumi,GE
+Poti,GE
+Yerevan,AM
