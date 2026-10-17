@@ -8,13 +8,13 @@ One product with two faces: a marketing site that explains how trade-based money
 
 ## 2. Visual direction
 
-See `DESIGN_SPEC.md`. Warm paper marketing, graphite workspace, one teal accent, Geist + Instrument Serif, real components as product visuals.
+See `DESIGN_SPEC.md`. Marketing redesign (Oct 2026, `REDESIGN_PLAN.md`): ink-black "night" surfaces alternating with warm paper, a dot-matrix corridor map as the visual signature, goods/money/ownership line languages, real workspace components as product visuals. Workspace stays graphite.
 
 ## 3. Routes (page inventory)
 
 | Route | Purpose | Status | Verified by |
 |---|---|---|---|
-| `/` | Marketing homepage: hero, four showcases, workflow, capabilities, methodology, CTA, footer | [x] | Smoke at 1440/390; screenshots reviewed |
+| `/` | Marketing homepage, redesigned as one story (see REDESIGN_PLAN.md): trade-map hero, follow the money, evidence exhibit, workspace tabs, network, editorial, enter | [x] | Smoke at 1440/390 + homepage interaction tests; section screenshots at 1024/1440/1920/390 reviewed |
 | `/sign-in` | Sign-in screen with honest demo entry; no credential handling | [x] | Smoke + credential test (password cleared, status message) |
 | `/request-demo` | Demo request form; front-end only, says so on submit | [x] | Smoke + validation and not-sent panel checked by agent script |
 | `/legal/privacy`, `/legal/terms` | Placeholder legal pages, clearly marked as drafts | [x] | Smoke at 1440/390 |
@@ -70,6 +70,8 @@ Hard negatives are included: CASE-0126 (premium laptops near p90, closed) and CA
 | 10 | Handover | lead | [/] | Plan and QA checklist reflect what was verified; PR opened. |
 
 ## 9. Current state
+
+- **Marketing redesign (branch `claude/website-redesign-r8l7cn`):** homepage rebuilt around CASE-0142 ("The goods went one way. The money went another."). Old hero/showcases/how-it-works/capabilities/methodology/final-cta retired. Header and footer moved to the night surface. Build, tsc, lint and 27 Playwright tests pass.
 
 - **Done:** all routes built and verified (build, tsc, lint, 23 Playwright smoke tests, screenshots at 1440 and 390 reviewed).
 - **Built by:** lead (foundation, review), an Opus agent (app screens), a Sonnet agent (marketing), a Haiku agent (sign-in, request demo, legal).
