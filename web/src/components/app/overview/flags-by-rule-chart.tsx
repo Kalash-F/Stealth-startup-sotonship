@@ -5,16 +5,16 @@ import { Panel, PanelHeader } from "@/components/ui/panel";
 import { rules } from "@/data/reference";
 import { flagsByRule } from "@/data/workspace";
 import { cn } from "@/lib/utils";
+import { useLiveVersion } from "@/lib/live-cases";
 import { axisTick, ChartTooltipBox } from "../shared/chart-tooltip";
 
-const data = flagsByRule();
 const severities = [
   { key: "high", label: "High", color: "var(--risk-high)", glyph: "▲" },
   { key: "medium", label: "Medium", color: "var(--risk-review)", glyph: "■" },
   { key: "low", label: "Low", color: "var(--fg-subtle)", glyph: "●" },
 ] as const;
 
-type Row = (typeof data)[number];
+type Row = ReturnType<typeof flagsByRule>[number];
 
 function TooltipBody({ active, payload }: { active?: boolean; payload?: { payload: Row }[] }) {
   if (!active || !payload?.length) return null;
@@ -32,6 +32,8 @@ function TooltipBody({ active, payload }: { active?: boolean; payload?: { payloa
 
 /** Which rules are doing the work, and at what severity. */
 export function FlagsByRuleChart({ className }: { className?: string }) {
+  useLiveVersion();
+  const data = flagsByRule();
   const total = data.reduce((s, r) => s + r.total, 0);
   return (
     <Panel className={cn("flex flex-col", className)}>
