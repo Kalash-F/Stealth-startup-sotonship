@@ -1,0 +1,15 @@
+{
+  "description": "MacBook Air 13 M2\nWhat it is: An Apple MacBook Air 13-inch laptop computer, a finished product.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "84",
+      "score": 0.55
+    },
+    {
+      "code": "85",
+      "score": 0.45
+    }
+  ],
+  "reason": "A MacBook Air is a laptop computer, which falls under machinery and mechanical appliances (84) or electrical machinery and equipment (85)."
+}

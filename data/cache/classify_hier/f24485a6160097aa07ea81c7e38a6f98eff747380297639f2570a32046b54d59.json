@@ -1,0 +1,11 @@
+{
+  "description": "T-SHIRT CTN S/S BLK L\nWhat it is: A black, short-sleeved, cotton t-shirt, size large, which is a finished product for wearing.",
+  "parent": "61",
+  "choices": [
+    {
+      "code": "6109",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description clearly states 'T-SHIRT', which directly matches heading 6109."
+}

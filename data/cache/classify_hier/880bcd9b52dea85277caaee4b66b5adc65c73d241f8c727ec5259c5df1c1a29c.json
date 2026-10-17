@@ -1,0 +1,11 @@
+{
+  "description": "USB flash drive 64GB\nWhat it is: A finished product, a 64-gigabyte USB flash drive, made of plastic and electronic components, used for digital data storage.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "85",
+      "score": 1.0
+    }
+  ],
+  "reason": "A USB flash drive is an electrical device for data storage, fitting into the category of electrical machinery and equipment."
+}

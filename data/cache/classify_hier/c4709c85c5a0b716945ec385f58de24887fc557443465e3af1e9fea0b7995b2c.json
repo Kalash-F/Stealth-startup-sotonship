@@ -1,0 +1,11 @@
+{
+  "description": "roasted coffee beans 1kg\nWhat it is: One kilogram of roasted coffee beans, a finished food product for brewing coffee.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "09",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description clearly states 'roasted coffee beans', which falls under Chapter 09 for 'Coffee, tea, mate and spices'."
+}

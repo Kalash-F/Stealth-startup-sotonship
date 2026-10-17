@@ -1,0 +1,11 @@
+{
+  "description": "Chromebook 11.6in 4GB/32GB\nWhat it is: An 11.6-inch Chromebook laptop computer with 4 gigabytes of RAM and 32 gigabytes of storage, made of various electronic components and plastics, which is a finished product for general computing tasks.",
+  "parent": "84",
+  "choices": [
+    {
+      "code": "8471",
+      "score": 1.0
+    }
+  ],
+  "reason": "A Chromebook is an automatic data processing machine."
+}

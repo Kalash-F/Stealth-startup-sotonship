@@ -199,3 +199,19 @@ def test_default_proposer_is_offline_without_key(monkeypatch):
     assert isinstance(default_proposer(), KeywordProposer)
     monkeypatch.setenv("ANTHROPIC_API_KEY", "x")
     assert isinstance(default_proposer(), KeywordProposer)  # key alone is not enough: no model
+
+
+def test_flat_llm_parse_accepts_dotted_and_numeric_codes():
+    from tbml.classify.proposers import _parse
+
+    got = _parse('{"candidates": [{"hs6": "8471.30", "score": 0.9}, {"hs6": 90111, "score": 0.1}]}')
+    assert [c.hs6 for c in got] == ["847130", "090111"]
+
+
+def test_flat_llm_parse_skips_four_digit_codes():
+    from tbml.classify.proposers import _parse
+
+    got = _parse('{"candidates": [{"hs6": "7318", "score": 0.9}, {"hs6": "731815", "score": 0.8}]}')
+    assert [c.hs6 for c in got] == ["731815"]
+    with pytest.raises(ValueError):
+        _parse('{"candidates": [{"hs6": "7318", "score": 0.9}]}')

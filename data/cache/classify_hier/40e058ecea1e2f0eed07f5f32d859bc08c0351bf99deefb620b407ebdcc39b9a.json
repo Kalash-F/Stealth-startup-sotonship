@@ -1,0 +1,11 @@
+{
+  "description": "Copper cathodes\nWhat it is: Refined copper cathodes, which are raw materials for further processing into copper products.",
+  "parent": "7403",
+  "choices": [
+    {
+      "code": "740311",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description explicitly states 'Copper cathodes', which directly matches the 'cathodes and sections of cathodes' in option 740311."
+}

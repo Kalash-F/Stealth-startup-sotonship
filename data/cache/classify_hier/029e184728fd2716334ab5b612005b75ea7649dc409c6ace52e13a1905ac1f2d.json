@@ -1,0 +1,11 @@
+{
+  "description": "13-inch ultraportable laptop, 8GB RAM, 256GB SSD\nWhat it is: An ultraportable 13-inch laptop computer with 8 gigabytes of RAM and a 256 gigabyte solid-state drive, made of various electronic components and plastics, which is a finished product used for general computing tasks.",
+  "parent": "84",
+  "choices": [
+    {
+      "code": "8471",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description clearly identifies the item as an 'ultraportable laptop computer', which falls under 'Automatic data processing machines' in heading 8471."
+}

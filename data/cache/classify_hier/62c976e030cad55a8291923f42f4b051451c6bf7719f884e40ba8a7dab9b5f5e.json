@@ -1,0 +1,11 @@
+{
+  "description": "green coffee beans Arabica\nWhat it is: Green Arabica coffee beans, a raw material for making coffee.",
+  "parent": "0901",
+  "choices": [
+    {
+      "code": "090111",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description specifies 'green coffee beans Arabica', which means the coffee is not roasted and not decaffeinated."
+}

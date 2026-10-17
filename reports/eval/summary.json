@@ -1,7 +1,7 @@
 {
   "classification": {
-    "provider": "openrouter:openai/gpt-4o-mini unreachable (OpenRouter request failed (network error: <urlopen error Tunnel connection failed: 403 Forbidden>)); cached answers only",
-    "live": false,
+    "provider": "live: openrouter:google/gemini-2.5-flash",
+    "live": true,
     "n_lines": 44,
     "methods": {
       "keyword": {
@@ -376,333 +376,333 @@
         ]
       },
       "flat": {
-        "ran": false,
-        "unavailable_lines": 40,
-        "goods_accuracy": 0.0,
-        "goods_correct": 0,
+        "ran": true,
+        "unavailable_lines": 0,
+        "goods_accuracy": 0.9230769230769231,
+        "goods_correct": 36,
         "goods_total": 39,
         "vague_left_unclassified": 5,
         "vague_total": 5,
-        "confidently_wrong": 0,
+        "confidently_wrong": 2,
         "accuracy_by_kind": {
-          "brand": "0/7",
-          "clean": "0/7",
-          "jargon": "0/10",
-          "neighbour": "0/4",
-          "realistic": "0/11"
+          "brand": "6/7",
+          "clean": "6/7",
+          "jargon": "9/10",
+          "neighbour": "4/4",
+          "realistic": "11/11"
         },
         "lines": [
           {
             "description": "hex cap scr A2-70 M8x30",
             "truth": "731815",
-            "got": null,
-            "confidence": 0.0,
+            "got": "731815",
+            "confidence": 0.9,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "HHB M10x50 8.8 ZP",
             "truth": "731815",
-            "got": null,
-            "confidence": 0.0,
+            "got": "731815",
+            "confidence": 0.9,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "socket cap screw DIN912 M6x20",
             "truth": "731815",
-            "got": null,
-            "confidence": 0.0,
+            "got": "731815",
+            "confidence": 0.9,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "SHCS M5x16 12.9 blk",
             "truth": "731815",
-            "got": null,
-            "confidence": 0.0,
+            "got": "731815",
+            "confidence": 0.9,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "carriage bolt M8x60 HDG",
             "truth": "731815",
-            "got": null,
-            "confidence": 0.0,
+            "got": "731815",
+            "confidence": 0.9,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "Bolts M8 zinc plated",
             "truth": "731815",
-            "got": null,
-            "confidence": 0.0,
+            "got": "731815",
+            "confidence": 0.95,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "self tapping scr 4.2x13 pan hd",
             "truth": "731814",
-            "got": null,
-            "confidence": 0.0,
+            "got": "731814",
+            "confidence": 0.95,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "hex nuts M8 cl.8 zinc",
             "truth": "731816",
-            "got": null,
-            "confidence": 0.0,
+            "got": "731816",
+            "confidence": 0.95,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "Coca-Cola 330ml can x24",
             "truth": "220210",
-            "got": null,
-            "confidence": 0.0,
+            "got": "220210",
+            "confidence": 0.95,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "Fanta Orange 500ml PET",
             "truth": "220210",
-            "got": null,
-            "confidence": 0.0,
+            "got": "220210",
+            "confidence": 0.95,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "sparkling lemonade 330ml",
             "truth": "220210",
-            "got": null,
-            "confidence": 0.0,
+            "got": "220210",
+            "confidence": 0.8,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "flavoured sparkling water lime 500ml",
             "truth": "220210",
-            "got": null,
-            "confidence": 0.0,
+            "got": "220210",
+            "confidence": 0.9,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "soft drink cola 1.5L",
             "truth": "220210",
-            "got": null,
-            "confidence": 0.0,
+            "got": "220210",
+            "confidence": 1.0,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "SSD 1TB NVMe M.2 2280",
             "truth": "852351",
-            "got": null,
-            "confidence": 0.0,
+            "got": "847170",
+            "confidence": 0.95,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "Samsung 980 Pro 2TB",
             "truth": "852351",
-            "got": null,
-            "confidence": 0.0,
+            "got": "847170",
+            "confidence": 0.8,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "USB flash drive 64GB",
             "truth": "852351",
-            "got": null,
-            "confidence": 0.0,
+            "got": "852351",
+            "confidence": 1.0,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "microSDXC 128GB U3 A2",
             "truth": "852351",
-            "got": null,
-            "confidence": 0.0,
+            "got": "852351",
+            "confidence": 0.95,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "Solid state drive 512GB",
             "truth": "852351",
             "got": null,
-            "confidence": 0.0,
+            "confidence": 0.2,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": "best candidate 852290 scored 0.20, below 0.5"
           },
           {
             "description": "100% cotton crew neck tee",
             "truth": "610910",
-            "got": null,
-            "confidence": 0.0,
+            "got": "610910",
+            "confidence": 0.9,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "T-SHIRT CTN S/S BLK L",
             "truth": "610910",
-            "got": null,
-            "confidence": 0.0,
+            "got": "610910",
+            "confidence": 0.9,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "Gildan heavy cotton tees",
             "truth": "610910",
-            "got": null,
-            "confidence": 0.0,
+            "got": "610910",
+            "confidence": 0.9,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "cotton jersey singlets",
             "truth": "610910",
-            "got": null,
-            "confidence": 0.0,
+            "got": "610910",
+            "confidence": 0.9,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "T-shirts cotton knitted",
             "truth": "610910",
-            "got": null,
-            "confidence": 0.0,
+            "got": "610910",
+            "confidence": 0.99,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "polyester sports tee dry-fit",
             "truth": "610990",
-            "got": null,
-            "confidence": 0.0,
+            "got": "610990",
+            "confidence": 0.8,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "green coffee beans Arabica",
             "truth": "090111",
-            "got": null,
-            "confidence": 0.0,
+            "got": "090111",
+            "confidence": 1.0,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "Robusta raw coffee 60kg bags",
             "truth": "090111",
-            "got": null,
-            "confidence": 0.0,
+            "got": "090111",
+            "confidence": 1.0,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "Brazil Santos NY2 17/18 unroasted",
             "truth": "090111",
-            "got": null,
-            "confidence": 0.0,
+            "got": "090111",
+            "confidence": 0.95,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "Green coffee not decaffeinated",
             "truth": "090111",
-            "got": null,
-            "confidence": 0.0,
+            "got": "090111",
+            "confidence": 0.99,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "roasted coffee beans 1kg",
             "truth": "090121",
-            "got": null,
-            "confidence": 0.0,
+            "got": "090121",
+            "confidence": 1.0,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "Cu cathode grade A LME",
             "truth": "740311",
-            "got": null,
-            "confidence": 0.0,
+            "got": "740311",
+            "confidence": 0.95,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "copper cathodes 99.99%",
             "truth": "740311",
-            "got": null,
-            "confidence": 0.0,
+            "got": "740311",
+            "confidence": 0.9,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "electrolytic copper cathode sheets",
             "truth": "740311",
-            "got": null,
-            "confidence": 0.0,
+            "got": "740311",
+            "confidence": 0.95,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "Copper cathodes",
             "truth": "740311",
-            "got": null,
-            "confidence": 0.0,
+            "got": "740311",
+            "confidence": 1.0,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "MBP 14 M3 16/512 SG",
             "truth": "847130",
-            "got": null,
-            "confidence": 0.0,
+            "got": "847130",
+            "confidence": 1.0,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "MacBook Air 13 M2",
             "truth": "847130",
-            "got": null,
-            "confidence": 0.0,
+            "got": "847130",
+            "confidence": 1.0,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "Dell Latitude 5440 notebook",
             "truth": "847130",
-            "got": null,
-            "confidence": 0.0,
+            "got": "847130",
+            "confidence": 1.0,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "ThinkPad X1 Carbon Gen 11",
             "truth": "847130",
-            "got": null,
-            "confidence": 0.0,
+            "got": "847130",
+            "confidence": 0.95,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "Chromebook 11.6in 4GB/32GB",
             "truth": "847130",
-            "got": null,
-            "confidence": 0.0,
+            "got": "847130",
+            "confidence": 0.95,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "Laptop computers 14 inch",
             "truth": "847130",
-            "got": null,
-            "confidence": 0.0,
+            "got": "847130",
+            "confidence": 1.0,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": ""
           },
           {
             "description": "Goods as per contract",
@@ -734,7 +734,7 @@
             "got": null,
             "confidence": 0.0,
             "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "reason": "no proposed code exists in the HS6 list"
           },
           {
             "description": "Merchandise",
@@ -747,333 +747,333 @@
         ]
       },
       "hierarchical": {
-        "ran": false,
-        "unavailable_lines": 40,
-        "goods_accuracy": 0.0,
-        "goods_correct": 0,
+        "ran": true,
+        "unavailable_lines": 0,
+        "goods_accuracy": 1.0,
+        "goods_correct": 39,
         "goods_total": 39,
         "vague_left_unclassified": 5,
         "vague_total": 5,
         "confidently_wrong": 0,
         "accuracy_by_kind": {
-          "brand": "0/7",
-          "clean": "0/7",
-          "jargon": "0/10",
-          "neighbour": "0/4",
-          "realistic": "0/11"
+          "brand": "7/7",
+          "clean": "7/7",
+          "jargon": "10/10",
+          "neighbour": "4/4",
+          "realistic": "11/11"
         },
         "lines": [
           {
             "description": "hex cap scr A2-70 M8x30",
             "truth": "731815",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "731815",
+            "confidence": 1.0,
+            "path": "read as \"An A2-70 grade stainless steel hex cap screw, which is a type of threaded faste\u2026\" > 73 Iron or steel articles (1.00) > 7318 Screws, bolts, nuts, coach screws, screw hooks, rivets, cot\u2026 (1.00) > 731815 Iron or steel; threaded screws and bolts n.e.c. in item no.\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "HHB M10x50 8.8 ZP",
             "truth": "731815",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "731815",
+            "confidence": 1.0,
+            "path": "read as \"A zinc-plated steel hex head bolt, which is a finished part used for fastening.\" > 73 Iron or steel articles (1.00) > 7318 Screws, bolts, nuts, coach screws, screw hooks, rivets, cot\u2026 (1.00) > 731815 Iron or steel; threaded screws and bolts n.e.c. in item no.\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "socket cap screw DIN912 M6x20",
             "truth": "731815",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "731815",
+            "confidence": 0.9,
+            "path": "read as \"A steel socket cap screw, 6mm in diameter and 20mm long, which is a finished pa\u2026\" > 73 Iron or steel articles (1.00) > 7318 Screws, bolts, nuts, coach screws, screw hooks, rivets, cot\u2026 (1.00) > 731815 Iron or steel; threaded screws and bolts n.e.c. in item no.\u2026 (0.90)",
+            "reason": ""
           },
           {
             "description": "SHCS M5x16 12.9 blk",
             "truth": "731815",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "731815",
+            "confidence": 0.9,
+            "path": "read as \"A black-finished alloy steel socket head cap screw, 5mm in diameter and 16mm lo\u2026\" > 73 Iron or steel articles (1.00) > 7318 Screws, bolts, nuts, coach screws, screw hooks, rivets, cot\u2026 (1.00) > 731815 Iron or steel; threaded screws and bolts n.e.c. in item no.\u2026 (0.90)",
+            "reason": ""
           },
           {
             "description": "carriage bolt M8x60 HDG",
             "truth": "731815",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "731815",
+            "confidence": 1.0,
+            "path": "read as \"A hot-dip galvanized steel carriage bolt, 8 millimeters in diameter and 60 mill\u2026\" > 73 Iron or steel articles (1.00) > 7318 Screws, bolts, nuts, coach screws, screw hooks, rivets, cot\u2026 (1.00) > 731815 Iron or steel; threaded screws and bolts n.e.c. in item no.\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "Bolts M8 zinc plated",
             "truth": "731815",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "731815",
+            "confidence": 0.9,
+            "path": "read as \"Zinc-plated steel bolts with an 8mm diameter.\" > 73 Iron or steel articles (1.00) > 7318 Screws, bolts, nuts, coach screws, screw hooks, rivets, cot\u2026 (1.00) > 731815 Iron or steel; threaded screws and bolts n.e.c. in item no.\u2026 (0.90)",
+            "reason": ""
           },
           {
             "description": "self tapping scr 4.2x13 pan hd",
             "truth": "731814",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "731814",
+            "confidence": 1.0,
+            "path": "read as \"A self-tapping screw, 4.2mm in diameter and 13mm long, with a pan head, made of\u2026\" > 73 Iron or steel articles (1.00) > 7318 Screws, bolts, nuts, coach screws, screw hooks, rivets, cot\u2026 (1.00) > 731814 Iron or steel; threaded self-tapping screws (1.00)",
+            "reason": ""
           },
           {
             "description": "hex nuts M8 cl.8 zinc",
             "truth": "731816",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "731816",
+            "confidence": 1.0,
+            "path": "read as \"An M8 class 8 zinc-plated steel hexagonal nut, which is a part used for fasteni\u2026\" > 73 Iron or steel articles (1.00) > 7318 Screws, bolts, nuts, coach screws, screw hooks, rivets, cot\u2026 (1.00) > 731816 Iron or steel; threaded nuts (1.00)",
+            "reason": ""
           },
           {
             "description": "Coca-Cola 330ml can x24",
             "truth": "220210",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "220210",
+            "confidence": 0.9,
+            "path": "read as \"A pack of 24 cans, each containing 330ml of Coca-Cola, a carbonated soft drink.\u2026\" > 22 Beverages, spirits and vinegar (1.00) > 2202 Waters, including mineral and aerated waters, containing ad\u2026 (1.00) > 220210 Waters; including mineral and aerated, containing added sug\u2026 (0.90)",
+            "reason": ""
           },
           {
             "description": "Fanta Orange 500ml PET",
             "truth": "220210",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "220210",
+            "confidence": 1.0,
+            "path": "read as \"A 500ml plastic bottle of Fanta Orange flavored carbonated soft drink.\" > 22 Beverages, spirits and vinegar (1.00) > 2202 Waters, including mineral and aerated waters, containing ad\u2026 (1.00) > 220210 Waters; including mineral and aerated, containing added sug\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "sparkling lemonade 330ml",
             "truth": "220210",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "220210",
+            "confidence": 1.0,
+            "path": "read as \"A finished product, a beverage made of sparkling lemonade, in a 330 milliliter\u2026\" > 22 Beverages, spirits and vinegar (1.00) > 2202 Waters, including mineral and aerated waters, containing ad\u2026 (1.00) > 220210 Waters; including mineral and aerated, containing added sug\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "flavoured sparkling water lime 500ml",
             "truth": "220210",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "220210",
+            "confidence": 1.0,
+            "path": "read as \"A finished product, it is a beverage made of water, flavoring, and carbonation\u2026\" > 22 Beverages, spirits and vinegar (1.00) > 2202 Waters, including mineral and aerated waters, containing ad\u2026 (1.00) > 220210 Waters; including mineral and aerated, containing added sug\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "soft drink cola 1.5L",
             "truth": "220210",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "220210",
+            "confidence": 1.0,
+            "path": "read as \"A 1.5-liter bottle of cola, a finished soft drink made of carbonated water, sug\u2026\" > 22 Beverages, spirits and vinegar (1.00) > 2202 Waters, including mineral and aerated waters, containing ad\u2026 (1.00) > 220210 Waters; including mineral and aerated, containing added sug\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "SSD 1TB NVMe M.2 2280",
             "truth": "852351",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "852351",
+            "confidence": 1.0,
+            "path": "read as \"A 1 terabyte NVMe M.2 2280 solid-state drive, which is a finished computer comp\u2026\" > 85 Electrical machinery and equipment and parts thereof; sound\u2026 (1.00) > 8523 Discs, tapes, solid-state non-volatile storage devices, sma\u2026 (1.00) > 852351 Semiconductor media; solid-state non-volatile storage devic\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "Samsung 980 Pro 2TB",
             "truth": "852351",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "852351",
+            "confidence": 1.0,
+            "path": "read as \"A Samsung 980 Pro 2-terabyte solid-state drive, which is a finished electronic\u2026\" > 85 Electrical machinery and equipment and parts thereof; sound\u2026 (1.00) > 8523 Discs, tapes, solid-state non-volatile storage devices, sma\u2026 (1.00) > 852351 Semiconductor media; solid-state non-volatile storage devic\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "USB flash drive 64GB",
             "truth": "852351",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "852351",
+            "confidence": 1.0,
+            "path": "read as \"A finished product, a 64-gigabyte USB flash drive, made of plastic and electron\u2026\" > 85 Electrical machinery and equipment and parts thereof; sound\u2026 (1.00) > 8523 Discs, tapes, solid-state non-volatile storage devices, sma\u2026 (1.00) > 852351 Semiconductor media; solid-state non-volatile storage devic\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "microSDXC 128GB U3 A2",
             "truth": "852351",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "852351",
+            "confidence": 1.0,
+            "path": "read as \"A 128-gigabyte microSDXC memory card, which is a finished electronic product us\u2026\" > 85 Electrical machinery and equipment and parts thereof; sound\u2026 (1.00) > 8523 Discs, tapes, solid-state non-volatile storage devices, sma\u2026 (1.00) > 852351 Semiconductor media; solid-state non-volatile storage devic\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "Solid state drive 512GB",
             "truth": "852351",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "852351",
+            "confidence": 1.0,
+            "path": "read as \"A 512 gigabyte solid state drive, which is a finished electronic component used\u2026\" > 85 Electrical machinery and equipment and parts thereof; sound\u2026 (1.00) > 8523 Discs, tapes, solid-state non-volatile storage devices, sma\u2026 (1.00) > 852351 Semiconductor media; solid-state non-volatile storage devic\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "100% cotton crew neck tee",
             "truth": "610910",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "610910",
+            "confidence": 1.0,
+            "path": "read as \"A finished product, a crew neck t-shirt made from 100% cotton, for wearing.\" > 61 Apparel and clothing accessories; knitted or crocheted (1.00) > 6109 T-shirts, singlets and other vests; knitted or crocheted (1.00) > 610910 T-shirts, singlets and other vests; of cotton, knitted or c\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "T-SHIRT CTN S/S BLK L",
             "truth": "610910",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "610910",
+            "confidence": 0.9,
+            "path": "read as \"A black, short-sleeved, cotton t-shirt, size large, which is a finished product\u2026\" > 61 Apparel and clothing accessories; knitted or crocheted (0.90) > 6109 T-shirts, singlets and other vests; knitted or crocheted (1.00) > 610910 T-shirts, singlets and other vests; of cotton, knitted or c\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "Gildan heavy cotton tees",
             "truth": "610910",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "610910",
+            "confidence": 0.9,
+            "path": "read as \"Gildan brand short-sleeved t-shirts made from heavy cotton fabric, for wearing\u2026\" > 61 Apparel and clothing accessories; knitted or crocheted (0.90) > 6109 T-shirts, singlets and other vests; knitted or crocheted (1.00) > 610910 T-shirts, singlets and other vests; of cotton, knitted or c\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "cotton jersey singlets",
             "truth": "610910",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "610910",
+            "confidence": 1.0,
+            "path": "read as \"Cotton jersey singlets are finished garments made of cotton fabric, designed to\u2026\" > 61 Apparel and clothing accessories; knitted or crocheted (1.00) > 6109 T-shirts, singlets and other vests; knitted or crocheted (1.00) > 610910 T-shirts, singlets and other vests; of cotton, knitted or c\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "T-shirts cotton knitted",
             "truth": "610910",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "610910",
+            "confidence": 1.0,
+            "path": "read as \"Knitted cotton t-shirts, which are finished garments for wearing.\" > 61 Apparel and clothing accessories; knitted or crocheted (1.00) > 6109 T-shirts, singlets and other vests; knitted or crocheted (1.00) > 610910 T-shirts, singlets and other vests; of cotton, knitted or c\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "polyester sports tee dry-fit",
             "truth": "610990",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "610990",
+            "confidence": 0.9,
+            "path": "read as \"A finished product, a short-sleeved t-shirt made of polyester, designed for spo\u2026\" > 61 Apparel and clothing accessories; knitted or crocheted (0.90) > 6109 T-shirts, singlets and other vests; knitted or crocheted (1.00) > 610990 T-shirts, singlets and other vests; of textile materials (o\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "green coffee beans Arabica",
             "truth": "090111",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "090111",
+            "confidence": 1.0,
+            "path": "read as \"Green Arabica coffee beans, a raw material for making coffee.\" > 09 Coffee, tea, mate and spices (1.00) > 0901 Coffee, whether or not roasted or decaffeinated; husks and\u2026 (1.00) > 090111 Coffee; not roasted or decaffeinated (1.00)",
+            "reason": ""
           },
           {
             "description": "Robusta raw coffee 60kg bags",
             "truth": "090111",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "090111",
+            "confidence": 1.0,
+            "path": "read as \"Raw Robusta coffee beans, a raw material, for making coffee.\" > 09 Coffee, tea, mate and spices (1.00) > 0901 Coffee, whether or not roasted or decaffeinated; husks and\u2026 (1.00) > 090111 Coffee; not roasted or decaffeinated (1.00)",
+            "reason": ""
           },
           {
             "description": "Brazil Santos NY2 17/18 unroasted",
             "truth": "090111",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "090111",
+            "confidence": 1.0,
+            "path": "read as \"Unroasted green coffee beans of the Brazil Santos NY2 variety, size 17/18, for\u2026\" > 09 Coffee, tea, mate and spices (1.00) > 0901 Coffee, whether or not roasted or decaffeinated; husks and\u2026 (1.00) > 090111 Coffee; not roasted or decaffeinated (1.00)",
+            "reason": ""
           },
           {
             "description": "Green coffee not decaffeinated",
             "truth": "090111",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "090111",
+            "confidence": 1.0,
+            "path": "read as \"Unroasted coffee beans that have not had their caffeine removed, used for makin\u2026\" > 09 Coffee, tea, mate and spices (1.00) > 0901 Coffee, whether or not roasted or decaffeinated; husks and\u2026 (1.00) > 090111 Coffee; not roasted or decaffeinated (1.00)",
+            "reason": ""
           },
           {
             "description": "roasted coffee beans 1kg",
             "truth": "090121",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "090121",
+            "confidence": 0.9,
+            "path": "read as \"One kilogram of roasted coffee beans, a finished food product for brewing coffe\u2026\" > 09 Coffee, tea, mate and spices (1.00) > 0901 Coffee, whether or not roasted or decaffeinated; husks and\u2026 (1.00) > 090121 Coffee; roasted, not decaffeinated (0.90)",
+            "reason": ""
           },
           {
             "description": "Cu cathode grade A LME",
             "truth": "740311",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "740311",
+            "confidence": 1.0,
+            "path": "read as \"Refined copper cathode, grade A, suitable for trading on the London Metal Excha\u2026\" > 74 Copper and articles thereof (1.00) > 7403 Copper; refined and copper alloys, unwrought (1.00) > 740311 Copper; refined, unwrought, cathodes and sections of cathod\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "copper cathodes 99.99%",
             "truth": "740311",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "740311",
+            "confidence": 1.0,
+            "path": "read as \"Refined copper cathodes, made of 99.99% pure copper, which are a raw material u\u2026\" > 74 Copper and articles thereof (1.00) > 7403 Copper; refined and copper alloys, unwrought (1.00) > 740311 Copper; refined, unwrought, cathodes and sections of cathod\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "electrolytic copper cathode sheets",
             "truth": "740311",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "740311",
+            "confidence": 0.9,
+            "path": "read as \"Electrolytic copper cathode sheets are sheets of refined copper, a raw material\u2026\" > 74 Copper and articles thereof (1.00) > 7403 Copper; refined and copper alloys, unwrought (0.90) > 740311 Copper; refined, unwrought, cathodes and sections of cathod\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "Copper cathodes",
             "truth": "740311",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "740311",
+            "confidence": 1.0,
+            "path": "read as \"Refined copper cathodes, which are raw materials for further processing into co\u2026\" > 74 Copper and articles thereof (1.00) > 7403 Copper; refined and copper alloys, unwrought (1.00) > 740311 Copper; refined, unwrought, cathodes and sections of cathod\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "MBP 14 M3 16/512 SG",
             "truth": "847130",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "847130",
+            "confidence": 0.5,
+            "path": "read as \"An Apple MacBook Pro 14-inch laptop computer with an M3 processor, 16 gigabytes\u2026\" > 84 Machinery and mechanical appliances, boilers, nuclear react\u2026 (0.50) > 8471 Automatic data processing machines and units thereof, magne\u2026 (1.00) > 847130 Automatic data processing machines; portable, weighing not\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "MacBook Air 13 M2",
             "truth": "847130",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "847130",
+            "confidence": 0.55,
+            "path": "read as \"An Apple MacBook Air 13-inch laptop computer, a finished product.\" > 84 Machinery and mechanical appliances, boilers, nuclear react\u2026 (0.55) > 8471 Automatic data processing machines and units thereof, magne\u2026 (1.00) > 847130 Automatic data processing machines; portable, weighing not\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "Dell Latitude 5440 notebook",
             "truth": "847130",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "847130",
+            "confidence": 0.55,
+            "path": "read as \"A Dell Latitude 5440 is a finished laptop computer made by Dell.\" > 84 Machinery and mechanical appliances, boilers, nuclear react\u2026 (0.55) > 8471 Automatic data processing machines and units thereof, magne\u2026 (1.00) > 847130 Automatic data processing machines; portable, weighing not\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "ThinkPad X1 Carbon Gen 11",
             "truth": "847130",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "847130",
+            "confidence": 0.9,
+            "path": "read as \"A Lenovo ThinkPad X1 Carbon Generation 11 is a finished laptop computer.\" > 84 Machinery and mechanical appliances, boilers, nuclear react\u2026 (0.90) > 8471 Automatic data processing machines and units thereof, magne\u2026 (1.00) > 847130 Automatic data processing machines; portable, weighing not\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "Chromebook 11.6in 4GB/32GB",
             "truth": "847130",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "847130",
+            "confidence": 0.5,
+            "path": "read as \"An 11.6-inch Chromebook laptop computer with 4 gigabytes of RAM and 32 gigabyte\u2026\" > 84 Machinery and mechanical appliances, boilers, nuclear react\u2026 (0.50) > 8471 Automatic data processing machines and units thereof, magne\u2026 (1.00) > 847130 Automatic data processing machines; portable, weighing not\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "Laptop computers 14 inch",
             "truth": "847130",
-            "got": null,
-            "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "got": "847130",
+            "confidence": 0.55,
+            "path": "read as \"A 14-inch laptop computer, which is a finished electronic product used for gene\u2026\" > 84 Machinery and mechanical appliances, boilers, nuclear react\u2026 (0.55) > 8471 Automatic data processing machines and units thereof, magne\u2026 (1.00) > 847130 Automatic data processing machines; portable, weighing not\u2026 (1.00)",
+            "reason": ""
           },
           {
             "description": "Goods as per contract",
@@ -1104,8 +1104,8 @@
             "truth": null,
             "got": null,
             "confidence": 0.0,
-            "path": "",
-            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+            "path": "read as \"An unspecified collection of parts for repair or replacement.\"; stopped: too vague to identify the goods",
+            "reason": "read as \"An unspecified collection of parts for repair or replacement.\"; stopped: too vague to identify the goods"
           },
           {
             "description": "Merchandise",
@@ -1176,6 +1176,6 @@
         ]
       }
     ],
-    "median_seconds_per_invoice": 0.06042972800003099
+    "median_seconds_per_invoice": 0.058760634500004016
   }
 }

@@ -1,0 +1,11 @@
+{
+  "description": "ThinkPad X1 Carbon Gen 11\nWhat it is: A Lenovo ThinkPad X1 Carbon Generation 11 is a finished laptop computer.",
+  "parent": "8471",
+  "choices": [
+    {
+      "code": "847130",
+      "score": 1.0
+    }
+  ],
+  "reason": "The ThinkPad X1 Carbon Gen 11 is a laptop, which is a portable automatic data processing machine weighing less than 10kg, and includes a CPU, keyboard, and display."
+}

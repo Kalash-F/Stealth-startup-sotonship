@@ -31,6 +31,7 @@ import statistics
 import sys
 import time
 from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -113,8 +114,14 @@ def part_a() -> dict:
         per_kind = defaultdict(lambda: [0, 0])
         goods_ok = goods_n = vague_ok = vague_n = wrong_confident = unavailable = 0
         lines = []
-        for r in rows:
-            cls = classify_description(r["description"], proposer)
+        workers = (
+            1 if name == "keyword" else 8
+        )  # LLM calls are network-bound: run lines in parallel
+        with ThreadPoolExecutor(workers) as pool:
+            results_for = list(
+                pool.map(lambda r, p=proposer: classify_description(r["description"], p), rows)
+            )
+        for r, cls in zip(rows, results_for, strict=True):
             truth = r["true_hs6"] or None
             if "classifier unavailable" in cls.reason:
                 unavailable += 1
@@ -327,16 +334,22 @@ def main() -> None:
     ap.add_argument(
         "--llm-pipeline", action="store_true", help="use the LLM inside the pipeline run too"
     )
+    ap.add_argument("--model", help="override OPENROUTER_MODEL, e.g. google/gemini-2.5-flash")
+    ap.add_argument("--out", type=Path, default=OUT_DIR, help="output directory")
     args = ap.parse_args()
+    if args.model:
+        llm.load_dotenv()
+        os.environ["OPENROUTER_MODEL"] = args.model
 
     a = None if args.skip_a else part_a()
     b = None if args.skip_b else part_b(args.llm_pipeline)
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
-    (OUT_DIR / "summary.json").write_text(
+    out_dir = args.out
+    out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / "summary.json").write_text(
         json.dumps({"classification": a, "detection": b}, indent=2, default=str) + "\n"
     )
     md = to_markdown(a, b)
-    (OUT_DIR / "summary.md").write_text(md)
+    (out_dir / "summary.md").write_text(md)
     print(md)
 
 

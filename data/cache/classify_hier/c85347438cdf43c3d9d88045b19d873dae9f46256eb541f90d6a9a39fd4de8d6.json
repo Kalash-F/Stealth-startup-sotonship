@@ -1,0 +1,11 @@
+{
+  "description": "green coffee beans Arabica\nWhat it is: Green Arabica coffee beans, a raw material for making coffee.",
+  "parent": "09",
+  "choices": [
+    {
+      "code": "0901",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description 'green coffee beans Arabica' directly points to coffee, making 0901 the most appropriate heading."
+}

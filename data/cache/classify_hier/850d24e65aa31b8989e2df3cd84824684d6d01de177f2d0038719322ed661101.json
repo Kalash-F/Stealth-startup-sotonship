@@ -1,0 +1,11 @@
+{
+  "description": "T-shirts cotton knitted\nWhat it is: Knitted cotton t-shirts, which are finished garments for wearing.",
+  "parent": "61",
+  "choices": [
+    {
+      "code": "6109",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description explicitly states 'T-shirts', which is covered by heading 6109."
+}

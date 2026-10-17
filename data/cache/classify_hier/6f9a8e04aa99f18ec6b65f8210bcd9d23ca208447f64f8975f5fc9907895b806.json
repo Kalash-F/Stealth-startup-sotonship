@@ -1,0 +1,15 @@
+{
+  "description": "Gildan heavy cotton tees\nWhat it is: Gildan brand short-sleeved t-shirts made from heavy cotton fabric, for wearing on the upper body.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "61",
+      "score": 0.9
+    },
+    {
+      "code": "62",
+      "score": 0.05
+    }
+  ],
+  "reason": "Gildan heavy cotton tees are knitted garments, which fall under Chapter 61 for knitted or crocheted apparel and clothing accessories."
+}

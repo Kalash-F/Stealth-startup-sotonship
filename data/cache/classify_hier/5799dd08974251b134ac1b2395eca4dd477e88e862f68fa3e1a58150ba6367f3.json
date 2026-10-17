@@ -1,0 +1,11 @@
+{
+  "description": "electrolytic copper cathode sheets\nWhat it is: Electrolytic copper cathode sheets are sheets of refined copper, a raw material used for various industrial applications.",
+  "parent": "7403",
+  "choices": [
+    {
+      "code": "740311",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description 'electrolytic copper cathode sheets' directly matches 'cathodes and sections of cathodes' in option 740311."
+}
