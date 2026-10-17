@@ -7,13 +7,14 @@ import { investigations } from "@/data/investigations";
 import { isOpen, valueByCorridor } from "@/data/workspace";
 import { formatMoney, formatMoneyCompact } from "@/lib/format";
 import { cn } from "@/lib/utils";
+import { useLiveVersion } from "@/lib/live-cases";
 import { axisTick, ChartTooltipBox } from "../shared/chart-tooltip";
 
 const largest = (corridor: string) =>
   investigations.filter((i) => isOpen(i) && i.corridor === corridor).sort((a, b) => b.invoice.stated_total - a.invoice.stated_total)[0];
 
-const data = valueByCorridor().map((r) => ({ ...r, label: r.corridor.replace("-", " → ") }));
-type Row = (typeof data)[number];
+const corridorRows = () => valueByCorridor().map((r) => ({ ...r, label: r.corridor.replace("-", " → ") }));
+type Row = ReturnType<typeof corridorRows>[number];
 
 function TooltipBody({ active, payload }: { active?: boolean; payload?: { payload: Row }[] }) {
   if (!active || !payload?.length) return null;
@@ -31,6 +32,8 @@ function TooltipBody({ active, payload }: { active?: boolean; payload?: { payloa
 
 /** Where the money under review sits. */
 export function CorridorChart({ className }: { className?: string }) {
+  useLiveVersion();
+  const data = corridorRows();
   const total = data.reduce((s, r) => s + r.value, 0);
   return (
     <Panel className={cn("flex flex-col", className)}>

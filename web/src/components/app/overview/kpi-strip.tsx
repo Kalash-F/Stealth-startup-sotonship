@@ -1,14 +1,18 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowUpRight, Clock, FolderSearch, ShieldAlert } from "lucide-react";
 import { investigations } from "@/data/investigations";
 import { caseCounts } from "@/data/workspace";
 import { cn } from "@/lib/utils";
+import { useLiveVersion } from "@/lib/live-cases";
 
 /**
  * Four headline counts in one ruled strip. The open-cases tile also carries
  * the priority distribution, which answers "how much of the queue is urgent?".
  */
 export function KpiStrip() {
+  useLiveVersion();
   const c = caseCounts();
   const segments = [
     { key: "review_now", label: "Review now", glyph: "▲", count: c.reviewNow, color: "var(--risk-high)" },

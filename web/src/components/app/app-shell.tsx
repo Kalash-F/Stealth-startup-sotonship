@@ -28,6 +28,7 @@ import {
 import { analystById, demoUserId } from "@/data/reference";
 import { caseCounts, workspace } from "@/data/workspace";
 import { cn } from "@/lib/utils";
+import { useLiveVersion } from "@/lib/live-cases";
 import { QuickSearch } from "./quick-search";
 
 const nav = [
@@ -41,6 +42,7 @@ function isActive(pathname: string, href: string, exact?: boolean) {
 }
 
 function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
+  useLiveVersion();
   const pathname = usePathname();
   return (
     <ul className="grid gap-0.5">
