@@ -71,6 +71,41 @@
   color-scheme: dark;
 }
 
+
+/*
+ * Marketing night surface: deeper than the workspace graphite, with warm type.
+ * Same token names, so app components render correctly inside it.
+ */
+.theme-night {
+  --bg: #07090c;
+  --surface: #0c1015;
+  --surface-2: #121820;
+  --surface-3: #19212b;
+  --border: #1c242e;
+  --border-strong: #2b3643;
+  --fg: #ece7dd;
+  --fg-muted: #a7a399;
+  --fg-subtle: #75736d;
+  --accent: #3cc4b0;
+  --accent-fg: #04201c;
+  --accent-soft: #0f2d29;
+  --focus: #3cc4b0;
+
+  --risk-low: #6cc08f;
+  --risk-low-soft: #15291f;
+  --risk-review: #e7ae4a;
+  --risk-review-soft: #2e2412;
+  --risk-high: #f26b4a;
+  --risk-high-soft: #35170e;
+  --finding: #ff9b86;
+  --finding-soft: #3d1510;
+  --info: #7fb2e5;
+  --info-soft: #14263a;
+
+  --shadow-frame: 0 1px 0 rgba(255, 255, 255, 0.04), 0 40px 80px -40px rgba(0, 0, 0, 0.9);
+  color-scheme: dark;
+}
+
 @theme inline {
   --color-bg: var(--bg);
   --color-surface: var(--surface);
@@ -166,6 +201,57 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+
+/* ── Marketing motion. Every effect has a static end state for reduced motion. ── */
+@keyframes draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes flow {
+  to { stroke-dashoffset: -1; }
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes ping-ring {
+  0% { transform: scale(0.6); opacity: 0.7; }
+  80%, 100% { transform: scale(2.4); opacity: 0; }
+}
+.draw-path {
+  stroke-dasharray: 1 1;
+  stroke-dashoffset: 1;
+  animation: draw var(--dur, 1.6s) cubic-bezier(0.65, 0, 0.35, 1) var(--delay, 0s) forwards;
+}
+.flow-path {
+  stroke-dasharray: 0.012 0.238;
+  animation: flow var(--dur, 6s) linear infinite;
+}
+.rise-in {
+  opacity: 0;
+  animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) var(--delay, 0s) forwards;
+}
+.ping {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ping-ring 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--delay, 0s);
+}
+.reveal[data-shown="true"] {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .draw-path { stroke-dashoffset: 0; animation: none; }
+  .flow-path, .ping { display: none; }
+  .rise-in, .reveal { opacity: 1; transform: none; animation: none; }
 }
 
 /* React Flow, restyled to the token system */

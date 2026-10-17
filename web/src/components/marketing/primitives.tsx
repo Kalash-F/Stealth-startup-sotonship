@@ -9,6 +9,20 @@ export function Container({ className, ...props }: React.HTMLAttributes<HTMLDivE
 /** Vertical rhythm: 64px on mobile, 96–128px on desktop. */
 export const sectionY = "py-16 md:py-24 lg:py-28";
 
+/** "01 — The hidden pattern": section index and name, with a short rule. */
+export function SectionIndex({ n, children, className }: { n: string; children: React.ReactNode; className?: string }) {
+  return (
+    <p className={cn("flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.1em] text-fg-subtle", className)}>
+      <span className="text-accent">{n}</span>
+      <span aria-hidden className="h-px w-8 bg-border-strong" />
+      <span>{children}</span>
+    </p>
+  );
+}
+
+/** Large editorial display heading, serif. */
+export const displayClass = "text-balance font-serif font-normal leading-[0.98] tracking-[-0.02em]";
+
 export function SectionHeading({
   eyebrow,
   id,

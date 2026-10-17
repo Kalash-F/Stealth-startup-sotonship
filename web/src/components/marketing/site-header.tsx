@@ -9,9 +9,10 @@ import { cn } from "@/lib/utils";
 import { Container } from "./primitives";
 
 const links = [
-  { href: "/#product", label: "Product" },
-  { href: "/#capabilities", label: "Capabilities" },
-  { href: "/#methodology", label: "Methodology" },
+  { href: "/#follow-the-money", label: "The pattern" },
+  { href: "/#evidence", label: "Evidence" },
+  { href: "/#workspace", label: "Workspace" },
+  { href: "/#network", label: "Network" },
   { href: "/app", label: "Demo workspace" },
 ];
 
@@ -45,7 +46,7 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header className={cn("sticky top-0 z-40 border-b bg-bg transition-colors", scrolled || open ? "border-border" : "border-transparent")}>
+    <header className={cn("theme-night sticky top-0 z-40 border-b bg-bg/95 text-fg backdrop-blur transition-colors", scrolled || open ? "border-border" : "border-transparent")}>
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-2 focus:z-50 focus:bg-fg focus:px-3 focus:py-2 focus:text-sm focus:text-bg"

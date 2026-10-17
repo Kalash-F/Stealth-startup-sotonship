@@ -8,7 +8,7 @@ const col = "text-[14px] text-fg-muted transition-colors hover:text-fg";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border-strong bg-bg">
+    <footer className="theme-night border-t border-border bg-bg text-fg">
       <Container className="py-14 md:py-20">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
@@ -21,25 +21,24 @@ export function SiteFooter() {
             <div>
               <h2 className="eyebrow">Product</h2>
               <ul className="mt-4 space-y-2.5">
-                <li><Link className={col} href="/#product">Overview</Link></li>
+                <li><Link className={col} href="/#workspace">Workspace</Link></li>
                 <li><Link className={col} href="/app">Demo workspace</Link></li>
                 <li><Link className={col} href="/sign-in">Sign in</Link></li>
                 <li><Link className={col} href="/request-demo">Request a demo</Link></li>
               </ul>
             </div>
             <div>
-              <h2 className="eyebrow">Capabilities</h2>
+              <h2 className="eyebrow">The story</h2>
               <ul className="mt-4 space-y-2.5">
-                <li><Link className={col} href="/#capabilities">Value analysis</Link></li>
-                <li><Link className={col} href="/#capabilities">Route anomalies</Link></li>
-                <li><Link className={col} href="/#capabilities">Network analysis</Link></li>
-                <li><Link className={col} href="/#capabilities">Case management</Link></li>
+                <li><Link className={col} href="/#follow-the-money">The hidden pattern</Link></li>
+                <li><Link className={col} href="/#evidence">From anomaly to evidence</Link></li>
+                <li><Link className={col} href="/#network">Network analysis</Link></li>
               </ul>
             </div>
             <div>
               <h2 className="eyebrow">Method</h2>
               <ul className="mt-4 space-y-2.5">
-                <li><Link className={col} href="/#methodology">Methodology</Link></li>
+                <li><Link className={col} href="/#evidence">How evidence is graded</Link></li>
                 <li>
                   <a
                     className={`${col} inline-flex items-center gap-1`}
