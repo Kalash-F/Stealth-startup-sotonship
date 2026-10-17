@@ -16,7 +16,7 @@ def main() -> None:
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--n", type=int, default=60)
     p.add_argument("--out", type=Path, default=SYNTHETIC_DIR)
-    p.add_argument("--bands", type=Path, default=DEFAULT_BANDS, help="Benchmark JSON or parquet")
+    p.add_argument("--bands", type=Path, default=DEFAULT_BANDS, help="Benchmark JSON")
     p.add_argument("--no-pdf", action="store_true", help="write truth and labels only")
     args = p.parse_args()
 

@@ -7,12 +7,12 @@ The `tbml` Python package: the invoice-checking pipeline, its data contracts, a 
 From the repository root:
 
 ```bash
-make setup   # creates .venv and installs this package with dev tools
+make setup   # creates .venv and installs this package with dev tools and the script extras
 make lint
 make test
 ```
 
-Python 3.11 or newer. PDF rendering for the synthetic set uses WeasyPrint, which needs a few system libraries.
+Python 3.11 or newer. The API needs only the core dependencies; `pandas`, `requests`, `jinja2` and WeasyPrint are in the `scripts` extra (`pip install -e "backend[scripts]"`) for `fetch_benchmarks.py` and the synthetic generator, which keeps the deployed function small. WeasyPrint needs a few system libraries.
 
 ## Package layout
 
@@ -28,7 +28,7 @@ Python 3.11 or newer. PDF rendering for the synthetic set uses WeasyPrint, which
 | `tbml/synthetic/` | Labelled synthetic invoice generator. [README](tbml/synthetic/README.md) |
 | `tbml/api.py` | FastAPI app. |
 | `tbml/asgi.py` | The deployed app: `tbml.api` mounted under `/api` (the Vercel entrypoint). |
-| `tbml/paths.py` | Repository paths (`data/`, fixtures). |
+| `tbml/paths.py` | Repository paths (`data/`, fixtures) and the cache root (`$TBML_CACHE_DIR`). |
 | `tbml/fixtures.py` | Loads the golden JSON fixtures used by the stubs and tests. |
 | `scripts/` | `fetch_benchmarks.py`, `generate_invoices.py`, `evaluate.py` (placeholder). |
 | `tests/` | One test module per stage; `tests/rules/` has one file per rule. |

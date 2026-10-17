@@ -1,10 +1,14 @@
-"""Task 3.12: band sanity. Reads bands.parquet, or bands_mock.parquet when real data is absent."""
+"""Task 3.12: band sanity. Reads bands.json, or bands_mock.json when real data is absent."""
 
+import json
 import sys
 from pathlib import Path
 
 import pandas as pd
 import pytest
+
+from tbml.benchmark import band_table
+from tbml.schemas import Benchmark
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "backend" / "scripts"))
@@ -16,10 +20,7 @@ HS6 = ["731815", "220210", "852351", "610910", "090111", "740311", "847130"]
 
 @pytest.fixture(scope="module")
 def bands() -> pd.DataFrame:
-    p = BENCH / "bands.parquet"
-    if not p.exists():
-        p = BENCH / "bands_mock.parquet"
-    return pd.read_parquet(p)
+    return pd.DataFrame([b.model_dump() for b in band_table()])
 
 
 def test_every_hs6_has_global_band(bands):
@@ -67,3 +68,18 @@ def test_compute_bands_pipeline():
     glob = out[out.route.isna()].iloc[0]
     assert glob.p90 < 1000
     assert list(out.route.dropna()) == ["CN-GB"]
+
+
+def test_written_bands_load_as_benchmarks(tmp_path):
+    """The script's JSON output is what tbml.benchmark reads: route rows and nulls survive."""
+    rows = [
+        dict(hs6="731815", year=2023, source="HMRC OTS", route="CN-GB", value_usd=i + 1.0, qty=1.0)
+        for i in range(20)
+    ]
+    out = fb.compute_bands(pd.DataFrame(rows))
+    fb.write_bands(out, tmp_path / "bands.json")
+    loaded = [
+        Benchmark.model_validate(r) for r in json.loads((tmp_path / "bands.json").read_text())
+    ]
+    assert [b.route for b in loaded] == [None, "CN-GB"]
+    assert loaded[0].years == [2023] and loaded[0].sources == ["HMRC OTS"]

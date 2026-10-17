@@ -44,7 +44,7 @@ def test_health_reports_real_pipeline_and_mock_bands():
     body = client.get("/health").json()
     assert body["status"] == "ok"
     assert body["stubs"] is False
-    assert body["benchmarks"] == "mock"  # until fetch_benchmarks.py has produced bands.parquet
+    assert body["benchmarks"] == "mock"  # until fetch_benchmarks.py has produced bands.json
 
 
 def test_over_priced_invoice_flags_the_right_line():

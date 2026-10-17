@@ -11,9 +11,8 @@ import re
 from dataclasses import dataclass
 from functools import lru_cache
 
-import pandas as pd
-
-from tbml.paths import BENCHMARKS_DIR, REFERENCE_DIR
+from tbml.benchmark import band_table
+from tbml.paths import REFERENCE_DIR
 from tbml.schemas import LineItem
 
 # printed unit -> (dimension, amount in the dimension's base unit: kg, l or pieces)
@@ -71,11 +70,7 @@ class Normalised:
 @lru_cache(maxsize=1)
 def benchmark_units() -> dict[str, str]:
     """hs6 -> benchmark unit, from the real bands when present, else the mock bands."""
-    path = BENCHMARKS_DIR / "bands.parquet"
-    if not path.exists():
-        path = BENCHMARKS_DIR / "bands_mock.parquet"
-    bands = pd.read_parquet(path)
-    return dict(zip(bands.hs6, bands.unit, strict=True))
+    return {b.hs6: b.unit for b in band_table()}
 
 
 @lru_cache(maxsize=1)

@@ -12,7 +12,7 @@ from typing import Any, Protocol
 from pydantic import ValidationError
 
 from tbml.extract.pdftext import RawDocument
-from tbml.paths import DATA_DIR, REPO_ROOT
+from tbml.paths import REPO_ROOT, cache_dir
 from tbml.schemas import Invoice
 
 # Bump when the prompt or the post-processing contract changes; invalidates the cache.
@@ -112,11 +112,6 @@ def configured_client() -> LLMClient | None:
 
 class StructuringError(Exception):
     """The LLM did not produce a valid Invoice after the retry."""
-
-
-def cache_dir() -> Path:
-    """Cache root: $TBML_CACHE_DIR, else data/cache."""
-    return Path(os.environ.get("TBML_CACHE_DIR") or DATA_DIR / "cache")
 
 
 def cache_path(sha256: str, root: Path | None = None) -> Path:
