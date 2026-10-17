@@ -178,12 +178,11 @@
   .tabular {
     font-variant-numeric: tabular-nums;
   }
+  /* Section labels: plain sentence case, set small and quiet (no tracked capitals). */
   .eyebrow {
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    line-height: 1rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-size: 0.8125rem;
+    line-height: 1.25rem;
+    font-weight: 500;
     color: var(--fg-subtle);
   }
   .rule-grid {

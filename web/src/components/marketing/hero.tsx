@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { investigationById } from "@/data";
 import { formatMoney } from "@/lib/format";
@@ -44,16 +43,15 @@ export function Hero() {
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Button asChild size="lg" variant="accent">
-                <Link href="/request-demo">Request a demo</Link>
+                <Link href="/app/checker">Check an invoice</Link>
               </Button>
               <Button asChild size="lg" variant="secondary">
-                <Link href="/app">
-                  Explore the platform <ArrowRight aria-hidden />
-                </Link>
+                <Link href="/app">Open the demo workspace</Link>
               </Button>
             </div>
-            <p className="mt-6 font-mono text-[10.5px] uppercase leading-relaxed tracking-[0.08em] text-fg-subtle">
-              Sample case {inv.id} · {formatMoney(inv.invoice.stated_total)} invoiced · fictional data, stylised routes
+            <p className="mt-6 max-w-md text-[13px] leading-relaxed text-fg-subtle">
+              The map shows sample case {inv.id}, {formatMoney(inv.invoice.stated_total)} invoiced. The companies are fictional and
+              the routes are drawn for clarity, not to scale.
             </p>
           </div>
         </div>
