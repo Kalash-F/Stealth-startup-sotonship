@@ -42,13 +42,13 @@ const timeFmt = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-d
 
 /** "4 Aug 2026" */
 export function formatDate(iso: string) {
-  return dateFmt.format(new Date(iso));
+  return dateFmt.format(new Date(iso)).replace("Sept", "Sep");
 }
 /** "4 Aug" */
 export function formatDateShort(iso: string) {
-  return dateShortFmt.format(new Date(iso));
+  return dateShortFmt.format(new Date(iso)).replace("Sept", "Sep");
 }
 /** "4 Aug 2026, 14:22 UTC" */
 export function formatDateTime(iso: string) {
-  return `${dateFmt.format(new Date(iso))}, ${timeFmt.format(new Date(iso))} UTC`;
+  return `${formatDate(iso)}, ${timeFmt.format(new Date(iso))} UTC`;
 }

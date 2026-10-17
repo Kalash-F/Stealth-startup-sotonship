@@ -14,14 +14,14 @@ See `DESIGN_SPEC.md`. Warm paper marketing, graphite workspace, one teal accent,
 
 | Route | Purpose | Status | Verified by |
 |---|---|---|---|
-| `/` | Marketing homepage: hero, four showcases, workflow, capabilities, methodology, CTA, footer | [ ] | |
-| `/sign-in` | Sign-in screen with honest demo entry; no credential handling | [ ] | |
-| `/request-demo` | Demo request form; front-end only, says so on submit | [ ] | |
-| `/legal/privacy`, `/legal/terms` | Placeholder legal pages, clearly marked as drafts | [ ] | |
-| `/app` | Overview dashboard | [ ] | |
-| `/app/investigations` | Case list with search and filters | [ ] | |
-| `/app/investigations/[id]` | Case detail with tabs | [ ] | |
-| `/app/entities` | Entity network graph + detail panel, deep-linkable `?entity=` | [ ] | |
+| `/` | Marketing homepage: hero, four showcases, workflow, capabilities, methodology, CTA, footer | [x] | Smoke at 1440/390; screenshots reviewed |
+| `/sign-in` | Sign-in screen with honest demo entry; no credential handling | [x] | Smoke + credential test (password cleared, status message) |
+| `/request-demo` | Demo request form; front-end only, says so on submit | [x] | Smoke + validation and not-sent panel checked by agent script |
+| `/legal/privacy`, `/legal/terms` | Placeholder legal pages, clearly marked as drafts | [x] | Smoke at 1440/390 |
+| `/app` | Overview dashboard | [x] | Smoke; screenshots reviewed at 1440/390 |
+| `/app/investigations` | Case list with search and filters | [x] | Smoke + filter-and-open test |
+| `/app/investigations/[id]` | Case detail with tabs | [x] | Smoke + tabs and RFI dialog test; all 10 cases prerendered |
+| `/app/entities` | Entity network graph + detail panel, deep-linkable `?entity=` | [x] | Smoke + deep-link detail test |
 | `/checker` | **Reserved** for the officer invoice checker (plan.md Phase 7), built by another thread against the backend API. Not created here. | — | |
 
 No separate `/product` page: the homepage carries the product story and the demo is one click away.
@@ -59,22 +59,24 @@ Hard negatives are included: CASE-0126 (premium laptops near p90, closed) and CA
 |---|---|---|---|---|
 | 0 | Environment and feasibility | lead | [x] | Repo empty apart from LICENSE/README; Node 22, npm, bundled Chromium available; Next build runs. |
 | 1 | Architecture and design direction | lead | [x] | Routes, dataset, design spec, component inventory written (this file, DESIGN_SPEC.md). |
-| 2 | Design system and app shell | lead | [/] | Tokens, primitives, shell render cleanly at 1440 and 390; screenshot reviewed. |
-| 3 | Core investigation experience | app agent | [ ] | Four app routes built on shared data; navigation, filters, tabs, graph selection verified in browser. |
-| 4 | First visual review | lead | [ ] | Screenshots of each app screen at desktop and mobile; top five fixes applied. |
-| 5 | Marketing website | site agent | [ ] | All sections, real components in previews, no unsupported claims. |
-| 6 | Sign-in and demo journey | forms agent | [ ] | Sign-in, request demo, legal pages; honest mock behaviour; no credential storage. |
-| 7 | Functional verification | lead | [ ] | Build, typecheck, lint, Playwright smoke across routes, console clean. |
-| 8 | Responsive and accessibility | lead | [ ] | 1440 / 768 / 390 screenshots, keyboard pass, overflow check. |
-| 9 | Final refinement | lead | [ ] | P0/P1 resolved, P2 where practical. |
-| 10 | Handover | lead | [ ] | Plan and QA checklist reflect what was verified; PR opened. |
+| 2 | Design system and app shell | lead | [x] | Tokens, primitives, shell render cleanly at 1440 and 390; screenshot reviewed. |
+| 3 | Core investigation experience | app agent | [x] | Four app routes built on shared data; navigation, filters, tabs, graph selection verified in browser. |
+| 4 | First visual review | lead | [x] | Screenshots of each app screen at desktop and mobile; top five fixes applied. |
+| 5 | Marketing website | site agent | [x] | All sections, real components in previews, no unsupported claims. |
+| 6 | Sign-in and demo journey | forms agent | [x] | Sign-in, request demo, legal pages; honest mock behaviour; no credential storage. |
+| 7 | Functional verification | lead | [x] | Build, typecheck, lint, Playwright smoke across routes, console clean. |
+| 8 | Responsive and accessibility | lead | [/] | 1440 / 768 / 390 screenshots, keyboard pass, overflow check. |
+| 9 | Final refinement | lead | [x] | P0/P1 resolved, P2 where practical. |
+| 10 | Handover | lead | [/] | Plan and QA checklist reflect what was verified; PR opened. |
 
 ## 9. Current state
 
-- **Done:** scaffold, tokens, primitives, domain components, dataset, app shell (phase 2 screenshot reviewed at 1440).
-- **Current:** phases 3, 5, 6 in parallel.
-- **Next:** first visual review of the app screens.
-- **Known issues:** none yet.
+- **Done:** all routes built and verified (build, tsc, lint, 23 Playwright smoke tests, screenshots at 1440 and 390 reviewed).
+- **Built by:** lead (foundation, review), an Opus agent (app screens), a Sonnet agent (marketing), a Haiku agent (sign-in, request demo, legal).
+- **Current:** handover; branch push blocked by missing GitHub App access.
+- **Next:** open PR once the repo grants access; product name decision.
+- **Not yet done:** a full manual keyboard pass and a Lighthouse run; 768px checked by the agents only.
+- **Known issues (P2/P3):** full entity graph is small at 390px (pan/zoom works); graph nodes are not keyboard-selectable (directory and connection buttons are the keyboard path); case actions are page-local and not reflected on the list or dashboard (toasts say so); marketing overview preview is hand-built markup rather than the app's chart widgets; workspace graph uses a compact layout (`data/graph-layout.ts`) while marketing uses `network.ts` positions.
 - **Decisions to keep consistent:** product name "Lading" is a placeholder in `src/lib/brand.ts`; `/checker` is reserved; benchmark bands are illustrative and labelled so everywhere; "Confirmed finding" means an established fact, never a verdict of wrongdoing.
 
 ## 10. Limitations

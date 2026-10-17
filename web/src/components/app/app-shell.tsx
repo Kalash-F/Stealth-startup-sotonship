@@ -134,6 +134,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   React.useEffect(() => setMobileOpen(false), [pathname]);
 
+  // Dialogs, menus, tooltips and toasts portal to <body>, outside this subtree.
+  // Put the ink theme on <body> while the workspace is mounted so they match.
+  React.useEffect(() => {
+    document.body.classList.add("theme-ink");
+    return () => document.body.classList.remove("theme-ink");
+  }, []);
+
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {

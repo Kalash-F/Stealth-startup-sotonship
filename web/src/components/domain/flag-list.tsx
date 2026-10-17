@@ -11,13 +11,23 @@ export function sortFlags(flags: Flag[]) {
 }
 
 /** One explained flag: what rule fired, why, and the numbers behind it. */
-export function FlagItem({ flag, compact = false, className }: { flag: Flag; compact?: boolean; className?: string }) {
+export function FlagItem({
+  flag,
+  compact = false,
+  className,
+  headingLevel: Heading = "h4",
+}: {
+  flag: Flag;
+  compact?: boolean;
+  className?: string;
+  headingLevel?: "h3" | "h4";
+}) {
   const rule = rules[flag.rule];
   return (
     <article className={cn("grid gap-2", className)}>
       <header className="flex flex-wrap items-center gap-x-3 gap-y-1">
         <SeverityTag severity={flag.severity} />
-        <h4 className="text-[13px] font-semibold text-fg">{rule.name}</h4>
+        <Heading className="text-[13px] font-semibold text-fg">{rule.name}</Heading>
         <span className="font-mono text-2xs text-fg-subtle">
           {flag.line_id ? `Line ${flag.line_id}` : "Invoice level"} · {flag.rule}
         </span>
@@ -49,12 +59,22 @@ export function FlagItem({ flag, compact = false, className }: { flag: Flag; com
   );
 }
 
-export function FlagList({ flags, compact = false, className }: { flags: Flag[]; compact?: boolean; className?: string }) {
+export function FlagList({
+  flags,
+  compact = false,
+  className,
+  headingLevel,
+}: {
+  flags: Flag[];
+  compact?: boolean;
+  className?: string;
+  headingLevel?: "h3" | "h4";
+}) {
   return (
     <ol className={cn("divide-y divide-border", className)}>
       {sortFlags(flags).map((f) => (
         <li key={f.flag_id} className="py-3 first:pt-0 last:pb-0">
-          <FlagItem flag={f} compact={compact} />
+          <FlagItem flag={f} compact={compact} headingLevel={headingLevel} />
         </li>
       ))}
     </ol>

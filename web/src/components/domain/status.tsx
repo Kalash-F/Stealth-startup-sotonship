@@ -1,4 +1,4 @@
-import { AlertTriangle, CircleDot, CheckCircle2, Clock, ArrowUpRight, Circle, Search, ShieldAlert, Info } from "lucide-react";
+import { AlertTriangle, CircleDashed, CircleCheck, CircleDot, CheckCircle2, Clock, ArrowUpRight, Circle, Search, ShieldAlert, Info } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { bandLabel, statusLabel } from "@/data/workspace";
 import type { CaseStatus, EvidenceClass, PriorityBand, Severity } from "@/data/types";
@@ -26,7 +26,7 @@ export function PriorityBadge({ band, score, className }: { band: PriorityBand; 
 export function PriorityScore({ band, score }: { band: PriorityBand; score: number }) {
   const color = { review_now: "text-risk-high", review: "text-risk-review", low: "text-risk-low" }[band];
   return (
-    <div className="flex items-baseline gap-2">
+    <div className="flex items-baseline gap-2 whitespace-nowrap">
       <span className={cn("font-mono text-3xl font-medium tabular leading-none", color)}>{score}</span>
       <span className="font-mono text-xs text-fg-subtle">/ 100</span>
     </div>
@@ -92,10 +92,10 @@ export const evidenceClassMeta: Record<EvidenceClass, { label: string; tone: "re
 
 export function EvidenceClassTag({ value, className }: { value: EvidenceClass; className?: string }) {
   const meta = evidenceClassMeta[value];
-  const glyph = { anomaly: "○", indicator: "◐", finding: "●" }[value];
+  const Glyph = { anomaly: CircleDashed, indicator: CircleDot, finding: CircleCheck }[value];
   return (
     <Badge tone={meta.tone} className={className} title={meta.definition}>
-      <span aria-hidden>{glyph}</span>
+      <Glyph aria-hidden className="size-3" />
       {meta.label}
     </Badge>
   );
