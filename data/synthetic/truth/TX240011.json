@@ -1,0 +1,50 @@
+{
+  "invoice_id": "TX240011",
+  "invoice_date": "2024-03-06",
+  "seller": {
+    "name": "Ashcombe Supply UK Ltd",
+    "address": "Unit 29, Millbrook Business Park, Glasgow G99 6ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Silverfern Logistics General Trading LLC",
+    "address": "Office 448, Juniper Business Centre, Al Quoz Industrial Area 3, Ajman, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "consignee": {
+    "name": "Harbourline Trading LLC",
+    "address": "Office 561, Copperfield Business Centre, Al Qusais, Sharjah, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "country_of_origin": "Great Britain",
+  "port_of_loading": "Southampton, United Kingdom",
+  "port_of_discharge": "Jebel Ali, Dubai, UAE",
+  "incoterm": "EXW",
+  "currency": "AED",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Plain white cotton T-shirts, packed per dozen",
+      "quantity": 910.0,
+      "unit": "dozen",
+      "unit_price": 136.44,
+      "line_total": 124160.4,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "USB-C flash drive 128GB with keyring",
+      "quantity": 19000.0,
+      "unit": "pcs",
+      "unit_price": 23.38,
+      "line_total": 444220.0,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 568380.4,
+  "source_file": "TX240011.pdf",
+  "is_synthetic": true
+}

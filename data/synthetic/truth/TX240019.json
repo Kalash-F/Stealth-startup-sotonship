@@ -1,0 +1,72 @@
+{
+  "invoice_id": "TX240019",
+  "invoice_date": "2024-03-05",
+  "seller": {
+    "name": "Brightmoor Merchants Ltd",
+    "address": "Unit 39, Fernhill Business Park, Manchester M91 9ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Sunmark Merchants FZCO",
+    "address": "Warehouse 57, Plot S48974, Jebel Ali Free Zone, Dubai, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "consignee": null,
+  "country_of_origin": "Colombia (re-exported from United Kingdom; certificate of origin attached)",
+  "port_of_loading": "Felixstowe, United Kingdom",
+  "port_of_discharge": "Khalifa Port, Abu Dhabi, UAE",
+  "incoterm": "FOB",
+  "currency": "AED",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Green Arabica coffee beans, unroasted, not decaffeinated",
+      "quantity": 23500.0,
+      "unit": "kg",
+      "unit_price": 15.24,
+      "line_total": 358140.0,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "Robusta green coffee beans, 60kg jute bags",
+      "quantity": 270.0,
+      "unit": "bags",
+      "unit_price": 810.24,
+      "line_total": 218764.8,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L3",
+      "description": "Green Arabica coffee beans, unroasted, not decaffeinated",
+      "quantity": 21500.0,
+      "unit": "kg",
+      "unit_price": 18.62,
+      "line_total": 400330.0,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L4",
+      "description": "Robusta green coffee beans, 60kg jute bags",
+      "quantity": 160.0,
+      "unit": "bags",
+      "unit_price": 1062.41,
+      "line_total": 169985.6,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L5",
+      "description": "Robusta green coffee beans, 60kg jute bags",
+      "quantity": 350.0,
+      "unit": "bags",
+      "unit_price": 773.15,
+      "line_total": 270602.5,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 1417822.9,
+  "source_file": "TX240019.pdf",
+  "is_synthetic": true
+}

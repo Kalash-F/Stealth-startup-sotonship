@@ -1,0 +1,59 @@
+{
+  "invoice_id": "TX240006",
+  "invoice_date": "2024-04-07",
+  "seller": {
+    "name": "Redwell Industrial FZCO",
+    "address": "Office 1267, Copperfield Business Centre, Al Quoz Industrial Area 3, Dubai, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Starbridge Commodities a.s.",
+    "address": "Areál Westmere, Lipová 86, 783 50 Ostrava, Czech Republic",
+    "country": "CZ",
+    "address_type": "commercial"
+  },
+  "consignee": {
+    "name": "Harbourline Wholesale s.r.o.",
+    "address": "Areál Millbrook, Nádražní 119, 792 19 Ostrava, Czech Republic",
+    "country": "CZ",
+    "address_type": "commercial"
+  },
+  "country_of_origin": "China (re-exported from Jebel Ali Free Zone, Dubai)",
+  "port_of_loading": "Port Khalid, Sharjah, UAE",
+  "port_of_discharge": "Hamburg, Germany (final destination Czech Republic)",
+  "incoterm": "EXW",
+  "currency": "EUR",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "M6 x 30mm hex bolts, zinc plated",
+      "quantity": 442000.0,
+      "unit": "pcs",
+      "unit_price": 0.0273,
+      "line_total": 12066.6,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "Carriage bolts M10 x 100mm, galvanised steel",
+      "quantity": 4600.0,
+      "unit": "kg",
+      "unit_price": 4.7836,
+      "line_total": 22004.56,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L3",
+      "description": "Copper cathodes Grade A, 99.99% Cu",
+      "quantity": 30.2,
+      "unit": "MT",
+      "unit_price": 8163.83,
+      "line_total": 246547.67,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 280618.83,
+  "source_file": "TX240006.pdf",
+  "is_synthetic": true
+}

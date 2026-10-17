@@ -1,0 +1,36 @@
+{
+  "invoice_id": "PI-0028-24",
+  "invoice_date": "2024-06-22",
+  "seller": {
+    "name": "Al Rimal Commodities UK Ltd",
+    "address": "Unit 8, Millbrook Trading Estate, Bristol BS90 5ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Pearl Gulf Trading General Trading LLC",
+    "address": "Office 861, Riverside Business Centre, Al Qusais, Ajman, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "consignee": null,
+  "country_of_origin": "Made in the UK",
+  "port_of_loading": "London Gateway, UK",
+  "port_of_discharge": "Khalifa Port, Abu Dhabi, UAE",
+  "incoterm": "FOB",
+  "currency": "AED",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Stainless steel machine screws M4 x 12mm",
+      "quantity": 891000.0,
+      "unit": "pcs",
+      "unit_price": 0.0591,
+      "line_total": 52658.1,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 52658.1,
+  "source_file": "PI-0028-24.pdf",
+  "is_synthetic": true
+}

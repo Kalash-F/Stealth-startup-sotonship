@@ -1,0 +1,50 @@
+{
+  "invoice_id": "PI-0052-24",
+  "invoice_date": "2024-12-19",
+  "seller": {
+    "name": "Falconcrest Logistics General Trading LLC",
+    "address": "Warehouse 41, Plot S32699, Jebel Ali Free Zone, Dubai, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Starbridge Commodities UK Ltd",
+    "address": "Unit 31, Copperfield Trading Estate, Glasgow G95 5ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "consignee": {
+    "name": "R. Patel",
+    "address": "Flat 4, 75 Juniper Court, Birmingham B98 7ZY, United Kingdom",
+    "country": "GB",
+    "address_type": "residential"
+  },
+  "country_of_origin": "Colombia (re-exported from United Arab Emirates; certificate of origin attached)",
+  "port_of_loading": "Port Khalid, Sharjah, UAE",
+  "port_of_discharge": "Southampton, United Kingdom",
+  "incoterm": "FCA",
+  "currency": "AED",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Unroasted Arabica coffee, washed, screen 17/18",
+      "quantity": 36.6,
+      "unit": "MT",
+      "unit_price": 22831.63,
+      "line_total": 835637.66,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "Unroasted Arabica coffee, washed, screen 17/18",
+      "quantity": 35.9,
+      "unit": "MT",
+      "unit_price": 16852.86,
+      "line_total": 605017.67,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 1440655.33,
+  "source_file": "PI-0052-24.pdf",
+  "is_synthetic": true
+}

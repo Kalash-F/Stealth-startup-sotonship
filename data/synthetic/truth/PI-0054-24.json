@@ -1,0 +1,45 @@
+{
+  "invoice_id": "PI-0054-24",
+  "invoice_date": "2024-11-29",
+  "seller": {
+    "name": "Meridian Bay Commodities FZE",
+    "address": "Office 914, Millbrook Business Centre, Al Qusais, Dubai, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Silverfern Wholesale a.s.",
+    "address": "Areál Westmere, Polní 78, 627 52 Prague, Czech Republic",
+    "country": "CZ",
+    "address_type": "commercial"
+  },
+  "consignee": null,
+  "country_of_origin": "United Arab Emirates",
+  "port_of_loading": "Jebel Ali, Dubai, UAE",
+  "port_of_discharge": "Prague Ruzyně Airport, Czechia",
+  "incoterm": "CIF",
+  "currency": "USD",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "USB-C flash drive 128GB with keyring",
+      "quantity": 10500.0,
+      "unit": "pcs",
+      "unit_price": 5.291,
+      "line_total": 55555.5,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "Stainless steel machine screws M4 x 12mm",
+      "quantity": 661000.0,
+      "unit": "pcs",
+      "unit_price": 0.0136,
+      "line_total": 8989.6,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 64545.1,
+  "source_file": "PI-0054-24.pdf",
+  "is_synthetic": true
+}

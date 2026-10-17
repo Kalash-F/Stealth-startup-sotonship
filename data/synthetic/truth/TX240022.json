@@ -1,0 +1,63 @@
+{
+  "invoice_id": "TX240022",
+  "invoice_date": "2024-12-05",
+  "seller": {
+    "name": "Ruifeng Trading LLC",
+    "address": "Office 998, Oakhurst Business Centre, Ras Al Khor, Sharjah, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Jinhai Supply s.r.o.",
+    "address": "Areál Westmere, Polní 2, 741 62 Brno, Czech Republic",
+    "country": "CZ",
+    "address_type": "commercial"
+  },
+  "consignee": null,
+  "country_of_origin": "Vietnam (re-exported from Jebel Ali Free Zone, Dubai; certificate of origin attached)",
+  "port_of_loading": "Jebel Ali, Dubai, UAE",
+  "port_of_discharge": "Prague Ruzyně Airport, Czechia",
+  "incoterm": "DAP",
+  "currency": "USD",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Copper cathodes Grade A, 99.99% Cu",
+      "quantity": 101.9,
+      "unit": "MT",
+      "unit_price": 8588.45,
+      "line_total": 875163.06,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "USB 3.0 flash drive 64GB, metal casing",
+      "quantity": 28500.0,
+      "unit": "pcs",
+      "unit_price": 6.5653,
+      "line_total": 187111.05,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L3",
+      "description": "Carriage bolts M10 x 100mm, galvanised steel",
+      "quantity": 3900.0,
+      "unit": "kg",
+      "unit_price": 2.7078,
+      "line_total": 10560.42,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L4",
+      "description": "Refined copper cathode sheets, LME Grade A",
+      "quantity": 101500.0,
+      "unit": "kg",
+      "unit_price": 9.1655,
+      "line_total": 930298.25,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 2003132.78,
+  "source_file": "TX240022.pdf",
+  "is_synthetic": true
+}

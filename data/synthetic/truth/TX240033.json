@@ -1,0 +1,54 @@
+{
+  "invoice_id": "TX240033",
+  "invoice_date": "2024-11-03",
+  "seller": {
+    "name": "Northgate Distribution Co., Ltd.",
+    "address": "No. 727 Taihe Industrial Park Road, Bao'an District, Shenzhen 361996, China",
+    "country": "CN",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Thornbury Trading Ltd",
+    "address": "Unit 10, Oakhurst Industrial Estate, Manchester M92 7ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "consignee": null,
+  "country_of_origin": "China",
+  "port_of_loading": "Shenzhen (Yantian), China",
+  "port_of_discharge": "Felixstowe, United Kingdom",
+  "incoterm": "CIF",
+  "currency": "GBP",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Copper cathodes Grade A, 99.99% Cu",
+      "quantity": 47.9,
+      "unit": "MT",
+      "unit_price": 6889.22,
+      "line_total": 329993.64,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "Hex head bolts M6, carton of 1,000 pcs",
+      "quantity": 430.0,
+      "unit": "cartons",
+      "unit_price": 19.96,
+      "line_total": 8582.8,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L3",
+      "description": "USB 2.0 memory stick 32GB, carton of 100",
+      "quantity": 140.0,
+      "unit": "cartons",
+      "unit_price": 485.41,
+      "line_total": 67957.4,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 406533.84,
+  "source_file": "TX240033.pdf",
+  "is_synthetic": true
+}

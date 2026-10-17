@@ -1,0 +1,9 @@
+{
+  "line_id": "L1",
+  "description": "M6 x 30mm hex bolts, zinc plated",
+  "quantity": 100000.0,
+  "unit": "pcs",
+  "unit_price": 50.0,
+  "line_total": 5000000.0,
+  "extraction_confidence": 0.97
+}

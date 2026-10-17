@@ -1,0 +1,50 @@
+{
+  "invoice_id": "TX240047",
+  "invoice_date": "2024-10-09",
+  "seller": {
+    "name": "Hengtai Logistics Limited",
+    "address": "Unit 6, Westmere Business Park, Manchester M95 9ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Vltava Import & Export LLC",
+    "address": "Office 1359, Harrowdene Business Centre, Al Quoz Industrial Area 3, Sharjah, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "consignee": {
+    "name": "Jinhai Trading General Trading LLC",
+    "address": "Office 1255, Brookfield Business Centre, Al Quoz Industrial Area 3, Abu Dhabi, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "country_of_origin": "UK",
+  "port_of_loading": "Felixstowe, United Kingdom",
+  "port_of_discharge": "Khalifa Port, Abu Dhabi, UAE",
+  "incoterm": "FCA",
+  "currency": "GBP",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Sparkling flavoured water 500ml PET bottles",
+      "quantity": 76000.0,
+      "unit": "bottles",
+      "unit_price": 0.4711,
+      "line_total": 35803.6,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "M6 x 30mm hex bolts, zinc plated",
+      "quantity": 321500.0,
+      "unit": "pcs",
+      "unit_price": 0.0205,
+      "line_total": 6590.75,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 42394.35,
+  "source_file": "TX240047.pdf",
+  "is_synthetic": true
+}

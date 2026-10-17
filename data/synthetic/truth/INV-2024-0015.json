@@ -1,0 +1,41 @@
+{
+  "invoice_id": "INV-2024-0015",
+  "invoice_date": "2024-04-12",
+  "seller": {
+    "name": "Meridian Bay Industrial Co., Ltd.",
+    "address": "No. 179 Changjiang Industrial Park Road, Bao'an District, Shenzhen 518372, China",
+    "country": "CN",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Saffron Dune Global Sourcing UK Ltd",
+    "address": "Unit 37, Juniper Business Park, Birmingham B91 1ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "consignee": {
+    "name": "Redwell Industrial UK Ltd",
+    "address": "Unit 20, Juniper Trading Estate, Glasgow G93 2ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "country_of_origin": "People's Republic of China",
+  "port_of_loading": "Qingdao, China",
+  "port_of_discharge": "London Gateway, UK",
+  "incoterm": "CFR",
+  "currency": "USD",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Energy drink 250ml cans, original flavour",
+      "quantity": 144000.0,
+      "unit": "cans",
+      "unit_price": 0.2446,
+      "line_total": 35222.4,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 35222.4,
+  "source_file": "INV-2024-0015.pdf",
+  "is_synthetic": true
+}

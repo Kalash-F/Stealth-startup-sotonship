@@ -1,0 +1,36 @@
+{
+  "invoice_id": "PI-0039-24",
+  "invoice_date": "2024-10-31",
+  "seller": {
+    "name": "Silverfern Import & Export LLC",
+    "address": "Warehouse 3, Plot S57526, Jebel Ali Free Zone, Dubai, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Jinhai Commodities s.r.o.",
+    "address": "Areál Millbrook, Lipová 29, 635 29 Ostrava, Czech Republic",
+    "country": "CZ",
+    "address_type": "commercial"
+  },
+  "consignee": null,
+  "country_of_origin": "U.A.E.",
+  "port_of_loading": "Port Khalid, Sharjah, UAE",
+  "port_of_discharge": "Hamburg, Germany (final destination Czech Republic)",
+  "incoterm": "FCA",
+  "currency": "EUR",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Plain white cotton T-shirts, packed per dozen",
+      "quantity": 1550.0,
+      "unit": "dozen",
+      "unit_price": 40.15,
+      "line_total": 62232.5,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 62232.5,
+  "source_file": "PI-0039-24.pdf",
+  "is_synthetic": true
+}

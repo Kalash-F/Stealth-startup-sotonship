@@ -11,9 +11,16 @@ year,currency,usd_per_unit,source
 2022,AED,0.2723,pegged at 3.6725 AED per USD
 2023,AED,0.2723,pegged at 3.6725 AED per USD
 2024,AED,0.2723,pegged at 3.6725 AED per USD
-2022,CZK,0.0428,approximate annual average (1/23.36); verify before production use
+2022,CZK,0.0428,approximate annual average (1/23.36); verify before production use up
 2023,CZK,0.0450,approximate annual average (1/22.22); verify before production use
 2024,CZK,0.0430,approximate annual average (1/23.28); verify before production use
 2022,USD,1.0,identity
 2023,USD,1.0,identity
 2024,USD,1.0,identity
+currency,units_per_usd,year,source
+USD,1.0,2024,identity
+GBP,0.7826,2024,"approximate 2024 annual average (rounded); verify against a published annual-average table in Phase 3"
+EUR,0.9239,2024,"approximate 2024 annual average (rounded); verify against a published annual-average table in Phase 3"
+CNY,7.1898,2024,"approximate 2024 annual average (rounded); verify against a published annual-average table in Phase 3"
+AED,3.6725,2024,"USD peg (Central Bank of the UAE fixed rate)"
+CZK,23.21,2024,"approximate 2024 annual average (rounded); verify against a published annual-average table in Phase 3"

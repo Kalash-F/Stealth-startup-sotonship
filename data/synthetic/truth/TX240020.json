@@ -1,0 +1,45 @@
+{
+  "invoice_id": "TX240020",
+  "invoice_date": "2024-04-16",
+  "seller": {
+    "name": "Jinhai Supply Industrial Co., Ltd.",
+    "address": "No. 731 Haitang Industrial Park Road, Bao'an District, Shenzhen 438043, China",
+    "country": "CN",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Starbridge Import & Export Limited",
+    "address": "Unit 8, Harrowdene Business Park, Leicester LE99 4ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "consignee": null,
+  "country_of_origin": "P.R. China",
+  "port_of_loading": "Shenzhen (Yantian), China",
+  "port_of_discharge": "Felixstowe, United Kingdom",
+  "incoterm": "CIF",
+  "currency": "USD",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Stainless steel machine screws M4 x 12mm",
+      "quantity": 351500.0,
+      "unit": "pcs",
+      "unit_price": 0.008885,
+      "line_total": 3123.08,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "Stainless steel machine screws M4 x 12mm",
+      "quantity": 103000.0,
+      "unit": "pcs",
+      "unit_price": 0.0106,
+      "line_total": 1091.8,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 4214.88,
+  "source_file": "TX240020.pdf",
+  "is_synthetic": true
+}

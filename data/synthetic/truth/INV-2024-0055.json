@@ -1,0 +1,45 @@
+{
+  "invoice_id": "INV-2024-0055",
+  "invoice_date": "2024-04-08",
+  "seller": {
+    "name": "Saffron Dune Industrial LLC",
+    "address": "Office 1156, Kingfisher Business Centre, Al Quoz Industrial Area 3, Ajman, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Longmen Global Sourcing s.r.o.",
+    "address": "Areál Millbrook, Nádražní 120, 663 10 Brno, Czech Republic",
+    "country": "CZ",
+    "address_type": "commercial"
+  },
+  "consignee": null,
+  "country_of_origin": "U.A.E.",
+  "port_of_loading": "Jebel Ali, Dubai, UAE",
+  "port_of_discharge": "Hamburg, Germany (final destination Czech Republic)",
+  "incoterm": "DAP",
+  "currency": "USD",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Misc goods",
+      "quantity": 32000.0,
+      "unit": "pcs",
+      "unit_price": 5.3035,
+      "line_total": 169712.0,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "Energy drink 250ml cans, original flavour",
+      "quantity": 108500.0,
+      "unit": "cans",
+      "unit_price": 0.002497,
+      "line_total": 270.92,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 169982.92,
+  "source_file": "INV-2024-0055.pdf",
+  "is_synthetic": true
+}

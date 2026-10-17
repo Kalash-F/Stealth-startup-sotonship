@@ -1,0 +1,45 @@
+{
+  "invoice_id": "INV-2024-0007",
+  "invoice_date": "2024-05-15",
+  "seller": {
+    "name": "Ruifeng Logistics LLC",
+    "address": "Office 376, Westmere Business Centre, Al Quoz Industrial Area 3, Dubai, United Arab Emirates",
+    "country": "AE",
+    "address_type": "commercial"
+  },
+  "buyer": {
+    "name": "Ashcombe Commodities UK Ltd",
+    "address": "Unit 22, Copperfield Trading Estate, Birmingham B94 4ZX, United Kingdom",
+    "country": "GB",
+    "address_type": "commercial"
+  },
+  "consignee": null,
+  "country_of_origin": "U.A.E.",
+  "port_of_loading": "Port Khalid, Sharjah, UAE",
+  "port_of_discharge": "London Gateway, UK",
+  "incoterm": "CFR",
+  "currency": "GBP",
+  "line_items": [
+    {
+      "line_id": "L1",
+      "description": "Stainless steel machine screws M4 x 12mm",
+      "quantity": 487500.0,
+      "unit": "pcs",
+      "unit_price": 0.007557,
+      "line_total": 3684.04,
+      "extraction_confidence": 1.0
+    },
+    {
+      "line_id": "L2",
+      "description": "Plain white cotton T-shirts, packed per dozen",
+      "quantity": 1450.0,
+      "unit": "dozen",
+      "unit_price": 28.99,
+      "line_total": 42035.5,
+      "extraction_confidence": 1.0
+    }
+  ],
+  "stated_total": 45719.54,
+  "source_file": "INV-2024-0007.pdf",
+  "is_synthetic": true
+}
