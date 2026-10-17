@@ -15,6 +15,9 @@ PLACEHOLDER_CONFIDENCE = 0.05
 
 @dataclass
 class Classification:
+    """Outcome of classifying one description. `hs6` is None when no code could be trusted;
+    `reason` then says why. `candidates` (best first, max 3) are kept for the UI either way."""
+
     hs6: str | None
     description: str | None
     candidates: list[HS6Candidate] = field(default_factory=list)
@@ -25,6 +28,13 @@ class Classification:
 def classify_description(
     description: str, proposer: Proposer, entries: dict[str, HS6Entry] | None = None
 ) -> Classification:
+    """Pick an HS6 code for a description.
+
+    Placeholder wording is rejected before the proposer is asked. Proposals are validated against
+    the reference list (unknown codes dropped, duplicates removed, top 3 kept), and the best one is
+    accepted only if its score reaches MIN_SCORE. Proposer failure yields an unclassified result
+    rather than an exception.
+    """
     entries = entries if entries is not None else default_hs6()
     if is_placeholder(description):
         return Classification(None, None, [], PLACEHOLDER_CONFIDENCE, PLACEHOLDER_REASON)

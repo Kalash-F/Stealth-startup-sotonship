@@ -19,6 +19,8 @@ STRICT_FIELDS = ("quantity", "unit_price", "line_total", "stated_total")
 
 @dataclass(frozen=True)
 class FieldResult:
+    """Outcome of comparing one field of one invoice against ground truth."""
+
     invoice_id: str
     field: str
     ok: bool
@@ -27,10 +29,12 @@ class FieldResult:
 
     @property
     def strict(self) -> bool:
+        """True for the numeric fields the checkpoint holds to a high accuracy bar."""
         return self.field.rsplit(".", 1)[-1] in STRICT_FIELDS
 
 
 def norm(value: object) -> str | None:
+    """Normalise for comparison: NFKC, case-folded, whitespace collapsed; None stays None."""
     if value is None:
         return None
     s = unicodedata.normalize("NFKC", str(value)).casefold()
@@ -38,12 +42,14 @@ def norm(value: object) -> str | None:
 
 
 def _eq(expected: object, got: object) -> bool:
+    """Numbers match within 0.01; everything else by normalised string equality."""
     if isinstance(expected, int | float) and not isinstance(expected, bool):
         return isinstance(got, int | float) and abs(float(expected) - float(got)) <= 0.01
     return norm(expected) == norm(got)
 
 
 def _party(prefix: str, exp: Party | None, got: Party | None) -> list[tuple[str, object, object]]:
+    """Rows for one party; a missing party compares presence only."""
     if exp is None or got is None:
         return [(prefix, exp is None, got is None)]
     return [
@@ -53,6 +59,7 @@ def _party(prefix: str, exp: Party | None, got: Party | None) -> list[tuple[str,
 
 
 def compare(truth: Invoice, got: Invoice) -> list[FieldResult]:
+    """Compare header fields, the three parties, the line count and each line field by position."""
     rows: list[tuple[str, object, object]] = []
     for f in (
         "invoice_id",
@@ -82,6 +89,7 @@ def compare(truth: Invoice, got: Invoice) -> list[FieldResult]:
 
 
 def _eq_value(exp: object, got: object) -> bool:
+    """`_eq` with dates compared as ISO strings."""
     if hasattr(exp, "isoformat"):
         exp, got = str(exp), str(got)
     return _eq(exp, got)
@@ -98,6 +106,7 @@ def summarise(results: list[FieldResult]) -> dict[str, tuple[int, int]]:
 
 
 def report(results: list[FieldResult]) -> str:
+    """Printable accuracy summary: strict and other totals, per-field rates, then every miss."""
     s = summarise(results)
     lines = []
     for group in ("strict", "other"):

@@ -46,6 +46,7 @@ _NAMES: dict[str, tuple[str, ...]] = {
 
 
 def _key(text: str) -> str:
+    """Lookup key: lower-cased, dots removed, whitespace collapsed, edge commas trimmed."""
     return re.sub(r"\s+", " ", text.strip().lower().replace(".", "")).strip(" ,")
 
 

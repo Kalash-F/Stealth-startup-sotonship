@@ -29,6 +29,7 @@ RULE_CODES: dict[Rule, str] = {
 
 @lru_cache(maxsize=1)
 def _config() -> dict[str, Any]:
+    """Parse config.yaml once per process."""
     return yaml.safe_load(CONFIG_PATH.read_text())
 
 
@@ -56,6 +57,7 @@ def make_flag(
     variance_pct: float | None = None,
     suffix: str = "",
 ) -> Flag:
+    """Build a Flag with the id `<R-code>-<line id or INV><suffix>` and variance rounded to 0.1."""
     flag_id = f"{RULE_CODES[rule]}-{line_id or 'INV'}{suffix}"
     return Flag(
         flag_id=flag_id,
@@ -75,7 +77,8 @@ def paired(
     enriched: list[EnrichedLine],
     benchmarks: list[Benchmark | None],
 ) -> Iterator[tuple[LineItem, EnrichedLine, Benchmark | None]]:
-    """Each invoice line with its enrichment and band, matched on line_id (lines without one are skipped)."""
+    """Each invoice line with its enrichment and band, matched on line_id (lines without one are
+    skipped)."""
     by_id = {e.line_id: (e, b) for e, b in zip(enriched, benchmarks, strict=True)}
     for item in invoice.line_items:
         if item.line_id in by_id:
@@ -89,7 +92,8 @@ def fmt_num(x: float) -> str:
 
 
 def fmt_money(x: float, symbol: str = "$") -> str:
-    """Money with precision that suits the size: cents for large sums, more digits for tiny prices."""
+    """Money with precision that suits the size: cents for large sums, more digits for tiny
+    prices."""
     ax = abs(x)
     if ax >= 1:
         return f"{symbol}{x:,.2f}"
@@ -109,10 +113,14 @@ def fmt_ratio(r: float) -> str:
 
 
 def product_name(item: LineItem, e: EnrichedLine) -> str:
+    """Product wording for a reason string: the HS6 description if classified, else the invoice
+    text."""
     return (e.hs6_description or item.description).strip()
 
 
 def mock_note(b: Benchmark) -> str:
+    """Sentence appended to reasons when the band is mock data, so nobody reads it as real
+    statistics."""
     return (
         " Note: the comparison prices are mock data, not real trade statistics."
         if b.is_mock

@@ -23,6 +23,11 @@ def check(
     benchmarks: list[Benchmark | None],
     warnings: list[str] | None = None,
 ) -> list[Flag]:
+    """Flag each line whose USD unit price is outside the benchmark p10-p90 band.
+
+    Medium outside the band, high when the log-distance from the median exceeds
+    `high_spread_multiple` times the band's own log-width. Lines with no band or no usable
+    price are skipped with a warning."""
     cfg = config("price_outlier")
     flags: list[Flag] = []
     for item, e, b in paired(invoice, enriched, benchmarks):

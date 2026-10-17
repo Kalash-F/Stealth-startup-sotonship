@@ -26,6 +26,9 @@ _UNVERIFIED_CONFIDENCE = 0.5
 
 @dataclass
 class ExtractionResult:
+    """What extraction produced: the invoice, human-readable warnings, and which path made it
+    (`llm`, `llm-cache`, `layout` or `minimal`) plus how many LLM calls it took."""
+
     invoice: Invoice
     warnings: list[str] = field(default_factory=list)
     method: str = "layout"  # llm | llm-cache | layout | minimal
@@ -33,6 +36,7 @@ class ExtractionResult:
 
 
 def _write_raw_text(doc: RawDocument, root: Path | None) -> None:
+    """Save the text sent to the LLM under cache/raw_text/<sha256>.txt (best effort)."""
     out = (root or llm.cache_dir()) / "raw_text"
     try:
         out.mkdir(parents=True, exist_ok=True)
@@ -78,6 +82,10 @@ def _finalise(invoice: Invoice, doc: RawDocument, warnings: list[str]) -> Invoic
 
 
 def _minimal(doc: RawDocument, why: str) -> Invoice:
+    """A schema-valid empty invoice (UNKNOWN parties, no lines) for documents nothing could read.
+
+    The caller records the reason as a warning; downstream rules then flag it as low confidence.
+    """
     unknown = Party(
         name="UNKNOWN", address="", country=UNKNOWN_COUNTRY, address_type=AddressType.unknown
     )
@@ -106,6 +114,12 @@ def extract_document(
     use_llm: bool = True,
     cache_root: Path | None = None,
 ) -> ExtractionResult:
+    """Extract an Invoice from a PDF, trying cached LLM reply, LLM, layout parser, then minimal.
+
+    `use_llm=False` skips the cache and the LLM (offline and deterministic). `client` injects a
+    fake LLM in tests; `cache_root` redirects the cache. LLM failures never raise: they become
+    warnings and the next path is tried.
+    """
     doc = read_pdf(pdf_path)
     _write_raw_text(doc, cache_root)
     warnings: list[str] = []
@@ -143,6 +157,7 @@ def extract_document(
 
 
 def extract(pdf_path: str | Path) -> Invoice:
+    """Convenience wrapper returning only the Invoice from `extract_document`."""
     return extract_document(pdf_path).invoice
 
 

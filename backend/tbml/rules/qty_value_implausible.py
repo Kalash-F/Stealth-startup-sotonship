@@ -1,4 +1,5 @@
-"""R2 QTY_VALUE_IMPLAUSIBLE: a line worth far more than its quantity could be, or an invoice too big for its line count."""
+"""R2 QTY_VALUE_IMPLAUSIBLE: a line worth far more than its quantity could be, or an invoice too
+big for its line count."""
 
 from __future__ import annotations
 
@@ -20,6 +21,10 @@ def check(
     benchmarks: list[Benchmark | None],
     warnings: list[str] | None = None,
 ) -> list[Flag]:
+    """Flag lines worth more than `ceiling_p90_multiple` x p90 x quantity, plus (only when no
+    line was flagged) an invoice whose average line value is implausibly large.
+
+    Lines without a normalised quantity, USD price or band cannot be tested and are ignored."""
     cfg = config("qty_value_implausible")
     flags: list[Flag] = []
     total_usd = 0.0

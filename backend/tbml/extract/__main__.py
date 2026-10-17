@@ -8,6 +8,8 @@ from tbml.extract.pdftext import read_pdf
 
 
 def main() -> int:
+    """Parse arguments, run extraction, print the Invoice JSON to stdout and diagnostics to
+    stderr."""
     ap = argparse.ArgumentParser(prog="python -m tbml.extract", description=__doc__)
     ap.add_argument("pdf")
     ap.add_argument("--no-llm", action="store_true", help="skip cache and LLM; layout parser only")

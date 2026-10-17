@@ -32,6 +32,8 @@ class LayoutError(Exception):
 
 @dataclass
 class ParseResult:
+    """An Invoice built by the layout parser, plus the warnings it raised on the way."""
+
     invoice: Invoice
     warnings: list[str] = field(default_factory=list)
 
@@ -53,16 +55,21 @@ def _lines(words: list[Word]) -> list[list[Word]]:
 def _region(
     words: list[Word], x0: float, x1: float, y0: float, y1: float, *, bold: bool | None = None
 ) -> list[Word]:
+    """Words whose centre lies in the box [x0, x1) x [y0, y1), optionally only bold/non-bold
+    ones."""
     return [
         w for w in words if x0 <= w.xc < x1 and y0 <= w.yc < y1 and (bold is None or w.bold == bold)
     ]
 
 
 def _text(words: list[Word]) -> str:
+    """Words joined into reading-order text, one visual line after another."""
     return " ".join(" ".join(w.text for w in line) for line in _lines(words)).strip()
 
 
 def _find(words: list[Word], text: str, *, after: float = -1, x_min: float = -1) -> Word | None:
+    """First word (top-to-bottom, left-to-right) equal to `text` ignoring case, below `after` and
+    right of `x_min`."""
     for w in sorted(words, key=lambda w: (w.top, w.x0)):
         if w.text.upper() == text.upper() and w.top > after and w.x0 >= x_min:
             return w
@@ -81,6 +88,7 @@ def _cells(line: list[Word], gap: float = 12.0) -> list[tuple[str, float]]:
 
 
 def _none_if_missing(text: str | None) -> str | None:
+    """Treat '-', 'N/A', 'none' and the like as absent."""
     if text is None:
         return None
     t = text.strip()
@@ -98,6 +106,7 @@ _MONTHS = {
 
 
 def parse_date(text: str) -> dt.date | None:
+    """Parse ISO, DD/MM/YYYY (day first), '3 Mar 2024' and 'March 3, 2024'; None if none match."""
     t = text.strip()
     if m := re.search(r"(\d{4})-(\d{2})-(\d{2})", t):
         return dt.date(int(m[1]), int(m[2]), int(m[3]))
@@ -115,6 +124,8 @@ def parse_date(text: str) -> dt.date | None:
 
 
 def _party(name: str, address: str, warnings: list[str], role: str) -> Party:
+    """Build a Party; country from the address (ZZ plus a warning if unreadable), type from
+    keywords."""
     country = country_from_address(address)
     if country is None:
         warnings.append(f"{role}: could not read country from address {address!r}")
@@ -172,6 +183,7 @@ def _parse_items(pages: list[RawPage], warnings: list[str]) -> tuple[list[LineIt
     buffer: list[str] = []
 
     def flush_to_previous(parts: list[str]) -> None:
+        """Append wrapped description text to the previous row."""
         if parts and rows:
             rows[-1]["desc"] = " ".join([rows[-1]["desc"], *parts]).strip()
 
@@ -242,6 +254,8 @@ def _parse_items(pages: list[RawPage], warnings: list[str]) -> tuple[list[LineIt
 
 
 def _stated_total(text: str, warnings: list[str]) -> tuple[float, str | None]:
+    """The last 'Total' / 'Amount due' line as (value, currency or None); 0.0 plus a warning if
+    absent."""
     pattern = re.compile(
         r"^\s*(?:grand\s+)?(?:total[^\n\d]*?|amount\s+due:?)\s*([A-Z]{3})?\s*(-?[\d.,]*\d)\s*([A-Z]{3})?\s*$",
         re.I | re.M,
@@ -263,6 +277,7 @@ def _stated_total(text: str, warnings: list[str]) -> tuple[float, str | None]:
 
 
 def _detect(text: str) -> str:
+    """Name the template from its anchor labels; LayoutError if it is none of the three."""
     up = text.upper()
     if "SHIPPER / EXPORTER" in up:
         return "trade"
@@ -276,6 +291,8 @@ def _detect(text: str) -> str:
 def _consignee(
     text: str, words: list[Word], buyer: Party, warnings: list[str], *, name_is_bold: bool
 ) -> Party | None:
+    """The ship-to party, or None when the invoice says it is the same as the buyer (or is
+    empty)."""
     if re.search(r"same as (buyer|bill)|as billing address|as buyer", text, re.I) or not text:
         return None
     name, address = _split_party(words, name_is_bold=name_is_bold)
@@ -285,6 +302,7 @@ def _consignee(
 
 
 def _parse_classic(page: RawPage, w: list[Word], warnings: list[str]) -> dict:
+    """Template with SELLER / BUYER / CONSIGNEE blocks and an INVOICE panel on the right."""
     seller_l = _find(w, "SELLER")
     buyer_l = _find(w, "BUYER")
     cons_l = _find(w, "CONSIGNEE")
@@ -303,6 +321,7 @@ def _parse_classic(page: RawPage, w: list[Word], warnings: list[str]) -> dict:
     below = _lines(_region(w, 0, 9999, country_l.top - 2, 99999))
 
     def after_label(label: str) -> str | None:
+        """Text following a label on a line below the party blocks (origin, ports)."""
         for line in below:
             t = " ".join(x.text for x in line)
             if t.upper().startswith(label):
@@ -310,6 +329,7 @@ def _parse_classic(page: RawPage, w: list[Word], warnings: list[str]) -> dict:
         return None
 
     def right_field(label: str, pattern: str) -> str | None:
+        """Value of a 'LABEL value' pair in the right-hand INVOICE panel."""
         m = re.search(rf"{label}\s*({pattern})", right, re.I)
         return m[1] if m else None
 
@@ -330,6 +350,7 @@ def _parse_classic(page: RawPage, w: list[Word], warnings: list[str]) -> dict:
 
 
 def _parse_modern(page: RawPage, w: list[Word], warnings: list[str]) -> dict:
+    """Template with BILL TO / SHIP TO blocks and a labelled details strip."""
     bill_l = _find(w, "BILL")
     ship_l = _find(w, "SHIP")
     origin_l = _find(w, "ORIGIN")
@@ -376,6 +397,7 @@ def _parse_modern(page: RawPage, w: list[Word], warnings: list[str]) -> dict:
 
 
 def _parse_trade(page: RawPage, w: list[Word], warnings: list[str]) -> dict:
+    """Template laid out as numbered boxes (1. Shipper / Exporter, ...), like a customs form."""
     markers = [x for x in w if re.fullmatch(r"\d\.", x.text) and x.bold and x.x0 < page.width]
     if not markers:
         raise LayoutError("trade: no numbered boxes")
@@ -384,6 +406,7 @@ def _parse_trade(page: RawPage, w: list[Word], warnings: list[str]) -> dict:
     columns = sorted({round(m.x0) for m in markers})
 
     def box(n: int) -> list[Word]:
+        """Non-bold words inside numbered box `n`, bounded by the next box and the item table."""
         m = next((x for x in markers if x.text == f"{n}."), None)
         if m is None:
             return []

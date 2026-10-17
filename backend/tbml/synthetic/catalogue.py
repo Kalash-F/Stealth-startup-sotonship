@@ -20,6 +20,9 @@ class Variant:
 
 @dataclass(frozen=True)
 class Commodity:
+    """A product the generator can sell: HS6, name, benchmark unit and how it appears on
+    invoices."""
+
     hs6: str
     name: str
     benchmark_unit: str

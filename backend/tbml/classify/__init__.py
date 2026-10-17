@@ -14,6 +14,11 @@ from tbml.schemas import EnrichedLine, Invoice
 
 
 def enrich(invoice: Invoice, proposer: Proposer | None = None) -> list[EnrichedLine]:
+    """Classify and normalise every line: one EnrichedLine per invoice line, same order.
+
+    An unclassified line keeps `hs6=None` and gets a note saying why; its quantity and price are
+    left unnormalised, so the price rules skip it instead of guessing.
+    """
     proposer = proposer or default_proposer()
     lines: list[EnrichedLine] = []
     for item in invoice.line_items:

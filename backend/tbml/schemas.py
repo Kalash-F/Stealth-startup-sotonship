@@ -20,23 +20,32 @@ HS6_PATTERN = r"^\d{6}$"
 
 
 class _Contract(BaseModel):
+    """Base for every contract model: unknown fields are an error."""
+
     # Unknown fields are rejected so drift from §4 fails loudly.
     model_config = ConfigDict(extra="forbid")
 
 
 class AddressType(StrEnum):
+    """Whether a party's address is a business, a private home, or cannot be told (e.g. a P.O.
+    box)."""
+
     commercial = "commercial"
     residential = "residential"
     unknown = "unknown"
 
 
 class Severity(StrEnum):
+    """How strongly a flag asks for attention. Scoring turns these into points."""
+
     low = "low"
     medium = "medium"
     high = "high"
 
 
 class PriorityBand(StrEnum):
+    """Review urgency derived from the priority score: never a fraud verdict."""
+
     review_now = "review_now"
     review = "review"
     low = "low"
@@ -57,6 +66,9 @@ class Rule(StrEnum):
 
 # §4.1
 class Party(_Contract):
+    """A named party on the invoice (seller, buyer or consignee). `country` is ISO-3166 alpha-2;
+    the extractor uses ZZ when it cannot read one."""
+
     name: str
     address: str
     country: str = Field(pattern=ISO_COUNTRY, description="ISO-3166 alpha-2")
@@ -65,6 +77,9 @@ class Party(_Contract):
 
 # §4.2
 class LineItem(_Contract):
+    """One goods line exactly as printed, numbers included, even when the arithmetic is wrong.
+    `extraction_confidence` is the extractor's own 0-1 estimate that it read the line correctly."""
+
     line_id: str = Field(pattern=r"^L\d+$")
     description: str
     quantity: float
@@ -76,6 +91,9 @@ class LineItem(_Contract):
 
 # §4.3
 class Invoice(_Contract):
+    """Stage 1 output: everything read from the PDF. Optional fields are None when the document
+    does not state them; `consignee` is None when the goods go to the buyer."""
+
     invoice_id: str
     invoice_date: dt.date
     seller: Party
@@ -93,12 +111,18 @@ class Invoice(_Contract):
 
 
 class HS6Candidate(_Contract):
+    """A proposed 6-digit HS commodity code with the proposer's 0-1 score."""
+
     hs6: str = Field(pattern=HS6_PATTERN)
     score: float = Field(ge=0, le=1)
 
 
 # §4.4
 class EnrichedLine(_Contract):
+    """Stage 2 output for one line: HS6 (None if not classifiable), up to three candidates, and
+    the quantity and USD price converted to the benchmark unit (None if conversion was not
+    possible). `normalisation_note` shows the arithmetic or the reason there is none."""
+
     line_id: str = Field(pattern=r"^L\d+$")
     hs6: str | None = Field(pattern=HS6_PATTERN)
     hs6_description: str | None
@@ -112,6 +136,10 @@ class EnrichedLine(_Contract):
 
 # §4.5
 class Benchmark(_Contract):
+    """Stage 3 output: a trade unit-value band (USD per `unit`) for an HS6, globally
+    (`route` None) or for an ORIGIN-DESTINATION country pair. `is_mock` marks approximate
+    stand-ins that are not real trade statistics."""
+
     hs6: str = Field(pattern=HS6_PATTERN)
     route: str | None = Field(pattern=r"^[A-Z]{2}-[A-Z]{2}$", description="null = global")
     unit: str
@@ -134,6 +162,10 @@ class Benchmark(_Contract):
 
 # §4.6
 class Flag(_Contract):
+    """One red flag raised by a rule. `reason` is plain English for the officer; `expected` and
+    `stated` are short display strings; `evidence` holds the numbers behind the call.
+    `line_id` is None for invoice-level flags."""
+
     flag_id: str
     rule: Rule
     line_id: str | None = Field(description="null = invoice-level flag")
@@ -153,6 +185,9 @@ class ReportLine(LineItem, EnrichedLine):
 
 # §4.7
 class Report(_Contract):
+    """The final response: priority score (0-100) and band, flags worst-first, every line with
+    its enrichment and band, processing time, and warnings about anything skipped or degraded."""
+
     invoice_id: str
     schema_version: str
     priority_score: float = Field(ge=0, le=100)

@@ -82,6 +82,7 @@ def load_bands(path: Path = DEFAULT_BANDS) -> dict[str, Benchmark]:
 
 
 def load_fx(path: Path = DEFAULT_FX) -> dict[str, float]:
+    """Currency -> units per 1 USD from the reference fx.csv."""
     with open(path, newline="") as f:
         return {r["currency"]: float(r["units_per_usd"]) for r in csv.DictReader(f)}
 
@@ -89,6 +90,9 @@ def load_fx(path: Path = DEFAULT_FX) -> dict[str, float]:
 # --- working types ------------------------------------------------------------------------
 @dataclass
 class Line:
+    """A generated line in generator terms: the intended USD price per benchmark unit, the
+    printed (invoice-currency) price and total, and the HS6 a classifier should return."""
+
     hs6: str
     variant: cat.Variant
     description: str
@@ -102,6 +106,9 @@ class Line:
 
 @dataclass
 class Generated:
+    """One synthetic invoice with its ground truth: the Invoice, template, role, planted
+    anomalies as (label, line_id or None, detail), hard-negative kind and per-line truth."""
+
     invoice: Invoice
     template: str
     role: str  # clean | anomalous | hard_negative
@@ -114,10 +121,12 @@ class Generated:
 
 # --- helpers ------------------------------------------------------------------------------
 def _log_uniform(rng: random.Random, lo: float, hi: float) -> float:
+    """Sample between lo and hi uniformly on a log scale (prices span orders of magnitude)."""
     return math.exp(rng.uniform(math.log(lo), math.log(hi)))
 
 
 def _log_interp(lo: float, hi: float, t: float) -> float:
+    """Point a fraction t of the way from lo to hi on a log scale."""
     return math.exp(math.log(lo) + t * (math.log(hi) - math.log(lo)))
 
 
@@ -127,6 +136,7 @@ def _round_price(x: float) -> float:
 
 
 def _nice_qty(rng: random.Random, variant: cat.Variant, lo: float, hi: float) -> float:
+    """Random quantity rounded to a round number (10s, 50s, 500s by size), as real orders are."""
     if variant.qty_decimals:
         return round(rng.uniform(lo, hi), variant.qty_decimals)
     q = rng.randint(int(lo), int(hi))
@@ -158,6 +168,8 @@ def _schedule(rng: random.Random, n: int) -> list[tuple[str, list[str], str]]:
 
 
 class _Factory:
+    """Builds fictional parties, addresses and lines, drawing every choice from one seeded RNG."""
+
     def __init__(self, rng: random.Random, bands: dict[str, Benchmark], fx: dict[str, float]):
         self.rng = rng
         self.bands = bands
@@ -165,11 +177,13 @@ class _Factory:
 
     # parties ------------------------------------------------------------------------------
     def company(self, cc: str) -> str:
+        """Invented company name with a legal suffix valid for the country."""
         r = self.rng
         stem, trade = r.choice(cat.NAME_STEMS), r.choice(cat.NAME_TRADES)
         return f"{stem} {trade} {r.choice(cat.COMPANY_SUFFIX[cc])}"
 
     def commercial_address(self, cc: str) -> tuple[str, AddressType]:
+        """Country-style business address and its true type (UAE P.O. boxes are `unknown`)."""
         r = self.rng
         city = r.choice(cat.CITIES[cc])
         if cc == "GB":
@@ -210,6 +224,7 @@ class _Factory:
         )
 
     def residential_address(self, cc: str) -> str:
+        """Country-style private-home address (flat, apartment, byt, room)."""
         r = self.rng
         city = r.choice(cat.CITIES[cc])
         if cc == "GB":
@@ -234,11 +249,14 @@ class _Factory:
         )
 
     def party(self, cc: str) -> Party:
+        """A seller or buyer in country `cc` with a business address."""
         address, kind = self.commercial_address(cc)
         return Party(name=self.company(cc), address=address, country=cc, address_type=kind)
 
     # lines --------------------------------------------------------------------------------
     def line(self, hs6: str, big: bool = False) -> Line:
+        """A clean line: random variant and quantity, price inside the band's p25-p75.
+        `big` draws from the upper half of the quantity range."""
         commodity = cat.COMMODITIES[hs6]
         variant = self.rng.choice(commodity.variants)
         lo, hi = variant.qty_range
@@ -251,6 +269,8 @@ class _Factory:
 
 
 def _generate_one(f: _Factory, idx: int, role: str, anomalies: list[str], hard_kind: str):
+    """Build one invoice: pick route, template and currency, choose commodities for the planted
+    anomalies, then apply each anomaly (or hard-negative pattern) and record its label."""
     r = f.rng
     template = r.choice(TEMPLATES)
     if hard_kind == "unusual_route_explained":
@@ -389,6 +409,7 @@ def _generate_one(f: _Factory, idx: int, role: str, anomalies: list[str], hard_k
 
     # --- prices and totals ---------------------------------------------------------------
     def price_lines() -> float:
+        """Convert intended USD prices to printed prices and totals; returns the USD total."""
         for ln in lines:
             ln.unit_price = _round_price(ln.usd_per_bench * ln.variant.bench_per_unit * rate)
             ln.line_total = round(ln.quantity * ln.unit_price, 2)
@@ -462,6 +483,8 @@ def _generate_one(f: _Factory, idx: int, role: str, anomalies: list[str], hard_k
 def generate(
     seed: int, n: int, bands: dict[str, Benchmark] | None = None, fx: dict[str, float] | None = None
 ) -> list[Generated]:
+    """Generate `n` invoices deterministically from `seed` (about 30% anomalous, 10% hard
+    negatives)."""
     rng = random.Random(seed)
     factory = _Factory(rng, bands or load_bands(), fx or load_fx())
     schedule = _schedule(rng, n)
@@ -473,6 +496,7 @@ def generate(
 
 # --- writers ------------------------------------------------------------------------------
 def _csv(rows: list[dict], columns: list[str]) -> str:
+    """Render rows as CSV text with Unix newlines (byte-stable output)."""
     buf = io.StringIO()
     w = csv.DictWriter(buf, fieldnames=columns, lineterminator="\n")
     w.writeheader()
@@ -481,6 +505,7 @@ def _csv(rows: list[dict], columns: list[str]) -> str:
 
 
 def labels_csv(items: list[Generated]) -> str:
+    """labels.csv: one row per planted anomaly and per hard negative."""
     rows = []
     for g in items:
         for label, line_id, detail in g.anomalies:
@@ -507,6 +532,7 @@ def labels_csv(items: list[Generated]) -> str:
 
 
 def lines_csv(items: list[Generated]) -> str:
+    """lines.csv: per-line truth (true HS6, USD per benchmark unit) for classifier tests."""
     rows = []
     for g in items:
         for item, ln in zip(g.invoice.line_items, g.lines, strict=True):
@@ -535,6 +561,7 @@ def lines_csv(items: list[Generated]) -> str:
 
 
 def invoices_csv(items: list[Generated]) -> str:
+    """invoices.csv: one row per invoice with role, template, route and labels."""
     rows = [
         {
             "invoice_id": g.invoice.invoice_id,
@@ -554,6 +581,7 @@ def invoices_csv(items: list[Generated]) -> str:
 
 
 def write(items: list[Generated], out_dir: Path, pdf: bool = True) -> None:
+    """Replace truth/ (and pdfs/) in `out_dir` and rewrite the three CSVs."""
     out_dir = Path(out_dir)
     truth_dir = out_dir / "truth"
     truth_dir.mkdir(parents=True, exist_ok=True)
@@ -578,6 +606,7 @@ def write(items: list[Generated], out_dir: Path, pdf: bool = True) -> None:
 
 
 def distribution_table(items: list[Generated]) -> str:
+    """Markdown tables of anomaly counts and invoice roles, printed after generation."""
     counts = {t: 0 for t in ANOMALY_TYPES}
     for g in items:
         for label, _, _ in g.anomalies:

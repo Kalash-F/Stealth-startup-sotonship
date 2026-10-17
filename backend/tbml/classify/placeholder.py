@@ -24,6 +24,7 @@ _TOKEN = re.compile(r"[a-z0-9]+")
 
 
 def is_placeholder(description: str) -> bool:
+    """True if every token is filler, a number or a single character (or there are no tokens)."""
     tokens = _TOKEN.findall(description.lower())
     if not tokens:
         return True

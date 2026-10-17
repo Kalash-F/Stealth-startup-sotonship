@@ -50,12 +50,18 @@ JSON schema:
 
 
 class LLMClient(Protocol):
+    """Minimal client surface so tests can pass a fake: a model name and one `complete` call."""
+
     model: str
 
-    def complete(self, system: str, messages: list[dict[str, str]]) -> str: ...
+    def complete(self, system: str, messages: list[dict[str, str]]) -> str:
+        """Send the conversation and return the reply text."""
+        ...
 
 
 class AnthropicClient:
+    """LLMClient over the Anthropic Messages API (temperature 0 where the model allows it)."""
+
     def __init__(self, model: str, api_key: str | None = None):
         import anthropic
 
@@ -64,6 +70,7 @@ class AnthropicClient:
         self._client = anthropic.Anthropic(api_key=api_key)
 
     def complete(self, system: str, messages: list[dict[str, str]]) -> str:
+        """Send one request and return the concatenated text blocks of the reply."""
         kwargs: dict[str, Any] = {
             "model": self.model,
             "max_tokens": 8192,
@@ -80,6 +87,8 @@ class AnthropicClient:
 
 
 def _load_dotenv() -> None:
+    """Copy KEY=value lines from the repo-root .env into os.environ without overriding real env
+    vars."""
     env = REPO_ROOT / ".env"
     if not env.is_file():
         return
@@ -106,14 +115,18 @@ class StructuringError(Exception):
 
 
 def cache_dir() -> Path:
+    """Cache root: $TBML_CACHE_DIR, else data/cache."""
     return Path(os.environ.get("TBML_CACHE_DIR") or DATA_DIR / "cache")
 
 
 def cache_path(sha256: str, root: Path | None = None) -> Path:
+    """File for one document's cached reply; the prompt version in the name invalidates old
+    entries."""
     return (root or cache_dir()) / "llm" / f"{sha256}-v{PROMPT_VERSION}.json"
 
 
 def read_cache(sha256: str, root: Path | None = None) -> dict[str, Any] | None:
+    """The cached invoice payload, or None on a miss or a corrupt entry."""
     path = cache_path(sha256, root)
     if not path.is_file():
         return None
@@ -124,6 +137,7 @@ def read_cache(sha256: str, root: Path | None = None) -> dict[str, Any] | None:
 
 
 def write_cache(sha256: str, model: str, payload: dict[str, Any], root: Path | None = None) -> None:
+    """Store a validated payload with the model and prompt version that produced it."""
     path = cache_path(sha256, root)
     path.parent.mkdir(parents=True, exist_ok=True)
     entry = {"model": model, "prompt_version": PROMPT_VERSION, "invoice": payload}
@@ -131,6 +145,7 @@ def write_cache(sha256: str, model: str, payload: dict[str, Any], root: Path | N
 
 
 def _json_object(text: str) -> dict[str, Any]:
+    """Extract the JSON object from a reply, tolerating code fences and surrounding prose."""
     s = text.strip()
     s = re.sub(r"^```(?:json)?\s*|\s*```$", "", s)
     start, end = s.find("{"), s.rfind("}")
@@ -143,11 +158,14 @@ def _json_object(text: str) -> dict[str, Any]:
 
 
 def validate_payload(payload: dict[str, Any], source_file: str) -> Invoice:
+    """Validate a model payload as an Invoice, forcing `source_file` and `is_synthetic=False`."""
     return Invoice.model_validate({**payload, "source_file": source_file, "is_synthetic": False})
 
 
 @dataclass
 class StructuredReply:
+    """A validated payload and the number of LLM calls (1 or 2) it took."""
+
     payload: dict[str, Any]
     calls: int
 

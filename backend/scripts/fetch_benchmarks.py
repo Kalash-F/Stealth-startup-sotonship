@@ -75,10 +75,12 @@ MOCK = {  # hs6: (p10, p25, median, p75, p90)
 
 
 def load_fx() -> pd.DataFrame:
+    """Annual average FX table (data/reference/fx_annual.csv)."""
     return pd.read_csv(FX_CSV)
 
 
 def usd_per_unit(fx: pd.DataFrame, currency: str, year: int) -> float:
+    """USD per one unit of `currency` in `year`, falling back to the nearest year in the table."""
     sub = fx[fx.currency == currency]
     if sub.empty:
         raise KeyError(f"no fx for {currency}")
@@ -124,6 +126,7 @@ def fetch_hmrc(hs6: str, year: int) -> list[dict]:
 
 
 def cache_raw(source: str, hs6: str, year: int, tag: str, data: list[dict]) -> None:
+    """Save a raw API response under data/benchmarks/raw/ so the runtime never needs the network."""
     RAW.mkdir(parents=True, exist_ok=True)
     payload = {
         "fetched": dt.date.today().isoformat(),
@@ -138,6 +141,8 @@ def cache_raw(source: str, hs6: str, year: int, tag: str, data: list[dict]) -> N
 
 # ------------------------------------------------------- unit values (3.2)
 def comtrade_records(raw: list[dict], hs6: str, year: int, route: str | None) -> list[dict]:
+    """Comtrade rows -> {hs6, year, source, route, value_usd, qty}, dropping rows with no usable
+    quantity (net weight for kg commodities, `qty` otherwise) or value."""
     unit = COMMODITIES[hs6][0]
     recs = []
     for d in raw:
@@ -159,6 +164,8 @@ def comtrade_records(raw: list[dict], hs6: str, year: int, route: str | None) ->
 
 
 def hmrc_records(raw: list[dict], hs6: str, year: int, fx: pd.DataFrame) -> list[dict]:
+    """HMRC rows -> the same record shape, converting GBP value to USD. Only CN and AE partners
+    get a route (`CN-GB`, `AE-GB`); other partners count towards the global band."""
     unit = COMMODITIES[hs6][0]
     gbp = usd_per_unit(fx, "GBP", year)
     recs = []
@@ -184,6 +191,7 @@ def hmrc_records(raw: list[dict], hs6: str, year: int, fx: pd.DataFrame) -> list
 
 # ------------------------------------------------------------- bands (3.3)
 def _bands(vals: np.ndarray) -> tuple[float, ...]:
+    """The p10, p25, median, p75 and p90 of an array of unit values."""
     return tuple(float(x) for x in np.percentile(vals, [10, 25, 50, 75, 90]))
 
 
@@ -224,6 +232,7 @@ def compute_bands(rec: pd.DataFrame) -> pd.DataFrame:
 
 
 def mock_bands() -> pd.DataFrame:
+    """Approximate documented bands for every commodity, all flagged `is_mock=True`."""
     this = dt.date.today().year
     rows = [
         dict(
@@ -257,6 +266,8 @@ def verify_hs6() -> None:
 
 
 def main() -> int:
+    """Fetch (or skip with --mock), compute and write the bands; falls back to the mock table
+    unless real data covers every commodity."""
     ap = argparse.ArgumentParser()
     ap.add_argument("--mock", action="store_true", help="skip APIs, write bands_mock.parquet")
     ap.add_argument("--verify-hs", action="store_true")

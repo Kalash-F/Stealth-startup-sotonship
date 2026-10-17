@@ -27,6 +27,8 @@ class ProposerError(RuntimeError):
 
 
 class Proposer(Protocol):
+    """Anything that can turn a description into scored HS6 guesses (best first, at most 3)."""
+
     def propose(self, description: str) -> list[HS6Candidate]: ...
 
 
@@ -62,6 +64,9 @@ _SYSTEM = (
 
 
 class AnthropicProposer:
+    """Asks an Anthropic model for HS6 candidates as JSON; retries once with the parse error fed
+    back."""
+
     def __init__(self, model: str | None = None, client: Any = None):
         self.model = model or os.environ.get("LLM_MODEL", "")
         if not self.model:
@@ -94,6 +99,8 @@ class AnthropicProposer:
 
 
 def _parse(text: str) -> list[HS6Candidate]:
+    """Pull the JSON object out of a model reply and validate it; ValueError on anything
+    malformed."""
     start, end = text.find("{"), text.rfind("}")
     if start < 0 or end < start:
         raise ValueError("no JSON object found")
@@ -111,10 +118,12 @@ class CachedProposer:
         self.inner, self.cache_dir, self.model = inner, cache_dir, model
 
     def _path(self, description: str) -> Path:
+        """Cache file for a description; whitespace and case are normalised before hashing."""
         key = f"{self.model}\0{PROMPT_VERSION}\0{' '.join(description.lower().split())}"
         return self.cache_dir / f"{hashlib.sha256(key.encode()).hexdigest()}.json"
 
     def propose(self, description: str) -> list[HS6Candidate]:
+        """Cached answer if present, else ask the inner proposer and store its answer."""
         path = self._path(description)
         if path.exists():
             return [HS6Candidate(**c) for c in json.loads(path.read_text())["candidates"]]
