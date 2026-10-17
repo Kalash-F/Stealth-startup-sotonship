@@ -4,7 +4,7 @@ PY := $(VENV)/bin/python
 SEED ?= 42
 N ?= 60
 
-.PHONY: setup test lint format api web data hs-codes synthetic eval
+.PHONY: setup test lint format api web data synthetic eval
 
 setup:
 	python3 -m venv $(VENV)
@@ -30,9 +30,6 @@ web:
 
 data:
 	$(PY) backend/scripts/fetch_benchmarks.py
-
-hs-codes:
-	$(PY) backend/scripts/fetch_hs_codes.py --db hs.db
 
 synthetic:
 	$(PY) backend/scripts/generate_invoices.py --seed $(SEED) --n $(N)

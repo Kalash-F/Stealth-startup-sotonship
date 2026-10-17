@@ -1,6 +1,6 @@
 # Website and demo workspace
 
-Marketing site and front-end demo workspace for the TBML investigation product. Built from the website brief `website.md` (not committed to this repo); trackers are `PROJECT_PLAN.md`, `DESIGN_SPEC.md` and `QA_CHECKLIST.md`.
+Marketing site and front-end demo workspace for the TBML investigation product. Built from `website.md`; trackers are `PROJECT_PLAN.md`, `DESIGN_SPEC.md` and `QA_CHECKLIST.md`.
 
 Every company, person, document and payment here is fictional, and the comparison price bands are illustrative, not market data.
 

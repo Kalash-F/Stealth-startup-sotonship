@@ -1,13 +1,13 @@
-"""Load UN Comtrade's "Combined HS" list (HS.json) as SQL: comtrade_hs2 -> comtrade_hs4 -> comtrade_hs6.
+"""Load UN Comtrade's "Combined HS" list (HS.json) as SQL: hs2 -> hs4 -> hs6.
 
 Run:  python backend/scripts/load_hs_json.py [--json HS.json] [--out DIR] [--db hs.db]
 
-Same table layout as fetch_hs_codes.py (code, parent code, name), with a `comtrade_` prefix so both
-sets can sit in one database. HS.json is the UN Comtrade reference file for classification "HS"
-(all HS revisions combined): a `results` list of {id, text, parent, ...}, where text is
-"<id> - <name>". The name is the text after that prefix, otherwise unchanged (spacing, case and
-trailing spaces as in the file). The "TOTAL" row is skipped; chapter 77 (reserved) has no headings
-and is kept.
+Reads the local HS.json only; nothing is fetched. Table layout: hs2 (hs2_code, name), hs4
+(hs4_code, hs2_code, name), hs6 (hs6_code, hs4_code, name). HS.json is the UN Comtrade reference
+file for classification "HS" (all HS revisions combined): a `results` list of {id, text, parent,
+...}, where text is "<id> - <name>". The name is the text after that prefix, otherwise unchanged
+(spacing, case and trailing spaces as in the file). The "TOTAL" row is skipped; chapter 77
+(reserved) has no headings and is kept.
 """
 
 from __future__ import annotations
@@ -19,8 +19,8 @@ from pathlib import Path
 
 from fetch_hs_codes import ROOT, inserts_sql, load_sqlite, schema_sql
 
-PREFIX = "comtrade_"
-OUT = ROOT / "data" / "reference" / "hs" / "comtrade"
+PREFIX = ""  # table-name prefix; "" gives hs2, hs4, hs6
+OUT = ROOT / "data" / "reference" / "hs"
 
 
 def read_rows(path: Path) -> tuple[list[tuple], list[tuple], list[tuple]]:

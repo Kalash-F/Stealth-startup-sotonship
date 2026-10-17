@@ -1,6 +1,6 @@
 # Benchmark data notes (Phase 3A, tasks 3.1-3.5, 3.12)
 
-Phase 3A decision log. `DECISIONS.md` links here (D3.10) rather than duplicating it.
+Own-section log; merge into DECISIONS.md when that file exists on main.
 
 ## Decisions
 - **Mock fallback used.** The build sandbox's egress proxy returned 403 for api.uktradeinfo.com, comtradeapi.un.org and

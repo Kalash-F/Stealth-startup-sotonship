@@ -25,25 +25,10 @@ _SAFE_ID = re.compile(r"[^A-Za-z0-9._-]")
 app = FastAPI(title="TBML Invoice Checker", version=SCHEMA_VERSION)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-    ],
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-@app.get("/")
-def root() -> dict[str, str]:
-    return {
-        "title": "TBML Invoice Checker API",
-        "docs": "/docs",
-        "health": "/health",
-        "frontend": "http://localhost:3000",
-    }
 
 
 def _reports_dir() -> Path:

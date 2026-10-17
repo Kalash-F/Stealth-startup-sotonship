@@ -23,6 +23,6 @@ Each rule is one file with a `check(invoice, enriched, benchmarks, warnings) -> 
 - **Skip, don't guess.** A rule that lacks what it needs (no band, no USD price) skips the line. R1 and R7 add a warning so the report says the check did not run.
 - **Reasons are plain English** with figures formatted for the size of the number, and mention when a band is mock data.
 - **Evidence** holds the raw numbers so the UI can chart them without parsing the text.
-- R5 uses a short `parity_hs6` list (copper cathodes, green coffee) until real per-country medians exist; see `DECISIONS.md` D1.7.
+- R5 uses a short `parity_hs6` list (copper cathodes, green coffee) until real per-country medians exist; see `DECISIONS.md` D4.x.
 
 To add a rule: create the file, add its code to `Rule` in `schemas.py` (a contract change: bump the version and log it) and to `RULE_CODES` in `_common.py`, register it in `RULES` in `__init__.py`, put its thresholds in `config.yaml`, and add a test in `tests/rules/`.

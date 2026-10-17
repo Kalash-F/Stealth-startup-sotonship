@@ -97,61 +97,49 @@ Each phase ends with a **🔒 CHECKPOINT**. At a checkpoint you must:
 | Data / cache | Parquet or CSV under `data/benchmarks/`, plus SQLite for lookups if needed |
 | Tests | pytest, pytest-cov |
 | Lint/format | ruff |
-| Frontend (app + website) | Next.js 15 (App Router) + React 19 + TypeScript + Tailwind CSS 4 (was Vite; see `DECISIONS.md` D8.1) |
-| Frontend tests | Playwright (smoke) |
+| Frontend (app + website) | Vite + React + TypeScript + Tailwind CSS |
+| Frontend tests | Vitest + Playwright (smoke) |
 
 ### 3.2 Repo layout
-As built (the repo root is the `tbml-checker/` folder, `DECISIONS.md` D0.1):
 ```
-.
+tbml-checker/
 ├── plan.md                 # this file
 ├── PROGRESS.md             # append-only log
 ├── DECISIONS.md            # deviations, assumptions, contract changes
 ├── README.md
-├── Makefile                # make setup | test | lint | format | api | web | data | synthetic | eval
+├── Makefile                # make setup | test | lint | api | web | eval | data
 ├── .env.example
-├── docs/
-│   └── ARCHITECTURE.md     # how the code works, stage by stage
 ├── backend/
-│   ├── pyproject.toml      # installable package `tbml`
 │   ├── tbml/
 │   │   ├── schemas.py      # §4 contracts — single source of truth
 │   │   ├── extract/        # P1: PDF → Invoice
 │   │   ├── classify/       # P2: line item → HS6 + normalised quantity
 │   │   ├── benchmark/      # P2: price bands from cache
-│   │   ├── rules/          # P3: one file per rule + config.yaml
+│   │   ├── rules/          # P3: one file per rule
 │   │   ├── score/          # P3: combine flags → priority
-│   │   ├── synthetic/      # P4: generator, catalogue, PDF templates
 │   │   ├── pipeline.py     # chains all stages
-│   │   ├── api.py          # FastAPI app
-│   │   ├── fixtures.py     # loads the golden fixtures
-│   │   └── paths.py        # repository paths
+│   │   └── api.py          # FastAPI app
 │   ├── scripts/
 │   │   ├── fetch_benchmarks.py
 │   │   ├── generate_invoices.py
 │   │   └── evaluate.py
 │   └── tests/
 │       ├── fixtures/       # golden JSON for every contract
-│       ├── rules/          # one test file per rule
 │       └── ...
 ├── data/
 │   ├── benchmarks/         # cached trade data + computed bands
 │   ├── synthetic/
 │   │   ├── pdfs/
 │   │   ├── truth/          # ground-truth JSON per invoice
-│   │   ├── labels.csv
-│   │   ├── lines.csv
-│   │   └── invoices.csv
-│   └── reference/          # HS code list, countries, cities, FX, unit weights
-├── web/                    # Next.js app (DECISIONS.md D8.1)
+│   │   └── labels.csv
+│   └── reference/          # HS code list, country list, etc.
+├── web/
 │   ├── src/
-│   │   ├── app/(site)/     # public project website (§10)
-│   │   ├── app/app/        # demo workspace at /app
-│   │   ├── components/     # ui, domain, app, marketing
-│   │   └── data/           # typed fictional dataset
-│   └── tests/              # Playwright smoke tests
+│   │   ├── site/           # public project website (§10)
+│   │   └── app/            # officer checker app (§9)
+│   └── ...
 └── reports/
-    └── eval/               # evaluation outputs (§8); created by Phase 6
+    └── eval/               # evaluation outputs (§8)
 ```
 
 ---
@@ -268,9 +256,9 @@ Agents must **verify each code and description against the HMRC commodity API** 
 `CN-GB`, `AE-GB`, `GB-AE`, `AE-CZ`
 
 ### 5.3 Data sources
-- **UN Comtrade** — free key from comtradedeveloper.un.org; keyless preview is capped. Called directly over REST (`comtradeapi.un.org/data/v1/get/C/A/HS`) with `requests` in `fetch_benchmarks.py`; the `comtradeapicall` package is not used.
+- **UN Comtrade** — free key from comtradedeveloper.un.org; keyless preview is capped. Python package `comtradeapicall`.
 - **HMRC UK Trade Info API** — `https://api.uktradeinfo.com` — no key; OTS endpoint gives value (GBP), net mass (kg), supplementary units by commodity code and partner country.
-- **FX** — use a fixed annual average rate table committed to `data/reference/fx.csv` for the MVP (one 2024 rate per currency; used by the generator and normalisation). `fetch_benchmarks.py` reads the per-year table `data/reference/fx_annual.csv` (`DECISIONS.md` D3.1). Record the source and year.
+- **FX** — use a fixed annual average rate table committed to `data/reference/fx.csv` for the MVP. Record the source and year.
 
 ---
 
@@ -468,17 +456,17 @@ pytest backend/tests/test_rules_on_synthetic.py -v -s
 ## PHASE 5 — Pipeline + API integration (P1 lead)
 **Goal:** real end-to-end: PDF in, `Report` out, over HTTP.
 
-- [x] 5.1 Replace every stub in `pipeline.py` with the real stage. Keep stubs available behind `USE_MOCKS=1` for frontend development.
-- [x] 5.2 FastAPI endpoints:
+- [ ] 5.1 Replace every stub in `pipeline.py` with the real stage. Keep stubs available behind `USE_MOCKS=1` for frontend development.
+- [ ] 5.2 FastAPI endpoints:
   - `POST /check` — multipart PDF → `Report`
   - `GET /reports/{invoice_id}` — cached report
   - `GET /samples` — list of bundled synthetic invoices for the demo
   - `GET /health` — status + whether benchmark data is real or mock
-- [x] 5.3 Store reports as JSON in `data/reports/`.
-- [x] 5.4 Timing: record `processing_ms`; log stage timings.
-- [x] 5.5 Errors: non-PDF upload → 400 with message; extraction failure → 200 with warnings and whatever was extracted; never 500 on bad input.
-- [x] 5.6 CORS for the frontend dev server.
-- [x] 5.7 `tests/test_api.py` using FastAPI TestClient: happy path, bad file, empty PDF, oversized PDF (> 10 MB → 413).
+- [ ] 5.3 Store reports as JSON in `data/reports/`.
+- [ ] 5.4 Timing: record `processing_ms`; log stage timings.
+- [ ] 5.5 Errors: non-PDF upload → 400 with message; extraction failure → 200 with warnings and whatever was extracted; never 500 on bad input.
+- [ ] 5.6 CORS for the frontend dev server.
+- [ ] 5.7 `tests/test_api.py` using FastAPI TestClient: happy path, bad file, empty PDF, oversized PDF (> 10 MB → 413).
 
 ### 🔒 CHECKPOINT 5
 **Verify:**
@@ -490,10 +478,10 @@ pytest backend/tests/test_api.py -v
 make test
 ```
 **Acceptance criteria:**
-- [x] A planted `OVER_PRICE` invoice returns a high-severity `PRICE_OUTLIER` flag on the right line through the real API.
-- [x] A clean invoice returns `priority_band: low`.
-- [x] Median processing time per invoice < 15 s with warm cache (log the number). Offline path: 0.08 s (D5.9); the LLM path is not measured.
-- [x] Full test suite green.
+- [ ] A planted `OVER_PRICE` invoice returns a high-severity `PRICE_OUTLIER` flag on the right line through the real API.
+- [ ] A clean invoice returns `priority_band: low`.
+- [ ] Median processing time per invoice < 15 s with warm cache (log the number).
+- [ ] Full test suite green.
 
 ---
 
@@ -554,7 +542,7 @@ npx playwright test   # smoke: upload sample → report renders → at least one
 ---
 
 ## PHASE 8 — Project website (public site describing the product)
-**Goal:** a polished marketing / explainer website for the project, built from the brief the human provides. Lives at `/` in the same Next.js app (officer app stays at `/app`). Built from the website brief tracked in `web/PROJECT_PLAN.md`, which replaces this phase.
+**Goal:** a polished marketing / explainer website for the project, built from the brief the human provides. Lives at `/` in the same Vite app (officer app stays at `/app`).
 
 ### ⛔ INPUT REQUIRED — do not build final visuals until this is filled in
 The human will supply the reference to base the site on. **If any field below is still `TODO`, stop at task 8.2 and ask for it.** You may do 8.1 and 8.2 before it arrives.
@@ -600,9 +588,9 @@ Anything to avoid:  TODO
 ### 🔒 CHECKPOINT 8
 **Verify:**
 ```
-npm run build && npm start
+npm run build && npm run preview
 npx playwright test site   # every nav link resolves; CTA reaches /app; no 404s
-npx lighthouse http://localhost:3000 --only-categories=performance,accessibility,best-practices,seo --quiet
+npx lighthouse http://localhost:4173 --only-categories=performance,accessibility,best-practices,seo --quiet
 grep -ri "lorem\|TODO\|placeholder" web/src/site
 ```
 **Acceptance criteria:**
