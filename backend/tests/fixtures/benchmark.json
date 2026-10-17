@@ -1,0 +1,20 @@
+{
+  "hs6": "731815",
+  "route": "CN-GB",
+  "unit": "kg",
+  "p10": 1.8,
+  "p25": 2.6,
+  "median": 3.8,
+  "p75": 5.5,
+  "p90": 8.5,
+  "n_observations": 214,
+  "years": [
+    2022,
+    2023,
+    2024
+  ],
+  "sources": [
+    "mock (test fixture)"
+  ],
+  "is_mock": true
+}
