@@ -170,3 +170,41 @@ def test_dotenv_is_off_in_tests(tmp_path, monkeypatch):
     import os
 
     assert "OPENROUTER_API_KEY" not in os.environ
+
+
+def test_stdlib_http_path_against_a_local_server(monkeypatch):
+    """The default (urllib) transport, end to end against a local stand-in for OpenRouter."""
+    import json as _json
+    import threading
+    from http.server import BaseHTTPRequestHandler, HTTPServer
+
+    seen = {}
+
+    class Handler(BaseHTTPRequestHandler):
+        def do_POST(self):
+            body = _json.loads(self.rfile.read(int(self.headers["Content-Length"])))
+            seen["auth"], seen["model"] = self.headers["Authorization"], body["model"]
+            if body["model"] == "bad/model":
+                status, reply = 400, {"error": {"message": "not a valid model ID"}}
+            else:
+                status, reply = 200, {"choices": [{"message": {"content": "pong"}}]}
+            data = _json.dumps(reply).encode()
+            self.send_response(status)
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Content-Length", str(len(data)))
+            self.end_headers()
+            self.wfile.write(data)
+
+        def log_message(self, *args):
+            pass
+
+    server = HTTPServer(("127.0.0.1", 0), Handler)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    monkeypatch.setattr(llm, "OPENROUTER_URL", f"http://127.0.0.1:{server.server_port}/v1")
+    try:
+        assert llm.OpenRouterClient("good/model", "sk-or-x").complete("s", []) == "pong"
+        assert seen == {"auth": "Bearer sk-or-x", "model": "good/model"}
+        with pytest.raises(llm.LLMError, match="HTTP 400: not a valid model ID"):
+            llm.OpenRouterClient("bad/model", "sk-or-x").complete("s", [])
+    finally:
+        server.shutdown()

@@ -9,8 +9,9 @@ chapter and heading descriptions are then only "Chapter 84" / "Heading 8471").
 Also reads the SQLite database built by backend/scripts/load_hs_json.py (tables hs2, hs4, hs6
 with *_code and name columns; source: UN Comtrade "Combined HS" reference list).
 
-File lookup: `HS_NOMENCLATURE` env var (a .csv or a .db), else the repo-root hs.db, else
-data/reference/hs_nomenclature.csv, else the partial data/reference/hs6.csv.
+File lookup: `HS_NOMENCLATURE` env var (a .csv or a .db), else data/reference/hs.db (inside
+data/ so the Vercel build, which copies data/ into the backend bundle, ships it), else a
+repo-root hs.db, else data/reference/hs_nomenclature.csv, else the partial hs6.csv.
 """
 
 from __future__ import annotations
@@ -25,7 +26,8 @@ from pathlib import Path
 
 from tbml.paths import REFERENCE_DIR, REPO_ROOT
 
-HS_DB = REPO_ROOT / "hs.db"
+HS_DB = REFERENCE_DIR / "hs.db"
+HS_DB_ROOT = REPO_ROOT / "hs.db"  # where load_hs_json.py --db hs.db writes when run from the root
 NOMENCLATURE_CSV = REFERENCE_DIR / "hs_nomenclature.csv"
 FALLBACK_CSV = REFERENCE_DIR / "hs6.csv"
 
@@ -142,7 +144,7 @@ def nomenclature_path() -> Path:
     env = os.environ.get("HS_NOMENCLATURE")
     if env:
         return Path(env)
-    for candidate in (HS_DB, NOMENCLATURE_CSV):
+    for candidate in (HS_DB, HS_DB_ROOT, NOMENCLATURE_CSV):
         if candidate.exists():
             return candidate
     return FALLBACK_CSV

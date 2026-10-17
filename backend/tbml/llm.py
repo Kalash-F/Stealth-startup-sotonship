@@ -10,17 +10,19 @@ Every client exposes:
   - messages.create(model=, system=, messages=, max_tokens=, temperature=) -> object with
     .content[0].text, the Anthropic-SDK shape the classifiers already use.
 
-OpenRouter's chat-completions API is OpenAI-compatible, so no extra dependency is needed.
+OpenRouter's chat-completions API is OpenAI-compatible and is called with the standard library
+(urllib), so the deployed function needs no HTTP package (the Vercel bundle drops `requests`).
 """
 
 from __future__ import annotations
 
+import json
 import os
 import time
+import urllib.error
+import urllib.request
 from types import SimpleNamespace
 from typing import Any
-
-import requests
 
 from tbml.paths import REPO_ROOT
 
@@ -79,6 +81,37 @@ class _MessagesShim:
         return SimpleNamespace(content=[SimpleNamespace(type="text", text=text)])
 
 
+# ---- HTTP ------------------------------------------------------------------------------------
+
+
+class _Response:
+    """Just enough of a response for OpenRouterClient: status_code, text, json()."""
+
+    def __init__(self, status_code: int, text: str):
+        self.status_code, self.text = status_code, text
+
+    def json(self) -> Any:
+        return json.loads(self.text)
+
+
+class _UrllibSession:
+    """Minimal `post(url, json=, headers=, timeout=)` over urllib. Network failures raise
+    OSError (URLError, timeouts); HTTP error statuses come back as responses."""
+
+    def post(self, url: str, json: Any, headers: dict[str, str], timeout: float) -> _Response:
+        body = _json_dumps(json).encode()
+        req = urllib.request.Request(url, data=body, headers=headers, method="POST")
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                return _Response(resp.status, resp.read().decode("utf-8", "replace"))
+        except urllib.error.HTTPError as exc:
+            return _Response(exc.code, exc.read().decode("utf-8", "replace"))
+
+
+def _json_dumps(obj: Any) -> str:
+    return json.dumps(obj)
+
+
 # ---- OpenRouter ------------------------------------------------------------------------------
 
 
@@ -94,7 +127,7 @@ class OpenRouterClient:
             raise LLMError("no OpenRouter key set (OPENROUTER_API_KEY)")
         self.model = model
         self._key = api_key
-        self._http = session or requests
+        self._http = session or _UrllibSession()
         self._retries = retries
         self.messages = _MessagesShim(self)
         self.last_usage: dict[str, Any] = {}
@@ -128,7 +161,7 @@ class OpenRouterClient:
                 resp = self._http.post(
                     OPENROUTER_URL, json=payload, headers=headers, timeout=TIMEOUT_S
                 )
-            except requests.RequestException as exc:
+            except OSError as exc:  # URLError, timeouts, connection resets (requests' errors too)
                 last = f"network error: {exc}"
             else:
                 if resp.status_code == 200:
