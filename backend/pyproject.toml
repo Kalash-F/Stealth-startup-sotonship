@@ -43,6 +43,7 @@ target-version = "py311"
 select = ["E", "F", "W", "I", "UP", "B"]
 
 [tool.ruff.lint.per-file-ignores]
+"tbml/**" = ["E501"]  # long docstrings and reason strings read better unwrapped (DECISIONS D5.1)
 "tbml/synthetic/catalogue.py" = ["E501"]  # data tables read better one entry per line
 "scripts/fetch_benchmarks.py" = ["E501"]
 "tests/test_benchmark.py" = ["E501"]
