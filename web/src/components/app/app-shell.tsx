@@ -14,6 +14,7 @@ import {
   Settings,
   UserRound,
   X,
+  ScanSearch,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Logo } from "@/components/domain/logo";
@@ -32,6 +33,7 @@ import { QuickSearch } from "./quick-search";
 
 const nav = [
   { href: "/app", label: "Overview", icon: LayoutDashboard, exact: true },
+  { href: "/app/checker", label: "Check invoice", icon: ScanSearch },
   { href: "/app/investigations", label: "Investigations", icon: FolderSearch, count: () => caseCounts().open },
   { href: "/app/entities", label: "Entities", icon: Network },
 ];

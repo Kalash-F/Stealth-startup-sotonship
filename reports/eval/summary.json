@@ -1,0 +1,1181 @@
+{
+  "classification": {
+    "provider": "openrouter:openai/gpt-4o-mini unreachable (OpenRouter request failed (network error: <urlopen error Tunnel connection failed: 403 Forbidden>)); cached answers only",
+    "live": false,
+    "n_lines": 44,
+    "methods": {
+      "keyword": {
+        "ran": true,
+        "unavailable_lines": 0,
+        "goods_accuracy": 0.6666666666666666,
+        "goods_correct": 26,
+        "goods_total": 39,
+        "vague_left_unclassified": 5,
+        "vague_total": 5,
+        "confidently_wrong": 0,
+        "accuracy_by_kind": {
+          "brand": "3/7",
+          "clean": "6/7",
+          "jargon": "5/10",
+          "neighbour": "4/4",
+          "realistic": "8/11"
+        },
+        "lines": [
+          {
+            "description": "hex cap scr A2-70 M8x30",
+            "truth": "731815",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "no proposed code exists in the HS6 list"
+          },
+          {
+            "description": "HHB M10x50 8.8 ZP",
+            "truth": "731815",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "no proposed code exists in the HS6 list"
+          },
+          {
+            "description": "socket cap screw DIN912 M6x20",
+            "truth": "731815",
+            "got": "731815",
+            "confidence": 0.6,
+            "path": "",
+            "reason": ""
+          },
+          {
+            "description": "SHCS M5x16 12.9 blk",
+            "truth": "731815",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "no proposed code exists in the HS6 list"
+          },
+          {
+            "description": "carriage bolt M8x60 HDG",
+            "truth": "731815",
+            "got": "731815",
+            "confidence": 0.84,
+            "path": "",
+            "reason": ""
+          },
+          {
+            "description": "Bolts M8 zinc plated",
+            "truth": "731815",
+            "got": "731815",
+            "confidence": 0.6,
+            "path": "",
+            "reason": ""
+          },
+          {
+            "description": "self tapping scr 4.2x13 pan hd",
+            "truth": "731814",
+            "got": "731814",
+            "confidence": 0.6,
+            "path": "",
+            "reason": ""
+          },
+          {
+            "description": "hex nuts M8 cl.8 zinc",
+            "truth": "731816",
+            "got": "731816",
+            "confidence": 0.6,
+            "path": "",
+            "reason": ""
+          },
+          {
+            "description": "Coca-Cola 330ml can x24",
+            "truth": "220210",
+            "got": "220210",
+            "confidence": 0.936,
+            "path": "",
+            "reason": ""
+          },
+          {
+            "description": "Fanta Orange 500ml PET",
+            "truth": "220210",
+            "got": "220210",
+            "confidence": 0.6,
+            "path": "",
+            "reason": ""
+          },
+          {
+            "description": "sparkling lemonade 330ml",
+            "truth": "220210",
+            "got": "220210",
+            "confidence": 0.84,
+            "path": "",
+            "reason": ""
+          },
+          {
+            "description": "flavoured sparkling water lime 500ml",
+            "truth": "220210",
+            "got": "220210",
+            "confidence": 0.6,
+            "path": "",
+            "reason": ""
+          },
+          {
+            "description": "soft drink cola 1.5L",
+            "truth": "220210",
+            "got": "220210",
+            "confidence": 0.936,
+            "path": "",
+            "reason": ""
+          },
+          {
+            "description": "SSD 1TB NVMe M.2 2280",
+            "truth": "852351",
+            "got": "852351",
+            "confidence": 0.6,
+            "path": "",
+            "reason": ""
+          },
+          {
+            "description": "Samsung 980 Pro 2TB",
+            "truth": "852351",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "no proposed code exists in the HS6 list"
+          },
+          {
+            "description": "USB flash drive 64GB",
+            "truth": "852351",
+            "got": "852351",
+            "confidence": 0.936,
+            "path": "",
+            "reason": ""
+          },
+          {
+            "description": "microSDXC 128GB U3 A2",
+            "truth": "852351",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "no proposed code exists in the HS6 list"
+          },
+          {
+            "description": "Solid state drive 512GB",
+            "truth": "852351",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "no proposed code exists in the HS6 list"
+          },
+          {
+            "description": "100% cotton crew neck tee",
+            "truth": "610910",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "no proposed code exists in the HS6 list"
+          },
+          {
+            "description": "T-SHIRT CTN S/S BLK L",
+            "truth": "610910",
+            "got": "610910",
+            "confidence": 0.6,
+            "path": "",
+            "reason": ""
+          },
+          {
+            "description": "Gildan heavy cotton tees",
+            "truth": "610910",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "no proposed code exists in the HS6 list"
+          },
+          {
+            "description": "cotton jersey singlets",
+            "truth": "610910",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "no proposed code exists in the HS6 list"
+          },
+          {
+            "description": "T-shirts cotton knitted",
+            "truth": "610910",
+            "got": "610910",
+            "confidence": 0.6,
+            "path": "",
+            "reason": ""
+          },
+          {
+            "description": "polyester sports tee dry-fit",
+            "truth": "610990",
+            "got": "610990",
+            "confidence": 0.6,
+            "path": "",
+            "reason": ""
+          },
+          {
+            "description": "green coffee beans Arabica",
+            "truth": "090111",
+            "got": "090111",
+            "confidence": 0.84,
+            "path": "",
+            "reason": ""
+          },
+          {
+            "description": "Robusta raw coffee 60kg bags",
+            "truth": "090111",
+            "got": "090111",
+            "confidence": 0.84,
+            "path": "",
+            "reason": ""
+          },
+          {
+            "description": "Brazil Santos NY2 17/18 unroasted",
+            "truth": "090111",
+            "got": "090111",
+            "confidence": 0.6,
+            "path": "",
+            "reason": ""
+          },
+          {
+            "description": "Green coffee not decaffeinated",
+            "truth": "090111",
+            "got": "090111",
+            "confidence": 0.6,
+            "path": "",
+            "reason": ""
+          },
+          {
+            "description": "roasted coffee beans 1kg",
+            "truth": "090121",
+            "got": "090121",
+            "confidence": 0.84,
+            "path": "",
+            "reason": ""
+          },
+          {
+            "description": "Cu cathode grade A LME",
+            "truth": "740311",
+            "got": "740311",
+            "confidence": 0.936,
+            "path": "",
+            "reason": ""
+          },
+          {
+            "description": "copper cathodes 99.99%",
+            "truth": "740311",
+            "got": "740311",
+            "confidence": 0.84,
+            "path": "",
+            "reason": ""
+          },
+          {
+            "description": "electrolytic copper cathode sheets",
+            "truth": "740311",
+            "got": "740311",
+            "confidence": 0.936,
+            "path": "",
+            "reason": ""
+          },
+          {
+            "description": "Copper cathodes",
+            "truth": "740311",
+            "got": "740311",
+            "confidence": 0.84,
+            "path": "",
+            "reason": ""
+          },
+          {
+            "description": "MBP 14 M3 16/512 SG",
+            "truth": "847130",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "no proposed code exists in the HS6 list"
+          },
+          {
+            "description": "MacBook Air 13 M2",
+            "truth": "847130",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "no proposed code exists in the HS6 list"
+          },
+          {
+            "description": "Dell Latitude 5440 notebook",
+            "truth": "847130",
+            "got": "847130",
+            "confidence": 0.6,
+            "path": "",
+            "reason": ""
+          },
+          {
+            "description": "ThinkPad X1 Carbon Gen 11",
+            "truth": "847130",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "no proposed code exists in the HS6 list"
+          },
+          {
+            "description": "Chromebook 11.6in 4GB/32GB",
+            "truth": "847130",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "no proposed code exists in the HS6 list"
+          },
+          {
+            "description": "Laptop computers 14 inch",
+            "truth": "847130",
+            "got": "847130",
+            "confidence": 0.6,
+            "path": "",
+            "reason": ""
+          },
+          {
+            "description": "Goods as per contract",
+            "truth": null,
+            "got": null,
+            "confidence": 0.05,
+            "path": "",
+            "reason": "description is a generic placeholder, so no commodity can be inferred"
+          },
+          {
+            "description": "Item 1",
+            "truth": null,
+            "got": null,
+            "confidence": 0.05,
+            "path": "",
+            "reason": "description is a generic placeholder, so no commodity can be inferred"
+          },
+          {
+            "description": "Assorted products",
+            "truth": null,
+            "got": null,
+            "confidence": 0.05,
+            "path": "",
+            "reason": "description is a generic placeholder, so no commodity can be inferred"
+          },
+          {
+            "description": "Spare parts",
+            "truth": null,
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "no proposed code exists in the HS6 list"
+          },
+          {
+            "description": "Merchandise",
+            "truth": null,
+            "got": null,
+            "confidence": 0.05,
+            "path": "",
+            "reason": "description is a generic placeholder, so no commodity can be inferred"
+          }
+        ]
+      },
+      "flat": {
+        "ran": false,
+        "unavailable_lines": 40,
+        "goods_accuracy": 0.0,
+        "goods_correct": 0,
+        "goods_total": 39,
+        "vague_left_unclassified": 5,
+        "vague_total": 5,
+        "confidently_wrong": 0,
+        "accuracy_by_kind": {
+          "brand": "0/7",
+          "clean": "0/7",
+          "jargon": "0/10",
+          "neighbour": "0/4",
+          "realistic": "0/11"
+        },
+        "lines": [
+          {
+            "description": "hex cap scr A2-70 M8x30",
+            "truth": "731815",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "HHB M10x50 8.8 ZP",
+            "truth": "731815",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "socket cap screw DIN912 M6x20",
+            "truth": "731815",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "SHCS M5x16 12.9 blk",
+            "truth": "731815",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "carriage bolt M8x60 HDG",
+            "truth": "731815",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Bolts M8 zinc plated",
+            "truth": "731815",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "self tapping scr 4.2x13 pan hd",
+            "truth": "731814",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "hex nuts M8 cl.8 zinc",
+            "truth": "731816",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Coca-Cola 330ml can x24",
+            "truth": "220210",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Fanta Orange 500ml PET",
+            "truth": "220210",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "sparkling lemonade 330ml",
+            "truth": "220210",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "flavoured sparkling water lime 500ml",
+            "truth": "220210",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "soft drink cola 1.5L",
+            "truth": "220210",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "SSD 1TB NVMe M.2 2280",
+            "truth": "852351",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Samsung 980 Pro 2TB",
+            "truth": "852351",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "USB flash drive 64GB",
+            "truth": "852351",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "microSDXC 128GB U3 A2",
+            "truth": "852351",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Solid state drive 512GB",
+            "truth": "852351",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "100% cotton crew neck tee",
+            "truth": "610910",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "T-SHIRT CTN S/S BLK L",
+            "truth": "610910",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Gildan heavy cotton tees",
+            "truth": "610910",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "cotton jersey singlets",
+            "truth": "610910",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "T-shirts cotton knitted",
+            "truth": "610910",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "polyester sports tee dry-fit",
+            "truth": "610990",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "green coffee beans Arabica",
+            "truth": "090111",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Robusta raw coffee 60kg bags",
+            "truth": "090111",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Brazil Santos NY2 17/18 unroasted",
+            "truth": "090111",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Green coffee not decaffeinated",
+            "truth": "090111",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "roasted coffee beans 1kg",
+            "truth": "090121",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Cu cathode grade A LME",
+            "truth": "740311",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "copper cathodes 99.99%",
+            "truth": "740311",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "electrolytic copper cathode sheets",
+            "truth": "740311",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Copper cathodes",
+            "truth": "740311",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "MBP 14 M3 16/512 SG",
+            "truth": "847130",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "MacBook Air 13 M2",
+            "truth": "847130",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Dell Latitude 5440 notebook",
+            "truth": "847130",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "ThinkPad X1 Carbon Gen 11",
+            "truth": "847130",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Chromebook 11.6in 4GB/32GB",
+            "truth": "847130",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Laptop computers 14 inch",
+            "truth": "847130",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Goods as per contract",
+            "truth": null,
+            "got": null,
+            "confidence": 0.05,
+            "path": "",
+            "reason": "description is a generic placeholder, so no commodity can be inferred"
+          },
+          {
+            "description": "Item 1",
+            "truth": null,
+            "got": null,
+            "confidence": 0.05,
+            "path": "",
+            "reason": "description is a generic placeholder, so no commodity can be inferred"
+          },
+          {
+            "description": "Assorted products",
+            "truth": null,
+            "got": null,
+            "confidence": 0.05,
+            "path": "",
+            "reason": "description is a generic placeholder, so no commodity can be inferred"
+          },
+          {
+            "description": "Spare parts",
+            "truth": null,
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Merchandise",
+            "truth": null,
+            "got": null,
+            "confidence": 0.05,
+            "path": "",
+            "reason": "description is a generic placeholder, so no commodity can be inferred"
+          }
+        ]
+      },
+      "hierarchical": {
+        "ran": false,
+        "unavailable_lines": 40,
+        "goods_accuracy": 0.0,
+        "goods_correct": 0,
+        "goods_total": 39,
+        "vague_left_unclassified": 5,
+        "vague_total": 5,
+        "confidently_wrong": 0,
+        "accuracy_by_kind": {
+          "brand": "0/7",
+          "clean": "0/7",
+          "jargon": "0/10",
+          "neighbour": "0/4",
+          "realistic": "0/11"
+        },
+        "lines": [
+          {
+            "description": "hex cap scr A2-70 M8x30",
+            "truth": "731815",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "HHB M10x50 8.8 ZP",
+            "truth": "731815",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "socket cap screw DIN912 M6x20",
+            "truth": "731815",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "SHCS M5x16 12.9 blk",
+            "truth": "731815",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "carriage bolt M8x60 HDG",
+            "truth": "731815",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Bolts M8 zinc plated",
+            "truth": "731815",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "self tapping scr 4.2x13 pan hd",
+            "truth": "731814",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "hex nuts M8 cl.8 zinc",
+            "truth": "731816",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Coca-Cola 330ml can x24",
+            "truth": "220210",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Fanta Orange 500ml PET",
+            "truth": "220210",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "sparkling lemonade 330ml",
+            "truth": "220210",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "flavoured sparkling water lime 500ml",
+            "truth": "220210",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "soft drink cola 1.5L",
+            "truth": "220210",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "SSD 1TB NVMe M.2 2280",
+            "truth": "852351",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Samsung 980 Pro 2TB",
+            "truth": "852351",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "USB flash drive 64GB",
+            "truth": "852351",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "microSDXC 128GB U3 A2",
+            "truth": "852351",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Solid state drive 512GB",
+            "truth": "852351",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "100% cotton crew neck tee",
+            "truth": "610910",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "T-SHIRT CTN S/S BLK L",
+            "truth": "610910",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Gildan heavy cotton tees",
+            "truth": "610910",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "cotton jersey singlets",
+            "truth": "610910",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "T-shirts cotton knitted",
+            "truth": "610910",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "polyester sports tee dry-fit",
+            "truth": "610990",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "green coffee beans Arabica",
+            "truth": "090111",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Robusta raw coffee 60kg bags",
+            "truth": "090111",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Brazil Santos NY2 17/18 unroasted",
+            "truth": "090111",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Green coffee not decaffeinated",
+            "truth": "090111",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "roasted coffee beans 1kg",
+            "truth": "090121",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Cu cathode grade A LME",
+            "truth": "740311",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "copper cathodes 99.99%",
+            "truth": "740311",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "electrolytic copper cathode sheets",
+            "truth": "740311",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Copper cathodes",
+            "truth": "740311",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "MBP 14 M3 16/512 SG",
+            "truth": "847130",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "MacBook Air 13 M2",
+            "truth": "847130",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Dell Latitude 5440 notebook",
+            "truth": "847130",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "ThinkPad X1 Carbon Gen 11",
+            "truth": "847130",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Chromebook 11.6in 4GB/32GB",
+            "truth": "847130",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Laptop computers 14 inch",
+            "truth": "847130",
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Goods as per contract",
+            "truth": null,
+            "got": null,
+            "confidence": 0.05,
+            "path": "",
+            "reason": "description is a generic placeholder, so no commodity can be inferred"
+          },
+          {
+            "description": "Item 1",
+            "truth": null,
+            "got": null,
+            "confidence": 0.05,
+            "path": "",
+            "reason": "description is a generic placeholder, so no commodity can be inferred"
+          },
+          {
+            "description": "Assorted products",
+            "truth": null,
+            "got": null,
+            "confidence": 0.05,
+            "path": "",
+            "reason": "description is a generic placeholder, so no commodity can be inferred"
+          },
+          {
+            "description": "Spare parts",
+            "truth": null,
+            "got": null,
+            "confidence": 0.0,
+            "path": "",
+            "reason": "classifier unavailable: provider unreachable from this machine (cache only)"
+          },
+          {
+            "description": "Merchandise",
+            "truth": null,
+            "got": null,
+            "confidence": 0.05,
+            "path": "",
+            "reason": "description is a generic placeholder, so no commodity can be inferred"
+          }
+        ]
+      }
+    }
+  },
+  "detection": {
+    "classifier": "offline keyword baseline",
+    "benchmarks_mock": true,
+    "n_invoices": 60,
+    "n_anomalous": 18,
+    "invoice_level": {
+      "precision": 1.0,
+      "recall": 0.9444444444444444,
+      "f1": 0.9714285714285714,
+      "tp": 17,
+      "fp": 0,
+      "fn": 1
+    },
+    "per_type_recall": {
+      "ARITHMETIC_ERROR": "4/4",
+      "GEO_INCONSISTENT": "4/4",
+      "OVER_PRICE": "4/4",
+      "PLACEHOLDER_DESC": "4/4",
+      "QTY_VALUE_IMPLAUSIBLE": "4/4",
+      "RESIDENTIAL_CONSIGNEE": "4/4",
+      "ROUTE_NO_ECONOMIC_SENSE": "2/4",
+      "UNDER_PRICE": "4/4"
+    },
+    "hard_negatives_flagged": "0/6",
+    "clean_flagged": "0/36",
+    "review_budget": [
+      {
+        "budget": 0.1,
+        "invoices_reviewed": 6,
+        "ours_caught": 0.3333333333333333,
+        "random_mean": 0.10115,
+        "random_95": [
+          0.0,
+          0.2222222222222222
+        ]
+      },
+      {
+        "budget": 0.2,
+        "invoices_reviewed": 12,
+        "ours_caught": 0.6666666666666666,
+        "random_mean": 0.20098333333333332,
+        "random_95": [
+          0.05555555555555555,
+          0.3888888888888889
+        ]
+      },
+      {
+        "budget": 0.3,
+        "invoices_reviewed": 18,
+        "ours_caught": 0.9444444444444444,
+        "random_mean": 0.30101666666666665,
+        "random_95": [
+          0.1111111111111111,
+          0.5
+        ]
+      }
+    ],
+    "median_seconds_per_invoice": 0.06042972800003099
+  }
+}
