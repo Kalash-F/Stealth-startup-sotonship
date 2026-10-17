@@ -1,0 +1,11 @@
+{
+  "description": "cotton jersey singlets\nWhat it is: Cotton jersey singlets are finished garments made of cotton fabric, designed to be worn as sleeveless tops.",
+  "parent": "61",
+  "choices": [
+    {
+      "code": "6109",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description 'cotton jersey singlets' directly matches the 'singlets' specified in heading 6109."
+}

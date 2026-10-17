@@ -1,0 +1,11 @@
+{
+  "description": "flavoured sparkling water lime 500ml\nWhat it is: A finished product, it is a beverage made of water, flavoring, and carbonation, for drinking.",
+  "parent": "2202",
+  "choices": [
+    {
+      "code": "220210",
+      "score": 1.0
+    }
+  ],
+  "reason": "The product is flavored sparkling water, which falls under waters containing added sugar or other sweetening matter or flavored."
+}

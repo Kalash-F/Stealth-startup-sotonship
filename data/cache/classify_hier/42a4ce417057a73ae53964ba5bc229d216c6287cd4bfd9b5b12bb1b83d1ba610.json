@@ -1,0 +1,11 @@
+{
+  "description": "Spare parts",
+  "parent": "__interpret__",
+  "choices": [
+    {
+      "code": "vague",
+      "score": 1.0
+    }
+  ],
+  "reason": "An unspecified collection of parts for repair or replacement."
+}

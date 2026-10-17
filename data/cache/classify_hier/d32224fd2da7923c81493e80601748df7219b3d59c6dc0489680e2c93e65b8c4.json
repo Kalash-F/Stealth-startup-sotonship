@@ -1,0 +1,11 @@
+{
+  "description": "Robusta raw coffee 60kg bags\nWhat it is: Raw Robusta coffee beans, a raw material, for making coffee.",
+  "parent": "09",
+  "choices": [
+    {
+      "code": "0901",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description 'Robusta raw coffee' directly matches the 'Coffee' category in 0901."
+}

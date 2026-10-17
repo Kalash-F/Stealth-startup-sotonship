@@ -1,0 +1,11 @@
+{
+  "description": "Green coffee not decaffeinated\nWhat it is: Unroasted coffee beans that have not had their caffeine removed, used for making coffee.",
+  "parent": "09",
+  "choices": [
+    {
+      "code": "0901",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description clearly states 'Green coffee not decaffeinated', which directly falls under 'Coffee, whether or not roasted or decaffeinated'."
+}

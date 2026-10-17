@@ -1,0 +1,11 @@
+{
+  "description": "Brazil Santos NY2 17/18 unroasted\nWhat it is: Unroasted green coffee beans of the Brazil Santos NY2 variety, size 17/18, for brewing coffee.",
+  "parent": "0901",
+  "choices": [
+    {
+      "code": "090111",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description explicitly states 'unroasted' and 'green coffee beans', directly matching 'Coffee; not roasted or decaffeinated'."
+}

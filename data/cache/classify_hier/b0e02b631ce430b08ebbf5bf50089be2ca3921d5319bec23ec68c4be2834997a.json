@@ -1,0 +1,11 @@
+{
+  "description": "carriage bolt M8x60 HDG\nWhat it is: A hot-dip galvanized steel carriage bolt, 8 millimeters in diameter and 60 millimeters long, used for fastening wood or metal.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "73",
+      "score": 1.0
+    }
+  ],
+  "reason": "Carriage bolts are articles of iron or steel."
+}

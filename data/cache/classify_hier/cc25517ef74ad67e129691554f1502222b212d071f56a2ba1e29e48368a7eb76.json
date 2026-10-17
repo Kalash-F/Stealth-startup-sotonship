@@ -1,0 +1,11 @@
+{
+  "description": "SHCS M5x16 12.9 blk\nWhat it is: A black-finished alloy steel socket head cap screw, 5mm in diameter and 16mm long, with a property class of 12.9, used for fastening.",
+  "parent": "73",
+  "choices": [
+    {
+      "code": "7318",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description clearly states the item is a 'socket head cap screw', which falls directly under heading 7318 for screws, bolts, and similar articles of iron or steel."
+}

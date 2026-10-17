@@ -1,0 +1,11 @@
+{
+  "description": "Samsung 980 Pro 2TB\nWhat it is: A Samsung 980 Pro 2-terabyte solid-state drive, which is a finished electronic component used for data storage in computers.",
+  "parent": "8523",
+  "choices": [
+    {
+      "code": "852351",
+      "score": 1.0
+    }
+  ],
+  "reason": "A Samsung 980 Pro 2TB is a solid-state drive, which falls under semiconductor media and solid-state non-volatile storage devices."
+}

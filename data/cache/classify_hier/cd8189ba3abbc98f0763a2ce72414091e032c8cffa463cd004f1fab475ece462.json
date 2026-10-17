@@ -1,0 +1,15 @@
+{
+  "description": "T-SHIRT CTN S/S BLK L\nWhat it is: A black, short-sleeved, cotton t-shirt, size large, which is a finished product for wearing.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "61",
+      "score": 0.9
+    },
+    {
+      "code": "62",
+      "score": 0.1
+    }
+  ],
+  "reason": "T-shirts are apparel and clothing accessories. The description does not specify if it is knitted or crocheted, so both 61 and 62 are possible, but knitted is more common for t-shirts."
+}

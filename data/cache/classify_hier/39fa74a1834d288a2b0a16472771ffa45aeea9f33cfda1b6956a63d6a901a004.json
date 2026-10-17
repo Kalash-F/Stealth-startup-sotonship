@@ -1,0 +1,11 @@
+{
+  "description": "microSDXC 128GB U3 A2\nWhat it is: A 128-gigabyte microSDXC memory card, which is a finished electronic product used for data storage in portable devices.",
+  "parent": "8523",
+  "choices": [
+    {
+      "code": "852351",
+      "score": 1.0
+    }
+  ],
+  "reason": "microSDXC cards are solid-state non-volatile storage devices, which fall under semiconductor media."
+}

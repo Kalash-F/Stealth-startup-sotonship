@@ -1,0 +1,11 @@
+{
+  "description": "100% cotton crew neck tee\nWhat it is: A finished product, a crew neck t-shirt made from 100% cotton, for wearing.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "61",
+      "score": 1.0
+    }
+  ],
+  "reason": "The item is a finished apparel product (t-shirt) and is knitted (crew neck tee implies knitted fabric)."
+}

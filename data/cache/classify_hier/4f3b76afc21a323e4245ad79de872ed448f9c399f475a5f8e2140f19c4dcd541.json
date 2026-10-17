@@ -1,0 +1,11 @@
+{
+  "description": "copper cathodes 99.99%\nWhat it is: Refined copper cathodes, made of 99.99% pure copper, which are a raw material used in various industrial applications, including electrical wiring and electronics.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "74",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description clearly states 'copper cathodes', which directly points to Chapter 74 for 'Copper and articles thereof'."
+}

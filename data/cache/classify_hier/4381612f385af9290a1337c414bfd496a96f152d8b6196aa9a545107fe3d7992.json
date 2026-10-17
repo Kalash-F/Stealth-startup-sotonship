@@ -1,0 +1,15 @@
+{
+  "description": "ThinkPad X1 Carbon Gen 11\nWhat it is: A Lenovo ThinkPad X1 Carbon Generation 11 is a finished laptop computer.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "84",
+      "score": 0.9
+    },
+    {
+      "code": "85",
+      "score": 0.1
+    }
+  ],
+  "reason": "Laptops are considered data processing machines, which fall under Chapter 84 for machinery and mechanical appliances."
+}

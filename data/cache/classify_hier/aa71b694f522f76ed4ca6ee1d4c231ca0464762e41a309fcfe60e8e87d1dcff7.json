@@ -1,0 +1,11 @@
+{
+  "description": "HHB M10x50 8.8 ZP\nWhat it is: A zinc-plated steel hex head bolt, which is a finished part used for fastening.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "73",
+      "score": 1.0
+    }
+  ],
+  "reason": "The item is a zinc-plated steel hex head bolt, which is an article of iron or steel."
+}

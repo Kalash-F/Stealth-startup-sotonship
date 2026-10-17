@@ -114,7 +114,18 @@ def _parse(text: str) -> list[HS6Candidate]:
         raise ValueError("no JSON object found")
     try:
         data = json.loads(text[start : end + 1])
-        return [HS6Candidate(**c) for c in data["candidates"]][:3]
+        out = []
+        for c in data["candidates"]:
+            # models write '8471.30', 847130 or drop a leading zero: keep the digits
+            digits = re.sub(r"\D", "", str(c["hs6"]))
+            if len(digits) == 5:
+                digits = "0" + digits
+            if len(digits) < 6:
+                continue  # a heading (4 digits) is not an answer; skip it, keep the rest
+            out.append(HS6Candidate(hs6=digits[:6], score=float(c["score"])))
+        if data["candidates"] and not out:
+            raise ValueError("no six-digit HS code in the reply")
+        return out[:3]
     except (json.JSONDecodeError, KeyError, TypeError, ValueError) as exc:
         raise ValueError(str(exc)) from exc
 

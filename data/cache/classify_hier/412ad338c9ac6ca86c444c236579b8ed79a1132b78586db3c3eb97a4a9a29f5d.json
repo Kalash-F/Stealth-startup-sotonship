@@ -1,0 +1,11 @@
+{
+  "description": "100% cotton crew neck tee\nWhat it is: A finished product, a crew neck t-shirt made from 100% cotton, for wearing.",
+  "parent": "6109",
+  "choices": [
+    {
+      "code": "610910",
+      "score": 1.0
+    }
+  ],
+  "reason": "The t-shirt is explicitly stated to be 100% cotton."
+}

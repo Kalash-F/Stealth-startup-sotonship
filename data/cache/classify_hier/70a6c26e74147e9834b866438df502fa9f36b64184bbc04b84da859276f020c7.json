@@ -1,0 +1,11 @@
+{
+  "description": "Coca-Cola 330ml can x24\nWhat it is: A pack of 24 cans, each containing 330ml of Coca-Cola, a carbonated soft drink. It is a finished product for consumption.",
+  "parent": "2202",
+  "choices": [
+    {
+      "code": "220210",
+      "score": 0.9
+    }
+  ],
+  "reason": "Coca-Cola is a carbonated soft drink containing added sugar, fitting the description of 2202.10."
+}

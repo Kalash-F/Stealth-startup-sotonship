@@ -14,6 +14,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -26,8 +27,20 @@ from tbml.schemas import HS6Candidate
 
 CACHE_SUBDIR = "classify_hier"  # under tbml.paths.cache_dir(), which honours $TBML_CACHE_DIR
 _DEFAULT = object()
-PROMPT_VERSION = "1"
+PROMPT_VERSION = "2"
 MIN_STEP_SCORE = 0.5
+
+_INTERPRET_SYSTEM = (
+    "You read one line from a trade invoice and say plainly what physical goods it describes. "
+    "Decode brand names, model numbers, abbreviations and trade jargon (e.g. 'MBP 14 M3 16/512' "
+    "is an Apple MacBook Pro 14-inch laptop computer; 'HHB M10x50 8.8 ZP' is a zinc-plated "
+    "steel hex head bolt; 'Cu cathode' is refined copper cathode). Say what it is made of, "
+    "whether it is a finished product, a part, a fabric or a raw material, and what it is for.\n"
+    "Reply with JSON only, no prose:\n"
+    '{"goods": "<one plain sentence>", "vague": <true|false>}\n'
+    "Set vague to true only when the line does not identify any specific goods, for example "
+    "'goods as per contract', 'spare parts', 'assorted items', 'merchandise'."
+)
 
 _SYSTEM = (
     "You classify goods from a trade invoice line into the Harmonized System (HS), one level at a "
@@ -61,10 +74,13 @@ class Trace:
 
     steps: list[Step] = field(default_factory=list)
     stopped: str = ""
+    read_as: str = ""  # the model's plain-words reading of the line, when interpretation is on
 
     def summary(self) -> str:
-        """e.g. '84 machinery (0.97) > 8471 computers (0.95) > 847130 portable (0.92)'."""
+        """e.g. 'read as "Apple laptop" > 84 machinery (0.97) > 8471 … > 847130 … (0.92)'."""
         parts = [f"{s.code} {_short(s.description)} ({s.score:.2f})" for s in self.steps if s.code]
+        if self.read_as:
+            parts.insert(0, f'read as "{_short(self.read_as, 80)}"')
         text = " > ".join(parts)
         if self.stopped:
             text = f"{text}; stopped: {self.stopped}" if text else f"stopped: {self.stopped}"
@@ -86,6 +102,7 @@ class HierarchicalProposer:
         nomenclature: Nomenclature | None = None,
         min_step_score: float = MIN_STEP_SCORE,
         cache_dir: Path | None | object = _DEFAULT,
+        interpret: bool = True,
     ):
         if client is None:
             from tbml.llm import configured_client
@@ -102,6 +119,7 @@ class HierarchicalProposer:
         # resolved now, not at import, so $TBML_CACHE_DIR (set by asgi.py on Vercel) applies;
         # None turns caching off
         self.cache_dir = default_cache_dir() / CACHE_SUBDIR if cache_dir is _DEFAULT else cache_dir
+        self.interpret = interpret  # first ask the model what the goods are, in plain words
         self.traces: dict[str, Trace] = {}  # description -> last trace, for explanations
 
     # ---- public ---------------------------------------------------------------------------
@@ -112,13 +130,23 @@ class HierarchicalProposer:
         parent: str | None = None
         path_scores: list[float] = []
 
+        query = description
+        if self.interpret:
+            goods, vague = self._interpret(description)
+            trace.read_as = goods
+            if vague:
+                trace.stopped = "too vague to identify the goods"
+                return []
+            if goods:
+                query = f"{description}\nWhat it is: {goods}"
+
         for _ in range(3):
             options = self.nomenclature.children(parent)
             level = LEVEL_NAMES[len(options[0][0])] if options else "level"
             if not options:
                 trace.stopped = f"no {level} options under {parent} in {self.nomenclature.source}"
                 return []
-            choices, reason = self._ask(description, parent, options)
+            choices, reason = self._ask(query, parent, options)
             if not choices:
                 trace.stopped = f"no {level} fits: {reason}"
                 return []
@@ -155,6 +183,35 @@ class HierarchicalProposer:
         """Human-readable path for the last classification of `description` ('' if none)."""
         trace = self.traces.get(description)
         return trace.summary() if trace else ""
+
+    # ---- step 0: what is it? ----------------------------------------------------------------
+
+    def _interpret(self, description: str) -> tuple[str, bool]:
+        """(plain description, vague?). Failures fall back to ('', False): classify the raw text."""
+        cached = self._cache_get(description, "__interpret__")
+        if cached is not None:
+            choices, reason = cached
+            return reason, bool(choices)
+        try:
+            msg = self.client.messages.create(
+                model=self.model,
+                max_tokens=200,
+                temperature=0,
+                system=_INTERPRET_SYSTEM,
+                messages=[{"role": "user", "content": f"Invoice line: {description}"}],
+            )
+        except LLMError as exc:
+            raise ProposerError(str(exc)) from exc
+        text = "".join(getattr(b, "text", "") for b in msg.content)
+        try:
+            data = json.loads(text[text.find("{") : text.rfind("}") + 1])
+            goods = " ".join(str(data.get("goods", "")).split())
+            vague = bool(data.get("vague", False))
+        except (json.JSONDecodeError, ValueError, AttributeError):
+            return "", False
+        # cached in the step format: choices non-empty means vague, reason holds the reading
+        self._cache_put(description, "__interpret__", ([("vague", 1.0)] if vague else [], goods))
+        return goods, vague
 
     # ---- one LLM step ---------------------------------------------------------------------
 
@@ -236,6 +293,14 @@ class HierarchicalProposer:
             pass  # a read-only disk must not break classification; the answer is still used
 
 
+def _norm_code(code: object, width: int) -> str:
+    """'8471.30' -> '847130', 84 -> '84', 9 -> '09' (models drop dots and leading zeros)."""
+    digits = re.sub(r"\D", "", str(code))
+    if width and len(digits) == width - 1:
+        digits = "0" + digits
+    return digits
+
+
 def _parse(text: str, valid: set[str]) -> tuple[list[tuple[str, float]], str]:
     """Pull the JSON reply apart; drop codes not among the options; ValueError if malformed or if
     every proposed code was invalid."""
@@ -246,7 +311,8 @@ def _parse(text: str, valid: set[str]) -> tuple[list[tuple[str, float]], str]:
         data = json.loads(text[start : end + 1])
         raw = data["choices"]
         reason = str(data.get("reason", ""))
-        pairs = [(str(c["code"]).strip(), float(c["score"])) for c in raw]
+        width = len(next(iter(valid))) if valid else 0
+        pairs = [(_norm_code(c["code"], width), float(c["score"])) for c in raw]
     except (json.JSONDecodeError, KeyError, TypeError, ValueError) as exc:
         raise ValueError(f"malformed reply: {exc}") from exc
     if any(not 0 <= s <= 1 for _, s in pairs):

@@ -1,0 +1,15 @@
+{
+  "description": "Laptop computers 14 inch\nWhat it is: A 14-inch laptop computer, which is a finished electronic product used for general computing tasks.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "84",
+      "score": 0.55
+    },
+    {
+      "code": "85",
+      "score": 0.45
+    }
+  ],
+  "reason": "Laptops are computing machines, which fall under either machinery (84) or electrical machinery (85)."
+}

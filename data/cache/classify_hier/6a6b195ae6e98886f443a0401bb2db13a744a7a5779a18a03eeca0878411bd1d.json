@@ -1,0 +1,15 @@
+{
+  "description": "polyester sports tee dry-fit\nWhat it is: A finished product, a short-sleeved t-shirt made of polyester, designed for sports and active wear with moisture-wicking properties.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "61",
+      "score": 0.9
+    },
+    {
+      "code": "62",
+      "score": 0.08
+    }
+  ],
+  "reason": "The item is a finished polyester sports tee, which is an article of apparel. Given it's a 'tee', it's highly likely to be knitted."
+}

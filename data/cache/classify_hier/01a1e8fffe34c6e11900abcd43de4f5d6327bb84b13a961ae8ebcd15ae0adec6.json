@@ -1,0 +1,11 @@
+{
+  "description": "Fanta Orange 500ml PET\nWhat it is: A 500ml plastic bottle of Fanta Orange flavored carbonated soft drink.",
+  "parent": "2202",
+  "choices": [
+    {
+      "code": "220210",
+      "score": 1.0
+    }
+  ],
+  "reason": "Fanta Orange is a flavored, sweetened, carbonated soft drink, which perfectly matches the description of 220210."
+}
