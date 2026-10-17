@@ -20,6 +20,7 @@ from typing import Any
 
 from tbml.classify.nomenclature import LEVEL_NAMES, Nomenclature, default_nomenclature
 from tbml.classify.proposers import ProposerError
+from tbml.llm import LLMError
 from tbml.paths import DATA_DIR
 from tbml.schemas import HS6Candidate
 
@@ -80,14 +81,16 @@ class HierarchicalProposer:
         min_step_score: float = MIN_STEP_SCORE,
         cache_dir: Path | None = CACHE_DIR,
     ):
-        self.model = model or os.environ.get("LLM_MODEL", "")
-        if not self.model:
-            raise ProposerError("LLM_MODEL is not set")
         if client is None:
-            import anthropic
+            from tbml.llm import configured_client
 
-            client = anthropic.Anthropic()
+            client = configured_client()
+            if client is None:
+                raise ProposerError("no LLM provider configured")
         self.client = client
+        self.model = model or getattr(client, "model", "") or os.environ.get("LLM_MODEL", "")
+        if not self.model:
+            raise ProposerError("no LLM model set")
         self.nomenclature = nomenclature or default_nomenclature()
         self.min_step_score = min_step_score
         self.cache_dir = cache_dir
@@ -171,13 +174,16 @@ class HierarchicalProposer:
         error = ""
         for _ in range(2):  # one retry with the problem fed back
             content = prompt + (f"\n\nYour previous reply was invalid ({error})." if error else "")
-            msg = self.client.messages.create(
-                model=self.model,
-                max_tokens=300,
-                temperature=0,
-                system=_SYSTEM,
-                messages=[{"role": "user", "content": content}],
-            )
+            try:
+                msg = self.client.messages.create(
+                    model=self.model,
+                    max_tokens=300,
+                    temperature=0,
+                    system=_SYSTEM,
+                    messages=[{"role": "user", "content": content}],
+                )
+            except LLMError as exc:
+                raise ProposerError(str(exc)) from exc
             text = "".join(getattr(b, "text", "") for b in msg.content)
             try:
                 result = _parse(text, valid)

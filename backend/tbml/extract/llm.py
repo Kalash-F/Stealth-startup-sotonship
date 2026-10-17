@@ -11,8 +11,9 @@ from typing import Any, Protocol
 
 from pydantic import ValidationError
 
+from tbml import llm as shared_llm
 from tbml.extract.pdftext import RawDocument
-from tbml.paths import DATA_DIR, REPO_ROOT
+from tbml.paths import DATA_DIR
 from tbml.schemas import Invoice
 
 # Bump when the prompt or the post-processing contract changes; invalidates the cache.
@@ -59,55 +60,19 @@ class LLMClient(Protocol):
         ...
 
 
-class AnthropicClient:
-    """LLMClient over the Anthropic Messages API (temperature 0 where the model allows it)."""
-
-    def __init__(self, model: str, api_key: str | None = None):
-        import anthropic
-
-        self._anthropic = anthropic
-        self.model = model
-        self._client = anthropic.Anthropic(api_key=api_key)
-
-    def complete(self, system: str, messages: list[dict[str, str]]) -> str:
-        """Send one request and return the concatenated text blocks of the reply."""
-        kwargs: dict[str, Any] = {
-            "model": self.model,
-            "max_tokens": 8192,
-            "system": system,
-            "messages": messages,
-        }
-        try:
-            resp = self._client.messages.create(temperature=0, **kwargs)
-        except self._anthropic.BadRequestError as exc:
-            if "temperature" not in str(exc).lower():
-                raise
-            resp = self._client.messages.create(**kwargs)  # model rejects the temperature knob
-        return "".join(b.text for b in resp.content if getattr(b, "type", "") == "text")
-
-
 def _load_dotenv() -> None:
-    """Copy KEY=value lines from the repo-root .env into os.environ without overriding real env
-    vars."""
-    env = REPO_ROOT / ".env"
-    if not env.is_file():
-        return
-    for raw in env.read_text().splitlines():
-        line = raw.strip()
-        if not line or line.startswith("#") or "=" not in line:
-            continue
-        key, _, value = line.partition("=")
-        if value.strip():
-            os.environ.setdefault(key.strip(), value.strip().strip("\"'"))
+    """Kept for callers/tests that patch it; delegates to tbml.llm."""
+    shared_llm.load_dotenv()
 
 
 def configured_client() -> LLMClient | None:
-    """An Anthropic client when ANTHROPIC_API_KEY and LLM_MODEL are set (env or .env), else None."""
+    """The shared client (OpenRouter first, then Anthropic) or None; see tbml/llm.py."""
     _load_dotenv()
-    key, model = os.environ.get("ANTHROPIC_API_KEY"), os.environ.get("LLM_MODEL")
-    if not (key and model):
-        return None
-    return AnthropicClient(model, key)
+    return shared_llm.configured_client()
+
+
+AnthropicClient = shared_llm.AnthropicClient
+OpenRouterClient = shared_llm.OpenRouterClient
 
 
 class StructuringError(Exception):

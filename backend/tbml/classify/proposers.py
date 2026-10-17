@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Any, Protocol
 
 from tbml.classify.hs6 import HS6Entry, default_hs6
+from tbml.llm import LLMError
 from tbml.paths import DATA_DIR
 from tbml.schemas import HS6Candidate
 
@@ -63,19 +64,21 @@ _SYSTEM = (
 )
 
 
-class AnthropicProposer:
-    """Asks an Anthropic model for HS6 candidates as JSON; retries once with the parse error fed
-    back."""
+class LLMProposer:
+    """Asks the configured LLM (OpenRouter or Anthropic, see tbml/llm.py) for HS6 candidates as
+    JSON in one call; retries once with the parse error fed back."""
 
     def __init__(self, model: str | None = None, client: Any = None):
-        self.model = model or os.environ.get("LLM_MODEL", "")
-        if not self.model:
-            raise ProposerError("LLM_MODEL is not set")
         if client is None:
-            import anthropic
+            from tbml.llm import configured_client
 
-            client = anthropic.Anthropic()
+            client = configured_client()
+            if client is None:
+                raise ProposerError("no LLM provider configured")
         self.client = client
+        self.model = model or getattr(client, "model", "") or os.environ.get("LLM_MODEL", "")
+        if not self.model:
+            raise ProposerError("no LLM model set")
 
     def propose(self, description: str) -> list[HS6Candidate]:
         error = ""
@@ -83,19 +86,25 @@ class AnthropicProposer:
             content = f"Description: {description}"
             if error:
                 content += f"\n\nYour previous reply was invalid ({error}). Reply with JSON only."
-            msg = self.client.messages.create(
-                model=self.model,
-                max_tokens=300,
-                temperature=0,
-                system=_SYSTEM,
-                messages=[{"role": "user", "content": content}],
-            )
+            try:
+                msg = self.client.messages.create(
+                    model=self.model,
+                    max_tokens=300,
+                    temperature=0,
+                    system=_SYSTEM,
+                    messages=[{"role": "user", "content": content}],
+                )
+            except LLMError as exc:
+                raise ProposerError(str(exc)) from exc
             text = "".join(getattr(b, "text", "") for b in msg.content)
             try:
                 return _parse(text)
             except ValueError as exc:
                 error = str(exc)
         raise ProposerError(f"LLM returned invalid JSON twice: {error}")
+
+
+AnthropicProposer = LLMProposer  # old name, kept so existing imports keep working
 
 
 def _parse(text: str) -> list[HS6Candidate]:
@@ -135,18 +144,21 @@ class CachedProposer:
 
 
 def default_proposer() -> Proposer:
-    """LLM when ANTHROPIC_API_KEY and LLM_MODEL are set, else the offline keyword baseline.
+    """LLM when a provider is configured (OpenRouter, else Anthropic: see tbml/llm.py), else
+    the offline keyword baseline.
 
-    CLASSIFIER picks the LLM method: "hierarchical" (default: chapter -> heading -> HS6, each
-    step from the real code list) or "flat" (one call straight to HS6). "keyword" forces the
-    offline baseline even with a key, for evaluation.
+    CLASSIFIER picks the method: "hierarchical" (default: chapter -> heading -> HS6, each step
+    from the real code list), "flat" (one call straight to HS6), or "keyword" (offline
+    baseline even when a key is set, for evaluation).
     """
-    model = os.environ.get("LLM_MODEL", "")
+    from tbml.llm import configured_client
+
     method = os.environ.get("CLASSIFIER", "hierarchical").lower()
-    if method == "keyword" or not (os.environ.get("ANTHROPIC_API_KEY") and model):
+    client = None if method == "keyword" else configured_client()
+    if client is None:
         return KeywordProposer()
     if method == "flat":
-        return CachedProposer(AnthropicProposer(model), model=model)
+        return CachedProposer(LLMProposer(client=client), model=f"{client.provider}:{client.model}")
     from tbml.classify.hierarchical import HierarchicalProposer
 
-    return HierarchicalProposer(model)
+    return HierarchicalProposer(client=client)
