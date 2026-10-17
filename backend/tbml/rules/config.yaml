@@ -1,0 +1,51 @@
+# Every rule threshold, weight and word list lives here (plan.md 4.1). Nothing numeric is hardcoded in the rule files.
+
+price_outlier:                 # R1
+  # medium: outside the p10-p90 band; high: more than one full band-width (ln(p90/p10)) from the median, on a log scale
+  high_spread_multiple: 1.0
+
+qty_value_implausible:         # R2
+  ceiling_p90_multiple: 10        # line value ceiling = p90 x normalised quantity x this
+  high_ceiling_multiple: 10       # high severity when the line value is this many times over the ceiling
+  max_avg_line_value_usd: 10000000  # invoice-level: total USD / number of lines above this -> medium
+
+placeholder_desc:              # R3
+  min_words: 3                    # fewer words than this AND no product code found -> placeholder
+  # (?i:...) scopes case-insensitivity, so "PRODUCT ABC" and "Product ABC" match but "Product mix" does not
+  patterns:
+    - '(?i:product) [A-Z]{2,3}\b'
+    - '(?i:item) \d+\b'
+    - '(?i:goods as per)'
+    - '(?i:\bvarious\b)'
+    - '(?i:\bmisc(ellaneous)?\b)'
+    - '(?i:^(merchandise|goods|general cargo|sundry|sundries)$)'
+
+geo_inconsistent:              # R4
+  # origin text containing one of these is treated as an explained re-export / transhipment (DECISIONS D1.8)
+  explained_phrases: ["re-export", "reexport", "re export", "transhipped", "transshipped", "trans-shipped", "transhipment", "transshipment"]
+
+route_no_economic_sense:       # R5
+  parity_tolerance_pct: 15        # origin and destination medians within +/- this percent count as "same price everywhere"
+  # Used when no per-country medians are available (Phase 3 mock bands are global only). Exchange-traded
+  # commodities that trade at near-identical prices everywhere. Replace with real per-country medians via `country_medians`.
+  parity_hs6: ["740311", "090111"]
+  # Optional override: {hs6: {ISO2: median_usd_per_unit}}. When both route countries are present, the +/- tolerance test is used.
+  country_medians: {}
+
+arithmetic_error:              # R6
+  tolerance_pct: 0.5              # relative tolerance
+  tolerance_abs: 1.0              # or this many currency units, whichever is larger
+  high_variance_pct: 10           # high severity when the difference is at least this percent
+
+residential_consignee:         # R7
+  min_total_usd: 25000            # invoice total above which a residential consignee/buyer is flagged
+  high_total_usd: 250000          # high severity above this total
+
+low_confidence:                # R8
+  min_confidence: 0.5
+
+scoring:                       # 4.4
+  weights: {high: 40, medium: 15, low: 5}
+  cap: 100
+  review_now_min: 60
+  review_min: 25
