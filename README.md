@@ -18,7 +18,7 @@ python -c "from tbml.pipeline import check; print(check('any.pdf').priority_band
 |---|---|
 | `make setup` | create `.venv`, install the backend package and dev tools |
 | `make test` / `make lint` / `make format` | pytest / ruff check + format check / auto-fix |
-| `make api` | FastAPI on :8000 (Phase 0: stub pipeline) |
+| `make api` | FastAPI on :8000 with reload (real pipeline; `USE_MOCKS=1 make api` for the fixture stubs). Endpoints: `GET /health`, `POST /check` (multipart `file`), `GET /reports/{invoice_id}`, `GET /samples`, `POST /samples/{invoice_id}/check` |
 | `make web` | Vite dev server in `web/` |
 | `make data` | fetch and cache benchmark data (`backend/scripts/fetch_benchmarks.py`) |
 | `make synthetic` | regenerate the synthetic invoice set (`SEED=42 N=60` by default) |
