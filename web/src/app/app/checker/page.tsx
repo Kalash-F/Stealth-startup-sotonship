@@ -11,7 +11,7 @@ export default function CheckerPage() {
       <PageHeader
         title="Check an invoice"
         crumbs={[{ label: workspace.name, href: "/app" }, { label: "Check an invoice" }]}
-        description="Classify every line, compare its price with trade data and run the red-flag rules. Live, against the backend."
+        description="Upload a trade invoice or pick a test one. Every line is priced against what the goods normally trade for."
       />
       <div className="p-4 lg:p-6">
         <Checker />

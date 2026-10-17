@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { TransactionsTab } from "@/components/app/case/transactions-tab";
 import { AttentionQueue } from "@/components/app/overview/attention-queue";
 import { KpiStrip } from "@/components/app/overview/kpi-strip";
@@ -53,18 +53,16 @@ export function EnterPlatform() {
               Open the case file.
             </h2>
             <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-fg-muted">
-              The demo workspace holds ten fictional cases, the Orchard Gate network and every screen shown on this page. No sign-up,
-              nothing to install.
+              The demo workspace holds ten fictional cases, the Orchard Gate network and every screen shown on this page. To see
+              the checker work on a real PDF, upload one of the test invoices. No sign-up, nothing to install.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row lg:col-span-4 lg:flex-col lg:items-stretch xl:flex-row xl:items-center xl:justify-end">
             <Button asChild size="lg" variant="accent">
-              <Link href="/app">
-                Explore the platform <ArrowRight aria-hidden />
-              </Link>
+              <Link href="/app">Explore the platform</Link>
             </Button>
             <Button asChild size="lg" variant="secondary">
-              <Link href="/request-demo">Request a demo</Link>
+              <Link href="/app/checker">Check an invoice</Link>
             </Button>
           </div>
         </div>

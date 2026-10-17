@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { AlertTriangle, Bot, FileUp, Loader2, PlayCircle, Sparkles } from "lucide-react";
+import { AlertTriangle, FileUp, Loader2, PlayCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Panel, PanelHeader } from "@/components/ui/panel";
@@ -74,10 +74,10 @@ export function Checker() {
   const sample = samples.find((s) => s.invoice_id === selected);
 
   return (
-    <div className="grid gap-4 lg:grid-cols-[340px_1fr] lg:items-start">
+    <div className="grid gap-4 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:items-start">
       <div className="grid gap-4">
         <Panel>
-          <PanelHeader title="Invoice" description="A bundled synthetic sample, or your own PDF." />
+          <PanelHeader title="Invoice to check" description="Sixty test invoices are built in. Some have problems planted in them." />
           <div className="grid gap-4 p-4">
             <div className="grid gap-2">
               <label htmlFor="sample" className="text-xs font-medium text-fg-muted">
@@ -87,21 +87,24 @@ export function Checker() {
                 id="sample"
                 value={selected}
                 onChange={(e) => setSelected(e.target.value)}
-                className="h-9 rounded-sm border border-border-strong bg-surface px-2 text-[13px] text-fg"
+                className="h-9 w-full min-w-0 rounded-sm border border-border-strong bg-surface px-2 text-[13px] text-fg"
                 disabled={!samples.length}
               >
                 {samples.length ? null : <option>No samples available</option>}
                 {samples.map((s) => (
                   <option key={s.invoice_id} value={s.invoice_id}>
-                    {s.invoice_id} · {kindLabel[s.kind]} · {s.route}
+                    {s.invoice_id}, {kindLabel[s.kind]}, {s.route.replace("-", " to ")}
                   </option>
                 ))}
               </select>
               {sample ? (
                 <p className="text-xs text-fg-subtle">
-                  {sample.planted.length ? `Planted: ${sample.planted.join(", ").toLowerCase().replaceAll("_", " ")}` : kindLabel[sample.kind]}
-                  {" · "}
-                  {sample.n_lines} line{sample.n_lines === 1 ? "" : "s"}, {sample.currency}
+                  {sample.planted.length
+                    ? `Planted problems: ${sample.planted.join(", ").toLowerCase().replaceAll("_", " ")}.`
+                    : sample.kind === "hard_negative"
+                      ? "Legitimate, but unusual enough to look suspicious."
+                      : "A normal invoice with nothing planted."}{" "}
+                  {sample.n_lines} line{sample.n_lines === 1 ? "" : "s"} in {sample.currency}.
                 </p>
               ) : null}
               <Button onClick={() => sample && run(sample.invoice_id, () => api.checkSample(sample.invoice_id))} disabled={!sample || busy}>
@@ -110,9 +113,9 @@ export function Checker() {
               </Button>
             </div>
 
-            <div className="flex items-center gap-3 text-2xs uppercase tracking-wider text-fg-subtle">
+            <div className="flex items-center gap-3 text-xs text-fg-subtle">
               <span className="h-px flex-1 bg-border" />
-              or
+              or upload your own
               <span className="h-px flex-1 bg-border" />
             </div>
 
@@ -139,13 +142,13 @@ export function Checker() {
                   e.target.value = "";
                 }}
               />
-              <p className="text-2xs text-fg-subtle">Max 10 MB. Never upload real customer documents.</p>
+              <p className="text-2xs text-fg-subtle">PDF up to 10 MB. Do not upload real customer documents.</p>
             </div>
           </div>
         </Panel>
 
         <Panel>
-          <PanelHeader title="Service" description="What this check is running on." />
+          <PanelHeader title="What this check uses" />
           <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 p-4 text-[13px]">
             {healthError ? (
               <dd className="col-span-2 text-risk-high">{healthError}</dd>
@@ -155,13 +158,9 @@ export function Checker() {
               <>
                 <dt className="text-fg-subtle">Classifier</dt>
                 <dd className="flex items-center gap-1.5 text-fg">
-                  {health.llm && health.llm !== "offline" ? (
-                    <>
-                      <Bot className="size-3.5" aria-hidden /> AI, {health.llm.replace(/^[a-z]+:/, "")}
-                    </>
-                  ) : (
-                    "Keyword baseline (AI offline)"
-                  )}
+                  {health.llm && health.llm !== "offline"
+                    ? `AI model ${health.llm.replace(/^[a-z]+:/, "")}`
+                    : "Keyword matching only (AI not connected)"}
                 </dd>
                 <dt className="text-fg-subtle">Price data</dt>
                 <dd>
@@ -188,18 +187,19 @@ export function Checker() {
         {busy && !report ? (
           <Panel className="grid h-64 place-items-center text-[13px] text-fg-muted" aria-busy="true">
             <span className="flex items-center gap-2">
-              <Loader2 className="size-4 animate-spin" aria-hidden /> Reading the invoice and checking prices…
+              <Loader2 className="size-4 animate-spin" aria-hidden /> Reading the invoice and checking each price…
             </span>
           </Panel>
         ) : report ? (
           <ReportView report={report} source={source} busy={busy} />
         ) : (
           <Panel className="grid h-64 place-items-center p-6 text-center">
-            <div className="grid max-w-sm gap-2">
-              <Sparkles className="mx-auto size-5 text-fg-subtle" aria-hidden />
-              <p className="text-[13px] text-fg-muted">
-                Pick a sample or upload a PDF. Each line is classified to an HS code, priced against comparison data, and run
-                through eight red-flag rules. The result is a review priority with reasons, never a fraud verdict.
+            <div className="grid max-w-md gap-3 text-left">
+              <p className="text-[15px] font-medium text-fg">Pick a sample on the left, or upload an invoice.</p>
+              <p className="text-[13px] leading-relaxed text-fg-muted">
+                Each line gets a customs code, its price is compared with what that good normally trades for, and eight checks look
+                for the usual laundering signs. You get a priority and the reasons for it. Deciding whether it is laundering stays
+                with you.
               </p>
             </div>
           </Panel>
@@ -215,14 +215,14 @@ function ReportView({ report, source, busy }: { report: Report; source: string; 
       <Panel>
         <div className="flex flex-wrap items-center justify-between gap-4 p-4">
           <div className="grid gap-1">
-            <p className="font-mono text-2xs text-fg-subtle">{source}</p>
+            <p className="text-xs text-fg-subtle">Checked {source}</p>
             <h2 className="text-lg font-semibold tracking-tight text-fg">Invoice {report.invoice_id}</h2>
             <div className="flex flex-wrap items-center gap-2">
               <PriorityBadge band={report.priority_band} />
               <span className="text-xs text-fg-subtle">
-                {report.flags.length} flag{report.flags.length === 1 ? "" : "s"} · checked in {(report.processing_ms / 1000).toFixed(1)} s
+                {report.flags.length} flag{report.flags.length === 1 ? "" : "s"}, in {(report.processing_ms / 1000).toFixed(1)} s
               </span>
-              <SyntheticBadge label="Synthetic test data" />
+              {source.endsWith(".pdf") ? null : <SyntheticBadge label="Test invoice" />}
             </div>
           </div>
           <PriorityScore band={report.priority_band} score={Math.round(report.priority_score)} />
@@ -230,18 +230,18 @@ function ReportView({ report, source, busy }: { report: Report; source: string; 
       </Panel>
 
       <Panel>
-        <PanelHeader title="Why this priority" description="Each flag says what looked wrong and the numbers behind it." />
+        <PanelHeader title="Why it got this priority" />
         <div className="p-4">
           {report.flags.length ? (
             <FlagList flags={report.flags as unknown as Flag[]} headingLevel="h3" />
           ) : (
-            <p className="text-[13px] text-fg-muted">No rule fired. That is not proof the invoice is clean, only that nothing stood out.</p>
+            <p className="text-[13px] text-fg-muted">Nothing stood out. That does not prove the invoice is clean.</p>
           )}
         </div>
       </Panel>
 
       <Panel>
-        <PanelHeader title="Line items" description="What each line was classified as, and its price against the comparison range." />
+        <PanelHeader title="Line by line" />
         <ol className="divide-y divide-border">
           {report.lines.map((line) => {
             const path = hsPath(line.normalisation_note);
@@ -250,7 +250,7 @@ function ReportView({ report, source, busy }: { report: Report; source: string; 
               <li key={line.line_id} className="grid gap-3 p-4">
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
                   <p className="text-[13px] font-medium text-fg">
-                    <span className="mr-2 font-mono text-2xs text-fg-subtle">{line.line_id}</span>
+                    <span className="mr-2 text-xs text-fg-subtle">{line.line_id}</span>
                     {line.description}
                   </p>
                   <span className="font-mono text-xs tabular text-fg-muted">
@@ -261,12 +261,12 @@ function ReportView({ report, source, busy }: { report: Report; source: string; 
                   {line.hs6 ? (
                     <p className="text-fg-muted">
                       <span className="font-mono text-fg">HS {line.hs6}</span> {line.hs6_description}
-                      <span className="text-fg-subtle"> · confidence {(line.classification_confidence * 100).toFixed(0)}%</span>
+                      <span className="text-fg-subtle"> ({(line.classification_confidence * 100).toFixed(0)}% confident)</span>
                     </p>
                   ) : (
                     <p className="text-risk-review">Not classified{notClassified ? `: ${notClassified}` : ""}. The price check was skipped for this line.</p>
                   )}
-                  {path ? <p className="font-mono text-2xs leading-relaxed text-fg-subtle">AI path: {path}</p> : null}
+                  {path ? <p className="text-xs leading-relaxed text-fg-subtle">How the AI got there: {path}</p> : null}
                 </div>
                 {line.benchmark && line.unit_price_usd ? (
                   <div className="grid gap-1">
@@ -274,7 +274,7 @@ function ReportView({ report, source, busy }: { report: Report; source: string; 
                     <p className="text-2xs text-fg-subtle">
                       Stated {formatUnitPrice(line.unit_price_usd)} per {unitName[line.benchmark.unit] ?? line.benchmark.unit} in USD
                       {line.benchmark.route ? `, route ${line.benchmark.route}` : ", global range"}
-                      {line.benchmark.is_mock ? " · mock comparison data, not real prices" : ` · ${line.benchmark.sources.join(", ")}`}
+                      {line.benchmark.is_mock ? ". Comparison prices are placeholders, not real trade data." : `. Source: ${line.benchmark.sources.join(", ")}.`}
                     </p>
                   </div>
                 ) : line.hs6 ? (
@@ -288,7 +288,7 @@ function ReportView({ report, source, busy }: { report: Report; source: string; 
 
       {report.warnings.length ? (
         <Panel>
-          <PanelHeader title="What was not checked" description="Gaps the officer should know about before relying on this report." />
+          <PanelHeader title="Not checked" description="Read these before relying on the priority." />
           <ul className="grid gap-1.5 p-4 text-xs text-fg-muted">
             {report.warnings.map((w) => (
               <li key={w} className="flex gap-2">

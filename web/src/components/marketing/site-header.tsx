@@ -68,10 +68,10 @@ export function SiteHeader() {
 
         <div className="hidden items-center gap-2 min-[900px]:flex">
           <Button asChild variant="ghost" size="md">
-            <Link href="/sign-in">Sign in</Link>
+            <Link href="/request-demo">Request a demo</Link>
           </Button>
           <Button asChild variant="primary" size="md">
-            <Link href="/request-demo">Request a demo</Link>
+            <Link href="/app/checker">Check an invoice</Link>
           </Button>
         </div>
 
@@ -108,8 +108,8 @@ export function SiteHeader() {
               </Link>
             </nav>
             <Button asChild variant="primary" size="lg" className="mt-4 w-full">
-              <Link href="/request-demo" onClick={() => setOpen(false)}>
-                Request a demo
+              <Link href="/app/checker" onClick={() => setOpen(false)}>
+                Check an invoice
               </Link>
             </Button>
           </Container>

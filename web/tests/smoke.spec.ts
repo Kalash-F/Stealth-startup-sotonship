@@ -43,6 +43,9 @@ test("marketing CTAs reach the demo and the request form", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("link", { name: "Request a demo" }).first().click();
   await expect(page).toHaveURL(/\/request-demo$/);
+  await page.goto("/");
+  await page.getByRole("link", { name: "Check an invoice" }).first().click();
+  await expect(page).toHaveURL(/\/app\/checker$/);
 });
 
 test("sign-in never accepts credentials and offers the demo", async ({ page }) => {
