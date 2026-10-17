@@ -1,3 +1,22 @@
+year,currency,usd_per_unit,source
+2022,GBP,1.237,approximate annual average (central-bank/IRS style); verify before production use
+2023,GBP,1.244,approximate annual average; verify before production use
+2024,GBP,1.278,approximate annual average; verify before production use
+2022,EUR,1.053,approximate annual average; verify before production use
+2023,EUR,1.081,approximate annual average; verify before production use
+2024,EUR,1.082,approximate annual average; verify before production use
+2022,CNY,0.1486,approximate annual average (1/6.73); verify before production use
+2023,CNY,0.1412,approximate annual average (1/7.08); verify before production use
+2024,CNY,0.1391,approximate annual average (1/7.19); verify before production use
+2022,AED,0.2723,pegged at 3.6725 AED per USD
+2023,AED,0.2723,pegged at 3.6725 AED per USD
+2024,AED,0.2723,pegged at 3.6725 AED per USD
+2022,CZK,0.0428,approximate annual average (1/23.36); verify before production use up
+2023,CZK,0.0450,approximate annual average (1/22.22); verify before production use
+2024,CZK,0.0430,approximate annual average (1/23.28); verify before production use
+2022,USD,1.0,identity
+2023,USD,1.0,identity
+2024,USD,1.0,identity
 currency,units_per_usd,year,source
 USD,1.0,2024,identity
 GBP,0.7826,2024,"approximate 2024 annual average (rounded); verify against a published annual-average table in Phase 3"
