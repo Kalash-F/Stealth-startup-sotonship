@@ -39,8 +39,8 @@
       "description": "Refined copper cathode sheets, LME Grade A",
       "quantity": 143500.0,
       "unit": "kg",
-      "unit_price": 9.7941,
-      "line_total": 1405453.35,
+      "unit_price": 37.94,
+      "line_total": 5444390.0,
       "extraction_confidence": 1.0
     },
     {
@@ -48,12 +48,12 @@
       "description": "Refined copper cathode sheets, LME Grade A",
       "quantity": 77500.0,
       "unit": "kg",
-      "unit_price": 8.2976,
-      "line_total": 643064.0,
+      "unit_price": 9.8227,
+      "line_total": 761259.25,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 3432046.91,
+  "stated_total": 7589178.81,
   "source_file": "INV-2024-0021.pdf",
   "is_synthetic": true
 }

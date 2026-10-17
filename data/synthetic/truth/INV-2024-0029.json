@@ -25,8 +25,8 @@
       "description": "Stainless steel machine screws M4 x 12mm",
       "quantity": 147500.0,
       "unit": "pcs",
-      "unit_price": 0.114,
-      "line_total": 16815.0,
+      "unit_price": 0.2689,
+      "line_total": 39662.75,
       "extraction_confidence": 1.0
     },
     {
@@ -34,8 +34,8 @@
       "description": "USB-C flash drive 128GB with keyring",
       "quantity": 4800.0,
       "unit": "pcs",
-      "unit_price": 22.15,
-      "line_total": 106320.0,
+      "unit_price": 38.55,
+      "line_total": 185040.0,
       "extraction_confidence": 1.0
     },
     {
@@ -43,12 +43,12 @@
       "description": "Copper cathodes Grade A, 99.99% Cu",
       "quantity": 90.0,
       "unit": "MT",
-      "unit_price": 62264.7,
-      "line_total": 5603823.0,
+      "unit_price": 89372.45,
+      "line_total": 8043520.5,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 5726958.0,
+  "stated_total": 8268223.25,
   "source_file": "INV-2024-0029.pdf",
   "is_synthetic": true
 }

@@ -30,13 +30,13 @@ def test_screws_pieces_to_kg_usd():
 
 
 def test_screws_carton_of_1000_gbp():
-    # 100 cartons x 1,000 pc x 0.009 kg = 900 kg; GBP 7.00/carton / 0.7826 = USD 8.9445/carton;
+    # 100 cartons x 1,000 pc x 0.009 kg = 900 kg; GBP 7.00/carton / 0.7824 = USD 8.9468/carton;
     # per kg: 8.9445 / 9 kg per carton = 0.993834
     n = normalise(
         line("Hex head bolts M6, carton of 1,000 pcs", 100, "cartons", 7.0), "731815", "GBP"
     )
     assert n.quantity == pytest.approx(900)
-    assert n.unit_price_usd == pytest.approx(7.0 / 0.7826 / 9.0, rel=1e-6)
+    assert n.unit_price_usd == pytest.approx(7.0 / 0.7824 / 9.0, rel=1e-6)
 
 
 def test_soft_drink_cartons_to_litres_aed():
@@ -50,21 +50,21 @@ def test_soft_drink_cartons_to_litres_aed():
 
 
 def test_usb_carton_of_100_eur():
-    # 50 cartons x 100 = 5,000 u; EUR 450/carton / 0.9239 = 487.06 USD; / 100 = 4.8706 USD/u
+    # 50 cartons x 100 = 5,000 u; EUR 450/carton / 0.9242 = 486.91 USD; / 100 = 4.8691 USD/u
     n = normalise(
         line("USB 2.0 memory stick 32GB, carton of 100", 50, "cartons", 450.0), "852351", "EUR"
     )
     assert n.unit == "u" and n.quantity == pytest.approx(5000)
-    assert n.unit_price_usd == pytest.approx(450 / 0.9239 / 100, rel=1e-6)
+    assert n.unit_price_usd == pytest.approx(450 / 0.9242 / 100, rel=1e-6)
 
 
 def test_tshirts_per_dozen_cny():
-    # 500 dozen x 12 = 6,000 u; CNY 36/dozen / 7.1898 = 5.0071 USD; / 12 = 0.417257 USD/u
+    # 500 dozen x 12 = 6,000 u; CNY 36/dozen / 7.1957 = 5.0030 USD; / 12 = 0.416916 USD/u
     n = normalise(
         line("Plain white cotton T-shirts, packed per dozen", 500, "dozen", 36.0), "610910", "CNY"
     )
     assert n.quantity == pytest.approx(6000)
-    assert n.unit_price_usd == pytest.approx(36 / 7.1898 / 12, rel=1e-6)
+    assert n.unit_price_usd == pytest.approx(36 / 7.1957 / 12, rel=1e-6)
 
 
 def test_coffee_bags_with_stated_weight():
@@ -81,10 +81,10 @@ def test_coffee_bags_without_weight_use_table_default():
 
 
 def test_copper_tonnes_gbp():
-    # 50 MT x 1,000 = 50,000 kg; GBP 7,000/MT / 0.7826 = 8,944.5 USD/MT; / 1000 = 8.9445 USD/kg
+    # 50 MT x 1,000 = 50,000 kg; GBP 7,000/MT / 0.7824 = 8,946.8 USD/MT; / 1000 = 8.9468 USD/kg
     n = normalise(line("Copper cathodes Grade A, 99.99% Cu", 50, "MT", 7000.0), "740311", "GBP")
     assert n.quantity == pytest.approx(50_000)
-    assert n.unit_price_usd == pytest.approx(7000 / 0.7826 / 1000, rel=1e-6)
+    assert n.unit_price_usd == pytest.approx(7000 / 0.7824 / 1000, rel=1e-6)
 
 
 def test_laptops_units_usd():

@@ -1,39 +1,39 @@
 invoice_id,line_id,label,hard_negative,detail
 INV-2024-0002,L1,PLACEHOLDER_DESC,,description 'Merchandise' hides 740311
-INV-2024-0002,,ARITHMETIC_ERROR,,stated total 786954.96 != 938826.94
+INV-2024-0002,,ARITHMETIC_ERROR,,stated total 1335007.05 != 1592645.88
 PI-0005-24,,,CLEAN_HARD,bulk_discount_near_p10
 INV-2024-0009,L1,ROUTE_NO_ECONOMIC_SENSE,,green coffee AE-GB priced between p75 and p90
-PI-0012-24,L1,UNDER_PRICE,,unit price 1/37.4 of the median
+PI-0012-24,L1,UNDER_PRICE,,unit price 1/14.0 of the p10
 PI-0012-24,,GEO_INCONSISTENT,,"origin Indonesia vs loading port in CN, no explanation"
 TX240014,L1,QTY_VALUE_IMPLAUSIBLE,,"8 pcs for ~USD 808,097"
 TX240014,,GEO_INCONSISTENT,,"origin Bangladesh vs loading port in AE, no explanation"
 INV-2024-0021,L1,QTY_VALUE_IMPLAUSIBLE,,"4 pcs for ~USD 1,383,530"
 INV-2024-0021,L2,ROUTE_NO_ECONOMIC_SENSE,,refined copper cathodes CN-GB priced between p75 and p90
 TX240022,,,CLEAN_HARD,unusual_route_explained
-TX240024,L1,UNDER_PRICE,,unit price 1/6.8 of the median
+TX240024,L1,UNDER_PRICE,,unit price 1/3.8 of the p10
 TX240024,,GEO_INCONSISTENT,,"origin Turkey vs loading port in AE, no explanation"
 INV-2024-0026,L1,PLACEHOLDER_DESC,,description 'Product ABC' hides 610910
 INV-2024-0026,,GEO_INCONSISTENT,,"origin Bangladesh vs loading port in AE, no explanation"
-PI-0032-24,L1,ARITHMETIC_ERROR,,line total 55987.81 != 41435.8
+PI-0032-24,L1,ARITHMETIC_ERROR,,line total 176395.82 != 130548.1
 INV-2024-0034,L1,ROUTE_NO_ECONOMIC_SENSE,,green coffee AE-CZ priced between p75 and p90
-INV-2024-0034,L2,ARITHMETIC_ERROR,,line total 34158.63 != 43460.62
-PI-0035-24,L1,OVER_PRICE,,unit price x30.7 the median
+INV-2024-0034,L2,ARITHMETIC_ERROR,,line total 55451.57 != 70552.0
+PI-0035-24,L1,OVER_PRICE,,unit price x14.9 the p90
 PI-0035-24,,RESIDENTIAL_CONSIGNEE,,consignee is a private residence
 INV-2024-0036,,,CLEAN_HARD,unusual_route_explained
 PI-0037-24,,,CLEAN_HARD,premium_near_p90
-PI-0041-24,L1,UNDER_PRICE,,unit price 1/3.2 of the median
-PI-0041-24,L2,ARITHMETIC_ERROR,,line total 3283.87 != 4967.55
+PI-0041-24,L1,UNDER_PRICE,,unit price 1/2.1 of the p10
+PI-0041-24,L2,ARITHMETIC_ERROR,,line total 24833.42 != 37565.85
 PI-0044-24,L1,QTY_VALUE_IMPLAUSIBLE,,"2 pcs for ~USD 182,183"
-PI-0044-24,L2,OVER_PRICE,,unit price x121.8 the median
+PI-0044-24,L2,OVER_PRICE,,unit price x48.8 the p90
 PI-0045-24,,RESIDENTIAL_CONSIGNEE,,consignee is a private residence
 TX240048,,,CLEAN_HARD,bulk_discount_near_p10
 TX240051,L1,QTY_VALUE_IMPLAUSIBLE,,"4 units for ~USD 245,874"
-TX240051,L2,OVER_PRICE,,unit price x38.9 the median
+TX240051,L2,OVER_PRICE,,unit price x18.2 the p90
 PI-0052-24,L1,ROUTE_NO_ECONOMIC_SENSE,,green coffee AE-GB priced between p75 and p90
 PI-0052-24,,RESIDENTIAL_CONSIGNEE,,consignee is a private residence
 INV-2024-0055,L1,PLACEHOLDER_DESC,,description 'Misc goods' hides 852351
-INV-2024-0055,L2,UNDER_PRICE,,unit price 1/85.1 of the median
+INV-2024-0055,L2,UNDER_PRICE,,unit price 1/26.5 of the p10
 PI-0056-24,L1,PLACEHOLDER_DESC,,description 'Various' hides 847130
 PI-0056-24,,RESIDENTIAL_CONSIGNEE,,consignee is a private residence
-TX240057,L1,OVER_PRICE,,unit price x228.4 the median
+TX240057,L1,OVER_PRICE,,unit price x83.9 the p90
 TX240058,,,CLEAN_HARD,premium_near_p90

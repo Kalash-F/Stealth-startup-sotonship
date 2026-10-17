@@ -30,8 +30,8 @@
       "description": "Various",
       "quantity": 840.0,
       "unit": "pcs",
-      "unit_price": 480.85,
-      "line_total": 403914.0,
+      "unit_price": 356.6,
+      "line_total": 299544.0,
       "extraction_confidence": 1.0
     },
     {
@@ -39,8 +39,8 @@
       "description": "Women's V-neck T-shirt, cotton knitted, assorted sizes",
       "quantity": 26000.0,
       "unit": "pcs",
-      "unit_price": 2.051,
-      "line_total": 53326.0,
+      "unit_price": 4.3871,
+      "line_total": 114064.6,
       "extraction_confidence": 1.0
     },
     {
@@ -48,12 +48,12 @@
       "description": "Refined copper cathode sheets, LME Grade A",
       "quantity": 130000.0,
       "unit": "kg",
-      "unit_price": 6.5292,
-      "line_total": 848796.0,
+      "unit_price": 7.9182,
+      "line_total": 1029366.0,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 1306036.0,
+  "stated_total": 1442974.6,
   "source_file": "PI-0056-24.pdf",
   "is_synthetic": true
 }

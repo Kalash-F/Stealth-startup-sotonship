@@ -219,6 +219,31 @@ def hmrc_records(raw: list[dict], hs6: str, year: int, fx: pd.DataFrame) -> list
     return recs
 
 
+def records_from_raw(fx: pd.DataFrame) -> list[dict]:
+    """Unit-value records rebuilt from cached raw responses (`*.json` or `*.json.gz`), newest fetch
+    per source/hs6/year/tag. Only sources whose raw files are present contribute."""
+    import gzip
+
+    latest: dict[tuple, Path] = {}
+    for path in sorted(RAW.glob("*.json*")):
+        parts = path.name.split(".json")[0].split("_")
+        if len(parts) < 5 or parts[0] not in ("hmrc", "comtrade"):
+            continue
+        source, hs6, year, tag = parts[0], parts[1], int(parts[2]), parts[3]
+        latest[(source, hs6, year, tag)] = path  # sorted, so the last (newest date) wins
+    recs: list[dict] = []
+    for (source, hs6, year, tag), path in sorted(latest.items()):
+        if hs6 not in COMMODITIES:
+            continue
+        raw = path.read_bytes()
+        payload = json.loads(gzip.decompress(raw) if path.suffix == ".gz" else raw)
+        if source == "hmrc":
+            recs += hmrc_records(payload["data"], hs6, year, fx)
+        else:
+            recs += comtrade_records(payload["data"], hs6, year, None if tag == "all" else tag)
+    return recs
+
+
 # ------------------------------------------------------------- bands (3.3)
 def _bands(vals: np.ndarray) -> tuple[float, ...]:
     """The p10, p25, median, p75 and p90 of an array of unit values."""
@@ -308,12 +333,29 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--mock", action="store_true", help="skip APIs, write bands_mock.json")
     ap.add_argument("--verify-hs", action="store_true")
+    ap.add_argument(
+        "--from-raw",
+        action="store_true",
+        help="no network: rebuild bands.json from the committed raw responses in data/benchmarks/raw",
+    )
     a = ap.parse_args()
     BENCH.mkdir(parents=True, exist_ok=True)
     if a.verify_hs:
         verify_hs6()
         return 0
     recs: list[dict] = []
+    if a.from_raw:
+        recs = records_from_raw(load_fx())
+        a.mock = True  # skip the network fetch below
+        df = pd.DataFrame(recs)
+        bands = compute_bands(df)
+        missing = sorted(set(COMMODITIES) - set(bands.hs6))
+        if missing:
+            print(f"raw data missing for {missing}; not writing bands.json", file=sys.stderr)
+            return 1
+        write_bands(bands, BENCH / "bands.json")
+        print(bands.to_string())
+        return 0
     if not a.mock:
         fx = load_fx()
         key = os.environ.get("COMTRADE_API_KEY")

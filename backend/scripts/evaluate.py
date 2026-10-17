@@ -322,7 +322,12 @@ def to_markdown(a: dict | None, b: dict | None) -> str:
         out += [
             "",
             "Caveats: the invoices are synthetic and the anomalies were planted by our own generator, so these "
-            "numbers show the rules work as designed, not real-world performance. Mock benchmarks are approximate.",
+            "numbers show the rules work as designed, not real-world performance."
+            + (
+                " Mock benchmarks are approximate."
+                if b["benchmarks_mock"]
+                else " Prices compared against HMRC Overseas Trade Statistics, UK imports 2023-2025."
+            ),
         ]
     return "\n".join(out) + "\n"
 

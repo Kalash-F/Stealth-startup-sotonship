@@ -7,7 +7,7 @@ import argparse
 from pathlib import Path
 
 from tbml.paths import SYNTHETIC_DIR
-from tbml.synthetic.generator import DEFAULT_BANDS, distribution_table, generate, load_bands, write
+from tbml.synthetic.generator import DEFAULT_BANDS, distribution_table, generate, write
 
 
 def main() -> None:
@@ -20,7 +20,7 @@ def main() -> None:
     p.add_argument("--no-pdf", action="store_true", help="write truth and labels only")
     args = p.parse_args()
 
-    items = generate(args.seed, args.n, bands=load_bands(args.bands))
+    items = generate(args.seed, args.n, bands_path=args.bands)
     write(items, args.out, pdf=not args.no_pdf)
     print(f"wrote {len(items)} invoices to {args.out} (seed {args.seed}, bands {args.bands.name})")
     print(distribution_table(items))

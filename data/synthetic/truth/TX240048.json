@@ -25,12 +25,12 @@
       "description": "15.6-inch notebook PC, AMD Ryzen 7, 16GB RAM (bulk order, volume discount applied)",
       "quantity": 2350.0,
       "unit": "units",
-      "unit_price": 159.26,
-      "line_total": 374261.0,
+      "unit_price": 79.21,
+      "line_total": 186143.5,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 374261.0,
+  "stated_total": 186143.5,
   "source_file": "TX240048.pdf",
   "is_synthetic": true
 }

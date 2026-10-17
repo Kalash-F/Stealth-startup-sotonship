@@ -39,8 +39,8 @@
       "description": "Hex head bolts M6, carton of 1,000 pcs",
       "quantity": 330.0,
       "unit": "cartons",
-      "unit_price": 15292.41,
-      "line_total": 5046495.3,
+      "unit_price": 835922.34,
+      "line_total": 275854372.2,
       "extraction_confidence": 1.0
     },
     {
@@ -48,12 +48,12 @@
       "description": "USB-C flash drive 128GB with keyring",
       "quantity": 14000.0,
       "unit": "pcs",
-      "unit_price": 21.39,
-      "line_total": 299460.0,
+      "unit_price": 947.11,
+      "line_total": 13259540.0,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 6015022.56,
+  "stated_total": 289782979.46,
   "source_file": "PI-0044-24.pdf",
   "is_synthetic": true
 }

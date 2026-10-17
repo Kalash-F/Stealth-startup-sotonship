@@ -25,8 +25,8 @@
       "description": "USB-C flash drive 128GB with keyring",
       "quantity": 25000.0,
       "unit": "pcs",
-      "unit_price": 26.43,
-      "line_total": 660750.0,
+      "unit_price": 2012.81,
+      "line_total": 50320250.0,
       "extraction_confidence": 1.0
     },
     {
@@ -34,12 +34,12 @@
       "description": "14-inch laptop computer, Intel Core i5, 16GB RAM, 512GB SSD",
       "quantity": 530.0,
       "unit": "pcs",
-      "unit_price": 1299.36,
-      "line_total": 688660.8,
+      "unit_price": 1457.81,
+      "line_total": 772639.3,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 1349410.8,
+  "stated_total": 51092889.3,
   "source_file": "INV-2024-0036.pdf",
   "is_synthetic": true
 }

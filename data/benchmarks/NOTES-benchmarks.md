@@ -3,7 +3,7 @@
 Own-section log; merge into DECISIONS.md when that file exists on main.
 
 ## Decisions
-- **Mock fallback used.** The build sandbox's egress proxy returned 403 for api.uktradeinfo.com, comtradeapi.un.org and
+- **(Superseded 2026-10-17, DECISIONS D9.1: real bands.json now built from committed HMRC data.)** **Mock fallback used.** The build sandbox's egress proxy returned 403 for api.uktradeinfo.com, comtradeapi.un.org and
   www.trade-tariff.service.gov.uk, and no `COMTRADE_API_KEY` is available. `fetch_benchmarks.py` therefore wrote
   `data/benchmarks/bands_mock.json` (`is_mock=True`, `sources=["MOCK approximate"]`). The UI must show the "mock benchmark" badge.
 - **Mock rows are global only** (`route=null`). Per-route mock rows would be invented; consumers fall back to global (per §3.3).

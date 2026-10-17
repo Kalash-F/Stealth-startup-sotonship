@@ -1,19 +1,25 @@
 year,currency,usd_per_unit,source
-2022,GBP,1.237,approximate annual average (central-bank/IRS style); verify before production use
-2023,GBP,1.244,approximate annual average; verify before production use
-2024,GBP,1.278,approximate annual average; verify before production use
-2022,EUR,1.053,approximate annual average; verify before production use
-2023,EUR,1.081,approximate annual average; verify before production use
-2024,EUR,1.082,approximate annual average; verify before production use
-2022,CNY,0.1486,approximate annual average (1/6.73); verify before production use
-2023,CNY,0.1412,approximate annual average (1/7.08); verify before production use
-2024,CNY,0.1391,approximate annual average (1/7.19); verify before production use
-2022,AED,0.2723,pegged at 3.6725 AED per USD
-2023,AED,0.2723,pegged at 3.6725 AED per USD
-2024,AED,0.2723,pegged at 3.6725 AED per USD
-2022,CZK,0.0428,approximate annual average (1/23.36); verify before production use up
-2023,CZK,0.0450,approximate annual average (1/22.22); verify before production use
-2024,CZK,0.0430,approximate annual average (1/23.28); verify before production use
+2022,GBP,1.2371,"Federal Reserve G.5A annual average 2025 release (federalreserve.gov/releases/g5a), retrieved 2026-10-17"
+2022,EUR,1.0534,"Federal Reserve G.5A annual average 2025 release (federalreserve.gov/releases/g5a), retrieved 2026-10-17"
+2022,CNY,0.14861,"Federal Reserve G.5A annual average 2025 release (federalreserve.gov/releases/g5a), retrieved 2026-10-17; published as 6.729 CNY per USD"
+2022,AED,0.272294,"Central Bank of the UAE peg, 3.6725 AED per USD"
+2022,CZK,0.0428,"approximate, not in G.5A; no test invoice uses CZK"
 2022,USD,1.0,identity
+2023,GBP,1.244,"Federal Reserve G.5A annual average 2025 release (federalreserve.gov/releases/g5a), retrieved 2026-10-17"
+2023,EUR,1.0817,"Federal Reserve G.5A annual average 2025 release (federalreserve.gov/releases/g5a), retrieved 2026-10-17"
+2023,CNY,0.141225,"Federal Reserve G.5A annual average 2025 release (federalreserve.gov/releases/g5a), retrieved 2026-10-17; published as 7.0809 CNY per USD"
+2023,AED,0.272294,"Central Bank of the UAE peg, 3.6725 AED per USD"
+2023,CZK,0.045,"approximate, not in G.5A; no test invoice uses CZK"
 2023,USD,1.0,identity
+2024,GBP,1.2781,"Federal Reserve G.5A annual average 2025 release (federalreserve.gov/releases/g5a), retrieved 2026-10-17"
+2024,EUR,1.082,"Federal Reserve G.5A annual average 2025 release (federalreserve.gov/releases/g5a), retrieved 2026-10-17"
+2024,CNY,0.138972,"Federal Reserve G.5A annual average 2025 release (federalreserve.gov/releases/g5a), retrieved 2026-10-17; published as 7.1957 CNY per USD"
+2024,AED,0.272294,"Central Bank of the UAE peg, 3.6725 AED per USD"
+2024,CZK,0.043,"approximate, not in G.5A; no test invoice uses CZK"
 2024,USD,1.0,identity
+2025,GBP,1.3192,"Federal Reserve G.5A annual average 2025 release (federalreserve.gov/releases/g5a), retrieved 2026-10-17"
+2025,EUR,1.1306,"Federal Reserve G.5A annual average 2025 release (federalreserve.gov/releases/g5a), retrieved 2026-10-17"
+2025,CNY,0.13913,"Federal Reserve G.5A annual average 2025 release (federalreserve.gov/releases/g5a), retrieved 2026-10-17; published as 7.1875 CNY per USD"
+2025,AED,0.272294,"Central Bank of the UAE peg, 3.6725 AED per USD"
+2025,CZK,0.043,"approximate, not in G.5A; no test invoice uses CZK"
+2025,USD,1.0,identity

@@ -30,8 +30,8 @@
       "description": "M6 x 30mm hex bolts, zinc plated",
       "quantity": 442000.0,
       "unit": "pcs",
-      "unit_price": 0.0273,
-      "line_total": 12066.6,
+      "unit_price": 0.1046,
+      "line_total": 46233.2,
       "extraction_confidence": 1.0
     },
     {
@@ -39,8 +39,8 @@
       "description": "Carriage bolts M10 x 100mm, galvanised steel",
       "quantity": 4600.0,
       "unit": "kg",
-      "unit_price": 4.7836,
-      "line_total": 22004.56,
+      "unit_price": 54.5,
+      "line_total": 250700.0,
       "extraction_confidence": 1.0
     },
     {
@@ -48,12 +48,12 @@
       "description": "Copper cathodes Grade A, 99.99% Cu",
       "quantity": 30.2,
       "unit": "MT",
-      "unit_price": 8163.83,
-      "line_total": 246547.67,
+      "unit_price": 12819.65,
+      "line_total": 387153.43,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 280618.83,
+  "stated_total": 684086.63,
   "source_file": "TX240006.pdf",
   "is_synthetic": true
 }

@@ -25,8 +25,8 @@
       "description": "Misc goods",
       "quantity": 32000.0,
       "unit": "pcs",
-      "unit_price": 5.3035,
-      "line_total": 169712.0,
+      "unit_price": 184.79,
+      "line_total": 5913280.0,
       "extraction_confidence": 1.0
     },
     {
@@ -34,12 +34,12 @@
       "description": "Energy drink 250ml cans, original flavour",
       "quantity": 108500.0,
       "unit": "cans",
-      "unit_price": 0.002497,
-      "line_total": 270.92,
+      "unit_price": 0.004668,
+      "line_total": 506.48,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 169982.92,
+  "stated_total": 5913786.48,
   "source_file": "INV-2024-0055.pdf",
   "is_synthetic": true
 }

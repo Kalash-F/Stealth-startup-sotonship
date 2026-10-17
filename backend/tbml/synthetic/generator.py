@@ -24,7 +24,7 @@ import random
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from tbml.paths import REFERENCE_DIR
+from tbml.paths import BENCHMARKS_DIR, REFERENCE_DIR
 from tbml.schemas import AddressType, Benchmark, Invoice, LineItem, Party
 from tbml.synthetic import catalogue as cat
 
@@ -56,7 +56,9 @@ ARITH_MIN_ABS = 10.0
 RESIDENTIAL_MIN_TOTAL_USD = 30_000.0
 QTY_VALUE_MIN_P90_MULTIPLE = 15.0
 
-DEFAULT_BANDS = REFERENCE_DIR / "placeholder_bands.json"
+# Real bands (HMRC OTS, built by fetch_benchmarks.py) when present, else the old placeholders.
+_REAL_BANDS = BENCHMARKS_DIR / "bands.json"
+DEFAULT_BANDS = _REAL_BANDS if _REAL_BANDS.exists() else REFERENCE_DIR / "placeholder_bands.json"
 DEFAULT_FX = REFERENCE_DIR / "fx.csv"
 
 
@@ -75,6 +77,16 @@ def load_bands(path: Path = DEFAULT_BANDS) -> dict[str, Benchmark]:
     if missing:
         raise ValueError(f"no global band for {sorted(missing)} in {path}")
     return bands
+
+
+def load_route_bands(path: Path = DEFAULT_BANDS) -> dict[tuple[str, str | None], Benchmark]:
+    """Every band row keyed by (hs6, route); route None is the global row. The pipeline prefers
+    the route row for an invoice's route (tbml.benchmark), so clean prices must be drawn from the
+    same row or a clean invoice can look mispriced."""
+    return {
+        (b.hs6, b.route): b
+        for b in (Benchmark.model_validate(row) for row in json.loads(Path(path).read_text()))
+    }
 
 
 def load_fx(path: Path = DEFAULT_FX) -> dict[str, float]:
@@ -166,9 +178,16 @@ def _schedule(rng: random.Random, n: int) -> list[tuple[str, list[str], str]]:
 class _Factory:
     """Builds fictional parties, addresses and lines, drawing every choice from one seeded RNG."""
 
-    def __init__(self, rng: random.Random, bands: dict[str, Benchmark], fx: dict[str, float]):
+    def __init__(
+        self,
+        rng: random.Random,
+        bands: dict[str, Benchmark],
+        fx: dict[str, float],
+        route_bands: dict[tuple[str, str | None], Benchmark] | None = None,
+    ):
         self.rng = rng
         self.bands = bands
+        self.route_bands = route_bands or {}
         self.fx = fx
 
     # parties ------------------------------------------------------------------------------
@@ -250,7 +269,11 @@ class _Factory:
         return Party(name=self.company(cc), address=address, country=cc, address_type=kind)
 
     # lines --------------------------------------------------------------------------------
-    def line(self, hs6: str, big: bool = False) -> Line:
+    def band(self, hs6: str, route: str | None) -> Benchmark:
+        """The band the pipeline will compare this line against: route row, else global."""
+        return self.route_bands.get((hs6, route)) or self.bands[hs6]
+
+    def line(self, hs6: str, big: bool = False, route: str | None = None) -> Line:
         """A clean line: random variant and quantity, price inside the band's p25-p75.
         `big` draws from the upper half of the quantity range."""
         commodity = cat.COMMODITIES[hs6]
@@ -259,7 +282,7 @@ class _Factory:
         if big:
             lo = (lo + hi) / 2
         qty = _nice_qty(self.rng, variant, lo, hi)
-        b = self.bands[hs6]
+        b = self.band(hs6, route)
         price = _log_uniform(self.rng, b.p25, b.p75)
         return Line(hs6, variant, variant.description, qty, price, expected_hs6=hs6)
 
@@ -309,7 +332,7 @@ def _generate_one(f: _Factory, idx: int, role: str, anomalies: list[str], hard_k
             hs6 = r.choice(non_parity)
         else:
             hs6 = r.choice(filler_pool)
-        lines.append(f.line(hs6, big=big))
+        lines.append(f.line(hs6, big=big, route=route))
 
     # --- origin, ports, parties ----------------------------------------------------------
     origin = r.choice(cat.COUNTRY_NAMES[seller_cc])
@@ -334,16 +357,18 @@ def _generate_one(f: _Factory, idx: int, role: str, anomalies: list[str], hard_k
     for slot, label in enumerate(priced_anoms):
         ln = lines[slot]
         ln.label = label
-        b = f.bands[ln.hs6]
+        b = f.band(ln.hs6, route)
         lid = f"L{slot + 1}"
+        # Planted relative to the band edges, not the median: real trade bands are wide (p90 can
+        # be 20x the median), so "3x the median" may still be a normal price (DECISIONS D9.2).
         if label == "OVER_PRICE":
-            factor = _log_uniform(r, 3, 1000)
-            ln.usd_per_bench = b.median * factor
-            labels.append((label, lid, f"unit price x{factor:.1f} the median"))
+            factor = _log_uniform(r, 2, 300)
+            ln.usd_per_bench = b.p90 * factor
+            labels.append((label, lid, f"unit price x{factor:.1f} the p90"))
         elif label == "UNDER_PRICE":
-            factor = _log_uniform(r, 3, 100)
-            ln.usd_per_bench = b.median / factor
-            labels.append((label, lid, f"unit price 1/{factor:.1f} of the median"))
+            factor = _log_uniform(r, 2, 30)
+            ln.usd_per_bench = b.p10 / factor
+            labels.append((label, lid, f"unit price 1/{factor:.1f} of the p10"))
         elif label == "QTY_VALUE_IMPLAUSIBLE":
             v = ln.variant
             ln.quantity = float(r.randint(1, 20))
@@ -364,12 +389,12 @@ def _generate_one(f: _Factory, idx: int, role: str, anomalies: list[str], hard_k
     # --- hard negatives ------------------------------------------------------------------
     if hard_kind == "premium_near_p90":
         ln = lines[0]
-        b = f.bands[ln.hs6]
+        b = f.band(ln.hs6, route)
         ln.usd_per_bench = _log_interp(b.p75, b.p90, r.uniform(0.75, 0.95))
         ln.description = f"{r.choice(['Premium', 'Enterprise-grade', 'Branded'])} {ln.description}"
     elif hard_kind == "bulk_discount_near_p10":
         ln = lines[0]
-        b = f.bands[ln.hs6]
+        b = f.band(ln.hs6, route)
         ln.usd_per_bench = _log_interp(b.p10, b.p25, r.uniform(0.05, 0.4))
         ln.quantity = _nice_qty(
             r, ln.variant, ln.variant.qty_range[1] * 1.5, ln.variant.qty_range[1] * 3
@@ -477,12 +502,18 @@ def _generate_one(f: _Factory, idx: int, role: str, anomalies: list[str], hard_k
 
 
 def generate(
-    seed: int, n: int, bands: dict[str, Benchmark] | None = None, fx: dict[str, float] | None = None
+    seed: int,
+    n: int,
+    bands: dict[str, Benchmark] | None = None,
+    fx: dict[str, float] | None = None,
+    bands_path: Path | None = None,
 ) -> list[Generated]:
     """Generate `n` invoices deterministically from `seed` (about 30% anomalous, 10% hard
     negatives)."""
     rng = random.Random(seed)
-    factory = _Factory(rng, bands or load_bands(), fx or load_fx())
+    path = Path(bands_path) if bands_path else DEFAULT_BANDS
+    route_bands = load_route_bands(path) if bands is None else None
+    factory = _Factory(rng, bands or load_bands(path), fx or load_fx(), route_bands)
     schedule = _schedule(rng, n)
     return [
         _generate_one(factory, i + 1, role, anomalies, kind)

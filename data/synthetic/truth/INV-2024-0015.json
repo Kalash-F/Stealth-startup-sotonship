@@ -30,12 +30,12 @@
       "description": "Energy drink 250ml cans, original flavour",
       "quantity": 144000.0,
       "unit": "cans",
-      "unit_price": 0.2446,
-      "line_total": 35222.4,
+      "unit_price": 0.2884,
+      "line_total": 41529.6,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 35222.4,
+  "stated_total": 41529.6,
   "source_file": "INV-2024-0015.pdf",
   "is_synthetic": true
 }
