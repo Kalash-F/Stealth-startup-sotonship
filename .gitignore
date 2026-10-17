@@ -10,6 +10,8 @@ data/reports/
 node_modules/
 dist/
 data/cache/raw_text/
+data/benchmarks/raw/*
+!data/benchmarks/raw/.gitkeep
 .vercel/
 backend/data/
 build/
