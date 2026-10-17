@@ -13,3 +13,4 @@ data/cache/raw_text/
 .vercel/
 backend/data/
 build/
+HS.json
