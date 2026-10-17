@@ -13,7 +13,7 @@ Deviations from `plan.md`, contract interpretations, and assumptions. Newest at 
 - **D0.7 Nullable means required-but-nullable.** Every field typed `X | null` in §4 must be present in the JSON; its value may be `null`. No field has a default. This is the strictest reading and makes "missing field" tests meaningful.
 - **D0.8 Validation added beyond §4 types** (all derived from the §4 notes column): unknown fields rejected (`extra="forbid"`); `country` = 2 upper-case letters; `currency` = 3 upper-case letters; `hs6` = 6 digits; `line_id` = `L<n>`; `Benchmark.route` = `XX-XX` or null; confidences 0–1; `priority_score` 0–100; `n_observations`, `processing_ms` ≥ 0; `Benchmark` bands must satisfy p10 ≤ p25 ≤ median ≤ p75 ≤ p90 (the Phase 3 monotonic requirement, enforced at the contract so a bad band can never be loaded).
 - **D0.9 Fixtures are mock.** The benchmark fixture has `is_mock: true` and `sources: ["mock (test fixture)"]`; the invoice fixture has `is_synthetic: true` and company names suffixed "(synthetic)".
-- **D0.10 Stub API.** `api.py` already serves `GET /health` and a stub `POST /check` (returns the fixture report) with CORS for the Vite dev server, so frontend work can start before Phase 5. Full Phase 5 endpoints/error handling are not built.
+- **D0.10 Stub API.** `api.py` already serves `GET /health` and a stub `POST /check` (returns the fixture report) with CORS for the Vite dev server, so frontend work can start before Phase 5. Full Phase 5 endpoints/error handling are not built. *Superseded by Phase 5 (D5.2–D5.10).*
 - **D0.11 Extra dependencies declared up front.** `pandas` and `pyarrow` (Phase 3 parquet bands) are in `backend/pyproject.toml` now, so parallel threads don't have to edit the same dependency list.
 
 ## Phase 1
@@ -50,6 +50,7 @@ Deviations from `plan.md`, contract interpretations, and assumptions. Newest at 
 - **D3.7 FX.** One 2024 rate per currency, whatever the invoice date (per-date adjustment is in the §12 backlog). Rates are still the approximate ones from D1.3.
 - **D3.8 Benchmark unit source.** Units come from `bands.parquet` if present, else `bands_mock.parquet`, so they cannot drift from the bands.
 - **D3.9 Tests never call the LLM.** `tests/conftest.py` removes `ANTHROPIC_API_KEY` for every test.
+- **D3.10 Phase 3A (benchmark data) decisions** live in `data/benchmarks/NOTES-benchmarks.md`: mock fallback (`bands_mock.parquet`, `is_mock=True`) because the APIs were unreachable, global-only mock rows, nominal `n_observations`, units per HS6, and the unverified HS6 descriptions.
 
 ## Phase 5 (pipeline + API)
 
@@ -62,3 +63,8 @@ Deviations from `plan.md`, contract interpretations, and assumptions. Newest at 
 - **D5.7 Report cache.** `data/reports/{invoice_id}.json` (gitignored; `TBML_REPORTS_DIR` overrides). Ids are sanitised to `[A-Za-z0-9._-]` for the filename, so two ids that differ only in other characters collide. A later check of the same id overwrites.
 - **D5.8 Extra endpoint.** `POST /samples/{invoice_id}/check` runs a bundled sample without a file upload (for the demo). `GET /samples` includes the planted labels, since the samples are synthetic.
 - **D5.9 Timing.** Stage timings are logged at INFO (`tbml.pipeline`). Median over the 60 synthetic PDFs on the offline path: 0.08 s per invoice (the LLM path was not run: no API key here).
+- **D5.10 CORS for the Next.js app, and an index route.** Phase 5 kept CORS on Vite's `:5173` only, but `web/` runs on `:3000` (D8.1), so `localhost:3000` and `127.0.0.1:3000` are allowed too. `GET /` returns a small index (title, `/docs`, `/health`, frontend URL).
+
+## Website and demo workspace (`web/`)
+
+- **D8.1 Frontend stack is Next.js, not Vite.** plan §3.1 says Vite + React + TypeScript + Tailwind with Vitest + Playwright. `web/` is Next.js 15 (App Router) + React 19 + TypeScript + Tailwind CSS 4, with Playwright smoke tests and no Vitest. The dev server runs on `:3000` (`make web`). Routes are App Router folders: the marketing site under `src/app/(site)/` at `/`, the demo workspace under `src/app/app/` at `/app`; `/checker` is reserved for the Phase 7 officer checker. The website brief (`website.md`, not in this repo) replaces plan Phase 8; progress is tracked in `web/PROJECT_PLAN.md`. `web/` uses its own fictional dataset in `src/data/` and does not call the backend yet.

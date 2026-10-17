@@ -20,6 +20,7 @@ dependencies = [
     "pyarrow>=15",
     "anthropic>=0.40",
     "requests>=2.31",
+    "xlrd>=2.0",  # scripts/fetch_hs_codes.py reads the WITS .xls
 ]
 
 [project.optional-dependencies]
@@ -46,4 +47,5 @@ select = ["E", "F", "W", "I", "UP", "B"]
 "tbml/**" = ["E501"]  # long docstrings and reason strings read better unwrapped (DECISIONS D5.1)
 "tbml/synthetic/catalogue.py" = ["E501"]  # data tables read better one entry per line
 "scripts/fetch_benchmarks.py" = ["E501"]
+"scripts/fetch_hs_codes.py" = ["E501"]
 "tests/test_benchmark.py" = ["E501"]

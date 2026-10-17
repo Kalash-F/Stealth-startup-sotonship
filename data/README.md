@@ -3,6 +3,7 @@
 | Folder | Content | Produced by |
 |---|---|---|
 | `reference/` | Small hand-maintained lookup tables the code reads at runtime | by hand |
+| `reference/hs/` | Every HS6 code the World Bank WITS API serves, as SQL: `hs2` → `hs4` → `hs6` | `backend/scripts/fetch_hs_codes.py` |
 | `benchmarks/` | Price bands per HS6 (and route), plus cached raw API responses | `backend/scripts/fetch_benchmarks.py` |
 | `synthetic/` | Fictional labelled invoices (PDF, truth JSON, label CSVs) | `backend/scripts/generate_invoices.py` |
 
@@ -18,6 +19,7 @@ Runtime-generated folders (`cache/`, and `reports/` once the API caches reports)
 | `fx_annual.csv` | `fetch_benchmarks.py` | Approximate annual USD per unit, to convert HMRC values. |
 | `countries.csv`, `cities.csv` | rules R4, R5 | ISO codes with aliases, and a gazetteer of trade cities and ports. |
 | `placeholder_bands.json` | synthetic generator | Approximate bands used before real ones exist. |
+| `hs/*.sql` | not yet read by code | `hs2` (chapter, `hs2_code`, `name`) → `hs4` (heading, `hs4_code`, `hs2_code`, `name`) → `hs6` (subheading, `hs6_code`, `hs4_code`, `name`): 96 / 1265 / 6882 rows, all HS revisions merged. `hs6` is the WITS API product list (`/API/V1/wits/datasource/trn/product/all`) verbatim, so names carry the code and the years the code was valid, e.g. `852351 -- (2007-) -- Solid-state non-volatile storage devices`. The API has no chapter or heading names; those come from the `HS Nomenclature` sheet of WITS's `HSProducts.xls`, whose HS6 rows the script checks are identical to the API's. WITS stores descriptions in a 255-character field, so some long names end mid-word in the source. `--nomenclature H6` builds HS 2022 alone instead (5612 codes, names without codes or years). `make hs-codes` regenerates the files and loads them into the SQLite database `hs.db` at the repo root; for PostgreSQL run each file in name order. |
 
 Rates and bands marked approximate are not authoritative; verify before any production use.
 

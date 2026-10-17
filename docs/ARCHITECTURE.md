@@ -21,7 +21,7 @@ PDF ──► extract ──► classify ──► benchmark ──► rules ─
 | Rules | `tbml.rules` | invoice, lines, bands | `Flag[]` (worst first) | [rules/README.md](../backend/tbml/rules/README.md) |
 | Score | `tbml.score` | `Flag[]` | score 0-100 and `PriorityBand` | below |
 
-`check` then merges each `LineItem`, its `EnrichedLine` and its `Benchmark` into a `ReportLine`, adds the extraction warnings, and returns a `Report`.
+`check` then merges each `LineItem`, its `EnrichedLine` and its `Benchmark` into a `ReportLine`, adds the extraction warnings and the rules' skip warnings (for example "no price benchmark, so the price check was skipped"), and returns a `Report`. Stage timings are logged at INFO under `tbml.pipeline`. With `USE_MOCKS=1`, extraction and benchmarking are swapped for the Phase 0 fixtures in `tbml/stubs.py`; classification, rules and scoring stay real.
 
 ### Data contracts
 
@@ -37,11 +37,26 @@ All of them live in `backend/tbml/schemas.py` (`SCHEMA_VERSION = "1.0"`). They a
 
 Prices are checked against bands of historical trade unit values (UN Comtrade and HMRC), cached in `data/benchmarks/` as parquet so the runtime never calls an API. `backend/scripts/fetch_benchmarks.py` builds the cache. Without network access it writes `bands_mock.parquet`, approximate stand-ins marked `is_mock=True`, and every reason that relies on them says so. Route-specific bands win over global ones when they have enough observations.
 
-On `main` today, `tbml.benchmark` is still the Phase 0 stub that returns the fixture band when the HS6 matches. The Phase 5 pull request (#8) replaces it with the parquet lookup and adds the full API, so the stage described above is the intended behaviour once that merges.
+`tbml.benchmark.benchmark(line, route)` reads `bands.parquet` if it exists, else `bands_mock.parquet`, once per process. It returns the band for the line's HS6 on the invoice's route (`ORIGIN-DEST`: seller country to consignee, else buyer, country) when there is one, else the global band, else `None`. The mock table has global bands only, for the seven benchmark HS6 codes, so today every classified line of those goods gets a mock global band. `benchmarks_are_mock()` tells `/health` which table is in use.
 
 ### Score
 
 `tbml.score.score(flags)` sums a weight per flag (high 40, medium 15, low 5), caps the total at 100, and maps it to a band: `review_now` from 60, `review` from 25, otherwise `low`. The weights and edges live in `backend/tbml/rules/config.yaml`.
+
+### API
+
+`backend/tbml/api.py` (`make api`, port 8000) wraps `check`:
+
+| Route | Does |
+|---|---|
+| `POST /check` | Multipart PDF (`file`) in, `Report` out. Not a PDF: 400. Unreadable PDF: 400. Over 10 MB: 413. A PDF with no text layer: 200 with warnings. |
+| `GET /reports/{invoice_id}` | The last report saved for that id, from `data/reports/` (`TBML_REPORTS_DIR` overrides). 404 if none. |
+| `GET /samples` | The bundled synthetic invoices with their role and planted labels. |
+| `POST /samples/{invoice_id}/check` | Runs one bundled sample without an upload. |
+| `GET /health` | Status, schema version, whether stubs (`USE_MOCKS`) are on and whether bands are mock or real. |
+| `GET /` | A small index of the API. |
+
+Every successful check is saved to `data/reports/{invoice_id}.json`. CORS allows the Next.js dev server (`:3000`) and Vite's `:5173`.
 
 ## Cross-cutting design choices
 

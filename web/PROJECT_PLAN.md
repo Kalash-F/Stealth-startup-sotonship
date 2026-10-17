@@ -1,6 +1,6 @@
 # Project plan · Website and demo workspace
 
-Tracker for the TBML marketing website and front-end demo, built from `website.md` (which replaces Phase 8 of `plan.md`). Lives in `web/`. Status keys: `[ ]` not started · `[/]` in progress · `[x]` implemented and verified · `[!]` blocked or failed.
+Tracker for the TBML marketing website and front-end demo, built from the website brief `website.md` (not committed to this repo; it replaces Phase 8 of `plan.md`). Lives in `web/`. Status keys: `[ ]` not started · `[/]` in progress · `[x]` implemented and verified · `[!]` blocked or failed.
 
 ## 1. Vision and audience
 
@@ -67,18 +67,18 @@ Hard negatives are included: CASE-0126 (premium laptops near p90, closed) and CA
 | 7 | Functional verification | lead | [x] | Build, typecheck, lint, Playwright smoke across routes, console clean. |
 | 8 | Responsive and accessibility | lead | [/] | 1440 / 768 / 390 screenshots, keyboard pass, overflow check. |
 | 9 | Final refinement | lead | [x] | P0/P1 resolved, P2 where practical. |
-| 10 | Handover | lead | [/] | Plan and QA checklist reflect what was verified; PR opened. |
+| 10 | Handover | lead | [x] | Plan and QA checklist reflect what was verified; merged to main in PR #3. |
 
 ## 9. Current state
 
-- **Marketing redesign (branch `claude/website-redesign-r8l7cn`):** homepage rebuilt around CASE-0142 ("The goods went one way. The money went another."). Old hero/showcases/how-it-works/capabilities/methodology/final-cta retired. Header and footer moved to the night surface. Build, tsc, lint and 27 Playwright tests pass.
+- **Marketing redesign (merged to main in PR #7):** homepage rebuilt around CASE-0142 ("The goods went one way. The money went another."). Old hero/showcases/how-it-works/capabilities/methodology/final-cta retired. Header and footer moved to the night surface. Build, tsc, lint and 27 Playwright tests pass.
 
 - **Done:** all routes built and verified (build, tsc, lint, 23 Playwright smoke tests, screenshots at 1440 and 390 reviewed).
 - **Built by:** lead (foundation, review), an Opus agent (app screens), a Sonnet agent (marketing), a Haiku agent (sign-in, request demo, legal).
-- **Current:** handover; branch push blocked by missing GitHub App access.
-- **Next:** open PR once the repo grants access; product name decision.
+- **Current:** merged to main (PR #3). The site and workspace run on the fictional dataset only; nothing calls the backend yet.
+- **Next:** product name decision; the `/checker` route against the backend API.
 - **Not yet done:** a full manual keyboard pass and a Lighthouse run; 768px checked by the agents only.
-- **Known issues (P2/P3):** full entity graph is small at 390px (pan/zoom works); graph nodes are not keyboard-selectable (directory and connection buttons are the keyboard path); case actions are page-local and not reflected on the list or dashboard (toasts say so); marketing overview preview is hand-built markup rather than the app's chart widgets; workspace graph uses a compact layout (`data/graph-layout.ts`) while marketing uses `network.ts` positions.
+- **Known issues (P2/P3):** full entity graph is small at 390px (pan/zoom works); graph nodes are not keyboard-selectable (directory and connection buttons are the keyboard path); case actions are page-local and not reflected on the list or dashboard (toasts say so); workspace graph uses a compact layout (`data/graph-layout.ts`) while marketing uses `network.ts` positions.
 - **Decisions to keep consistent:** product name "Lading" is a placeholder in `src/lib/brand.ts`; `/checker` is reserved; benchmark bands are illustrative and labelled so everywhere; "Confirmed finding" means an established fact, never a verdict of wrongdoing.
 
 ## 10. Limitations

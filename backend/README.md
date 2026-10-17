@@ -22,13 +22,14 @@ Python 3.11 or newer. PDF rendering for the synthetic set uses WeasyPrint, which
 | `tbml/pipeline.py` | `check(pdf_path) -> Report`, chaining every stage. |
 | `tbml/extract/` | PDF to `Invoice`. [README](tbml/extract/README.md) |
 | `tbml/classify/` | Line to HS6 code and benchmark-unit price. [README](tbml/classify/README.md) |
-| `tbml/benchmark/` | Price band lookup. |
+| `tbml/benchmark/` | Price band lookup from `data/benchmarks/` (`bands.parquet`, else `bands_mock.parquet`); route band first, else global. |
 | `tbml/rules/` | Red-flag rules R1 to R8. [README](tbml/rules/README.md) |
 | `tbml/score/` | Flags to priority score and band. |
 | `tbml/synthetic/` | Labelled synthetic invoice generator. [README](tbml/synthetic/README.md) |
-| `tbml/api.py` | FastAPI app. |
-| `tbml/paths.py` | Repository paths (`data/`, fixtures). |
-| `tbml/fixtures.py` | Loads the golden JSON fixtures used by the stubs and tests. |
+| `tbml/api.py` | FastAPI app: `POST /check`, `GET /reports/{id}`, `GET /samples`, `POST /samples/{id}/check`, `GET /health`, `GET /`. |
+| `tbml/stubs.py` | Phase 0 fixture stages for extraction and benchmarking, used when `USE_MOCKS=1`. |
+| `tbml/paths.py` | Repository paths (`data/`, reports, fixtures). |
+| `tbml/fixtures.py` | Loads the golden JSON fixtures used by `stubs.py` and the tests. |
 | `scripts/` | `fetch_benchmarks.py`, `generate_invoices.py`, `evaluate.py` (placeholder). |
 | `tests/` | One test module per stage; `tests/rules/` has one file per rule. |
 
@@ -56,6 +57,8 @@ python -m tbml.extract.scoring                  # extraction accuracy over data/
 | `ANTHROPIC_API_KEY`, `LLM_MODEL` | Both set: extraction and classification use the LLM (cached on disk). Either missing: offline paths. Also read from a repo-root `.env`. |
 | `TBML_CACHE_DIR` | Where extraction caches LLM replies (default `data/cache`). |
 | `COMTRADE_API_KEY` | Used only by `scripts/fetch_benchmarks.py`. |
+| `USE_MOCKS` | `1`/`true`/`yes`: extraction and benchmarking use the fixtures (`tbml/stubs.py`); `/health` reports `stubs: true`. |
+| `TBML_REPORTS_DIR` | Where the API saves reports (default `data/reports`). |
 
 ## Tests
 
