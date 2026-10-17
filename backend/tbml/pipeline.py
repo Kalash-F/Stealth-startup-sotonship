@@ -5,7 +5,7 @@ from pathlib import Path
 
 from tbml.benchmark import benchmark
 from tbml.classify import enrich
-from tbml.extract import extract
+from tbml.extract import extract_document
 from tbml.rules import run_rules
 from tbml.schemas import SCHEMA_VERSION, Report, ReportLine
 from tbml.score import score
@@ -13,7 +13,8 @@ from tbml.score import score
 
 def check(pdf_path: str | Path) -> Report:
     start = time.perf_counter()
-    invoice = extract(pdf_path)
+    extraction = extract_document(pdf_path)
+    invoice = extraction.invoice
     enriched = enrich(invoice)
     benchmarks = [benchmark(line) for line in enriched]
     flags = run_rules(invoice, enriched, benchmarks)
@@ -21,7 +22,7 @@ def check(pdf_path: str | Path) -> Report:
 
     by_id = {e.line_id: (e, b) for e, b in zip(enriched, benchmarks, strict=True)}
     lines: list[ReportLine] = []
-    warnings: list[str] = []
+    warnings: list[str] = list(extraction.warnings)
     for item in invoice.line_items:
         if item.line_id not in by_id:
             warnings.append(f"line {item.line_id} could not be enriched")

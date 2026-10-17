@@ -1,11 +1,13 @@
 """Phase 0: every stage exists as a stub and mock data flows end to end."""
 
+import pytest
 from fastapi.testclient import TestClient
 
 from tbml.api import app
 from tbml.benchmark import benchmark
 from tbml.classify import enrich
-from tbml.extract import extract
+from tbml.extract import ExtractionResult
+from tbml.fixtures import load_fixture
 from tbml.pipeline import check
 from tbml.rules import run_rules
 from tbml.schemas import (
@@ -20,8 +22,22 @@ from tbml.schemas import (
 from tbml.score import score
 
 
+def _stub_invoice(path) -> Invoice:
+    return Invoice.model_validate(load_fixture("invoice")).model_copy(
+        update={"source_file": str(path)}
+    )
+
+
+@pytest.fixture(autouse=True)
+def stub_extraction(monkeypatch):
+    """Phase 0 tests exercise the downstream stubs with fixture data, not real PDF parsing."""
+    monkeypatch.setattr(
+        "tbml.pipeline.extract_document", lambda path: ExtractionResult(_stub_invoice(path))
+    )
+
+
 def test_stages_return_contract_types():
-    invoice = extract("any.pdf")
+    invoice = _stub_invoice("any.pdf")
     assert isinstance(invoice, Invoice)
     assert invoice.source_file == "any.pdf"
 
