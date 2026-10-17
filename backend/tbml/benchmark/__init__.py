@@ -13,12 +13,15 @@ from tbml.paths import BENCHMARKS_DIR
 from tbml.schemas import Benchmark, EnrichedLine
 
 
+def band_file() -> str:
+    """Name of the band file in use (shown on /health so a deploy can be checked)."""
+    return "bands.json" if (BENCHMARKS_DIR / "bands.json").exists() else "bands_mock.json"
+
+
 @lru_cache(maxsize=1)
 def band_table() -> tuple[Benchmark, ...]:
     """Every row of the band table in use: `bands.json` when present, else `bands_mock.json`."""
-    path = BENCHMARKS_DIR / "bands.json"
-    if not path.exists():
-        path = BENCHMARKS_DIR / "bands_mock.json"
+    path = BENCHMARKS_DIR / band_file()
     return tuple(Benchmark.model_validate(row) for row in json.loads(path.read_text()))
 
 
@@ -40,4 +43,4 @@ def benchmark(enriched_line: EnrichedLine, route: str | None = None) -> Benchmar
     return bands.get((enriched_line.hs6, route)) or bands.get((enriched_line.hs6, None))
 
 
-__all__ = ["band_table", "benchmark", "benchmarks_are_mock"]
+__all__ = ["band_file", "band_table", "benchmark", "benchmarks_are_mock"]
