@@ -196,3 +196,26 @@ def _invoice(description):
     )
     item = inv.line_items[0].model_copy(update={"description": description})
     return inv.model_copy(update={"line_items": [item]})
+
+
+def test_loader_reads_the_hs_db_and_covers_our_goods():
+    from tbml.classify.nomenclature import HS_DB, nomenclature_path
+
+    if not HS_DB.exists():
+        pytest.skip("hs.db not present")
+    assert nomenclature_path() == HS_DB
+    nom = load_nomenclature(HS_DB)
+    assert len(nom.children(None)) >= 95  # chapters
+    assert len(nom.hs6_codes()) > 5000
+    for code in ["731815", "220210", "852351", "610910", "090111", "740311", "847130"]:
+        assert code in nom.hs6_codes(), code
+    assert nom.describe("84").startswith("Machinery")
+    assert ("847130", nom.describe("847130")) in nom.children("8471")
+
+
+def test_catch_all_and_reserved_chapters_are_not_options(tmp_path):
+    path = tmp_path / "hs.csv"
+    path.write_text("code,description\n99,Not specified\n999999,Not specified\n847130,Laptops\n")
+    nom = load_nomenclature(path)
+    assert "999999" not in nom.hs6_codes()
+    assert [c for c, _ in nom.children(None)] == ["84"]

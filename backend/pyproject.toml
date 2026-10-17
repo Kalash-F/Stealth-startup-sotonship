@@ -46,4 +46,6 @@ select = ["E", "F", "W", "I", "UP", "B"]
 "tbml/**" = ["E501"]  # long docstrings and reason strings read better unwrapped (DECISIONS D5.1)
 "tbml/synthetic/catalogue.py" = ["E501"]  # data tables read better one entry per line
 "scripts/fetch_benchmarks.py" = ["E501"]
+"scripts/fetch_hs_codes.py" = ["E501"]  # generated SQL header strings
+"scripts/load_hs_json.py" = ["E501"]
 "tests/test_benchmark.py" = ["E501"]

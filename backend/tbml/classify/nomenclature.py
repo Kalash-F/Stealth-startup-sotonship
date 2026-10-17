@@ -6,8 +6,11 @@ digits) are folded into their six-digit parent. Levels missing from the file are
 their children, so a file of six-digit codes alone still gives a usable tree (the derived
 chapter and heading descriptions are then only "Chapter 84" / "Heading 8471").
 
-File lookup: `HS_NOMENCLATURE` env var, else data/reference/hs_nomenclature.csv, else the
-partial data/reference/hs6.csv.
+Also reads the SQLite database built by backend/scripts/load_hs_json.py (tables hs2, hs4, hs6
+with *_code and name columns; source: UN Comtrade "Combined HS" reference list).
+
+File lookup: `HS_NOMENCLATURE` env var (a .csv or a .db), else the repo-root hs.db, else
+data/reference/hs_nomenclature.csv, else the partial data/reference/hs6.csv.
 """
 
 from __future__ import annotations
@@ -15,12 +18,14 @@ from __future__ import annotations
 import csv
 import os
 import re
+import sqlite3
 from dataclasses import dataclass, field
 from functools import lru_cache
 from pathlib import Path
 
-from tbml.paths import REFERENCE_DIR
+from tbml.paths import REFERENCE_DIR, REPO_ROOT
 
+HS_DB = REPO_ROOT / "hs.db"
 NOMENCLATURE_CSV = REFERENCE_DIR / "hs_nomenclature.csv"
 FALLBACK_CSV = REFERENCE_DIR / "hs6.csv"
 
@@ -28,6 +33,9 @@ CODE_COLUMNS = ("code", "hs_code", "hscode", "hs", "hs6", "commodity_code", "id"
 DESC_COLUMNS = ("description", "desc", "text", "label", "name")
 
 LEVELS = (2, 4, 6)
+# Not real goods: 99 is UN Comtrade's statistical catch-all "Commodities not specified according
+# to kind" (999999), 77 is reserved by the WCO. Letting the model pick them would hide the goods.
+EXCLUDED_CHAPTERS = ("77", "99")
 LEVEL_NAMES = {2: "chapter", 4: "heading", 6: "subheading"}
 
 
@@ -67,8 +75,10 @@ def _pick(fieldnames: list[str], wanted: tuple[str, ...]) -> str | None:
 
 
 def load_nomenclature(path: Path) -> Nomenclature:
-    """Read a code/description CSV into a three-level tree. Raises ValueError if the columns
-    cannot be found or no usable code is present."""
+    """Read a code/description CSV, or an hs.db SQLite file, into a three-level tree. Raises
+    ValueError if the columns/tables cannot be found or no usable code is present."""
+    if Path(path).suffix.lower() in (".db", ".sqlite", ".sqlite3"):
+        return _load_sqlite(Path(path))
     found: dict[str, str] = {}
     with open(path, newline="", encoding="utf-8-sig") as f:
         reader = csv.DictReader(f)
@@ -92,6 +102,32 @@ def load_nomenclature(path: Path) -> Nomenclature:
             if len(digits) in LEVELS:
                 found[digits] = desc  # a row at exactly this level wins over a folded child
 
+    return _finish(found, path)
+
+
+def _load_sqlite(path: Path) -> Nomenclature:
+    """hs.db from backend/scripts/load_hs_json.py: tables hs2/hs4/hs6, columns <table>_code, name."""
+    if not path.exists():
+        raise ValueError(f"{path.name}: file not found")
+    found: dict[str, str] = {}
+    con = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
+    try:
+        for table in ("hs2", "hs4", "hs6"):
+            try:
+                rows = con.execute(f"SELECT {table}_code, name FROM {table}").fetchall()
+            except sqlite3.Error as exc:
+                raise ValueError(f"{path.name}: cannot read table {table}: {exc}") from exc
+            for code, name in rows:
+                digits = re.sub(r"\D", "", str(code))
+                if len(digits) in LEVELS:
+                    found[digits] = " ".join(str(name or "").split())
+    finally:
+        con.close()
+    return _finish(found, path)
+
+
+def _finish(found: dict[str, str], path: Path) -> Nomenclature:
+    found = {c: d for c, d in found.items() if c[:2] not in EXCLUDED_CHAPTERS}
     if not any(len(c) == 6 for c in found):
         raise ValueError(f"{path.name}: no six-digit codes found")
 
@@ -106,7 +142,10 @@ def nomenclature_path() -> Path:
     env = os.environ.get("HS_NOMENCLATURE")
     if env:
         return Path(env)
-    return NOMENCLATURE_CSV if NOMENCLATURE_CSV.exists() else FALLBACK_CSV
+    for candidate in (HS_DB, NOMENCLATURE_CSV):
+        if candidate.exists():
+            return candidate
+    return FALLBACK_CSV
 
 
 @lru_cache(maxsize=1)
