@@ -7,6 +7,7 @@ If neither source yields data the script falls back to documented approximate va
 data/benchmarks/bands_mock.parquet with is_mock=True (task 3.5). Raw responses are cached under
 data/benchmarks/raw/ so the runtime never calls an API.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -23,11 +24,14 @@ import requests
 ROOT = Path(__file__).resolve().parents[2]
 BENCH = ROOT / "data" / "benchmarks"
 RAW = BENCH / "raw"
-FX_CSV = ROOT / "data" / "reference" / "fx.csv"
+FX_CSV = ROOT / "data" / "reference" / "fx_annual.csv"
 
 # HS6 -> (benchmark unit, official-ish description). Units follow the Comtrade quantity unit.
 COMMODITIES = {
-    "731815": ("kg", "Other screws and bolts, whether or not with their nuts or washers, of iron or steel"),
+    "731815": (
+        "kg",
+        "Other screws and bolts, whether or not with their nuts or washers, of iron or steel",
+    ),
     "220210": ("l", "Waters, incl. mineral and aerated, with added sugar/sweetener or flavoured"),
     "852351": ("u", "Solid-state non-volatile storage devices"),
     "610910": ("u", "T-shirts, singlets and other vests, of cotton, knitted or crocheted"),
@@ -39,7 +43,20 @@ ROUTES = ["CN-GB", "AE-GB", "GB-AE", "AE-CZ"]
 YEARS_BACK = 3
 MIN_ROUTE_OBS = 10
 TRIM = 0.01
-COLS = ["hs6", "route", "unit", "p10", "p25", "median", "p75", "p90", "n_observations", "years", "sources", "is_mock"]
+COLS = [
+    "hs6",
+    "route",
+    "unit",
+    "p10",
+    "p25",
+    "median",
+    "p75",
+    "p90",
+    "n_observations",
+    "years",
+    "sources",
+    "is_mock",
+]
 
 # Comtrade numeric reporter/partner codes and ISO3 for the routes (ISO3 -> route end).
 M49 = {"CN": 156, "GB": 826, "AE": 784, "CZ": 203}
@@ -47,13 +64,13 @@ M49 = {"CN": 156, "GB": 826, "AE": 784, "CZ": 203}
 # Approximate values used ONLY when APIs are unreachable. USD per benchmark unit.
 # Basis: order-of-magnitude public unit values 2022-24 (UK/EU import statistics, LME copper, ICO coffee).
 MOCK = {  # hs6: (p10, p25, median, p75, p90)
-    "731815": (1.4, 2.2, 3.4, 5.2, 8.0),        # kg  - fasteners vary widely by grade
-    "220210": (0.30, 0.45, 0.70, 1.10, 1.80),   # l   - flavoured/energy drinks
-    "852351": (3.5, 6.0, 10.5, 18.0, 32.0),     # u   - USB flash/SSD sticks by capacity
-    "610910": (1.4, 2.2, 3.3, 4.8, 7.0),        # u   - cotton knitted tees
-    "090111": (2.6, 3.6, 4.8, 6.2, 8.0),        # kg  - green coffee
-    "740311": (7.4, 8.3, 9.0, 9.6, 10.3),       # kg  - LME copper ~ $8-10/kg
-    "847130": (210, 330, 520, 780, 1150),       # u   - laptops
+    "731815": (1.4, 2.2, 3.4, 5.2, 8.0),  # kg  - fasteners vary widely by grade
+    "220210": (0.30, 0.45, 0.70, 1.10, 1.80),  # l   - flavoured/energy drinks
+    "852351": (3.5, 6.0, 10.5, 18.0, 32.0),  # u   - USB flash/SSD sticks by capacity
+    "610910": (1.4, 2.2, 3.3, 4.8, 7.0),  # u   - cotton knitted tees
+    "090111": (2.6, 3.6, 4.8, 6.2, 8.0),  # kg  - green coffee
+    "740311": (7.4, 8.3, 9.0, 9.6, 10.3),  # kg  - LME copper ~ $8-10/kg
+    "847130": (210, 330, 520, 780, 1150),  # u   - laptops
 }
 
 
@@ -72,15 +89,21 @@ def usd_per_unit(fx: pd.DataFrame, currency: str, year: int) -> float:
 
 
 # ---------------------------------------------------------------- fetching (3.1)
-def fetch_comtrade(hs6: str, year: int, key: str, reporter: str | None = None, partner: str | None = None) -> list[dict]:
+def fetch_comtrade(
+    hs6: str, year: int, key: str, reporter: str | None = None, partner: str | None = None
+) -> list[dict]:
     """Imports (flow M) for one HS6/year. reporter/partner are ISO2 codes or None for all."""
     params = {"cmdCode": hs6, "flowCode": "M", "period": str(year), "includeDesc": "false"}
     if reporter:
         params["reporterCode"] = str(M49[reporter])
     if partner:
         params["partnerCode"] = str(M49[partner])
-    r = requests.get("https://comtradeapi.un.org/data/v1/get/C/A/HS", params=params,
-                     headers={"Ocp-Apim-Subscription-Key": key}, timeout=60)
+    r = requests.get(
+        "https://comtradeapi.un.org/data/v1/get/C/A/HS",
+        params=params,
+        headers={"Ocp-Apim-Subscription-Key": key},
+        timeout=60,
+    )
     r.raise_for_status()
     return r.json().get("data", [])
 
@@ -88,7 +111,7 @@ def fetch_comtrade(hs6: str, year: int, key: str, reporter: str | None = None, p
 def fetch_hmrc(hs6: str, year: int) -> list[dict]:
     """HMRC OTS records (value GBP, NetMass kg, SuppUnit) for one HS6/year, imports only."""
     base = "https://api.uktradeinfo.com/OTS"
-    flt = (f"Commodity/Hs6Code eq '{hs6}' and FlowTypeId in (1,3) and MonthId ge {year}01 and MonthId le {year}12")
+    flt = f"Commodity/Hs6Code eq '{hs6}' and FlowTypeId in (1,3) and MonthId ge {year}01 and MonthId le {year}12"
     url = f"{base}?$filter={flt}&$expand=Country($select=CountryCodeAlpha),Commodity($select=Hs6Code)&$top=10000"
     out: list[dict] = []
     while url:
@@ -102,7 +125,14 @@ def fetch_hmrc(hs6: str, year: int) -> list[dict]:
 
 def cache_raw(source: str, hs6: str, year: int, tag: str, data: list[dict]) -> None:
     RAW.mkdir(parents=True, exist_ok=True)
-    payload = {"fetched": dt.date.today().isoformat(), "source": source, "hs6": hs6, "year": year, "tag": tag, "data": data}
+    payload = {
+        "fetched": dt.date.today().isoformat(),
+        "source": source,
+        "hs6": hs6,
+        "year": year,
+        "tag": tag,
+        "data": data,
+    }
     (RAW / f"{source}_{hs6}_{year}_{tag}_{payload['fetched']}.json").write_text(json.dumps(payload))
 
 
@@ -115,7 +145,16 @@ def comtrade_records(raw: list[dict], hs6: str, year: int, route: str | None) ->
         val = d.get("primaryValue")
         if not qty or not val or qty <= 0 or val <= 0:
             continue
-        recs.append({"hs6": hs6, "year": year, "source": "UN Comtrade", "route": route, "value_usd": float(val), "qty": float(qty)})
+        recs.append(
+            {
+                "hs6": hs6,
+                "year": year,
+                "source": "UN Comtrade",
+                "route": route,
+                "value_usd": float(val),
+                "qty": float(qty),
+            }
+        )
     return recs
 
 
@@ -130,7 +169,16 @@ def hmrc_records(raw: list[dict], hs6: str, year: int, fx: pd.DataFrame) -> list
             continue
         partner = (d.get("Country") or {}).get("CountryCodeAlpha")
         route = f"{partner}-GB" if partner in ("CN", "AE") else None
-        recs.append({"hs6": hs6, "year": year, "source": "HMRC OTS", "route": route, "value_usd": float(val) * gbp, "qty": float(qty)})
+        recs.append(
+            {
+                "hs6": hs6,
+                "year": year,
+                "source": "HMRC OTS",
+                "route": route,
+                "value_usd": float(val) * gbp,
+                "qty": float(qty),
+            }
+        )
     return recs
 
 
@@ -154,9 +202,22 @@ def compute_bands(rec: pd.DataFrame) -> pd.DataFrame:
             if s.empty:
                 continue
             p10, p25, med, p75, p90 = _bands(s.unit_value.to_numpy())
-            rows.append(dict(hs6=hs6, route=route, unit=COMMODITIES[hs6][0], p10=p10, p25=p25, median=med, p75=p75, p90=p90,
-                             n_observations=int(len(s)), years=sorted(int(y) for y in s.year.unique()),
-                             sources=sorted(s.source.unique().tolist()), is_mock=False))
+            rows.append(
+                dict(
+                    hs6=hs6,
+                    route=route,
+                    unit=COMMODITIES[hs6][0],
+                    p10=p10,
+                    p25=p25,
+                    median=med,
+                    p75=p75,
+                    p90=p90,
+                    n_observations=int(len(s)),
+                    years=sorted(int(y) for y in s.year.unique()),
+                    sources=sorted(s.source.unique().tolist()),
+                    is_mock=False,
+                )
+            )
     for n in notes:
         print("note:", n)
     return pd.DataFrame(rows, columns=COLS)
@@ -164,9 +225,23 @@ def compute_bands(rec: pd.DataFrame) -> pd.DataFrame:
 
 def mock_bands() -> pd.DataFrame:
     this = dt.date.today().year
-    rows = [dict(hs6=h, route=None, unit=COMMODITIES[h][0], p10=v[0], p25=v[1], median=v[2], p75=v[3], p90=v[4],
-                 n_observations=1, years=[this - 3, this - 2, this - 1], sources=["MOCK approximate"], is_mock=True)
-            for h, v in MOCK.items()]
+    rows = [
+        dict(
+            hs6=h,
+            route=None,
+            unit=COMMODITIES[h][0],
+            p10=v[0],
+            p25=v[1],
+            median=v[2],
+            p75=v[3],
+            p90=v[4],
+            n_observations=1,
+            years=[this - 3, this - 2, this - 1],
+            sources=["MOCK approximate"],
+            is_mock=True,
+        )
+        for h, v in MOCK.items()
+    ]
     return pd.DataFrame(rows, columns=COLS)
 
 
@@ -174,7 +249,9 @@ def mock_bands() -> pd.DataFrame:
 def verify_hs6() -> None:
     """Check each code against the UK Trade Tariff API and print official descriptions."""
     for hs6 in COMMODITIES:
-        r = requests.get(f"https://www.trade-tariff.service.gov.uk/api/v2/subheadings/{hs6}00-80", timeout=30)
+        r = requests.get(
+            f"https://www.trade-tariff.service.gov.uk/api/v2/subheadings/{hs6}00-80", timeout=30
+        )
         d = r.json()["data"]["attributes"] if r.ok else {}
         print(hs6, r.status_code, d.get("description") or d.get("formatted_description"))
 
@@ -202,7 +279,9 @@ def main() -> int:
                 except Exception as e:  # noqa: BLE001
                     print(f"HMRC {hs6} {y} failed: {e}", file=sys.stderr)
                 if key:
-                    for tag, rep, par in [("all", None, None)] + [(r, r.split("-")[1], r.split("-")[0]) for r in ROUTES]:
+                    for tag, rep, par in [("all", None, None)] + [
+                        (r, r.split("-")[1], r.split("-")[0]) for r in ROUTES
+                    ]:
                         try:
                             c = fetch_comtrade(hs6, y, key, rep, par)
                             cache_raw("comtrade", hs6, y, tag, c)

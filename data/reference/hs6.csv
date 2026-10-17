@@ -1,0 +1,32 @@
+hs6,description,keywords,exclude,source
+731811,Coach screws,coach screws?|lag screws?|lag bolts?,,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+731812,Other wood screws,wood screws?|chipboard screws?|drywall screws?,,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+731813,Screw hooks and screw rings,screw hooks?|screw rings?|cup hooks?,,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+731814,Self-tapping screws,self[- ]tapping|self[- ]drilling,,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+731815,"Other screws and bolts, whether or not with their nuts or washers",bolts?|screws?|hex head|hex bolt|machine screw|carriage bolt|fasteners?,self[- ]tapping|self[- ]drilling|wood screws?|chipboard|drywall|coach screws?|lag screws?|screw hooks?|screw rings?,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+731816,Nuts,nuts?|lock ?nuts?,bolts?|screws?,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+731821,Spring washers and other lock washers,spring washers?|lock washers?,,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+731822,Other washers,washers?,spring|lock|bolts?|screws?,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+731823,Rivets,rivets?,,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+220110,"Mineral waters and aerated waters, not sweetened or flavoured",mineral water|spring water|sparkling water|still water,flavou?red|sweeten|sugar|lemon|lime|cola|energy,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+220210,"Waters, including mineral and aerated, containing added sugar or other sweetening matter or flavoured",energy drinks?|soft drinks?|flavou?red water|sparkling flavou?red|lemon(ade)?|cola|carbonated|sweetened|cans?|bottles?|ml|drinks?,beer|wine|juice|milk|tea|coffee,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+220299,"Other non-alcoholic beverages, nes",fruit juice|vegetable juice|oat drink|soy drink|almond drink|plant[- ]based drink,,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+852349,Other optical media,optical disc|dvd|blu[- ]?ray|cd[- ]?rom|cd-r,,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+852351,Solid-state non-volatile storage devices,usb|flash drive|memory stick|pen ?drive|thumb drive|ssd|memory card|flash,laptop|notebook|computer|ram only,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+852352,Smart cards,smart cards?|sim cards?|chip cards?,,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+852359,Other semiconductor media,semiconductor media,,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+610910,"T-shirts, singlets and other vests, of cotton, knitted or crocheted",t[- ]?shirts?|tee shirts?,polyester|synthetic|nylon|viscose|wool|silk|blend|elastane,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+610990,"T-shirts, singlets and other vests, of other textile materials, knitted or crocheted",t[- ]?shirts?|tee shirts?|polyester|synthetic|nylon|viscose|wool|silk|blend|elastane,^(?!.*(polyester|synthetic|nylon|viscose|wool|silk|blend|elastane)),HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+090111,"Coffee, not roasted, not decaffeinated",coffee|arabica|robusta|green beans?|unroasted|not roasted,(?<!not )(?<!un)roasted|decaf|instant|ground|capsule,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+090112,"Coffee, not roasted, decaffeinated",coffee|decaffeinated|decaf|arabica|robusta|unroasted|green beans?,(?<!un)(?<!not )roasted|^(?!.*decaf),HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+090121,"Coffee, roasted, not decaffeinated",coffee|roasted|roast,decaf|unroasted|not roasted|^(?!.*roast),HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+090122,"Coffee, roasted, decaffeinated",coffee|roasted|decaffeinated|decaf,unroasted|not roasted|^(?!.*decaf)|^(?!.*roast),HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+740311,Refined copper cathodes and sections of cathodes,copper cathodes?|cathode copper|refined copper|copper cathode sheets?|cathodes?|grade a|lme,wire[- ]?bar|billet,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+740312,Refined copper wire-bars,wire[- ]?bars?,,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+740313,Refined copper billets,copper billets?|billets?,,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+740400,Copper waste and scrap,copper scrap|copper waste|scrap,,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+847130,"Portable automatic data processing machines, weighing not more than 10 kg, with at least a central processing unit, a keyboard and a display",laptops?|notebooks?|notebook pc|ultraportable|ultrabook|portable computer,desktop|server|tablet,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+847141,Other automatic data processing machines comprising in the same housing at least a CPU and an input and output unit,desktop|all[- ]in[- ]one|mini pc,laptop|notebook,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+847160,Input or output units for automatic data processing machines,keyboards?|monitors?|printers?|scanners?|mouse|mice,,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+847170,Storage units for automatic data processing machines,hard disk|hdd|storage unit,,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
+851713,Smartphones,smartphones?|mobile phones?|cell ?phones?,,HS 2022 six-digit heading as recalled; NOT yet verified against HMRC/WCO. Partial list.
