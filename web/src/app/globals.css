@@ -1,0 +1,185 @@
+@import "tailwindcss";
+@import "@xyflow/react/dist/style.css";
+
+/*
+ * Design tokens. See DESIGN_SPEC.md.
+ * Two surfaces share one set of token names:
+ *   .theme-paper  marketing surfaces (warm stone, ink type)
+ *   .theme-ink    application workspace (graphite, light type)
+ * Components only ever reference the semantic tokens, so an app component
+ * dropped into a marketing page renders correctly inside a .theme-ink frame.
+ */
+
+:root,
+.theme-paper {
+  --bg: #f3f0e9;
+  --surface: #fbfaf6;
+  --surface-2: #ebe7dd;
+  --surface-3: #e2ddd0;
+  --border: #d9d3c5;
+  --border-strong: #b9b1a0;
+  --fg: #15171b;
+  --fg-muted: #555a62;
+  --fg-subtle: #7b7f86;
+  --accent: #0d7468;
+  --accent-fg: #f7fbfa;
+  --accent-soft: #d5ebe6;
+  --focus: #0d7468;
+
+  --risk-low: #3f7d5a;
+  --risk-low-soft: #dcebe1;
+  --risk-review: #a86a0c;
+  --risk-review-soft: #f4e5c8;
+  --risk-high: #b8401f;
+  --risk-high-soft: #f6dcd2;
+  --finding: #7a1f12;
+  --finding-soft: #efd3cc;
+  --info: #2f5f8a;
+  --info-soft: #d8e4ef;
+
+  --shadow-frame: 0 1px 0 rgba(21, 23, 27, 0.04), 0 24px 48px -24px rgba(21, 23, 27, 0.28);
+  color-scheme: light;
+}
+
+.theme-ink {
+  --bg: #0c1015;
+  --surface: #11161d;
+  --surface-2: #171e27;
+  --surface-3: #1e2732;
+  --border: #242e3a;
+  --border-strong: #354253;
+  --fg: #e5e9ee;
+  --fg-muted: #9aa5b2;
+  --fg-subtle: #6c7886;
+  --accent: #3cc4b0;
+  --accent-fg: #06221e;
+  --accent-soft: #123430;
+  --focus: #3cc4b0;
+
+  --risk-low: #6cc08f;
+  --risk-low-soft: #15291f;
+  --risk-review: #e7ae4a;
+  --risk-review-soft: #2e2412;
+  --risk-high: #f0785a;
+  --risk-high-soft: #34190f;
+  --finding: #ff9b86;
+  --finding-soft: #3d1510;
+  --info: #7fb2e5;
+  --info-soft: #14263a;
+
+  --shadow-frame: 0 1px 0 rgba(255, 255, 255, 0.03), 0 32px 64px -32px rgba(0, 0, 0, 0.7);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+  --color-focus: var(--focus);
+  --color-risk-low: var(--risk-low);
+  --color-risk-low-soft: var(--risk-low-soft);
+  --color-risk-review: var(--risk-review);
+  --color-risk-review-soft: var(--risk-review-soft);
+  --color-risk-high: var(--risk-high);
+  --color-risk-high-soft: var(--risk-high-soft);
+  --color-finding: var(--finding);
+  --color-finding-soft: var(--finding-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", monospace;
+  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
+
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+
+  --shadow-frame: var(--shadow-frame);
+
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1rem;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+  }
+  *,
+  ::before,
+  ::after {
+    border-color: var(--border);
+  }
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  ::selection {
+    background: var(--accent-soft);
+    color: var(--fg);
+  }
+}
+
+@layer utilities {
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    line-height: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg-subtle);
+  }
+  .rule-grid {
+    background-image: linear-gradient(to right, var(--border) 1px, transparent 1px);
+    background-size: calc(100% / 12) 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* React Flow, restyled to the token system */
+.react-flow {
+  --xy-background-color: transparent;
+  --xy-edge-stroke: var(--border-strong);
+  --xy-edge-stroke-selected: var(--accent);
+  --xy-controls-button-background-color: var(--surface-2);
+  --xy-controls-button-background-color-hover: var(--surface-3);
+  --xy-controls-button-color: var(--fg-muted);
+  --xy-controls-button-border-color: var(--border);
+  --xy-attribution-background-color: transparent;
+}
+.react-flow__attribution {
+  font-size: 9px;
+  opacity: 0.5;
+}
