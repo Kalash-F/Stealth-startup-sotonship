@@ -30,8 +30,8 @@
       "description": "Unroasted Arabica coffee, washed, screen 17/18",
       "quantity": 36.6,
       "unit": "MT",
-      "unit_price": 22831.63,
-      "line_total": 835637.66,
+      "unit_price": 133572.54,
+      "line_total": 4888754.96,
       "extraction_confidence": 1.0
     },
     {
@@ -39,12 +39,12 @@
       "description": "Unroasted Arabica coffee, washed, screen 17/18",
       "quantity": 35.9,
       "unit": "MT",
-      "unit_price": 16852.86,
-      "line_total": 605017.67,
+      "unit_price": 39812.48,
+      "line_total": 1429268.03,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 1440655.33,
+  "stated_total": 6318022.99,
   "source_file": "PI-0052-24.pdf",
   "is_synthetic": true
 }

@@ -25,8 +25,8 @@
       "description": "Copper cathodes Grade A, 99.99% Cu",
       "quantity": 47.9,
       "unit": "MT",
-      "unit_price": 6889.22,
-      "line_total": 329993.64,
+      "unit_price": 10630.36,
+      "line_total": 509194.24,
       "extraction_confidence": 1.0
     },
     {
@@ -34,8 +34,8 @@
       "description": "Hex head bolts M6, carton of 1,000 pcs",
       "quantity": 430.0,
       "unit": "cartons",
-      "unit_price": 19.96,
-      "line_total": 8582.8,
+      "unit_price": 18.81,
+      "line_total": 8088.3,
       "extraction_confidence": 1.0
     },
     {
@@ -43,12 +43,12 @@
       "description": "USB 2.0 memory stick 32GB, carton of 100",
       "quantity": 140.0,
       "unit": "cartons",
-      "unit_price": 485.41,
-      "line_total": 67957.4,
+      "unit_price": 1047.38,
+      "line_total": 146633.2,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 406533.84,
+  "stated_total": 663915.74,
   "source_file": "TX240033.pdf",
   "is_synthetic": true
 }

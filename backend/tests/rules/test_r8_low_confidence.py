@@ -33,9 +33,10 @@ def test_confident_line_not_flagged():
     assert run() == []
 
 
-def test_exactly_at_floor_not_flagged():
-    assert run(extraction=FLOOR, classification=FLOOR) == []
-    assert len(run(extraction=FLOOR - 0.01)) == 1
+def test_exactly_at_floor_is_flagged():
+    # extraction caps unverified numbers at exactly 0.5, so the floor itself must count as weak
+    assert len(run(extraction=FLOOR)) == 1
+    assert run(extraction=FLOOR + 0.01, classification=FLOOR + 0.01) == []
 
 
 def test_missing_enrichment_still_checks_extraction():

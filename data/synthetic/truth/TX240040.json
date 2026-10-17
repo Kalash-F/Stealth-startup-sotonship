@@ -25,8 +25,8 @@
       "description": "Energy drink 250ml cans, original flavour",
       "quantity": 67500.0,
       "unit": "cans",
-      "unit_price": 0.22,
-      "line_total": 14850.0,
+      "unit_price": 0.2383,
+      "line_total": 16085.25,
       "extraction_confidence": 1.0
     },
     {
@@ -34,12 +34,12 @@
       "description": "Copper cathodes Grade A, 99.99% Cu",
       "quantity": 149.8,
       "unit": "MT",
-      "unit_price": 6458.71,
-      "line_total": 967514.76,
+      "unit_price": 7460.6,
+      "line_total": 1117597.88,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 982364.76,
+  "stated_total": 1133683.13,
   "source_file": "TX240040.pdf",
   "is_synthetic": true
 }

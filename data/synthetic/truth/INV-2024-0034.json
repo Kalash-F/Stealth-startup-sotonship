@@ -30,8 +30,8 @@
       "description": "Unroasted Arabica coffee, washed, screen 17/18",
       "quantity": 19.7,
       "unit": "MT",
-      "unit_price": 5765.14,
-      "line_total": 113573.26,
+      "unit_price": 15147.0,
+      "line_total": 298395.9,
       "extraction_confidence": 1.0
     },
     {
@@ -39,8 +39,8 @@
       "description": "Unroasted Arabica coffee, washed, screen 17/18",
       "quantity": 12.5,
       "unit": "MT",
-      "unit_price": 3476.85,
-      "line_total": 34158.63,
+      "unit_price": 5644.16,
+      "line_total": 55451.57,
       "extraction_confidence": 1.0
     },
     {
@@ -48,12 +48,12 @@
       "description": "Green Arabica coffee beans, unroasted, not decaffeinated",
       "quantity": 8250.0,
       "unit": "kg",
-      "unit_price": 4.5273,
-      "line_total": 37350.23,
+      "unit_price": 8.4794,
+      "line_total": 69955.05,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 185082.12,
+  "stated_total": 423802.52,
   "source_file": "INV-2024-0034.pdf",
   "is_synthetic": true
 }

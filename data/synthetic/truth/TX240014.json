@@ -39,8 +39,8 @@
       "description": "13-inch ultraportable laptop, 8GB RAM, 256GB SSD",
       "quantity": 1750.0,
       "unit": "pcs",
-      "unit_price": 1744.42,
-      "line_total": 3052735.0,
+      "unit_price": 730.54,
+      "line_total": 1278445.0,
       "extraction_confidence": 1.0
     },
     {
@@ -48,12 +48,12 @@
       "description": "Sparkling flavoured water 500ml PET bottles",
       "quantity": 26500.0,
       "unit": "bottles",
-      "unit_price": 2.3479,
-      "line_total": 62219.35,
+      "unit_price": 1.3977,
+      "line_total": 37039.05,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 6082690.83,
+  "stated_total": 4283220.53,
   "source_file": "TX240014.pdf",
   "is_synthetic": true
 }

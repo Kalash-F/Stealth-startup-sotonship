@@ -30,8 +30,8 @@
       "description": "Plain white cotton T-shirts, packed per dozen",
       "quantity": 910.0,
       "unit": "dozen",
-      "unit_price": 136.44,
-      "line_total": 124160.4,
+      "unit_price": 480.02,
+      "line_total": 436818.2,
       "extraction_confidence": 1.0
     },
     {
@@ -39,12 +39,12 @@
       "description": "USB-C flash drive 128GB with keyring",
       "quantity": 19000.0,
       "unit": "pcs",
-      "unit_price": 23.38,
-      "line_total": 444220.0,
+      "unit_price": 1300.6,
+      "line_total": 24711400.0,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 568380.4,
+  "stated_total": 25148218.2,
   "source_file": "TX240011.pdf",
   "is_synthetic": true
 }

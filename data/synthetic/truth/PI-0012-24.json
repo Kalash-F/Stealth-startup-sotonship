@@ -25,8 +25,8 @@
       "description": "Women's V-neck T-shirt, cotton knitted, assorted sizes",
       "quantity": 28000.0,
       "unit": "pcs",
-      "unit_price": 0.5387,
-      "line_total": 15083.6,
+      "unit_price": 1.5987,
+      "line_total": 44763.6,
       "extraction_confidence": 1.0
     },
     {
@@ -34,12 +34,12 @@
       "description": "13-inch ultraportable laptop, 8GB RAM, 256GB SSD",
       "quantity": 110.0,
       "unit": "pcs",
-      "unit_price": 5502.94,
-      "line_total": 605323.4,
+      "unit_price": 4829.7,
+      "line_total": 531267.0,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 620407.0,
+  "stated_total": 576030.6,
   "source_file": "PI-0012-24.pdf",
   "is_synthetic": true
 }

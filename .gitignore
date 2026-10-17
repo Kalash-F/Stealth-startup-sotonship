@@ -10,6 +10,11 @@ data/reports/
 node_modules/
 dist/
 data/cache/raw_text/
+# Comtrade responses can't be redistributed without UN permission; HMRC ones are OGL v3.0.
+data/benchmarks/raw/*
+!data/benchmarks/raw/.gitkeep
+!data/benchmarks/raw/README.md
+!data/benchmarks/raw/hmrc_*.json.gz
 .vercel/
 backend/data/
 build/

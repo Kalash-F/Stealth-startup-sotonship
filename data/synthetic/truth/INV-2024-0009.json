@@ -25,8 +25,8 @@
       "description": "Robusta green coffee beans, 60kg jute bags",
       "quantity": 510.0,
       "unit": "bags",
-      "unit_price": 1281.72,
-      "line_total": 653677.2,
+      "unit_price": 5308.0,
+      "line_total": 2707080.0,
       "extraction_confidence": 1.0
     },
     {
@@ -34,12 +34,12 @@
       "description": "Unroasted Arabica coffee, washed, screen 17/18",
       "quantity": 34.3,
       "unit": "MT",
-      "unit_price": 13985.34,
-      "line_total": 479697.16,
+      "unit_price": 34074.69,
+      "line_total": 1168761.87,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 1133374.36,
+  "stated_total": 3875841.87,
   "source_file": "INV-2024-0009.pdf",
   "is_synthetic": true
 }

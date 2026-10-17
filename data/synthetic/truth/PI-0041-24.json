@@ -30,8 +30,8 @@
       "description": "Carriage bolts M10 x 100mm, galvanised steel",
       "quantity": 7650.0,
       "unit": "kg",
-      "unit_price": 1.185,
-      "line_total": 9065.25,
+      "unit_price": 2.2019,
+      "line_total": 16844.53,
       "extraction_confidence": 1.0
     },
     {
@@ -39,8 +39,8 @@
       "description": "M6 x 30mm hex bolts, zinc plated",
       "quantity": 199500.0,
       "unit": "pcs",
-      "unit_price": 0.0249,
-      "line_total": 3283.87,
+      "unit_price": 0.1883,
+      "line_total": 24833.42,
       "extraction_confidence": 1.0
     },
     {
@@ -48,12 +48,12 @@
       "description": "Sparkling flavoured water 500ml PET bottles",
       "quantity": 69000.0,
       "unit": "bottles",
-      "unit_price": 0.5992,
-      "line_total": 41344.8,
+      "unit_price": 0.3604,
+      "line_total": 24867.6,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 53693.92,
+  "stated_total": 66545.55,
   "source_file": "PI-0041-24.pdf",
   "is_synthetic": true
 }

@@ -25,8 +25,8 @@
       "description": "Stainless steel machine screws M4 x 12mm",
       "quantity": 351500.0,
       "unit": "pcs",
-      "unit_price": 0.008885,
-      "line_total": 3123.08,
+      "unit_price": 0.008938,
+      "line_total": 3141.71,
       "extraction_confidence": 1.0
     },
     {
@@ -34,12 +34,12 @@
       "description": "Stainless steel machine screws M4 x 12mm",
       "quantity": 103000.0,
       "unit": "pcs",
-      "unit_price": 0.0106,
-      "line_total": 1091.8,
+      "unit_price": 0.0138,
+      "line_total": 1421.4,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 4214.88,
+  "stated_total": 4563.11,
   "source_file": "TX240020.pdf",
   "is_synthetic": true
 }

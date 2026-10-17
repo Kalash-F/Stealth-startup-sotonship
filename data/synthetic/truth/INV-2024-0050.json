@@ -25,8 +25,8 @@
       "description": "Men's crew-neck T-shirt, 100% cotton jersey knit",
       "quantity": 39500.0,
       "unit": "pcs",
-      "unit_price": 10.9,
-      "line_total": 430550.0,
+      "unit_price": 37.22,
+      "line_total": 1470190.0,
       "extraction_confidence": 1.0
     },
     {
@@ -34,8 +34,8 @@
       "description": "USB 2.0 memory stick 32GB, carton of 100",
       "quantity": 170.0,
       "unit": "cartons",
-      "unit_price": 1105.57,
-      "line_total": 187946.9,
+      "unit_price": 9037.96,
+      "line_total": 1536453.2,
       "extraction_confidence": 1.0
     },
     {
@@ -43,8 +43,8 @@
       "description": "Refined copper cathode sheets, LME Grade A",
       "quantity": 120000.0,
       "unit": "kg",
-      "unit_price": 32.65,
-      "line_total": 3918000.0,
+      "unit_price": 52.7,
+      "line_total": 6324000.0,
       "extraction_confidence": 1.0
     },
     {
@@ -52,12 +52,12 @@
       "description": "Copper cathodes Grade A, 99.99% Cu",
       "quantity": 43.2,
       "unit": "MT",
-      "unit_price": 30546.01,
-      "line_total": 1319587.63,
+      "unit_price": 36550.14,
+      "line_total": 1578966.05,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 5856084.53,
+  "stated_total": 10909609.25,
   "source_file": "INV-2024-0050.pdf",
   "is_synthetic": true
 }

@@ -25,8 +25,8 @@
       "description": "13-inch ultraportable laptop, 8GB RAM, 256GB SSD",
       "quantity": 780.0,
       "unit": "pcs",
-      "unit_price": 1657.2,
-      "line_total": 1292616.0,
+      "unit_price": 2130.92,
+      "line_total": 1662117.6,
       "extraction_confidence": 1.0
     },
     {
@@ -34,8 +34,8 @@
       "description": "Women's V-neck T-shirt, cotton knitted, assorted sizes",
       "quantity": 22000.0,
       "unit": "pcs",
-      "unit_price": 8.5177,
-      "line_total": 187389.4,
+      "unit_price": 24.54,
+      "line_total": 539880.0,
       "extraction_confidence": 1.0
     },
     {
@@ -43,12 +43,12 @@
       "description": "Stainless steel machine screws M4 x 12mm",
       "quantity": 431000.0,
       "unit": "pcs",
-      "unit_price": 0.0313,
-      "line_total": 13490.3,
+      "unit_price": 0.0844,
+      "line_total": 36376.4,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 1493495.7,
+  "stated_total": 2238374.0,
   "source_file": "PI-0018-24.pdf",
   "is_synthetic": true
 }

@@ -30,8 +30,8 @@
       "description": "13-inch ultraportable laptop, 8GB RAM, 256GB SSD",
       "quantity": 1900.0,
       "unit": "pcs",
-      "unit_price": 15973.9,
-      "line_total": 30350410.0,
+      "unit_price": 19247.01,
+      "line_total": 36569319.0,
       "extraction_confidence": 1.0
     },
     {
@@ -39,12 +39,12 @@
       "description": "USB 3.0 flash drive 64GB, metal casing",
       "quantity": 34000.0,
       "unit": "pcs",
-      "unit_price": 6.545,
-      "line_total": 222530.0,
+      "unit_price": 208.19,
+      "line_total": 7078460.0,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 30572940.0,
+  "stated_total": 43647779.0,
   "source_file": "PI-0035-24.pdf",
   "is_synthetic": true
 }

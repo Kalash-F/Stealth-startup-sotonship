@@ -5,12 +5,11 @@ and report per-rule precision and recall against labels.csv. Run with `-s` to se
 from __future__ import annotations
 
 import csv
-import json
 from collections import defaultdict
 
 import pytest
 
-from tbml.paths import REFERENCE_DIR, SYNTHETIC_DIR
+from tbml.paths import SYNTHETIC_DIR
 from tbml.rules import RULES, run_rules
 from tbml.schemas import Benchmark, EnrichedLine, Flag, Invoice, Rule
 from tbml.score import score
@@ -42,10 +41,11 @@ def _read(path):
         return list(csv.DictReader(f))
 
 
-def _bands() -> dict[str, Benchmark]:
-    # The same placeholder bands the generator priced the invoices from (DECISIONS D1.2).
-    data = json.loads((REFERENCE_DIR / "placeholder_bands.json").read_text())
-    return {b["hs6"]: Benchmark.model_validate(b) for b in data}
+def _bands() -> dict[tuple[str, str | None], Benchmark]:
+    # The bands the generator priced the invoices from, keyed (hs6, route) like tbml.benchmark.
+    from tbml.synthetic.generator import DEFAULT_BANDS, load_route_bands
+
+    return load_route_bands(DEFAULT_BANDS)
 
 
 @pytest.fixture(scope="module")
@@ -73,7 +73,8 @@ def results():
                     normalisation_note="truth data",
                 )
             )
-            benchmarks.append(bands[hs6] if hs6 else None)
+            route = f"{invoice.seller.country}-{(invoice.consignee or invoice.buyer).country}"
+            benchmarks.append((bands.get((hs6, route)) or bands[(hs6, None)]) if hs6 else None)
         out[invoice.invoice_id] = run_rules(invoice, enriched, benchmarks)
     return out
 
