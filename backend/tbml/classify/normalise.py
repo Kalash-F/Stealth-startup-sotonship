@@ -59,6 +59,9 @@ _VOLUME_IN_TEXT = re.compile(r"(\d+(?:\.\d+)?)\s*(ml|cl|l|litres?|liters?)(?![a-
 
 @dataclass
 class Normalised:
+    """Result of unit/FX conversion. Quantity, unit and price are None when conversion was not
+    possible; `note` always explains the arithmetic (or why there is none) for the report."""
+
     quantity: float | None
     unit: str | None
     unit_price_usd: float | None
@@ -77,17 +80,21 @@ def benchmark_units() -> dict[str, str]:
 
 @lru_cache(maxsize=1)
 def load_fx() -> dict[str, float]:
+    """Currency -> units per 1 USD from data/reference/fx.csv."""
     with open(REFERENCE_DIR / "fx.csv", newline="") as f:
         return {r["currency"]: float(r["units_per_usd"]) for r in csv.DictReader(f)}
 
 
 @lru_cache(maxsize=1)
 def load_unit_weights() -> list[dict[str, str]]:
+    """Rows of unit_weights.csv: documented kg-per-bag / kg-per-piece factors by HS6."""
     with open(REFERENCE_DIR / "unit_weights.csv", newline="") as f:
         return list(csv.DictReader(f))
 
 
 def _weight_row(hs6: str, unit: str, text: str) -> dict[str, str] | None:
+    """First unit_weights row for this HS6 and unit whose optional text pattern matches the
+    description."""
     for row in load_unit_weights():
         if row["hs6"] == hs6 and row["unit"] == unit:
             if not row["pattern"] or re.search(rf"(?<![a-z0-9]){row['pattern']}(?![a-z0-9])", text):
@@ -96,6 +103,7 @@ def _weight_row(hs6: str, unit: str, text: str) -> dict[str, str] | None:
 
 
 def _pack_count(text: str) -> float | None:
+    """Pieces per pack from wording like 'carton of 24' or 'box x 100', else None."""
     m = _PACK_COUNT.search(text)
     return float(m.group(1).replace(",", "")) if m else None
 
@@ -155,6 +163,12 @@ def _units_per_printed(
 
 
 def normalise(item: LineItem, hs6: str | None, currency: str) -> Normalised:
+    """Convert a line to the benchmark unit of its HS6 and to USD per that unit.
+
+    quantity = printed quantity x benchmark units per printed unit; price = printed unit price
+    / FX rate / that same factor. Any missing ingredient (HS6, benchmark unit, FX rate, unit
+    conversion) returns a Normalised of Nones with the reason in `note`.
+    """
     if hs6 is None:
         return Normalised(None, None, None, "not normalised: line has no HS6")
     target = benchmark_units().get(hs6)

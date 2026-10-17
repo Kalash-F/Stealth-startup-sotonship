@@ -16,14 +16,17 @@ SYNTHETIC_NOTICE = (
 
 
 def fmt_qty(v: float) -> str:
+    """Whole numbers without decimals, otherwise one decimal."""
     return f"{v:,.0f}" if float(v).is_integer() else f"{v:,.1f}"
 
 
 def fmt_price(v: float) -> str:
+    """Unit price with more digits for small values; must match the generator's rounding."""
     return f"{v:,.2f}" if v >= 10 else f"{v:.4f}" if v >= 0.01 else f"{v:.6f}"
 
 
 def fmt_money(v: float) -> str:
+    """Amount with thousands separators and two decimals."""
     return f"{v:,.2f}"
 
 
@@ -36,6 +39,7 @@ _env.filters.update(qty=fmt_qty, price=fmt_price, money=fmt_money)
 
 
 def render_html(invoice: Invoice, template: str) -> str:
+    """Fill the named template ('classic', 'modern' or 'trade') with an invoice."""
     return _env.get_template(f"{template}.html").render(
         inv=invoice,
         date=invoice.invoice_date.strftime(DATE_FORMATS[template]),
@@ -44,6 +48,7 @@ def render_html(invoice: Invoice, template: str) -> str:
 
 
 def render_pdf(invoice: Invoice, template: str, out_path: Path) -> None:
+    """Write the invoice as a text-based PDF (WeasyPrint is imported lazily; it is heavy)."""
     from weasyprint import HTML
 
     HTML(string=render_html(invoice, template), base_url=str(TEMPLATE_DIR)).write_pdf(out_path)

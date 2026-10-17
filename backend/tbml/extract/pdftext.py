@@ -11,6 +11,8 @@ import pdfplumber
 
 @dataclass
 class Word:
+    """One word with its page position (points, origin top-left), boldness and font size."""
+
     text: str
     x0: float
     x1: float
@@ -21,15 +23,19 @@ class Word:
 
     @property
     def xc(self) -> float:
+        """Horizontal centre."""
         return (self.x0 + self.x1) / 2
 
     @property
     def yc(self) -> float:
+        """Vertical centre."""
         return (self.top + self.bottom) / 2
 
 
 @dataclass
 class RawPage:
+    """One page: size, plain text, positioned words and any tables pdfplumber found."""
+
     width: float
     height: float
     text: str
@@ -39,6 +45,8 @@ class RawPage:
 
 @dataclass
 class RawDocument:
+    """A parsed PDF plus its SHA-256, which keys the LLM cache."""
+
     path: Path
     sha256: str
     pages: list[RawPage] = field(default_factory=list)
@@ -49,6 +57,7 @@ class RawDocument:
 
     @property
     def has_text(self) -> bool:
+        """False for scanned PDFs with no text layer."""
         return bool(self.text.strip())
 
     def render(self) -> str:
@@ -63,10 +72,12 @@ class RawDocument:
 
 
 def file_sha256(path: Path) -> str:
+    """Hex SHA-256 of the file's bytes."""
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def read_pdf(path: str | Path) -> RawDocument:
+    """Read every page with pdfplumber into a RawDocument. Raises if the PDF cannot be opened."""
     path = Path(path)
     doc = RawDocument(path=path, sha256=file_sha256(path))
     with pdfplumber.open(path) as pdf:

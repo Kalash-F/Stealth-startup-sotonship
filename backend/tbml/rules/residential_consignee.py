@@ -25,6 +25,11 @@ def check(
     benchmarks: list[Benchmark | None],
     warnings: list[str] | None = None,
 ) -> list[Flag]:
+    """Flag a consignee (or, failing that, buyer) at a residential address on a large invoice.
+
+    The invoice total is converted to USD; above `min_total_usd` is medium, and a residential
+    consignee above `high_total_usd` is high. The check is skipped with a warning when no USD
+    total can be worked out."""
     cfg = config("residential_consignee")
     receiver, role = (invoice.consignee, "consignee"), (invoice.buyer, "buyer")
     party, label = next(

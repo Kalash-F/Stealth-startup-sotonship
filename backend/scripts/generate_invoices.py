@@ -11,6 +11,7 @@ from tbml.synthetic.generator import DEFAULT_BANDS, distribution_table, generate
 
 
 def main() -> None:
+    """Generate the synthetic set and print its label distribution."""
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--n", type=int, default=60)

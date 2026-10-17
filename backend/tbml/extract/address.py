@@ -25,6 +25,9 @@ _COMPANY_SUFFIX = re.compile(
 
 
 def classify_address(name: str, address: str) -> AddressType | None:
+    """Keyword verdict on a party. Order matters: P.O. box -> unknown, residential words ->
+    residential, then commercial words in the address or a company suffix in the name ->
+    commercial. None when nothing matches."""
     if _PO_BOX.search(address):
         return AddressType.unknown
     if _RESIDENTIAL.search(address):

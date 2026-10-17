@@ -12,6 +12,9 @@ def check(
     benchmarks: list[Benchmark | None],
     warnings: list[str] | None = None,
 ) -> list[Flag]:
+    """Flag lines whose extraction or classification confidence is below `min_confidence`.
+
+    Always low severity: it asks an officer to read the line, it does not say anything is wrong."""
     floor = config("low_confidence")["min_confidence"]
     by_id = {e.line_id: e for e in enriched}
     flags: list[Flag] = []

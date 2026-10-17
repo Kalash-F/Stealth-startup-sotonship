@@ -15,6 +15,8 @@ HS6_CSV = REFERENCE_DIR / "hs6.csv"
 
 @dataclass(frozen=True)
 class HS6Entry:
+    """One row of hs6.csv: a valid code, its plain-English description, and the offline matcher."""
+
     hs6: str
     description: str
     keywords: tuple[re.Pattern[str], ...]  # used by the offline KeywordProposer only
@@ -22,11 +24,14 @@ class HS6Entry:
 
 
 def _split(field: str) -> list[str]:
+    """Split a `|`-separated csv field into its non-empty parts."""
     # Keywords are `|`-separated; an exclude field is a single regex and is not split.
     return [p for p in field.split("|") if p]
 
 
 def load_hs6(path: Path = HS6_CSV) -> dict[str, HS6Entry]:
+    """Read the reference list into {hs6: HS6Entry}, compiling keyword regexes as whole-word
+    matches."""
     entries: dict[str, HS6Entry] = {}
     with open(path, newline="") as f:
         for row in csv.DictReader(f):
@@ -40,4 +45,5 @@ def load_hs6(path: Path = HS6_CSV) -> dict[str, HS6Entry]:
 
 @lru_cache(maxsize=1)
 def default_hs6() -> dict[str, HS6Entry]:
+    """The bundled hs6.csv, loaded once."""
     return load_hs6()

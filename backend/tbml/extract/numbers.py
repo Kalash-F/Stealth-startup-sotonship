@@ -47,4 +47,5 @@ def numbers_in(text: str) -> set[float]:
 
 
 def appears_in(value: float, found: set[float]) -> bool:
+    """True if `value` equals one of the numbers found in the document (to a relative 1e-9)."""
     return any(abs(value - f) <= max(1e-9, abs(value) * 1e-9) for f in found)

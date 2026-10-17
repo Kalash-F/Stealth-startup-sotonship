@@ -11,6 +11,7 @@ from tbml.schemas import Benchmark, EnrichedLine, Flag, Invoice, Rule, Severity
 
 @lru_cache(maxsize=1)
 def _patterns() -> list[re.Pattern[str]]:
+    """Placeholder regexes from config.yaml, compiled once."""
     return [re.compile(p) for p in config("placeholder_desc")["patterns"]]
 
 
@@ -20,6 +21,10 @@ def check(
     benchmarks: list[Benchmark | None],
     warnings: list[str] | None = None,
 ) -> list[Flag]:
+    """Flag descriptions that match a placeholder pattern, or are very short and unclassifiable.
+
+    High when the wording is vague and the line also failed HS6 classification (the goods are
+    unknowable); medium otherwise."""
     cfg = config("placeholder_desc")
     by_id = {e.line_id: e for e in enriched}
     flags: list[Flag] = []

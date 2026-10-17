@@ -27,6 +27,8 @@ def strip_parentheses(text: str) -> str:
 
 @lru_cache(maxsize=1)
 def _tables() -> tuple[dict[str, str], dict[str, str], dict[str, str], dict[str, str]]:
+    """Load the reference CSVs: (iso -> name, country key -> iso, city key -> iso, city key ->
+    display)."""
     names: dict[str, str] = {}  # iso -> display name
     country_keys: dict[str, str] = {}  # normalised name/alias -> iso
     with open(REFERENCE_DIR / "countries.csv", newline="", encoding="utf-8") as f:
@@ -47,6 +49,7 @@ def _tables() -> tuple[dict[str, str], dict[str, str], dict[str, str], dict[str,
 
 
 def _compile(keys: dict[str, str]) -> re.Pattern[str]:
+    """One whole-word alternation regex over normalised keys."""
     ordered = sorted(keys, key=len, reverse=True)  # longest first so 'new york' beats 'york'
     return re.compile(
         r"(?<![a-z0-9])(" + "|".join(re.escape(k) for k in ordered) + r")(?![a-z0-9])"
@@ -55,11 +58,13 @@ def _compile(keys: dict[str, str]) -> re.Pattern[str]:
 
 @lru_cache(maxsize=1)
 def _patterns() -> tuple[re.Pattern[str], re.Pattern[str]]:
+    """(country regex, city regex), compiled once."""
     _, country_keys, city_keys, _ = _tables()
     return _compile(country_keys), _compile(city_keys)
 
 
 def country_name(iso: str) -> str:
+    """Display name for an ISO-2 code; the code itself when unknown."""
     return _tables()[0].get(iso, iso)
 
 

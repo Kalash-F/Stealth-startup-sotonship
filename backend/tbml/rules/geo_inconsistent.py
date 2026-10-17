@@ -1,4 +1,5 @@
-"""R4 GEO_INCONSISTENT: the country-of-origin text against the city gazetteer and the port of loading."""
+"""R4 GEO_INCONSISTENT: the country-of-origin text against the city gazetteer and the port of
+loading."""
 
 from __future__ import annotations
 
@@ -20,6 +21,11 @@ def check(
     benchmarks: list[Benchmark | None],
     warnings: list[str] | None = None,
 ) -> list[Flag]:
+    """Flag a country-of-origin text that contradicts itself or the loading location.
+
+    Two checks, first hit wins: a named city that is in a different country than the named
+    country (high), then the origin country against the port of loading, falling back to the
+    seller's country (medium). Invoices that explain a re-export or transhipment are exempt."""
     origin = invoice.country_of_origin
     if not origin or not origin.strip():
         return []

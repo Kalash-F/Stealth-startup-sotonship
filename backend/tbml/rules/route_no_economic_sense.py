@@ -1,4 +1,5 @@
-"""R5 ROUTE_NO_ECONOMIC_SENSE: a high price for a good that costs about the same at both ends of the route."""
+"""R5 ROUTE_NO_ECONOMIC_SENSE: a high price for a good that costs about the same at both ends of
+the route."""
 
 from __future__ import annotations
 
@@ -40,6 +41,10 @@ def check(
     benchmarks: list[Benchmark | None],
     warnings: list[str] | None = None,
 ) -> list[Flag]:
+    """Flag lines priced above p75 on a route where the good costs about the same at both ends.
+
+    "Same price everywhere" comes from `country_medians` when both countries are listed there,
+    else from the `parity_hs6` list. Always medium severity."""
     cfg = config("route_no_economic_sense")
     origin = invoice.seller.country
     destination = (invoice.consignee or invoice.buyer).country

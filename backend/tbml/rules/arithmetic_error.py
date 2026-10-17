@@ -1,4 +1,5 @@
-"""R6 ARITHMETIC_ERROR: quantity x price against the line total, and the lines against the stated total."""
+"""R6 ARITHMETIC_ERROR: quantity x price against the line total, and the lines against the stated
+total."""
 
 from __future__ import annotations
 
@@ -15,6 +16,7 @@ def _off(expected: float, stated: float, cfg: dict) -> tuple[bool, float]:
 
 
 def _severity(pct: float, cfg: dict) -> Severity:
+    """High from `high_variance_pct` upwards, else medium."""
     return Severity.high if pct >= cfg["high_variance_pct"] else Severity.medium
 
 
@@ -24,6 +26,11 @@ def check(
     benchmarks: list[Benchmark | None],
     warnings: list[str] | None = None,
 ) -> list[Flag]:
+    """Flag lines where quantity x unit price differs from the line total, and an invoice whose
+    stated total differs from the sum of its lines.
+
+    The tolerance is the larger of a relative and an absolute allowance; severity is high from
+    `high_variance_pct` upwards."""
     cfg = config("arithmetic_error")
     cur = invoice.currency
     flags: list[Flag] = []

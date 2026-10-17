@@ -1,4 +1,5 @@
-"""P3: red-flag rules R1-R8 (plan.md Phase 4). One file per rule, thresholds in rules/config.yaml."""
+"""P3: red-flag rules R1-R8 (plan.md Phase 4). One file per rule, thresholds in
+rules/config.yaml."""
 
 from __future__ import annotations
 
@@ -30,7 +31,8 @@ _SEVERITY_RANK = {Severity.high: 0, Severity.medium: 1, Severity.low: 2}
 
 
 def sort_flags(flags: list[Flag]) -> list[Flag]:
-    """Highest severity first (plan 4.5); stable, so rule order then line order is kept within a severity."""
+    """Highest severity first (plan 4.5); stable, so rule order then line order is kept within a
+    severity."""
     return sorted(flags, key=lambda f: _SEVERITY_RANK[f.severity])
 
 
@@ -39,7 +41,8 @@ def run_rules_with_warnings(
     enriched: list[EnrichedLine],
     benchmarks: list[Benchmark | None],
 ) -> tuple[list[Flag], list[str]]:
-    """Run every rule. Returns the sorted flags and the warnings rules raised (e.g. a skipped check)."""
+    """Run every rule. Returns the sorted flags and the warnings rules raised (e.g. a skipped
+    check)."""
     warnings: list[str] = []
     flags: list[Flag] = []
     for rule in RULES:
@@ -52,6 +55,7 @@ def run_rules(
     enriched: list[EnrichedLine],
     benchmarks: list[Benchmark | None],
 ) -> list[Flag]:
+    """`run_rules_with_warnings` without the warnings, for callers that only need the flags."""
     return run_rules_with_warnings(invoice, enriched, benchmarks)[0]
 
 
