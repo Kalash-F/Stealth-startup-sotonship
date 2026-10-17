@@ -26,9 +26,14 @@ export default function OverviewPage() {
         description={`Good morning, ${me.name.split(" ")[0]}. What needs attention across the sample portfolio on ${formatDate(DEMO_NOW)}.`}
         meta={<SyntheticBadge />}
         actions={
-          <Button asChild variant="secondary" size="sm">
-            <Link href="/app/investigations">Open investigations</Link>
-          </Button>
+          <div className="flex flex-wrap gap-2">
+            <Button asChild variant="secondary" size="sm">
+              <Link href="/app/investigations">Open investigations</Link>
+            </Button>
+            <Button asChild variant="accent" size="sm">
+              <Link href="/app/checker">Check an invoice</Link>
+            </Button>
+          </div>
         }
       />
       <div className="grid gap-4 p-4 lg:p-6 [&>*]:min-w-0">

@@ -1,0 +1,11 @@
+{
+  "description": "Copper cathodes\nWhat it is: Refined copper cathodes, which are raw materials for further processing into copper products.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "74",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description explicitly states 'Copper cathodes', which are a form of copper, making Chapter 74 the most appropriate choice."
+}

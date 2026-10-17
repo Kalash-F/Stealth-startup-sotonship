@@ -1,0 +1,11 @@
+{
+  "description": "T-shirts cotton knitted\nWhat it is: Knitted cotton t-shirts, which are finished garments for wearing.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "61",
+      "score": 1.0
+    }
+  ],
+  "reason": "T-shirts are knitted apparel, which falls under Chapter 61 for knitted or crocheted apparel and clothing accessories."
+}

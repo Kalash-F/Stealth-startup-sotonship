@@ -1,0 +1,11 @@
+{
+  "description": "Cu cathode grade A LME\nWhat it is: Refined copper cathode, grade A, suitable for trading on the London Metal Exchange.",
+  "parent": "74",
+  "choices": [
+    {
+      "code": "7403",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description specifies 'refined copper cathode', which directly falls under 'refined copper' in heading 7403."
+}

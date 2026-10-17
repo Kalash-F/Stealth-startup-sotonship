@@ -1,0 +1,11 @@
+{
+  "description": "hex nuts M8 cl.8 zinc\nWhat it is: An M8 class 8 zinc-plated steel hexagonal nut, which is a part used for fastening.",
+  "parent": "73",
+  "choices": [
+    {
+      "code": "7318",
+      "score": 1.0
+    }
+  ],
+  "reason": "Hex nuts are specifically mentioned in heading 7318, which covers screws, bolts, nuts, and similar articles of iron or steel."
+}

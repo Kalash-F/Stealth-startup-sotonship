@@ -47,6 +47,10 @@ class FakeClient:
     def _create(self, **kwargs):
         content = kwargs["messages"][0]["content"]
         self.calls.append(content)
+        if content.startswith("Invoice line:"):  # step 0, interpretation
+            reply = self.answers.get("interpret", [{"goods": "", "vague": False}])[0]
+            text = reply if isinstance(reply, str) else json.dumps(reply)
+            return SimpleNamespace(content=[SimpleNamespace(text=text)])
         digits = int(re.search(r"\((\d) digits\)", content).group(1))
         queue = self.answers[digits]
         reply = queue.pop(0) if len(queue) > 1 else queue[0]
@@ -68,6 +72,7 @@ MACBOOK = {
 
 
 def _proposer(answers, nom, tmp_path, **kw):
+    kw.setdefault("interpret", False)  # step-0 interpretation has its own tests below
     return HierarchicalProposer(
         model="fake", client=FakeClient(answers), nomenclature=nom, cache_dir=tmp_path / "c", **kw
     )
@@ -225,7 +230,11 @@ def test_unwritable_cache_does_not_break_classification(nom, tmp_path):
     blocker = tmp_path / "not-a-dir"
     blocker.write_text("x")  # mkdir under a file fails, like a read-only disk
     p = HierarchicalProposer(
-        model="fake", client=FakeClient(MACBOOK), nomenclature=nom, cache_dir=blocker / "c"
+        model="fake",
+        client=FakeClient(MACBOOK),
+        nomenclature=nom,
+        cache_dir=blocker / "c",
+        interpret=False,
     )
     assert p.propose("MacBook Pro 14")[0].hs6 == "847130"
 
@@ -241,3 +250,27 @@ def test_path_text_is_kept_short(nom, tmp_path):
 
     assert _short("x" * 200).endswith("…") and len(_short("x" * 200)) == 60
     assert _short("Nuts") == "Nuts"
+
+
+def test_interpretation_feeds_the_plain_reading_into_every_step(nom, tmp_path):
+    answers = dict(MACBOOK)
+    answers["interpret"] = {"goods": "Apple MacBook Pro 14-inch laptop computer", "vague": False}
+    p = _proposer(answers, nom, tmp_path, interpret=True)
+    assert p.propose("MBP 14 M3 16/512 SG")[0].hs6 == "847130"
+    assert len(p.client.calls) == 4  # interpret + chapter + heading + subheading
+    assert all("What it is: Apple MacBook Pro" in c for c in p.client.calls[1:])
+    assert p.explain("MBP 14 M3 16/512 SG").startswith('read as "Apple MacBook Pro')
+
+
+def test_interpretation_can_call_a_line_too_vague(nom, tmp_path):
+    answers = {"interpret": {"goods": "unspecified parts", "vague": True}}
+    p = _proposer(answers, nom, tmp_path, interpret=True)
+    assert p.propose("Spare parts") == []
+    assert len(p.client.calls) == 1
+    assert "too vague" in p.explain("Spare parts")
+
+
+def test_codes_with_dots_or_dropped_zeros_are_accepted(nom, tmp_path):
+    answers = dict(MACBOOK)
+    answers[6] = {"choices": [{"code": "8471.30", "score": 0.9}], "reason": "portable"}
+    assert _proposer(answers, nom, tmp_path).propose("laptop")[0].hs6 == "847130"

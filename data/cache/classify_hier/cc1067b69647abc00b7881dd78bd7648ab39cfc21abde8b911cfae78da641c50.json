@@ -1,0 +1,11 @@
+{
+  "description": "Solid state drive 512GB\nWhat it is: A 512 gigabyte solid state drive, which is a finished electronic component used for data storage in computers.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "85",
+      "score": 1.0
+    }
+  ],
+  "reason": "Solid state drives are electronic components for data storage, falling under electrical machinery and equipment."
+}

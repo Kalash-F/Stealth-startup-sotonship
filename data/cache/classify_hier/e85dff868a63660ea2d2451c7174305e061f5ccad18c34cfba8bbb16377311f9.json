@@ -1,0 +1,11 @@
+{
+  "description": "roasted coffee beans 1kg\nWhat it is: One kilogram of roasted coffee beans, a finished food product for brewing coffee.",
+  "parent": "09",
+  "choices": [
+    {
+      "code": "0901",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description 'roasted coffee beans' directly matches the 'Coffee, whether or not roasted' part of heading 0901."
+}

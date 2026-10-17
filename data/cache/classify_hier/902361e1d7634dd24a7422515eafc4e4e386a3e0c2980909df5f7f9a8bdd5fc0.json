@@ -1,0 +1,11 @@
+{
+  "description": "green coffee beans Arabica\nWhat it is: Green Arabica coffee beans, a raw material for making coffee.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "09",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description clearly states 'green coffee beans Arabica', and Chapter 09 is specifically for 'Coffee, tea, mate and spices'."
+}

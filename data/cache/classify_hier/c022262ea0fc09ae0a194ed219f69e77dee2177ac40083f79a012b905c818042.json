@@ -1,0 +1,15 @@
+{
+  "description": "Dell Latitude 5440 notebook\nWhat it is: A Dell Latitude 5440 is a finished laptop computer made by Dell.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "84",
+      "score": 0.55
+    },
+    {
+      "code": "85",
+      "score": 0.4
+    }
+  ],
+  "reason": "Laptops are considered data processing machines, which fall under either Chapter 84 (Machinery and mechanical appliances) or Chapter 85 (Electrical machinery and equipment)."
+}

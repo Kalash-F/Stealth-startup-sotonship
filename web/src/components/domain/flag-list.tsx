@@ -28,8 +28,8 @@ export function FlagItem({
       <header className="flex flex-wrap items-center gap-x-3 gap-y-1">
         <SeverityTag severity={flag.severity} />
         <Heading className="text-[13px] font-semibold text-fg">{rule.name}</Heading>
-        <span className="font-mono text-2xs text-fg-subtle">
-          {flag.line_id ? `Line ${flag.line_id}` : "Invoice level"} · {flag.rule}
+        <span className="text-xs text-fg-subtle" title={flag.rule}>
+          {flag.line_id ? `Line ${flag.line_id}` : "Whole invoice"}
         </span>
       </header>
       <p className="text-[13px] leading-relaxed text-fg-muted">{flag.reason}</p>

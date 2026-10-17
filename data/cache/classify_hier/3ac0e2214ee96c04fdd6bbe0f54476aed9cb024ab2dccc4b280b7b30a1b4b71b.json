@@ -1,0 +1,11 @@
+{
+  "description": "Gildan heavy cotton tees\nWhat it is: Gildan brand short-sleeved t-shirts made from heavy cotton fabric, for wearing on the upper body.",
+  "parent": "61",
+  "choices": [
+    {
+      "code": "6109",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description explicitly states 'tees', which are synonymous with t-shirts, and this heading specifically covers 'T-shirts, singlets and other vests; knitted or crocheted'."
+}

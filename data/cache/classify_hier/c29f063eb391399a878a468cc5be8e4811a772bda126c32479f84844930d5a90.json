@@ -1,0 +1,11 @@
+{
+  "description": "Bolts M8 zinc plated\nWhat it is: Zinc-plated steel bolts with an 8mm diameter.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "73",
+      "score": 1.0
+    }
+  ],
+  "reason": "Bolts are articles of iron or steel, which fall under Chapter 73."
+}

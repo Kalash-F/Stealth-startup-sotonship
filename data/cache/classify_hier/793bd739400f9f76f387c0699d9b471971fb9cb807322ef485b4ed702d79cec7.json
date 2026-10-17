@@ -1,0 +1,11 @@
+{
+  "description": "polyester sports tee dry-fit\nWhat it is: A finished product, a short-sleeved t-shirt made of polyester, designed for sports and active wear with moisture-wicking properties.",
+  "parent": "61",
+  "choices": [
+    {
+      "code": "6109",
+      "score": 1.0
+    }
+  ],
+  "reason": "The item is a 'sports tee', which is a type of T-shirt, and 6109 specifically covers 'T-shirts, singlets and other vests; knitted or crocheted'."
+}

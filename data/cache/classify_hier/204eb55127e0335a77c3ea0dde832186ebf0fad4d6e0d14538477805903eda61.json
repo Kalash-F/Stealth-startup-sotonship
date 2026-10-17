@@ -1,0 +1,11 @@
+{
+  "description": "Dell Latitude 5440 notebook\nWhat it is: A Dell Latitude 5440 is a finished laptop computer made by Dell.",
+  "parent": "8471",
+  "choices": [
+    {
+      "code": "847130",
+      "score": 1.0
+    }
+  ],
+  "reason": "A Dell Latitude 5440 notebook is a portable automatic data processing machine weighing less than 10kg, with a CPU, keyboard, and display."
+}

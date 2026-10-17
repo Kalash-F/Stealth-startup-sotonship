@@ -1,0 +1,11 @@
+{
+  "description": "self tapping scr 4.2x13 pan hd\nWhat it is: A self-tapping screw, 4.2mm in diameter and 13mm long, with a pan head, made of steel, which is a finished product used for fastening materials together.",
+  "parent": "7318",
+  "choices": [
+    {
+      "code": "731814",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description explicitly states 'self tapping scr', which directly matches 'self-tapping screws' in option 731814."
+}

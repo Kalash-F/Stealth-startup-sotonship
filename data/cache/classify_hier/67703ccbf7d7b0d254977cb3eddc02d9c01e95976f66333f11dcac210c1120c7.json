@@ -1,0 +1,11 @@
+{
+  "description": "Bolts M8 zinc plated\nWhat it is: Zinc-plated steel bolts with an 8mm diameter.",
+  "parent": "7318",
+  "choices": [
+    {
+      "code": "731815",
+      "score": 0.9
+    }
+  ],
+  "reason": "The description specifies 'Bolts M8 zinc plated', which are threaded screws and bolts not elsewhere specified, and are often supplied with nuts or washers (even if not explicitly stated)."
+}

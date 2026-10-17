@@ -1,0 +1,11 @@
+{
+  "description": "MacBook Air 13 M2\nWhat it is: An Apple MacBook Air 13-inch laptop computer, a finished product.",
+  "parent": "84",
+  "choices": [
+    {
+      "code": "8471",
+      "score": 1.0
+    }
+  ],
+  "reason": "A MacBook Air is an automatic data processing machine."
+}

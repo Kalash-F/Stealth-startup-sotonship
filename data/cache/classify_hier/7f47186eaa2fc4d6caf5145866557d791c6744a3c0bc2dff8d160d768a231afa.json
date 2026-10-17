@@ -1,0 +1,11 @@
+{
+  "description": "cotton jersey singlets\nWhat it is: Cotton jersey singlets are finished garments made of cotton fabric, designed to be worn as sleeveless tops.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "61",
+      "score": 1.0
+    }
+  ],
+  "reason": "Cotton jersey singlets are knitted garments, which fall under Chapter 61 for knitted or crocheted apparel and clothing accessories."
+}

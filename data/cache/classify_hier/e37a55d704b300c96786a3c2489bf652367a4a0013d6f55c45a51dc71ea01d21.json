@@ -1,0 +1,11 @@
+{
+  "description": "socket cap screw DIN912 M6x20\nWhat it is: A steel socket cap screw, 6mm in diameter and 20mm long, which is a finished part used for fastening.",
+  "parent": "7318",
+  "choices": [
+    {
+      "code": "731815",
+      "score": 0.9
+    }
+  ],
+  "reason": "A socket cap screw is a type of screw, and since it's not a coach screw, wood screw, screw hook, screw ring, or self-tapping screw, it falls under 'screws and bolts n.e.c.'"
+}

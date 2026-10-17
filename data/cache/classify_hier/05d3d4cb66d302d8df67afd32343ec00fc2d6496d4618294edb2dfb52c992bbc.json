@@ -1,0 +1,11 @@
+{
+  "description": "Laptop computers 14 inch\nWhat it is: A 14-inch laptop computer, which is a finished electronic product used for general computing tasks.",
+  "parent": "8471",
+  "choices": [
+    {
+      "code": "847130",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description 'Laptop computers 14 inch' perfectly matches the definition of 'Automatic data processing machines; portable, weighing not more than 10kg, consisting of at least a central processing unit, a keyboard and a display'."
+}

@@ -1,0 +1,11 @@
+{
+  "description": "Solid state drive 512GB\nWhat it is: A 512 gigabyte solid state drive, which is a finished electronic component used for data storage in computers.",
+  "parent": "8523",
+  "choices": [
+    {
+      "code": "852351",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description clearly states 'Solid state drive', which directly corresponds to 'solid-state non-volatile storage devices' in option 852351."
+}

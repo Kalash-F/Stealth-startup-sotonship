@@ -1,0 +1,11 @@
+{
+  "description": "sparkling lemonade 330ml\nWhat it is: A finished product, a beverage made of sparkling lemonade, in a 330 milliliter container.",
+  "parent": "22",
+  "choices": [
+    {
+      "code": "2202",
+      "score": 1.0
+    }
+  ],
+  "reason": "Sparkling lemonade is a non-alcoholic beverage containing added sugar and flavoring."
+}

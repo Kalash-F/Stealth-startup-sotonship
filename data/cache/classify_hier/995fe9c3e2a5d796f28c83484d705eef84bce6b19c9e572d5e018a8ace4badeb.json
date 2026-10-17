@@ -1,0 +1,11 @@
+{
+  "description": "hex cap scr A2-70 M8x30\nWhat it is: An A2-70 grade stainless steel hex cap screw, which is a type of threaded fastener, measuring 8mm in diameter and 30mm in length, used for joining materials.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "73",
+      "score": 1.0
+    }
+  ],
+  "reason": "Hex cap screws are articles of iron or steel, falling under Chapter 73."
+}

@@ -1,0 +1,11 @@
+{
+  "description": "soft drink cola 1.5L\nWhat it is: A 1.5-liter bottle of cola, a finished soft drink made of carbonated water, sugar, and flavorings, for human consumption.",
+  "parent": "22",
+  "choices": [
+    {
+      "code": "2202",
+      "score": 1.0
+    }
+  ],
+  "reason": "The product is a soft drink (cola) containing added sugar and flavoring, which perfectly matches the description of heading 2202."
+}

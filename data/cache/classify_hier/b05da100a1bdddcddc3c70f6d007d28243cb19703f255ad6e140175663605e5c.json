@@ -1,0 +1,11 @@
+{
+  "description": "SSD 1TB NVMe M.2 2280\nWhat it is: A 1 terabyte NVMe M.2 2280 solid-state drive, which is a finished computer component used for data storage.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "85",
+      "score": 1.0
+    }
+  ],
+  "reason": "Solid-state drives are electrical equipment and fall under Chapter 85, which covers electrical machinery and equipment and parts thereof."
+}
