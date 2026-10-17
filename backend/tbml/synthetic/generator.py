@@ -62,14 +62,10 @@ DEFAULT_FX = REFERENCE_DIR / "fx.csv"
 
 # --- inputs -------------------------------------------------------------------------------
 def load_bands(path: Path = DEFAULT_BANDS) -> dict[str, Benchmark]:
-    """Global (route = null) band per HS6, from a JSON list or a parquet table of `Benchmark`s."""
+    """Global (route = null) band per HS6, from a JSON list of `Benchmark`s (`placeholder_bands.json`
+    or a `bands*.json` written by `fetch_benchmarks.py`)."""
     path = Path(path)
-    if path.suffix == ".parquet":
-        import pandas as pd
-
-        rows = pd.read_parquet(path).to_dict(orient="records")
-    else:
-        rows = json.loads(path.read_text())
+    rows = json.loads(path.read_text())
     bands = {}
     for row in rows:
         b = Benchmark.model_validate(row)

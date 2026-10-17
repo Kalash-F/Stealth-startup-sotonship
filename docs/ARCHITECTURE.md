@@ -35,9 +35,9 @@ All of them live in `backend/tbml/schemas.py` (`SCHEMA_VERSION = "1.0"`). They a
 
 ### Benchmark
 
-Prices are checked against bands of historical trade unit values (UN Comtrade and HMRC), cached in `data/benchmarks/` as parquet so the runtime never calls an API. `backend/scripts/fetch_benchmarks.py` builds the cache. Without network access it writes `bands_mock.parquet`, approximate stand-ins marked `is_mock=True`, and every reason that relies on them says so. Route-specific bands win over global ones when they have enough observations.
+Prices are checked against bands of historical trade unit values (UN Comtrade and HMRC), cached in `data/benchmarks/` as JSON so the runtime never calls an API (and needs no pandas). `backend/scripts/fetch_benchmarks.py` builds the cache. Without network access it writes `bands_mock.json`, approximate stand-ins marked `is_mock=True`, and every reason that relies on them says so. Route-specific bands win over global ones when they have enough observations.
 
-On `main` today, `tbml.benchmark` is still the Phase 0 stub that returns the fixture band when the HS6 matches. The Phase 5 pull request (#8) replaces it with the parquet lookup and adds the full API, so the stage described above is the intended behaviour once that merges.
+On `main` today, `tbml.benchmark` is still the Phase 0 stub that returns the fixture band when the HS6 matches. The Phase 5 pull request (#8) replaces it with the band-table lookup and adds the full API, so the stage described above is the intended behaviour once that merges.
 
 ### Score
 
@@ -61,6 +61,7 @@ On `main` today, `tbml.benchmark` is still the Phase 0 stub that returns the fix
 | `data/` | Reference tables, benchmark cache and the synthetic invoice set. See [data/README.md](../data/README.md). |
 | `web/` | Next.js marketing site and demo workspace. See [web/README.md](../web/README.md). |
 | `Makefile` | `setup`, `lint`, `test`, `format`, `api`, `web`, `data`, `synthetic`, `eval`. |
+| `vercel.json` | Vercel deployment: `backend` and `web` as services of one project, `/api/*` to the backend, everything else to the web app. |
 
 ## The synthetic test set
 

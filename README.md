@@ -24,6 +24,25 @@ python -c "from tbml.pipeline import check; print(check('any.pdf').priority_band
 | `make synthetic` | regenerate the synthetic invoice set (`SEED=42 N=60` by default) |
 | `make eval` | evaluation (Phase 6) |
 
+## Deploy (Vercel)
+
+`vercel.json` deploys the repo as one Vercel project with two services on one domain:
+
+| Service | Root | Public path |
+|---|---|---|
+| `backend` (FastAPI, entrypoint `tbml/asgi.py`) | `backend/` | `/api/*`, e.g. `/api/health`, `/api/check` |
+| `web` (Next.js) | `web/` | everything else |
+
+Vercel forwards the full URL, so `tbml/asgi.py` mounts the API under `/api`; `make api` serves the same app without the prefix. Run `vercel dev` from the repo root to run both services together on the deployed paths.
+
+The backend function is bundled from `backend/` alone and Vercel caps its size, so:
+
+- Only the API's own dependencies are installed. `pandas`, `requests`, `jinja2` and WeasyPrint live in the `scripts` extra, and the band tables are JSON (`data/benchmarks/bands*.json`), read without pandas.
+- The backend's build step copies `data/` into `backend/data/`, and `tbml/paths.py` falls back to that copy.
+- The deployed filesystem is read-only apart from the temp dir, so `tbml/asgi.py` points the LLM caches and saved reports there. They last only as long as the function instance, so `GET /api/reports/{id}` can miss a report made on another instance.
+
+`vercel build` reproduces the deployment build locally. See `DECISIONS.md` DV1 to DV3.
+
 ## Layout
 
 - `backend/tbml/schemas.py`: the data contracts (plan §4), `SCHEMA_VERSION = "1.0"`.

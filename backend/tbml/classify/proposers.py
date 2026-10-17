@@ -15,10 +15,9 @@ from pathlib import Path
 from typing import Any, Protocol
 
 from tbml.classify.hs6 import HS6Entry, default_hs6
-from tbml.paths import DATA_DIR
+from tbml.paths import cache_dir as default_cache_dir
 from tbml.schemas import HS6Candidate
 
-CACHE_DIR = DATA_DIR / "cache" / "classify"
 PROMPT_VERSION = "1"
 
 
@@ -112,10 +111,12 @@ def _parse(text: str) -> list[HS6Candidate]:
 
 
 class CachedProposer:
-    """Disk cache keyed by (model, prompt version, normalised description)."""
+    """Disk cache keyed by (model, prompt version, normalised description). The default directory
+    is `<cache root>/classify`, resolved when the proposer is built so $TBML_CACHE_DIR applies."""
 
-    def __init__(self, inner: Proposer, cache_dir: Path = CACHE_DIR, model: str = ""):
-        self.inner, self.cache_dir, self.model = inner, cache_dir, model
+    def __init__(self, inner: Proposer, cache_dir: Path | None = None, model: str = ""):
+        self.inner, self.model = inner, model
+        self.cache_dir = cache_dir or default_cache_dir() / "classify"
 
     def _path(self, description: str) -> Path:
         """Cache file for a description; whitespace and case are normalised before hashing."""

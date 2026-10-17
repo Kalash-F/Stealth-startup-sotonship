@@ -1,0 +1,9 @@
+[
+  {"hs6": "731815", "route": null, "unit": "kg", "p10": 1.4, "p25": 2.2, "median": 3.4, "p75": 5.2, "p90": 8.0, "n_observations": 1, "years": [2023, 2024, 2025], "sources": ["MOCK approximate"], "is_mock": true},
+  {"hs6": "220210", "route": null, "unit": "l", "p10": 0.3, "p25": 0.45, "median": 0.7, "p75": 1.1, "p90": 1.8, "n_observations": 1, "years": [2023, 2024, 2025], "sources": ["MOCK approximate"], "is_mock": true},
+  {"hs6": "852351", "route": null, "unit": "u", "p10": 3.5, "p25": 6.0, "median": 10.5, "p75": 18.0, "p90": 32.0, "n_observations": 1, "years": [2023, 2024, 2025], "sources": ["MOCK approximate"], "is_mock": true},
+  {"hs6": "610910", "route": null, "unit": "u", "p10": 1.4, "p25": 2.2, "median": 3.3, "p75": 4.8, "p90": 7.0, "n_observations": 1, "years": [2023, 2024, 2025], "sources": ["MOCK approximate"], "is_mock": true},
+  {"hs6": "090111", "route": null, "unit": "kg", "p10": 2.6, "p25": 3.6, "median": 4.8, "p75": 6.2, "p90": 8.0, "n_observations": 1, "years": [2023, 2024, 2025], "sources": ["MOCK approximate"], "is_mock": true},
+  {"hs6": "740311", "route": null, "unit": "kg", "p10": 7.4, "p25": 8.3, "median": 9.0, "p75": 9.6, "p90": 10.3, "n_observations": 1, "years": [2023, 2024, 2025], "sources": ["MOCK approximate"], "is_mock": true},
+  {"hs6": "847130", "route": null, "unit": "u", "p10": 210.0, "p25": 330.0, "median": 520.0, "p75": 780.0, "p90": 1150.0, "n_observations": 1, "years": [2023, 2024, 2025], "sources": ["MOCK approximate"], "is_mock": true}
+]

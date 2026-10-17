@@ -35,4 +35,4 @@ Same seed, same truth files. (PDFs differ byte-for-byte because WeasyPrint embed
 | `render.py` | Jinja2 plus WeasyPrint rendering |
 | `templates/` | The three HTML invoice templates |
 
-The default bands are placeholders in `data/reference/placeholder_bands.json`. Once real bands exist, regenerate with `--bands data/benchmarks/bands.parquet` and update `DEFAULT_BANDS` (see `DECISIONS.md` D1.2).
+The default bands are placeholders in `data/reference/placeholder_bands.json`. Once real bands exist, regenerate with `--bands data/benchmarks/bands.json` and update `DEFAULT_BANDS` (see `DECISIONS.md` D1.2).

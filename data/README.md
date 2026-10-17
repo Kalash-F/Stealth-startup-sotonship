@@ -23,7 +23,7 @@ Rates and bands marked approximate are not authoritative; verify before any prod
 
 ## benchmarks/
 
-`bands.parquet` (real, from UN Comtrade and HMRC) is used when present, else `bands_mock.parquet`. Mock rows are marked `is_mock=True` and every flag that relies on them says so. Fetching real bands needs a networked machine and a `COMTRADE_API_KEY`; see `NOTES-benchmarks.md`.
+`bands.json` (real, from UN Comtrade and HMRC) is used when present, else `bands_mock.json`; both are JSON lists of `Benchmark` rows. Mock rows are marked `is_mock=True` and every flag that relies on them says so. Fetching real bands needs a networked machine and a `COMTRADE_API_KEY`; see `NOTES-benchmarks.md`.
 
 ## synthetic/
 
