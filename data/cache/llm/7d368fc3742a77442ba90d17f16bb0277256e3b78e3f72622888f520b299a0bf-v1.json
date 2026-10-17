@@ -1,0 +1,49 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Are\u00e1l Millbrook, N\u00e1dra\u017en\u00ed 120, 663 10 Brno, Czech Republic",
+      "address_type": "commercial",
+      "country": "CZ",
+      "name": "Longmen Global Sourcing s.r.o."
+    },
+    "consignee": null,
+    "country_of_origin": "U.A.E.",
+    "currency": "USD",
+    "incoterm": "DAP",
+    "invoice_date": "2024-04-08",
+    "invoice_id": "INV-2024-0055",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "Misc goods",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 5913280.0,
+        "quantity": 32000,
+        "unit": "pcs",
+        "unit_price": 184.79
+      },
+      {
+        "description": "Energy drink 250ml cans, original flavour",
+        "extraction_confidence": 1.0,
+        "line_id": "L2",
+        "line_total": 506.48,
+        "quantity": 108500,
+        "unit": "cans",
+        "unit_price": 0.004668
+      }
+    ],
+    "port_of_discharge": "Hamburg, Germany (final destination Czech Republic)",
+    "port_of_loading": "Jebel Ali, Dubai, UAE",
+    "seller": {
+      "address": "Office 1156, Kingfisher Business Centre, Al Quoz Industrial Area 3, Ajman, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Saffron Dune Industrial LLC"
+    },
+    "source_file": "",
+    "stated_total": 5913786.48
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

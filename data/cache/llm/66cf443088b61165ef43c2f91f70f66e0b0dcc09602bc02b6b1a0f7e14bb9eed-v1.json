@@ -1,0 +1,49 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Are\u00e1l Westmere, Poln\u00ed 78, 627 52 Prague, Czech Republic",
+      "address_type": "commercial",
+      "country": "CZ",
+      "name": "Silverfern Wholesale a.s."
+    },
+    "consignee": null,
+    "country_of_origin": "United Arab Emirates",
+    "currency": "USD",
+    "incoterm": "CIF",
+    "invoice_date": "2024-11-29",
+    "invoice_id": "PI-0054-24",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "USB-C flash drive 128GB with keyring",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 1924125.0,
+        "quantity": 10500.0,
+        "unit": "pcs",
+        "unit_price": 183.25
+      },
+      {
+        "description": "Stainless steel machine screws M4 x 12mm",
+        "extraction_confidence": 1.0,
+        "line_id": "L2",
+        "line_total": 73767.6,
+        "quantity": 661000.0,
+        "unit": "pcs",
+        "unit_price": 0.1116
+      }
+    ],
+    "port_of_discharge": "Prague Ruzyn\u011b Airport, Czechia",
+    "port_of_loading": "Jebel Ali, Dubai, UAE",
+    "seller": {
+      "address": "Office 914, Millbrook Business Centre, Al Qusais, Dubai, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Meridian Bay Commodities FZE"
+    },
+    "source_file": "",
+    "stated_total": 1997892.6
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

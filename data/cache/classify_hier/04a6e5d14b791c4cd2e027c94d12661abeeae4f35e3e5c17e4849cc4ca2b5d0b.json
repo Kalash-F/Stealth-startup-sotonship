@@ -1,0 +1,11 @@
+{
+  "description": "USB 2.0 MEMORY STICK 32GB, CARTON OF 100\nWhat it is: A carton of 100 USB 2.0 memory sticks, each with 32GB of storage, which are finished electronic products used for data storage.",
+  "parent": "85",
+  "choices": [
+    {
+      "code": "8523",
+      "score": 1.0
+    }
+  ],
+  "reason": "USB memory sticks are solid-state non-volatile storage devices for recording data."
+}

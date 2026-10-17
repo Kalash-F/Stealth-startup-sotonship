@@ -1,0 +1,49 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Office 1445, Fernhill Business Centre, Al Qusais, Abu Dhabi, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Northgate Industrial LLC"
+    },
+    "consignee": null,
+    "country_of_origin": "Vietnam (re-exported from United Kingdom; certificate of origin attached)",
+    "currency": "AED",
+    "incoterm": "FCA",
+    "invoice_date": "2024-02-13",
+    "invoice_id": "INV-2024-0038",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "Unroasted Arabica coffee, washed, screen 17/18",
+        "extraction_confidence": 1,
+        "line_id": "L1",
+        "line_total": 616899.59,
+        "quantity": 23.1,
+        "unit": "MT",
+        "unit_price": 26705.61
+      },
+      {
+        "description": "Unroasted Arabica coffee, washed, screen 17/18",
+        "extraction_confidence": 1,
+        "line_id": "L2",
+        "line_total": 719289.78,
+        "quantity": 28.3,
+        "unit": "MT",
+        "unit_price": 25416.6
+      }
+    ],
+    "port_of_discharge": "Khalifa Port, Abu Dhabi, UAE",
+    "port_of_loading": "Southampton, United Kingdom",
+    "seller": {
+      "address": "Unit 22, Riverside Industrial Estate, Glasgow G90 6ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Moravia Line Global Sourcing Limited"
+    },
+    "source_file": "",
+    "stated_total": 1336189.37
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

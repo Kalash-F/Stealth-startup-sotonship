@@ -1,0 +1,58 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Office 278, Westmere Business Centre, Ras Al Khor, Abu Dhabi, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Starbridge Wholesale FZCO"
+    },
+    "consignee": null,
+    "country_of_origin": "Colombia (re-exported from United Kingdom; certificate of origin attached)",
+    "currency": "AED",
+    "incoterm": "FCA",
+    "invoice_date": "2024-08-07",
+    "invoice_id": "INV-2024-0016",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "Unroasted Arabica coffee, washed, screen 17/18",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 705724.37,
+        "quantity": 20.2,
+        "unit": "MT",
+        "unit_price": 34936.85
+      },
+      {
+        "description": "Robusta green coffee beans, 60kg jute bags",
+        "extraction_confidence": 1.0,
+        "line_id": "L2",
+        "line_total": 239424.0,
+        "quantity": 150,
+        "unit": "bags",
+        "unit_price": 1596.16
+      },
+      {
+        "description": "Robusta green coffee beans, 60kg jute bags",
+        "extraction_confidence": 1.0,
+        "line_id": "L3",
+        "line_total": 904965.6,
+        "quantity": 420,
+        "unit": "bags",
+        "unit_price": 2154.68
+      }
+    ],
+    "port_of_discharge": "Jebel Ali, Dubai, UAE",
+    "port_of_loading": "Southampton, United Kingdom",
+    "seller": {
+      "address": "Unit 30, Ashgrove Business Park, Glasgow G94 9ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Eastwind Merchants Limited"
+    },
+    "source_file": "",
+    "stated_total": 1850113.97
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

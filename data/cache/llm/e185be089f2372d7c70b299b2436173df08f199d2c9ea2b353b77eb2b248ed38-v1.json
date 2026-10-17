@@ -1,0 +1,49 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Unit 8, Harrowdene Business Park, Leicester LE99 4ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Starbridge Import & Export Limited"
+    },
+    "consignee": null,
+    "country_of_origin": "P.R. China",
+    "currency": "USD",
+    "incoterm": "CIF",
+    "invoice_date": "2024-04-16",
+    "invoice_id": "TX240020",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "STAINLESS STEEL MACHINE SCREWS M4 X 12MM",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 3141.71,
+        "quantity": 351500.0,
+        "unit": "PCS",
+        "unit_price": 0.008938
+      },
+      {
+        "description": "STAINLESS STEEL MACHINE SCREWS M4 X 12MM",
+        "extraction_confidence": 1.0,
+        "line_id": "L2",
+        "line_total": 1421.4,
+        "quantity": 103000.0,
+        "unit": "PCS",
+        "unit_price": 0.0138
+      }
+    ],
+    "port_of_discharge": "Felixstowe, United Kingdom",
+    "port_of_loading": "Shenzhen (Yantian), China",
+    "seller": {
+      "address": "No. 731 Haitang Industrial Park Road, Bao'an District, Shenzhen 438043, China",
+      "address_type": "commercial",
+      "country": "CN",
+      "name": "Jinhai Supply Industrial Co., Ltd."
+    },
+    "source_file": "",
+    "stated_total": 4563.11
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

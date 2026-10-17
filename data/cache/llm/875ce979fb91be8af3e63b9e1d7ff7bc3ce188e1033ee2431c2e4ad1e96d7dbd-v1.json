@@ -1,0 +1,63 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Unit 2, Kingfisher Industrial Estate, Bristol BS91 6ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Ruifeng Distribution Ltd"
+    },
+    "consignee": {
+      "address": "Unit 31, Millbrook Trading Estate, Birmingham B97 3ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Redwell Trading Ltd"
+    },
+    "country_of_origin": "United Arab Emirates",
+    "currency": "USD",
+    "incoterm": "EXW",
+    "invoice_date": "2024-11-05",
+    "invoice_id": "PI-0041-24",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "Carriage bolts M10 x 100mm, galvanised steel",
+        "extraction_confidence": 1,
+        "line_id": "L1",
+        "line_total": 16844.53,
+        "quantity": 7650,
+        "unit": "kg",
+        "unit_price": 2.2019
+      },
+      {
+        "description": "M6 x 30mm hex bolts, zinc plated",
+        "extraction_confidence": 1,
+        "line_id": "L2",
+        "line_total": 24833.42,
+        "quantity": 199500,
+        "unit": "pcs",
+        "unit_price": 0.1883
+      },
+      {
+        "description": "Sparkling flavoured water 500ml PET bottles",
+        "extraction_confidence": 1,
+        "line_id": "L3",
+        "line_total": 24867.6,
+        "quantity": 69000,
+        "unit": "bottles",
+        "unit_price": 0.3604
+      }
+    ],
+    "port_of_discharge": "Felixstowe, United Kingdom",
+    "port_of_loading": "Jebel Ali, Dubai, UAE",
+    "seller": {
+      "address": "Office 950, Brookfield Business Centre, Ras Al Khor, Abu Dhabi, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Vltava Distribution LLC"
+    },
+    "source_file": "",
+    "stated_total": 66545.55
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

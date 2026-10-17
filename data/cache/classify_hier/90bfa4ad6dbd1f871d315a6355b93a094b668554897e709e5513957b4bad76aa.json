@@ -1,0 +1,15 @@
+{
+  "description": "Energy drink 250ml cans, original flavour\nWhat it is: An energy drink in 250 milliliter cans, original flavor, made of liquid beverage, a finished product for human consumption.",
+  "parent": "2202",
+  "choices": [
+    {
+      "code": "220299",
+      "score": 0.9
+    },
+    {
+      "code": "220290",
+      "score": 0.05
+    }
+  ],
+  "reason": "Energy drinks are non-alcoholic beverages other than non-alcoholic beer, and not covered by 220210 as they are not waters."
+}

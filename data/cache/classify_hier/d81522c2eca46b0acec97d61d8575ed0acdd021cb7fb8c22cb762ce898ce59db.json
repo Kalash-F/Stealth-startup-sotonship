@@ -1,0 +1,11 @@
+{
+  "description": "Plain white cotton T-shirts, packed per dozen\nWhat it is: Plain white T-shirts made of cotton, packed in sets of twelve, which are finished products for wearing.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "61",
+      "score": 0.9
+    }
+  ],
+  "reason": "T-shirts are apparel and clothing accessories."
+}

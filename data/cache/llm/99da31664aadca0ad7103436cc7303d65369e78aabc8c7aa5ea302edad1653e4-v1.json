@@ -1,0 +1,63 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Are\u00e1l Westmere, Lipov\u00e1 86, 783 50 Ostrava, Czech Republic",
+      "address_type": "commercial",
+      "country": "CZ",
+      "name": "Starbridge Commodities a.s."
+    },
+    "consignee": {
+      "address": "Are\u00e1l Millbrook, N\u00e1dra\u017en\u00ed 119, 792 19 Ostrava, Czech Republic",
+      "address_type": "commercial",
+      "country": "CZ",
+      "name": "Harbourline Wholesale s.r.o."
+    },
+    "country_of_origin": "China (re-exported from Jebel Ali Free Zone, Dubai)",
+    "currency": "EUR",
+    "incoterm": "EXW",
+    "invoice_date": "2024-04-07",
+    "invoice_id": "TX240006",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "M6 X 30MM HEX BOLTS, ZINC PLATED",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 46233.2,
+        "quantity": 442000,
+        "unit": "PCS",
+        "unit_price": 0.1046
+      },
+      {
+        "description": "CARRIAGE BOLTS M10 X 100MM, GALVANISED STEEL",
+        "extraction_confidence": 1.0,
+        "line_id": "L2",
+        "line_total": 250700.0,
+        "quantity": 4600,
+        "unit": "KG",
+        "unit_price": 54.5
+      },
+      {
+        "description": "COPPER CATHODES GRADE A, 99.99% CU",
+        "extraction_confidence": 1.0,
+        "line_id": "L3",
+        "line_total": 387153.43,
+        "quantity": 30.2,
+        "unit": "MT",
+        "unit_price": 12819.65
+      }
+    ],
+    "port_of_discharge": "Hamburg, Germany (final destination Czech Republic)",
+    "port_of_loading": "Port Khalid, Sharjah, UAE",
+    "seller": {
+      "address": "Office 1267, Copperfield Business Centre, Al Quoz Industrial Area 3, Dubai, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Redwell Industrial FZCO"
+    },
+    "source_file": "",
+    "stated_total": 684086.63
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

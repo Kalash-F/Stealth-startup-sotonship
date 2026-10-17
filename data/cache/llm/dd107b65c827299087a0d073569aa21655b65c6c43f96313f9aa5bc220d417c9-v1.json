@@ -1,0 +1,54 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Unit 31, Copperfield Trading Estate, Glasgow G95 5ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Starbridge Commodities UK Ltd"
+    },
+    "consignee": {
+      "address": "Flat 4, 75 Juniper Court, Birmingham B98 7ZY, United Kingdom",
+      "address_type": "residential",
+      "country": "GB",
+      "name": "R. Patel"
+    },
+    "country_of_origin": "Colombia (re-exported from United Arab Emirates; certificate of origin attached)",
+    "currency": "AED",
+    "incoterm": "FCA",
+    "invoice_date": "2024-12-19",
+    "invoice_id": "PI-0052-24",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "Unroasted Arabica coffee, washed, screen 17/18",
+        "extraction_confidence": 1,
+        "line_id": "L1",
+        "line_total": 4888754.96,
+        "quantity": 36.6,
+        "unit": "MT",
+        "unit_price": 133572.54
+      },
+      {
+        "description": "Unroasted Arabica coffee, washed, screen 17/18",
+        "extraction_confidence": 1,
+        "line_id": "L2",
+        "line_total": 1429268.03,
+        "quantity": 35.9,
+        "unit": "MT",
+        "unit_price": 39812.48
+      }
+    ],
+    "port_of_discharge": "Southampton, United Kingdom",
+    "port_of_loading": "Port Khalid, Sharjah, UAE",
+    "seller": {
+      "address": "Warehouse 41, Plot S32699, Jebel Ali Free Zone, Dubai, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Falconcrest Logistics General Trading LLC"
+    },
+    "source_file": "",
+    "stated_total": 6318022.99
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

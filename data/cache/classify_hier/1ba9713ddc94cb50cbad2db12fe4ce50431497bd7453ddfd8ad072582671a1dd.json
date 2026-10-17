@@ -1,0 +1,11 @@
+{
+  "description": "UNROASTED ARABICA COFFEE, WASHED, SCREEN 17/18\nWhat it is: Unroasted washed Arabica coffee beans, screen size 17/18, a raw material for making coffee.",
+  "parent": "0901",
+  "choices": [
+    {
+      "code": "090111",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description explicitly states 'UNROASTED ARABICA COFFEE', which directly matches 'Coffee; not roasted or decaffeinated'."
+}

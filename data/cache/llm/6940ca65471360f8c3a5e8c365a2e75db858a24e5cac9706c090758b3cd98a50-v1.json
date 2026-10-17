@@ -1,0 +1,67 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Unit 17, Millbrook Business Park, Manchester M96 1ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Silverfern Global Sourcing UK Ltd"
+    },
+    "consignee": null,
+    "country_of_origin": "China",
+    "currency": "USD",
+    "incoterm": "CIF",
+    "invoice_date": "2024-02-01",
+    "invoice_id": "PI-0005-24",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "Stainless steel machine screws M4 x 12mm (bulk order, volume discount applied)",
+        "extraction_confidence": 1,
+        "line_id": "L1",
+        "line_total": 13146,
+        "quantity": 2515500,
+        "unit": "pcs",
+        "unit_price": 0.005226
+      },
+      {
+        "description": "Men's crew-neck T-shirt, 100% cotton jersey knit",
+        "extraction_confidence": 1,
+        "line_id": "L2",
+        "line_total": 144721.1,
+        "quantity": 29500,
+        "unit": "pcs",
+        "unit_price": 4.9058
+      },
+      {
+        "description": "Men's crew-neck T-shirt, 100% cotton jersey knit",
+        "extraction_confidence": 1,
+        "line_id": "L3",
+        "line_total": 39865.9,
+        "quantity": 6950,
+        "unit": "pcs",
+        "unit_price": 5.7361
+      },
+      {
+        "description": "Copper cathodes Grade A, 99.99% Cu",
+        "extraction_confidence": 1,
+        "line_id": "L4",
+        "line_total": 600272.76,
+        "quantity": 29.1,
+        "unit": "MT",
+        "unit_price": 20627.93
+      }
+    ],
+    "port_of_discharge": "Felixstowe, United Kingdom",
+    "port_of_loading": "Shanghai, China",
+    "seller": {
+      "address": "No. 505 Fuyuan Industrial Park Road, Huangpu District, Guangzhou 312065, China",
+      "address_type": "commercial",
+      "country": "CN",
+      "name": "Sunmark Global Sourcing Co., Ltd."
+    },
+    "source_file": "",
+    "stated_total": 798005.76
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

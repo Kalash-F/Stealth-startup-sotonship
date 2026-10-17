@@ -1,0 +1,49 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "P.O. Box 39045, Dubai, United Arab Emirates",
+      "address_type": "unknown",
+      "country": "AE",
+      "name": "Saffron Dune Supply General Trading LLC"
+    },
+    "consignee": null,
+    "country_of_origin": "UK",
+    "currency": "GBP",
+    "incoterm": "FCA",
+    "invoice_date": "2024-09-06",
+    "invoice_id": "PI-0017-24",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "USB-C flash drive 128GB with keyring",
+        "extraction_confidence": 1,
+        "line_id": "L1",
+        "line_total": 3262800.0,
+        "quantity": 10000,
+        "unit": "pcs",
+        "unit_price": 326.28
+      },
+      {
+        "description": "15.6-inch notebook PC, AMD Ryzen 7, 16GB RAM",
+        "extraction_confidence": 1,
+        "line_id": "L2",
+        "line_total": 323592.0,
+        "quantity": 1200,
+        "unit": "units",
+        "unit_price": 269.66
+      }
+    ],
+    "port_of_discharge": "Jebel Ali, Dubai, UAE",
+    "port_of_loading": "Felixstowe, United Kingdom",
+    "seller": {
+      "address": "Unit 31, Juniper Industrial Estate, Bristol BS97 9ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Copperleaf Wholesale Limited"
+    },
+    "source_file": "",
+    "stated_total": 3586392.0
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

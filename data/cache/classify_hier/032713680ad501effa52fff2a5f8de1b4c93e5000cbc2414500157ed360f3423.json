@@ -1,0 +1,11 @@
+{
+  "description": "Lemon soft drink 330ml cans, carton of 24\nWhat it is: A carton of 24 cans of 330ml lemon-flavored soft drink, a finished product for consumption.",
+  "parent": "22",
+  "choices": [
+    {
+      "code": "2202",
+      "score": 1.0
+    }
+  ],
+  "reason": "Lemon soft drink is a non-alcoholic beverage containing added sugar and flavoring."
+}

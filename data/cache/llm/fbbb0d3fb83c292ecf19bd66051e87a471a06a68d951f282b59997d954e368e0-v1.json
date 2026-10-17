@@ -1,0 +1,49 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Are\u00e1l Juniper, Zahradn\u00ed 11, 734 56 Brno, Czech\nRepublic",
+      "address_type": "commercial",
+      "country": "CZ",
+      "name": "Jinhai Logistics s.r.o."
+    },
+    "consignee": null,
+    "country_of_origin": "UAE",
+    "currency": "EUR",
+    "incoterm": "FCA",
+    "invoice_date": "2024-05-27",
+    "invoice_id": "TX240042",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "STAINLESS STEEL MACHINE SCREWS M4 X 12MM",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 43146.0,
+        "quantity": 540000.0,
+        "unit": "PCS",
+        "unit_price": 0.0799
+      },
+      {
+        "description": "REFINED COPPER CATHODE SHEETS, LME GRADE A",
+        "extraction_confidence": 1.0,
+        "line_id": "L2",
+        "line_total": 260509.2,
+        "quantity": 28000.0,
+        "unit": "KG",
+        "unit_price": 9.3039
+      }
+    ],
+    "port_of_discharge": "Hamburg, Germany",
+    "port_of_loading": "Jebel Ali, Dubai, UAE",
+    "seller": {
+      "address": "Warehouse 1, Plot S90584, Jebel Ali Free Zone,\nDubai, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Al Rimal Supply FZCO"
+    },
+    "source_file": "",
+    "stated_total": 303655.2
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

@@ -1,0 +1,63 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Are\u00e1l Westmere, Zahradn\u00ed 87, 751 72 Prague, Czech Republic",
+      "address_type": "commercial",
+      "country": "CZ",
+      "name": "Vltava Commodities s.r.o."
+    },
+    "consignee": {
+      "address": "Are\u00e1l Brookfield, Lipov\u00e1 39, 654 27 Prague, Czech Republic",
+      "address_type": "commercial",
+      "country": "CZ",
+      "name": "Tidewater Commodities a.s."
+    },
+    "country_of_origin": "Vietnam (re-exported from United Arab Emirates; certificate of origin attached)",
+    "currency": "USD",
+    "incoterm": "EXW",
+    "invoice_date": "2024-08-20",
+    "invoice_id": "INV-2024-0034",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "Unroasted Arabica coffee, washed, screen 17/18",
+        "extraction_confidence": 1,
+        "line_id": "L1",
+        "line_total": 298395.9,
+        "quantity": 19.7,
+        "unit": "MT",
+        "unit_price": 15147
+      },
+      {
+        "description": "Unroasted Arabica coffee, washed, screen 17/18",
+        "extraction_confidence": 1,
+        "line_id": "L2",
+        "line_total": 55451.57,
+        "quantity": 12.5,
+        "unit": "MT",
+        "unit_price": 5644.16
+      },
+      {
+        "description": "Green Arabica coffee beans, unroasted, not decaffeinated",
+        "extraction_confidence": 1,
+        "line_id": "L3",
+        "line_total": 69955.05,
+        "quantity": 8250,
+        "unit": "kg",
+        "unit_price": 8.4794
+      }
+    ],
+    "port_of_discharge": "Prague Ruzyn\u011b Airport, Czechia",
+    "port_of_loading": "Port Khalid, Sharjah, UAE",
+    "seller": {
+      "address": "Warehouse 28, Plot S77154, Jebel Ali Free Zone, Dubai, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Ruifeng Distribution FZCO"
+    },
+    "source_file": "",
+    "stated_total": 423802.52
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

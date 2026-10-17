@@ -1,0 +1,7 @@
+{
+  "summaries": {
+    "R3-L1": "Vague goods descriptions can hide the true nature or value of goods, facilitating illicit financial flows. The officer should ask the customer for a more specific description of 'Product ABC' and its intended use.",
+    "R4-INV": "Inconsistent geographical information can indicate a diversion of goods or an attempt to obscure their true origin, which might be used for sanctions evasion or duty avoidance. The officer should ask the customer to explain the discrepancy between the country of origin and the port of loading.",
+    "R8-L1": "Low confidence in product identification means the system could not properly assess the risk of this line item. The officer should manually verify the product description and its associated risks."
+  }
+}

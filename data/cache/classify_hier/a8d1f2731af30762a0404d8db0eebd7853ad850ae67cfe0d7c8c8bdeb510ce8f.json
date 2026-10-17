@@ -1,0 +1,11 @@
+{
+  "description": "HEX HEAD BOLTS M6, CARTON OF 1,000 PCS\nWhat it is: A carton of 1,000 zinc-plated steel hex head bolts, M6 size, for fastening applications.",
+  "parent": "73",
+  "choices": [
+    {
+      "code": "7318",
+      "score": 1.0
+    }
+  ],
+  "reason": "Hex head bolts are specifically mentioned in heading 7318, which covers screws, bolts, nuts, and similar articles of iron or steel."
+}

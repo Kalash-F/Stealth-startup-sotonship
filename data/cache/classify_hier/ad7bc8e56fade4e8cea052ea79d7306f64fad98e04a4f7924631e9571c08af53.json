@@ -1,0 +1,11 @@
+{
+  "description": "15.6-inch notebook PC, AMD Ryzen 7, 16GB RAM\nWhat it is: A 15.6-inch laptop computer with an AMD Ryzen 7 processor and 16 gigabytes of RAM, made of various electronic components and plastics, which is a finished product used for general computing tasks.",
+  "parent": "8471",
+  "choices": [
+    {
+      "code": "847130",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description clearly indicates a portable notebook PC, which falls under the definition of automatic data processing machines that are portable and typically weigh less than 10kg, consisting of a CPU, keyboard, and display."
+}

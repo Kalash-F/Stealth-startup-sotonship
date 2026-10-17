@@ -1,0 +1,11 @@
+{
+  "description": "Men's crew-neck T-shirt, 100% cotton jersey knit\nWhat it is: A men's crew-neck t-shirt made from 100% cotton jersey knit fabric, which is a finished product for wearing.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "61",
+      "score": 1.0
+    }
+  ],
+  "reason": "The item is a knitted or crocheted apparel (T-shirt)."
+}

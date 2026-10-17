@@ -1,0 +1,54 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Office 1359, Harrowdene Business Centre, Al Quoz Industrial Area 3, Sharjah, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Vltava Import & Export LLC"
+    },
+    "consignee": {
+      "address": "Office 1255, Brookfield Business Centre, Al Quoz Industrial Area 3, Abu Dhabi, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Jinhai Trading General Trading LLC"
+    },
+    "country_of_origin": "UK",
+    "currency": "GBP",
+    "incoterm": "FCA",
+    "invoice_date": "2024-10-09",
+    "invoice_id": "TX240047",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "SPARKLING FLAVOURED WATER 500ML PET BOTTLES",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 44885.6,
+        "quantity": 76000,
+        "unit": "BOTTLES",
+        "unit_price": 0.5906
+      },
+      {
+        "description": "M6 X 30MM HEX BOLTS, ZINC PLATED",
+        "extraction_confidence": 1.0,
+        "line_id": "L2",
+        "line_total": 18904.2,
+        "quantity": 321500,
+        "unit": "PCS",
+        "unit_price": 0.0588
+      }
+    ],
+    "port_of_discharge": "Khalifa Port, Abu Dhabi, UAE",
+    "port_of_loading": "Felixstowe, United Kingdom",
+    "seller": {
+      "address": "Unit 6, Westmere Business Park, Manchester M95 9ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Hengtai Logistics Limited"
+    },
+    "source_file": "",
+    "stated_total": 63789.8
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}
