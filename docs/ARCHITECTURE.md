@@ -61,6 +61,7 @@ On `main` today, `tbml.benchmark` is still the Phase 0 stub that returns the fix
 | `data/` | Reference tables, benchmark cache and the synthetic invoice set. See [data/README.md](../data/README.md). |
 | `web/` | Next.js marketing site and demo workspace. See [web/README.md](../web/README.md). |
 | `Makefile` | `setup`, `lint`, `test`, `format`, `api`, `web`, `data`, `synthetic`, `eval`. |
+| `vercel.json` | Vercel deployment: `backend` and `web` as services of one project, `/api/*` to the backend, everything else to the web app. |
 
 ## The synthetic test set
 

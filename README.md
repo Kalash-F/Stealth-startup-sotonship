@@ -24,6 +24,17 @@ python -c "from tbml.pipeline import check; print(check('any.pdf').priority_band
 | `make synthetic` | regenerate the synthetic invoice set (`SEED=42 N=60` by default) |
 | `make eval` | evaluation (Phase 6) |
 
+## Deploy (Vercel)
+
+`vercel.json` deploys the repo as one Vercel project with two services on one domain:
+
+| Service | Root | Public path |
+|---|---|---|
+| `backend` (FastAPI, entrypoint `tbml/asgi.py`) | `backend/` | `/api/*`, e.g. `/api/health`, `/api/check` |
+| `web` (Next.js) | `web/` | everything else |
+
+Vercel forwards the full URL, so `tbml/asgi.py` mounts the API under `/api`; `make api` serves the same app without the prefix. Run `vercel dev` from the repo root to run both services together on the deployed paths.
+
 ## Layout
 
 - `backend/tbml/schemas.py`: the data contracts (plan §4), `SCHEMA_VERSION = "1.0"`.
