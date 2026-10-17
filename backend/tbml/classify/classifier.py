@@ -23,6 +23,7 @@ class Classification:
     candidates: list[HS6Candidate] = field(default_factory=list)
     confidence: float = 0.0
     reason: str = ""
+    path: str = ""  # e.g. "84 ... (0.97) > 8471 ... (0.95) > 847130 ... (0.92)" when known
 
 
 def classify_description(
@@ -42,6 +43,8 @@ def classify_description(
         proposed = proposer.propose(description)
     except ProposerError as exc:
         return Classification(None, None, [], 0.0, f"classifier unavailable: {exc}")
+    explain = getattr(proposer, "explain", None)
+    path = explain(description) if callable(explain) else ""
 
     seen: set[str] = set()
     valid: list[HS6Candidate] = []
@@ -51,9 +54,12 @@ def classify_description(
             valid.append(cand)
     valid = valid[:3]
     if not valid:
-        return Classification(None, None, [], 0.0, "no proposed code exists in the HS6 list")
+        reason = "no proposed code exists in the HS6 list"
+        if path:  # the hierarchical walk says where and why it stopped
+            reason = path
+        return Classification(None, None, [], 0.0, reason, path)
     top = valid[0]
     if top.score < MIN_SCORE:
         reason = f"best candidate {top.hs6} scored {top.score:.2f}, below {MIN_SCORE}"
-        return Classification(None, None, valid, top.score, reason)
-    return Classification(top.hs6, entries[top.hs6].description, valid, top.score, "")
+        return Classification(None, None, valid, top.score, reason, path)
+    return Classification(top.hs6, entries[top.hs6].description, valid, top.score, "", path)

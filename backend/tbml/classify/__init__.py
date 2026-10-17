@@ -1,6 +1,8 @@
 """P2: line item -> HS6 + normalised quantity and USD price per benchmark unit."""
 
 from tbml.classify.classifier import Classification, classify_description
+from tbml.classify.hierarchical import HierarchicalProposer
+from tbml.classify.nomenclature import Nomenclature, default_nomenclature, load_nomenclature
 from tbml.classify.normalise import Normalised, normalise
 from tbml.classify.proposers import (
     AnthropicProposer,
@@ -25,6 +27,8 @@ def enrich(invoice: Invoice, proposer: Proposer | None = None) -> list[EnrichedL
         cls = classify_description(item.description, proposer)
         norm = normalise(item, cls.hs6, invoice.currency)
         note = norm.note if cls.hs6 else f"not classified: {cls.reason}; {norm.note}"
+        if cls.hs6 and cls.path:
+            note = f"HS path: {cls.path}; {note}"
         lines.append(
             EnrichedLine(
                 line_id=item.line_id,
@@ -45,12 +49,16 @@ __all__ = [
     "AnthropicProposer",
     "CachedProposer",
     "Classification",
+    "HierarchicalProposer",
+    "Nomenclature",
     "KeywordProposer",
     "Normalised",
     "Proposer",
     "ProposerError",
     "classify_description",
+    "default_nomenclature",
     "default_proposer",
     "enrich",
+    "load_nomenclature",
     "normalise",
 ]

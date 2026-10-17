@@ -135,8 +135,18 @@ class CachedProposer:
 
 
 def default_proposer() -> Proposer:
-    """LLM (cached) when ANTHROPIC_API_KEY and LLM_MODEL are set, else the offline baseline."""
+    """LLM when ANTHROPIC_API_KEY and LLM_MODEL are set, else the offline keyword baseline.
+
+    CLASSIFIER picks the LLM method: "hierarchical" (default: chapter -> heading -> HS6, each
+    step from the real code list) or "flat" (one call straight to HS6). "keyword" forces the
+    offline baseline even with a key, for evaluation.
+    """
     model = os.environ.get("LLM_MODEL", "")
-    if os.environ.get("ANTHROPIC_API_KEY") and model:
+    method = os.environ.get("CLASSIFIER", "hierarchical").lower()
+    if method == "keyword" or not (os.environ.get("ANTHROPIC_API_KEY") and model):
+        return KeywordProposer()
+    if method == "flat":
         return CachedProposer(AnthropicProposer(model), model=model)
-    return KeywordProposer()
+    from tbml.classify.hierarchical import HierarchicalProposer
+
+    return HierarchicalProposer(model)
