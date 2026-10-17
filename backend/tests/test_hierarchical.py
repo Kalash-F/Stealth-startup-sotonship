@@ -219,3 +219,25 @@ def test_catch_all_and_reserved_chapters_are_not_options(tmp_path):
     nom = load_nomenclature(path)
     assert "999999" not in nom.hs6_codes()
     assert [c for c, _ in nom.children(None)] == ["84"]
+
+
+def test_unwritable_cache_does_not_break_classification(nom, tmp_path):
+    blocker = tmp_path / "not-a-dir"
+    blocker.write_text("x")  # mkdir under a file fails, like a read-only disk
+    p = HierarchicalProposer(
+        model="fake", client=FakeClient(MACBOOK), nomenclature=nom, cache_dir=blocker / "c"
+    )
+    assert p.propose("MacBook Pro 14")[0].hs6 == "847130"
+
+
+def test_cache_follows_tbml_cache_dir(nom, tmp_path, monkeypatch):
+    monkeypatch.setenv("TBML_CACHE_DIR", str(tmp_path / "tmpcache"))
+    p = HierarchicalProposer(model="fake", client=FakeClient(MACBOOK), nomenclature=nom)
+    assert p.cache_dir == tmp_path / "tmpcache" / "classify_hier"
+
+
+def test_path_text_is_kept_short(nom, tmp_path):
+    from tbml.classify.hierarchical import _short
+
+    assert _short("x" * 200).endswith("…") and len(_short("x" * 200)) == 60
+    assert _short("Nuts") == "Nuts"

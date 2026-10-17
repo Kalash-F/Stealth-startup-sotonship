@@ -1,10 +1,10 @@
-"""Fetch trade data, compute unit-value price bands, write data/benchmarks/bands*.parquet.
+"""Fetch trade data, compute unit-value price bands, write data/benchmarks/bands*.json.
 
 Plan tasks 3.1-3.5. Run:  python backend/scripts/fetch_benchmarks.py [--mock] [--verify-hs]
 
 Sources: UN Comtrade (needs COMTRADE_API_KEY in .env / env) and HMRC UK Trade Info OTS (no key).
 If neither source yields data the script falls back to documented approximate values and writes
-data/benchmarks/bands_mock.parquet with is_mock=True (task 3.5). Raw responses are cached under
+data/benchmarks/bands_mock.json with is_mock=True (task 3.5). Raw responses are cached under
 data/benchmarks/raw/ so the runtime never calls an API.
 """
 
@@ -254,6 +254,13 @@ def mock_bands() -> pd.DataFrame:
     return pd.DataFrame(rows, columns=COLS)
 
 
+def write_bands(bands: pd.DataFrame, path: Path) -> None:
+    """Write the table as a JSON list of `Benchmark` rows, one per line: the format
+    `tbml.benchmark` reads without pandas, so the deployed API stays small."""
+    rows = json.loads(bands.to_json(orient="records"))
+    path.write_text("[\n" + ",\n".join(f"  {json.dumps(r)}" for r in rows) + "\n]\n")
+
+
 # ------------------------------------------------------------ HS verify
 def verify_hs6() -> None:
     """Check each code against the UK Trade Tariff API and print official descriptions."""
@@ -269,7 +276,7 @@ def main() -> int:
     """Fetch (or skip with --mock), compute and write the bands; falls back to the mock table
     unless real data covers every commodity."""
     ap = argparse.ArgumentParser()
-    ap.add_argument("--mock", action="store_true", help="skip APIs, write bands_mock.parquet")
+    ap.add_argument("--mock", action="store_true", help="skip APIs, write bands_mock.json")
     ap.add_argument("--verify-hs", action="store_true")
     a = ap.parse_args()
     BENCH.mkdir(parents=True, exist_ok=True)
@@ -303,13 +310,13 @@ def main() -> int:
     if not df.empty:
         bands = compute_bands(df)
         if set(COMMODITIES) <= set(bands.hs6):
-            bands.to_parquet(BENCH / "bands.parquet", index=False)
+            write_bands(bands, BENCH / "bands.json")
             print(bands.to_string())
             return 0
         print("real data incomplete for some HS6; falling back to mock", file=sys.stderr)
     bands = mock_bands()
-    bands.to_parquet(BENCH / "bands_mock.parquet", index=False)
-    print("WARNING: APIs unreachable/incomplete -> wrote bands_mock.parquet (is_mock=True)")
+    write_bands(bands, BENCH / "bands_mock.json")
+    print("WARNING: APIs unreachable/incomplete -> wrote bands_mock.json (is_mock=True)")
     print(bands.to_string())
     return 0
 

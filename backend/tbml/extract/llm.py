@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import json
-import os
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -13,7 +12,7 @@ from pydantic import ValidationError
 
 from tbml import llm as shared_llm
 from tbml.extract.pdftext import RawDocument
-from tbml.paths import DATA_DIR
+from tbml.paths import cache_dir
 from tbml.schemas import Invoice
 
 # Bump when the prompt or the post-processing contract changes; invalidates the cache.
@@ -77,11 +76,6 @@ OpenRouterClient = shared_llm.OpenRouterClient
 
 class StructuringError(Exception):
     """The LLM did not produce a valid Invoice after the retry."""
-
-
-def cache_dir() -> Path:
-    """Cache root: $TBML_CACHE_DIR, else data/cache."""
-    return Path(os.environ.get("TBML_CACHE_DIR") or DATA_DIR / "cache")
 
 
 def cache_path(sha256: str, root: Path | None = None) -> Path:

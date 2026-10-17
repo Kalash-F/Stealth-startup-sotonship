@@ -4,7 +4,8 @@
     "backend": {
       "root": "backend",
       "framework": "fastapi",
-      "entrypoint": "tbml/asgi.py"
+      "entrypoint": "tbml/asgi.py",
+      "buildCommand": "rm -rf data && cp -R ../data data"
     },
     "web": {
       "root": "web",

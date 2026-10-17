@@ -21,10 +21,11 @@ from typing import Any
 from tbml.classify.nomenclature import LEVEL_NAMES, Nomenclature, default_nomenclature
 from tbml.classify.proposers import ProposerError
 from tbml.llm import LLMError
-from tbml.paths import DATA_DIR
+from tbml.paths import cache_dir as default_cache_dir
 from tbml.schemas import HS6Candidate
 
-CACHE_DIR = DATA_DIR / "cache" / "classify_hier"
+CACHE_SUBDIR = "classify_hier"  # under tbml.paths.cache_dir(), which honours $TBML_CACHE_DIR
+_DEFAULT = object()
 PROMPT_VERSION = "1"
 MIN_STEP_SCORE = 0.5
 
@@ -63,11 +64,16 @@ class Trace:
 
     def summary(self) -> str:
         """e.g. '84 machinery (0.97) > 8471 computers (0.95) > 847130 portable (0.92)'."""
-        parts = [f"{s.code} {s.description} ({s.score:.2f})" for s in self.steps if s.code]
+        parts = [f"{s.code} {_short(s.description)} ({s.score:.2f})" for s in self.steps if s.code]
         text = " > ".join(parts)
         if self.stopped:
             text = f"{text}; stopped: {self.stopped}" if text else f"stopped: {self.stopped}"
         return text
+
+
+def _short(text: str, limit: int = 60) -> str:
+    """Official HS descriptions run to 200+ characters; keep the path readable in the report."""
+    return text if len(text) <= limit else text[: limit - 1].rstrip(" ,;") + "…"
 
 
 class HierarchicalProposer:
@@ -79,7 +85,7 @@ class HierarchicalProposer:
         client: Any = None,
         nomenclature: Nomenclature | None = None,
         min_step_score: float = MIN_STEP_SCORE,
-        cache_dir: Path | None = CACHE_DIR,
+        cache_dir: Path | None | object = _DEFAULT,
     ):
         if client is None:
             from tbml.llm import configured_client
@@ -93,7 +99,9 @@ class HierarchicalProposer:
             raise ProposerError("no LLM model set")
         self.nomenclature = nomenclature or default_nomenclature()
         self.min_step_score = min_step_score
-        self.cache_dir = cache_dir
+        # resolved now, not at import, so $TBML_CACHE_DIR (set by asgi.py on Vercel) applies;
+        # None turns caching off
+        self.cache_dir = default_cache_dir() / CACHE_SUBDIR if cache_dir is _DEFAULT else cache_dir
         self.traces: dict[str, Trace] = {}  # description -> last trace, for explanations
 
     # ---- public ---------------------------------------------------------------------------
@@ -215,14 +223,17 @@ class HierarchicalProposer:
         if path is None:
             return
         choices, reason = result
-        path.parent.mkdir(parents=True, exist_ok=True)
         payload = {
             "description": description,
             "parent": parent,
             "choices": [{"code": c, "score": s} for c, s in choices],
             "reason": reason,
         }
-        path.write_text(json.dumps(payload, indent=2) + "\n")
+        try:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(json.dumps(payload, indent=2) + "\n")
+        except OSError:
+            pass  # a read-only disk must not break classification; the answer is still used
 
 
 def _parse(text: str, valid: set[str]) -> tuple[list[tuple[str, float]], str]:

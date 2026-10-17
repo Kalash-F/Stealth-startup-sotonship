@@ -13,17 +13,15 @@ dependencies = [
     "uvicorn>=0.29",
     "python-multipart>=0.0.9",
     "pdfplumber>=0.11",
-    "jinja2>=3.1",
-    "weasyprint>=60",
     "pyyaml>=6",
-    "pandas>=2.1",
-    "pyarrow>=15",
     "anthropic>=0.40",
-    "requests>=2.31",
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8", "pytest-cov>=5", "ruff>=0.5", "httpx>=0.27"]
+# Offline tools only (fetch_benchmarks.py, the synthetic invoice generator). The API never imports
+# them, so they stay out of the deployed function, which Vercel caps in size (DECISIONS DV1).
+scripts = ["pandas>=2.1", "requests>=2.31", "jinja2>=3.1", "weasyprint>=60"]
+dev = ["tbml[scripts]", "pytest>=8", "pytest-cov>=5", "ruff>=0.5", "httpx>=0.27"]
 
 [tool.setuptools.packages.find]
 include = ["tbml*"]

@@ -5,13 +5,13 @@ Own-section log; merge into DECISIONS.md when that file exists on main.
 ## Decisions
 - **Mock fallback used.** The build sandbox's egress proxy returned 403 for api.uktradeinfo.com, comtradeapi.un.org and
   www.trade-tariff.service.gov.uk, and no `COMTRADE_API_KEY` is available. `fetch_benchmarks.py` therefore wrote
-  `data/benchmarks/bands_mock.parquet` (`is_mock=True`, `sources=["MOCK approximate"]`). The UI must show the "mock benchmark" badge.
+  `data/benchmarks/bands_mock.json` (`is_mock=True`, `sources=["MOCK approximate"]`). The UI must show the "mock benchmark" badge.
 - **Mock rows are global only** (`route=null`). Per-route mock rows would be invented; consumers fall back to global (per §3.3).
 - **`n_observations=1` and `years` in mock rows are nominal placeholders** (so the `n_observations > 0` test passes); they are not real counts.
 - **Mock values** are order-of-magnitude public unit values (USD per unit). They are not measured data.
 - **Fetch code is untested against live APIs.** The HMRC OTS OData query (`FlowTypeId in (1,3)` = imports, `Commodity/Hs6Code`,
   `$expand=Country`) and Comtrade v1 REST call follow the public docs; run `python backend/scripts/fetch_benchmarks.py`
-  from a machine with network access (plus `COMTRADE_API_KEY` for Comtrade) to produce `bands.parquet`. Pipeline logic
+  from a machine with network access (plus `COMTRADE_API_KEY` for Comtrade) to produce `bands.json`. Pipeline logic
   (unit values, 1% trim, percentiles, route fallback at n<10) is covered by `test_compute_bands_pipeline`.
 - **Units:** kg for 731815/090111/740311, litres for 220210, units for 852351/610910/847130. Comtrade uses `netWgt` for kg goods, `qty` otherwise;
   HMRC uses `NetMass` / `SuppUnit`. Confirm 220210 reports litres on live data; if not, switch to kg.

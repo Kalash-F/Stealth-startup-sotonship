@@ -1,37 +1,35 @@
 """P2: price bands for an enriched line, read from the cached band table (plan.md §3.3).
 
-`bands.parquet` (real, from `fetch_benchmarks.py`) is used when present, else `bands_mock.parquet`
+`bands.json` (real, from `fetch_benchmarks.py`) is used when present, else `bands_mock.json`
 with `is_mock = True`. A route-specific row wins over the global row for the same HS6.
 """
 
 from __future__ import annotations
 
+import json
 from functools import lru_cache
-
-import pandas as pd
 
 from tbml.paths import BENCHMARKS_DIR
 from tbml.schemas import Benchmark, EnrichedLine
 
 
 @lru_cache(maxsize=1)
-def _bands() -> dict[tuple[str, str | None], Benchmark]:
-    path = BENCHMARKS_DIR / "bands.parquet"
+def band_table() -> tuple[Benchmark, ...]:
+    """Every row of the band table in use: `bands.json` when present, else `bands_mock.json`."""
+    path = BENCHMARKS_DIR / "bands.json"
     if not path.exists():
-        path = BENCHMARKS_DIR / "bands_mock.parquet"
-    out: dict[tuple[str, str | None], Benchmark] = {}
-    for row in pd.read_parquet(path).to_dict("records"):
-        row["route"] = row["route"] if isinstance(row["route"], str) else None
-        row["years"] = [int(y) for y in row["years"]]
-        row["sources"] = [str(s) for s in row["sources"]]
-        b = Benchmark.model_validate(row)
-        out[(b.hs6, b.route)] = b
-    return out
+        path = BENCHMARKS_DIR / "bands_mock.json"
+    return tuple(Benchmark.model_validate(row) for row in json.loads(path.read_text()))
+
+
+@lru_cache(maxsize=1)
+def _bands() -> dict[tuple[str, str | None], Benchmark]:
+    return {(b.hs6, b.route): b for b in band_table()}
 
 
 def benchmarks_are_mock() -> bool:
     """True when the band table in use is the mock one (the UI shows a badge)."""
-    return any(b.is_mock for b in _bands().values())
+    return any(b.is_mock for b in band_table())
 
 
 def benchmark(enriched_line: EnrichedLine, route: str | None = None) -> Benchmark | None:
@@ -42,4 +40,4 @@ def benchmark(enriched_line: EnrichedLine, route: str | None = None) -> Benchmar
     return bands.get((enriched_line.hs6, route)) or bands.get((enriched_line.hs6, None))
 
 
-__all__ = ["benchmark", "benchmarks_are_mock"]
+__all__ = ["band_table", "benchmark", "benchmarks_are_mock"]
