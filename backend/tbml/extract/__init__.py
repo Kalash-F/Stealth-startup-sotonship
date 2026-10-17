@@ -2,7 +2,7 @@
 
 `extract(pdf)` returns an `Invoice`. `extract_document(pdf)` returns the same plus the warnings
 and how it was obtained. Order of attempts: cached LLM response (keyed by file hash) -> LLM
-(when ANTHROPIC_API_KEY and LLM_MODEL are set) -> deterministic layout parser -> a minimal,
+(when an LLM provider is configured, see tbml/llm.py) -> deterministic layout parser -> a minimal,
 valid placeholder invoice with warnings. Nothing here recomputes or repairs numbers.
 """
 

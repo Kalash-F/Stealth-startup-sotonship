@@ -45,5 +45,16 @@ def load_hs6(path: Path = HS6_CSV) -> dict[str, HS6Entry]:
 
 @lru_cache(maxsize=1)
 def default_hs6() -> dict[str, HS6Entry]:
-    """The bundled hs6.csv, loaded once."""
-    return load_hs6()
+    """The bundled hs6.csv, loaded once, plus every six-digit code of the full HS nomenclature
+    (no keywords, so the offline baseline ignores them) so LLM answers outside the partial
+    list still validate. Codes with no price band are then skipped by the price rules."""
+    from tbml.classify.nomenclature import default_nomenclature
+
+    entries = load_hs6()
+    try:
+        extra = default_nomenclature().hs6_codes()
+    except (OSError, ValueError):
+        extra = {}
+    for code, desc in extra.items():
+        entries.setdefault(code, HS6Entry(code, desc, (), None))
+    return entries
