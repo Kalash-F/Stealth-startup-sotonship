@@ -27,6 +27,7 @@ Python 3.11 or newer. PDF rendering for the synthetic set uses WeasyPrint, which
 | `tbml/score/` | Flags to priority score and band. |
 | `tbml/synthetic/` | Labelled synthetic invoice generator. [README](tbml/synthetic/README.md) |
 | `tbml/api.py` | FastAPI app. |
+| `tbml/asgi.py` | The deployed app: `tbml.api` mounted under `/api` (the Vercel entrypoint). |
 | `tbml/paths.py` | Repository paths (`data/`, fixtures). |
 | `tbml/fixtures.py` | Loads the golden JSON fixtures used by the stubs and tests. |
 | `scripts/` | `fetch_benchmarks.py`, `generate_invoices.py`, `evaluate.py` (placeholder). |
