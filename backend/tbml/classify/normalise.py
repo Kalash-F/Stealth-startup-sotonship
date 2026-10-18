@@ -11,7 +11,7 @@ import re
 from dataclasses import dataclass
 from functools import lru_cache
 
-from tbml.benchmark import band_table
+from tbml.benchmark import benchmark_units as _benchmark_units
 from tbml.paths import REFERENCE_DIR
 from tbml.schemas import LineItem
 
@@ -67,10 +67,10 @@ class Normalised:
     note: str
 
 
-@lru_cache(maxsize=1)
-def benchmark_units() -> dict[str, str]:
-    """hs6 -> benchmark unit, from the real bands when present, else the mock bands."""
-    return {b.hs6: b.unit for b in band_table()}
+def benchmark_units(hs6: str) -> tuple[str, ...]:
+    """Benchmark units a line with this HS6 can be priced in, best first ('u', 'l', 'pr', 'kg'):
+    the benchmark databases' units, else the band table's (tbml.benchmark.benchmark_units)."""
+    return _benchmark_units(hs6)
 
 
 @lru_cache(maxsize=1)
@@ -141,6 +141,8 @@ def _units_per_printed(
     # Here the line is counted in pieces; convert pieces to the benchmark unit.
     if target == "u":
         return pieces, piece_desc
+    if target == "pr":
+        return pieces / 2, f"{piece_desc}; 2 pc = 1 pair"
     if target == "kg":
         row = _weight_row(hs6, "piece", text)
         if not row:
@@ -157,22 +159,49 @@ def _units_per_printed(
     return None, f"unsupported benchmark unit '{target}'"
 
 
+def _direct(printed_unit: str, target: str) -> bool:
+    """True when the printed unit is already in the target's dimension (kg for kg, a count for
+    items, a volume for litres, pairs for pairs), so no table or description is needed."""
+    unit = printed_unit.strip().lower().rstrip(".")
+    if unit in ("pair", "pairs"):
+        return target == "pr"
+    return unit in _SIMPLE_UNITS and _SIMPLE_UNITS[unit][0] == target
+
+
+def choose_unit(
+    hs6: str, printed_unit: str, text: str, units: tuple[str, ...]
+) -> tuple[str, float, str] | tuple[str, None, str]:
+    """The benchmark unit to price the line in, out of `units` (best first): one the printed unit
+    is already in, else the first one it converts to, else the first with the reason it does not.
+    Returns (unit, benchmark units per printed unit or None, how)."""
+    tried = [(u, *_units_per_printed(hs6, printed_unit, text, u)) for u in units]
+    for unit, per, how in tried:
+        if per is not None and _direct(printed_unit, unit):
+            return unit, per, how
+    for unit, per, how in tried:
+        if per is not None:
+            return unit, per, how
+    return tried[0]
+
+
 def normalise(item: LineItem, hs6: str | None, currency: str) -> Normalised:
-    """Convert a line to the benchmark unit of its HS6 and to USD per that unit.
+    """Convert a line to a benchmark unit of its HS6 and to USD per that unit.
 
     quantity = printed quantity x benchmark units per printed unit; price = printed unit price
-    / FX rate / that same factor. Any missing ingredient (HS6, benchmark unit, FX rate, unit
-    conversion) returns a Normalised of Nones with the reason in `note`.
+    / FX rate / that same factor. When the benchmarks hold several units for the HS6 (per item
+    and per kg, say), the one the printed unit converts to directly wins. Any missing ingredient
+    (HS6, benchmark unit, FX rate, unit conversion) returns a Normalised of Nones with the reason
+    in `note`.
     """
     if hs6 is None:
         return Normalised(None, None, None, "not normalised: line has no HS6")
-    target = benchmark_units().get(hs6)
-    if target is None:
+    units = benchmark_units(hs6)
+    if not units:
         return Normalised(None, None, None, f"not normalised: no benchmark unit known for {hs6}")
     rate = load_fx().get(currency)
     if rate is None:
-        return Normalised(None, target, None, f"not normalised: no FX rate for {currency}")
-    per, how = _units_per_printed(hs6, item.unit, item.description.lower(), target)
+        return Normalised(None, units[0], None, f"not normalised: no FX rate for {currency}")
+    target, per, how = choose_unit(hs6, item.unit, item.description.lower(), units)
     if per is None:
         return Normalised(None, target, None, f"not normalised: {how}")
 

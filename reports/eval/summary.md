@@ -22,7 +22,7 @@ Accuracy by kind of wording:
 
 ## B. Detection on the 60 synthetic invoices (full pipeline from PDF)
 
-Classifier: offline keyword baseline. Price benchmarks: real.
+Classifier: offline keyword baseline. Price benchmarks: real (database:98 shards).
 
 - Invoice level (flagged = review or review_now): precision 100%, recall 94%, F1 0.97 (17 caught, 0 false alarms, 1 missed, of 18 anomalous).
 - Hard negatives (legitimate but suspicious-looking) flagged: 0/6; plain clean invoices flagged: 0/36.
@@ -32,7 +32,7 @@ Classifier: offline keyword baseline. Price benchmarks: real.
 |---|---|---|---|
 | 10% | 6 | 33% | 10% (0% to 22%) |
 | 20% | 12 | 67% | 20% (6% to 39%) |
-| 30% | 18 | 100% | 30% (11% to 50%) |
+| 30% | 18 | 94% | 30% (11% to 50%) |
 
 Recall per planted anomaly type:
 
@@ -47,4 +47,4 @@ Recall per planted anomaly type:
 | ROUTE_NO_ECONOMIC_SENSE | 4/4 |
 | UNDER_PRICE | 4/4 |
 
-Caveats: the invoices are synthetic and the anomalies were planted by our own generator, so these numbers show the rules work as designed, not real-world performance. Prices compared against HMRC Overseas Trade Statistics, UK imports 2023-2025.
+Caveats: the invoices are synthetic and the anomalies were planted by our own generator, so these numbers show the rules work as designed, not real-world performance. Prices compared against HMRC Overseas Trade Statistics, UK imports July 2023 to August 2026 (benchmark databases, p1-p99 per year).

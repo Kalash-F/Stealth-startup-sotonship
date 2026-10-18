@@ -102,7 +102,7 @@ def test_laptops_units_usd():
         (line("Hex bolts", 10, "cartons", 1.0), "731815", "USD", "no pack size"),
         (line("Soft drink", 10, "cans", 1.0), "220210", "USD", "volume"),
         (line("Copper cathodes", 10, "boxes of 4", 1.0), "740311", "USD", "unrecognised"),
-        (line("USB flash drive", 10, "kg", 1.0), "852351", "USD", "cannot be converted"),
+        (line("USB flash drive", 10, "litres", 1.0), "852351", "USD", "cannot be converted"),
         (line("USB flash drive", 10, "pcs", 1.0), "852351", "XYZ", "no FX rate"),
     ],
 )
@@ -123,9 +123,8 @@ def test_unit_weights_rows_are_documented():
 
 
 def test_every_target_hs6_has_a_benchmark_unit():
-    assert {"731815", "220210", "852351", "610910", "090111", "740311", "847130"} <= set(
-        benchmark_units()
-    )
+    for hs6 in ["731815", "220210", "852351", "610910", "090111", "740311", "847130"]:
+        assert benchmark_units(hs6), hs6
 
 
 def test_matches_generator_truth_on_every_line():

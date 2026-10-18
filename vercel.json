@@ -5,7 +5,7 @@
       "root": "backend",
       "framework": "fastapi",
       "entrypoint": "tbml/asgi.py",
-      "buildCommand": "rm -rf data && cp -R ../data data"
+      "buildCommand": "rm -rf data && cp -R ../data data && python3 scripts/pack_databases.py data/databases"
     },
     "web": {
       "root": "web",

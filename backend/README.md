@@ -22,7 +22,7 @@ Python 3.11 or newer. The API needs only the core dependencies; `pandas`, `reque
 | `tbml/pipeline.py` | `check(pdf_path) -> Report`, chaining every stage. |
 | `tbml/extract/` | PDF to `Invoice`. [README](tbml/extract/README.md) |
 | `tbml/classify/` | Line to HS6 code and benchmark-unit price. [README](tbml/classify/README.md) |
-| `tbml/benchmark/` | Price band lookup. |
+| `tbml/benchmark/` | Price band lookup: the HMRC benchmark databases (`data/databases`, `shards.py`) first, the JSON band tables as fallback. |
 | `tbml/rules/` | Red-flag rules R1 to R8. [README](tbml/rules/README.md) |
 | `tbml/score/` | Flags to priority score and band. |
 | `tbml/synthetic/` | Labelled synthetic invoice generator. [README](tbml/synthetic/README.md) |

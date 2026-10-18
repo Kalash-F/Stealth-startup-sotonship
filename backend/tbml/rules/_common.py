@@ -104,7 +104,7 @@ def fmt_money(x: float, symbol: str = "$") -> str:
 
 def unit_label(unit: str) -> str:
     """Benchmark unit in words a non-specialist reads easily ('u' means one item)."""
-    return {"u": "item", "l": "litre"}.get(unit, unit)
+    return {"u": "item", "l": "litre", "pr": "pair"}.get(unit, unit)
 
 
 def fmt_ratio(r: float) -> str:
