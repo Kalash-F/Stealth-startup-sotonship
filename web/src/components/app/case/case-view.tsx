@@ -13,7 +13,6 @@ import { workspace } from "@/data/workspace";
 import { notify } from "../shared/notify";
 import { CaseActions } from "./case-actions";
 import { CaseFacts } from "./case-facts";
-import { CaseRail } from "./case-rail";
 import { InvoiceTab } from "./invoice-tab";
 import { NetworkTab } from "./network-tab";
 import { NotesTab } from "./notes-tab";
@@ -109,7 +108,7 @@ export function CaseView({ id }: { id: string }) {
           </>
         }
         actions={
-          <div className="flex items-center gap-3 rounded-md border border-border bg-surface px-3 py-2">
+          <div data-slot="panel" className="flex items-center gap-3 rounded-md border border-border bg-surface px-3 py-2">
             <div>
               <p className="eyebrow">Priority</p>
               <p className="text-small text-fg-muted">{inv.flags.length} flags, see Summary</p>
@@ -136,7 +135,7 @@ export function CaseView({ id }: { id: string }) {
         }
       />
 
-      <div className="grid gap-4 p-4 lg:p-6 xl:min-h-0 xl:flex-1 xl:grid-cols-[minmax(0,1fr)_288px] xl:grid-rows-[minmax(0,1fr)] [&>*]:min-w-0">
+      <div className="grid gap-4 p-4 lg:p-6 xl:min-h-0 xl:flex-1 xl:grid-rows-[minmax(0,1fr)] [&>*]:min-w-0">
         <Tabs value={tab} onValueChange={(v) => setTab(v as TabValue)} className="min-w-0 xl:flex xl:min-h-0 xl:flex-col">
           <TabsList aria-label="Case sections" className="mb-4">
             {tabs.map((t) => (
@@ -167,7 +166,6 @@ export function CaseView({ id }: { id: string }) {
             <NotesTab notes={notes} onAdd={addNote} textareaRef={noteRef} closed={status === "closed_nfa"} />
           </TabsContent>
         </Tabs>
-        <CaseRail inv={inv} />
       </div>
     </div>
   );

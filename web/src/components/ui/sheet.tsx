@@ -15,7 +15,7 @@ export const SheetClose = DialogPrimitive.Close;
 
 function Overlay() {
   return (
-    <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/45" />
+    <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-overlay" />
   );
 }
 

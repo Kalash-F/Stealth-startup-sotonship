@@ -57,7 +57,7 @@ export function CaseFacts({
             {escalatedLocally ? "Awaiting MLRO decision (escalated in this session)" : inv.nextAction.label}
           </p>
           {due && !escalatedLocally ? (
-            <p className={cn("mt-1 flex items-center gap-1.5 font-mono text-small tabular", overdue ? "text-risk-high" : "text-risk-review")}>
+            <p className={cn("mt-1 flex items-center gap-1.5 font-mono text-small tabular", overdue ? "text-risk-high" : "text-fg")}>
               <CalendarClock className="size-3.5" aria-hidden />
               Due {formatDate(due)} · {dueLabel(due)}
             </p>

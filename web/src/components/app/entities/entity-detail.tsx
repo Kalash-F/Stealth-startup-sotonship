@@ -299,7 +299,7 @@ function NodeBody({ node, select }: { node: GraphNode; select: SelectFn }) {
 
 export function EntityDetail({ selection, select, invalid, className }: { selection: Selection; select: SelectFn; invalid?: boolean; className?: string }) {
   return (
-    <div className={cn("rounded-md border border-border bg-surface", className)} aria-live="polite">
+    <div data-slot="panel" className={cn("rounded-md border border-border bg-surface", className)} aria-live="polite">
       {selection === null ? (
         <div className="grid gap-3 px-4 py-5">
           <MousePointerClick className="size-5 text-fg-subtle" aria-hidden />

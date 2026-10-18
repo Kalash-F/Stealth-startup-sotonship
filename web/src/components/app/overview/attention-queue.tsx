@@ -38,7 +38,7 @@ export function AttentionQueue({ className, clearFloatingCard }: { className?: s
         <table className="grid w-full min-w-[640px] grid-cols-[repeat(5,max-content)] justify-between text-body">
           <caption className="sr-only">Open cases needing attention</caption>
           <thead className="contents">
-            <tr className="sticky top-0 z-[1] col-span-full grid grid-cols-subgrid border-b border-border bg-surface text-left text-meta font-medium uppercase tracking-[0.06em] text-fg-subtle">
+            <tr className="sticky top-0 z-[1] col-span-full grid grid-cols-subgrid border-b border-border bg-surface text-left text-meta font-medium text-fg-subtle">
               <th scope="col" className="py-2 pl-4 pr-3 font-medium">Case</th>
               <th scope="col" className="px-3 py-2 font-medium">Priority</th>
               <th scope="col" className="px-3 py-2 font-medium">Status</th>
@@ -50,7 +50,13 @@ export function AttentionQueue({ className, clearFloatingCard }: { className?: s
             {rows.map((c) => {
               const overdue = c.nextAction.due ? daysFromDemoNow(c.nextAction.due) < 0 : false;
               return (
-                <tr key={c.id} className="group relative col-span-full grid grid-cols-subgrid items-center hover:bg-surface-2">
+                <tr
+                  key={c.id}
+                  className={cn(
+                    "group relative col-span-full grid grid-cols-subgrid items-center hover:bg-surface-2",
+                    c.priority_band === "review_now" && "shadow-[inset_2px_0_0_var(--risk-high)]",
+                  )}
+                >
                   <td className="py-2.5 pl-4 pr-3">
                     <Link href={`/app/investigations/${c.id}`} className="block after:absolute after:inset-0 focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:-outline-offset-2 focus-visible:after:outline-focus">
                       <span className="flex items-center gap-2 font-mono text-small text-fg-muted">
@@ -71,7 +77,10 @@ export function AttentionQueue({ className, clearFloatingCard }: { className?: s
                   <td className="whitespace-nowrap px-3 py-2.5 font-mono tabular text-fg">{formatMoneyCompact(c.invoice.stated_total, c.invoice.currency)}</td>
                   <td className="whitespace-nowrap py-2.5 pl-3 pr-4" title={c.nextAction.label}>
                     {c.nextAction.due ? (
-                      <span className={cn("font-mono text-small tabular", overdue ? "text-risk-high" : "text-fg")}>{formatDateShort(c.nextAction.due)}</span>
+                      <span className={cn("font-mono text-small tabular", overdue ? "text-risk-high" : "text-fg")}>
+                        {formatDateShort(c.nextAction.due)}
+                        {overdue ? <span className="ml-1.5 font-sans">overdue</span> : null}
+                      </span>
                     ) : (
                       <span className="text-small text-fg-subtle">{c.status === "escalated" ? "With MLRO" : "Not set"}</span>
                     )}

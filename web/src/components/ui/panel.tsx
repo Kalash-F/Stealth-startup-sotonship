@@ -2,11 +2,11 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * Panel: the workspace's container. Flat surface, 1px border, radius-md.
+ * Panel: the workspace's container. Flat surface, 1px border, radius-lg.
  * Deliberately not a floating card: no shadow inside the app.
  */
 export function Panel({ className, ...props }: React.HTMLAttributes<HTMLElement>) {
-  return <section className={cn("rounded-md border border-border bg-surface", className)} {...props} />;
+  return <section data-slot="panel" className={cn("rounded-lg border border-border bg-surface", className)} {...props} />;
 }
 
 export function PanelHeader({

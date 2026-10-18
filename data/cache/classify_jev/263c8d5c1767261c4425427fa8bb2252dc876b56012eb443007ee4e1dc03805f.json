@@ -1,0 +1,24 @@
+{
+  "state": {
+    "invoice_line": "GREEN ARABICA COFFEE BEANS, UNROASTED, NOT DECAFFEINATED",
+    "what_it_is": "Unroasted, non-decaffeinated green Arabica coffee beans, a raw material for making coffee.",
+    "classified_so_far": "chapter 12: Oil seeds and oleaginous fruits; miscellaneous grains, seeds and fruit, industrial or medicinal plants; straw and fodder > heading 1207: Oil seeds and oleaginous fruits, n.e.c. in chapter 12; whether or not broken"
+  },
+  "parent": "1207",
+  "probabilities": {
+    "120710": 0.0,
+    "120720": 0.0,
+    "120721": 0.0,
+    "120729": 0.0,
+    "120730": 0.01,
+    "120740": 0.0,
+    "120750": 0.01,
+    "120760": 0.0,
+    "120770": 0.0,
+    "120791": 0.0,
+    "120792": 0.0,
+    "120799": 0.6,
+    "none": 0.38
+  },
+  "confidence": 0.57
+}

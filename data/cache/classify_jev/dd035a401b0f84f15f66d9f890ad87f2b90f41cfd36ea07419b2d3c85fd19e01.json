@@ -1,0 +1,29 @@
+{
+  "state": {
+    "invoice_line": "Plain white cotton T-shirts, packed per dozen",
+    "what_it_is": "Plain white T-shirts made of cotton, packed in dozens, which are finished apparel products for wearing.",
+    "classified_so_far": "chapter 62: Apparel and clothing accessories; not knitted or crocheted"
+  },
+  "parent": "62",
+  "probabilities": {
+    "6201": 0.0,
+    "6202": 0.0,
+    "6203": 0.0,
+    "6204": 0.0,
+    "6205": 0.63,
+    "6206": 0.02,
+    "6207": 0.03,
+    "6208": 0.01,
+    "6209": 0.0,
+    "6210": 0.0,
+    "6211": 0.07,
+    "6212": 0.0,
+    "6213": 0.0,
+    "6214": 0.0,
+    "6215": 0.0,
+    "6216": 0.0,
+    "6217": 0.0,
+    "none": 0.24000000000000002
+  },
+  "confidence": 0.61
+}

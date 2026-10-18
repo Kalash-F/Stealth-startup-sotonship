@@ -38,7 +38,7 @@ export function ReportView({ report }: { report: Report }) {
         <PanelHeader title="Lines" description="Stated price against the benchmark band (p10 to p90)." />
         <div className="overflow-x-auto">
           <table className="w-full text-left text-body">
-            <thead className="text-meta uppercase tracking-[0.06em] text-fg-subtle">
+            <thead className="text-meta text-fg-subtle">
               <tr>
                 <th className="px-4 py-2 font-medium">Line</th>
                 <th className="px-4 py-2 font-medium">Description</th>

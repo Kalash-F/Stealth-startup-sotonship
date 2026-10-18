@@ -3,15 +3,19 @@
 
 /*
  * Design tokens. See DESIGN_SPEC.md.
- * Two surfaces share one set of token names:
+ * Surfaces share one set of token names:
  *   .theme-paper  marketing surfaces (warm stone, ink type)
- *   .theme-ink    application workspace (graphite, light type)
+ *   .theme-linen  application workspace (beige, dark grey type; graphite in dark mode)
+ *   .theme-ink    marketing product previews (graphite, light type)
  * Components only ever reference the semantic tokens, so an app component
  * dropped into a marketing page renders correctly inside a .theme-ink frame.
  */
 
 :root,
 .theme-paper {
+  --frame: #ebe7dd;
+  --overlay: rgb(21 23 27 / 0.45);
+  --shadow-float: 0 18px 40px -18px rgba(21, 23, 27, 0.35);
   --bg: #f3f0e9;
   --surface: #fbfaf6;
   --surface-2: #ebe7dd;
@@ -41,7 +45,185 @@
   color-scheme: light;
 }
 
+/*
+ * Workspace surface: beige ground, dark grey type, one grey family tinted warm.
+ * The frame (sidebar, banner) sits a step darker than the content sheet; panels a step lighter.
+ * The accent is the type colour itself, so the workspace stays two-colour; risk hues are
+ * earthy and every text pairing clears 4.5:1 on bg, surface and surface-2.
+ */
+.theme-linen {
+  /*
+   * ── Workspace colour knobs ──────────────────────────────────────────────
+   * The main background of each piece of the workspace. Change a hex here and
+   * every screen follows; nothing else needs editing.
+   */
+  --ws-frame: #d2c3b9;
+  /* outer frame: the strip around the content sheet */
+  --ws-sidebar: #4e5166;
+  /* left navigation (desktop and the mobile drawer) */
+  --ws-topbar: #ddd0c8;
+  /* search and profile bar at the top of the content */
+  --ws-page-header: transparent;
+  /* title band (breadcrumb to title); transparent = shows the content colour */
+  --ws-content: #ddd0c8;
+  /* data area background, behind panels and tables */
+  --ws-panel: #e7ded8;
+  /* panels, tables, cards, inputs, menus and dialogs */
+  --ws-text: #323232;
+  /* main text, active nav item, primary buttons, focus ring */
+  --ws-sidebar-text: #eee6e1;
+  /* text and icons in the left navigation; the active item becomes a chip in this colour */
+  --ws-topbar-text: #323232;
+  /* text in the top bar (profile menu); the search box keeps the main text colour */
+  --ws-page-header-text: #323232;
+  /* breadcrumb, page title, description and header counts */
+  /* ──────────────────────────────────────────────────────────────────────── */
+
+  /* Secondary and faint text on panels and the content area. */
+  --ws-text-muted: #48423e;
+  --ws-text-subtle: #57504b;
+  /* Hairlines on the content area and panels. */
+  --ws-border: #c7b7ad;
+  --ws-border-strong: #a39388;
+
+  --frame: var(--ws-frame);
+  --sidebar: var(--ws-sidebar);
+  --topbar: var(--ws-topbar);
+  --page-header: var(--ws-page-header);
+  --overlay: rgb(50 42 36 / 0.42);
+  --bg: var(--ws-content);
+  --surface: var(--ws-panel);
+  --surface-2: #d5c7be;
+  --surface-3: #cbbbb1;
+  --border: var(--ws-border);
+  --border-strong: var(--ws-border-strong);
+  --fg: var(--ws-text);
+  --fg-muted: var(--ws-text-muted);
+  --fg-subtle: var(--ws-text-subtle);
+  --accent: var(--ws-text);
+  --accent-fg: #eee6e1;
+  --accent-soft: #d0c2b9;
+  --focus: var(--ws-text);
+
+  --risk-low: #33583d;
+  --risk-low-soft: #d2d6c4;
+  --risk-review: #704708;
+  --risk-review-soft: #e8d6b4;
+  /* Review-band priority: the brick's saturation and weight carried to yellow (4.7:1 on panels). */
+  --risk-review-mark: #7a5c0f;
+  --risk-high: #922e15;
+  --risk-high-soft: #ebcbbe;
+  --finding: #7a2215;
+  --finding-soft: #e3c4ba;
+  --info: #2e5373;
+  --info-soft: #cdd1d2;
+
+  /* Stacked-peaks backdrop, back layer to front: tonal steps from bg toward border-strong. */
+  --peak-1: #d8cbc2;
+  --peak-2: #d2c3b9;
+  --peak-3: #cbbbb1;
+  --peak-4: #c2b1a6;
+
+  /* Shadows carry the beige's own hue, never neutral black. */
+  --shadow-frame: 0 1px 0 rgba(50, 40, 32, 0.05), 0 24px 48px -24px rgba(70, 52, 40, 0.35);
+  --shadow-float: 0 18px 40px -18px rgba(70, 52, 40, 0.45);
+  color-scheme: light;
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+/*
+ * Text colour per workspace area. Each area takes one text knob and derives its secondary and faint
+ * text by letting the area background show through (85% and 78%), so they track any background.
+ * `--bg` is the area colour too, so inverse chips (active nav item, toggles) read as cut-outs.
+ * Anything on a panel-coloured fill inside an area (the search box) keeps the main text colours.
+ */
+.ws-sidebar-scope,
+.ws-topbar-scope,
+.ws-page-header-scope {
+  --fg: var(--area-text);
+  --fg-muted: color-mix(in srgb, var(--area-text) 85%, transparent);
+  --fg-subtle: color-mix(in srgb, var(--area-text) 78%, transparent);
+  --focus: var(--area-text);
+  --accent: var(--area-text);
+}
+.ws-sidebar-scope {
+  --area-text: var(--ws-sidebar-text);
+  --bg: var(--ws-sidebar);
+  --border: color-mix(in srgb, var(--area-text) 18%, transparent);
+  --border-strong: color-mix(in srgb, var(--area-text) 30%, transparent);
+}
+.ws-topbar-scope {
+  --area-text: var(--ws-topbar-text);
+  --bg: var(--ws-topbar);
+}
+.ws-page-header-scope {
+  --area-text: var(--ws-page-header-text);
+}
+:is(.ws-sidebar-scope, .ws-topbar-scope, .ws-page-header-scope) .bg-surface {
+  --fg: var(--ws-text);
+  --fg-muted: var(--ws-text-muted);
+  --fg-subtle: var(--ws-text-subtle);
+  --focus: var(--ws-text);
+  --accent: var(--ws-text);
+  --bg: var(--ws-content);
+  --border: var(--ws-border);
+  --border-strong: var(--ws-border-strong);
+}
+
+/*
+ * Workspace dark mode: the original graphite workspace, switched on by the mode switch in the top bar
+ * (`data-ws-mode` on <html>). It only re-points the workspace knobs and tokens, so every area scope,
+ * panel and portal follows; marketing surfaces never carry .theme-linen and are untouched.
+ */
+html[data-ws-mode="dark"] .theme-linen {
+  --ws-frame: #07090c;
+  --ws-sidebar: #07090c;
+  --ws-topbar: #0c1015;
+  --ws-content: #0c1015;
+  --ws-panel: #11161d;
+  --ws-text: #e5e9ee;
+  --ws-sidebar-text: #e5e9ee;
+  --ws-topbar-text: #e5e9ee;
+  --ws-page-header-text: #e5e9ee;
+  --ws-text-muted: #9aa5b2;
+  --ws-text-subtle: #7d8996;
+  --ws-border: #242e3a;
+  --ws-border-strong: #354253;
+
+  --overlay: rgb(0 0 0 / 0.5);
+  --surface-2: #171e27;
+  --surface-3: #1e2732;
+  --accent: #3cc4b0;
+  --accent-fg: #06221e;
+  --accent-soft: #123430;
+  --focus: #3cc4b0;
+
+  --risk-low: #6cc08f;
+  --risk-low-soft: #15291f;
+  --risk-review: #e7ae4a;
+  --risk-review-soft: #2e2412;
+  --risk-review-mark: #f5cf72;
+  --risk-high: #f0785a;
+  --risk-high-soft: #34190f;
+  --finding: #ff9b86;
+  --finding-soft: #3d1510;
+  --info: #7fb2e5;
+  --info-soft: #14263a;
+
+  --peak-1: #0f141a;
+  --peak-2: #121821;
+  --peak-3: #161d27;
+  --peak-4: #1a222d;
+
+  --shadow-frame: 0 1px 0 rgba(255, 255, 255, 0.03), 0 32px 64px -32px rgba(0, 0, 0, 0.7);
+  --shadow-float: 0 16px 40px -16px rgb(0 0 0 / 0.7);
+  color-scheme: dark;
+}
+
 .theme-ink {
+  --frame: #0c1015;
+  --overlay: rgb(0 0 0 / 0.5);
+  --shadow-float: 0 16px 40px -16px rgb(0 0 0 / 0.7);
   --bg: #0c1015;
   --surface: #11161d;
   --surface-2: #171e27;
@@ -77,6 +259,9 @@
  * Same token names, so app components render correctly inside it.
  */
 .theme-night {
+  --frame: #07090c;
+  --overlay: rgb(0 0 0 / 0.55);
+  --shadow-float: 0 16px 40px -16px rgb(0 0 0 / 0.8);
   --bg: #07090c;
   --surface: #0c1015;
   --surface-2: #121820;
@@ -107,6 +292,11 @@
 }
 
 @theme inline {
+  --color-frame: var(--frame);
+  --color-sidebar: var(--sidebar);
+  --color-topbar: var(--topbar);
+  --color-page-header: var(--page-header);
+  --color-overlay: var(--overlay);
   --color-bg: var(--bg);
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
@@ -124,6 +314,8 @@
   --color-risk-low-soft: var(--risk-low-soft);
   --color-risk-review: var(--risk-review);
   --color-risk-review-soft: var(--risk-review-soft);
+  /* Only the workspace defines a matched mark; marketing surfaces fall back to their review amber. */
+  --color-risk-review-mark: var(--risk-review-mark, var(--risk-review));
   --color-risk-high: var(--risk-high);
   --color-risk-high-soft: var(--risk-high-soft);
   --color-finding: var(--finding);
@@ -141,6 +333,7 @@
   --radius-lg: 10px;
 
   --shadow-frame: var(--shadow-frame);
+  --shadow-float: var(--shadow-float);
 
   --text-2xs: 0.6875rem;
   --text-2xs--line-height: 1rem;
@@ -169,22 +362,26 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
+
   body {
     background: var(--bg);
     color: var(--fg);
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv11";
   }
+
   *,
   ::before,
   ::after {
     border-color: var(--border);
   }
+
   :focus-visible {
     outline: 2px solid var(--focus);
     outline-offset: 2px;
     border-radius: 2px;
   }
+
   ::selection {
     background: var(--accent-soft);
     color: var(--fg);
@@ -195,6 +392,7 @@
   .tabular {
     font-variant-numeric: tabular-nums;
   }
+
   /* Section labels: plain sentence case, set small and quiet (no tracked capitals). */
   .eyebrow {
     font-size: var(--text-body);
@@ -202,6 +400,38 @@
     font-weight: 500;
     color: var(--fg-subtle);
   }
+
+  /* Fine paper grain for the workspace frame, so the beige doesn't read as a flat fill. */
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.2 0 0 0 0 0.16 0 0 0 0 0.13 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /*
+   * Workspace sheet: panels are see-through so the peaks run behind tables and charts. Nested surface fills
+   * go clear too; sticky table headers blur what scrolls under them instead of covering it.
+   * Worst case (fg-subtle on a 45% panel over the front peak) stays at about 4.8:1.
+   */
+  @media (min-width: 64rem) {
+    .see-through [data-slot="panel"] {
+      background-color: color-mix(in srgb, var(--surface) 45%, transparent);
+    }
+
+    /* Graph nodes keep their fill: edges must not show through the boxes they connect. */
+    .see-through [data-slot="panel"] .bg-surface:not(.react-flow *) {
+      background-color: transparent;
+    }
+
+    .see-through [data-slot="panel"] .sticky {
+      backdrop-filter: blur(8px);
+    }
+  }
+
+  /* Staggered brick pattern in the type colour, used as the Overview page background. */
+  .bg-bricks {
+    background-color: #ddd0c8;
+    background-image: url("data:image/svg+xml,%3Csvg width='84' height='48' viewBox='0 0 84 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h12v6H0V0zm28 8h12v6H28V8zm14-8h12v6H42V0zm14 0h12v6H56V0zm0 8h12v6H56V8zM42 8h12v6H42V8zm0 16h12v6H42v-6zm14-8h12v6H56v-6zm14 0h12v6H70v-6zm0-16h12v6H70V0zM28 32h12v6H28v-6zM14 16h12v6H14v-6zM0 24h12v6H0v-6zm0 8h12v6H0v-6zm14 0h12v6H14v-6zm14 8h12v6H28v-6zm-14 0h12v6H14v-6zm28 0h12v6H42v-6zm14-8h12v6H56v-6zm0-8h12v6H56v-6zm14 8h12v6H70v-6zm0 8h12v6H70v-6zM14 24h12v6H14v-6zm14-8h12v6H28v-6zM14 8h12v6H14V8zM0 8h12v6H0V8z' fill='%23323232' fill-opacity='0.0' fill-rule='evenodd'/%3E%3C/svg%3E");
+  }
+
   .rule-grid {
     background-image: linear-gradient(to right, var(--border) 1px, transparent 1px);
     background-size: calc(100% / 12) 100%;
@@ -209,6 +439,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   ::before,
   ::after {
@@ -222,52 +453,97 @@
 
 /* ── Marketing motion. Every effect has a static end state for reduced motion. ── */
 @keyframes draw {
-  from { stroke-dashoffset: 1; }
-  to { stroke-dashoffset: 0; }
+  from {
+    stroke-dashoffset: 1;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
 }
+
 @keyframes flow {
-  to { stroke-dashoffset: -1; }
+  to {
+    stroke-dashoffset: -1;
+  }
 }
+
 @keyframes rise {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: none; }
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
+
 @keyframes ping-ring {
-  0% { transform: scale(0.6); opacity: 0.7; }
-  80%, 100% { transform: scale(2.4); opacity: 0; }
+  0% {
+    transform: scale(0.6);
+    opacity: 0.7;
+  }
+
+  80%,
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
 }
+
 .draw-path {
   stroke-dasharray: 1 1;
   stroke-dashoffset: 1;
   animation: draw var(--dur, 1.6s) cubic-bezier(0.65, 0, 0.35, 1) var(--delay, 0s) forwards;
 }
+
 .flow-path {
   stroke-dasharray: 0.012 0.238;
   animation: flow var(--dur, 6s) linear infinite;
 }
+
 .rise-in {
   opacity: 0;
   animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) var(--delay, 0s) forwards;
 }
+
 .ping {
   transform-box: fill-box;
   transform-origin: center;
   animation: ping-ring 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
+
 .reveal {
   opacity: 0;
   transform: translateY(18px);
   transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
   transition-delay: var(--delay, 0s);
 }
+
 .reveal[data-shown="true"] {
   opacity: 1;
   transform: none;
 }
+
 @media (prefers-reduced-motion: reduce) {
-  .draw-path { stroke-dashoffset: 0; animation: none; }
-  .flow-path, .ping { display: none; }
-  .rise-in, .reveal { opacity: 1; transform: none; animation: none; }
+  .draw-path {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+
+  .flow-path,
+  .ping {
+    display: none;
+  }
+
+  .rise-in,
+  .reveal {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
 }
 
 /* React Flow, restyled to the token system */
@@ -281,6 +557,7 @@
   --xy-controls-button-border-color: var(--border);
   --xy-attribution-background-color: transparent;
 }
+
 .react-flow__attribution {
   font-size: 9px;
   opacity: 0.5;

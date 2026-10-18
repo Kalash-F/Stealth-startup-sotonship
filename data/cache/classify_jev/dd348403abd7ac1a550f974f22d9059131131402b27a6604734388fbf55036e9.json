@@ -1,0 +1,26 @@
+{
+  "state": {
+    "invoice_line": "14-inch laptop computer, Intel Core i5, 16GB RAM, 512GB SSD",
+    "what_it_is": "A 14-inch laptop computer with an Intel Core i5 processor, 16 gigabytes of RAM, and a 512 gigabyte solid-state drive, made of various electronic components and plastics, which is a finished product used for general computing tasks.",
+    "classified_so_far": "chapter 84: Machinery and mechanical appliances, boilers, nuclear reactors; parts thereof > heading 8471: Automatic data processing machines and units thereof, magnetic or optical readers, machines for transcribing data onto\u2026"
+  },
+  "parent": "8471",
+  "probabilities": {
+    "847110": 0.0,
+    "847120": 0.01,
+    "847130": 0.93,
+    "847141": 0.03,
+    "847149": 0.01,
+    "847150": 0.01,
+    "847160": 0.0,
+    "847170": 0.0,
+    "847180": 0.0,
+    "847190": 0.0,
+    "847191": 0.0,
+    "847192": 0.0,
+    "847193": 0.0,
+    "847199": 0.01,
+    "none": 0.0
+  },
+  "confidence": 0.93
+}

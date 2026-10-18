@@ -24,7 +24,7 @@ export function FeaturedCase() {
         aria-labelledby="featured-heading"
         inert={hidden}
         className={cn(
-          "group fixed bottom-4 right-4 z-20 w-[min(320px,calc(100vw-2rem))] rounded-md border border-accent/45 bg-surface shadow-[0_16px_40px_-16px_rgb(0_0_0/0.7)] hover:border-accent hover:bg-surface-2",
+          "group fixed bottom-4 right-4 z-20 w-[min(320px,calc(100vw-2rem))] rounded-lg border border-accent/45 bg-surface shadow-float hover:border-accent hover:bg-surface-2",
           slide,
           hidden && "translate-x-[calc(100%+1rem)]",
         )}
@@ -47,13 +47,13 @@ export function FeaturedCase() {
           <h2 id="featured-heading" className="text-title font-semibold leading-snug tracking-[-0.01em] text-fg">
             <Link
               href={`/app/investigations/${c.id}`}
-              className="after:absolute after:inset-0 after:rounded-md focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:-outline-offset-2 focus-visible:after:outline-focus"
+              className="after:absolute after:inset-0 after:rounded-lg focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:-outline-offset-2 focus-visible:after:outline-focus"
             >
               {c.title}
             </Link>
           </h2>
           <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5">
-            <PriorityBadge band={c.priority_band} score={c.priority_score} quiet />
+            <PriorityBadge band={c.priority_band} score={c.priority_score} />
             <CaseStatusLabel status={c.status} />
           </div>
         </div>
@@ -65,7 +65,7 @@ export function FeaturedCase() {
         inert={!hidden}
         aria-label="Show next case"
         className={cn(
-          "fixed bottom-4 right-0 z-20 flex items-center gap-1.5 rounded-l-md border border-r-0 border-accent/45 bg-surface py-2 pl-2 pr-3 text-small font-medium text-accent shadow-[0_16px_40px_-16px_rgb(0_0_0/0.7)] hover:border-accent hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-focus",
+          "fixed bottom-4 right-0 z-20 flex items-center gap-1.5 rounded-l-md border border-r-0 border-accent/45 bg-surface py-2 pl-2 pr-3 text-small font-medium text-accent shadow-float hover:border-accent hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-focus",
           slide,
           !hidden && "translate-x-full",
         )}

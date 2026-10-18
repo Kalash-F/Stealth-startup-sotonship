@@ -49,8 +49,8 @@ export function QuickSearch({ open, onOpenChange }: { open: boolean; onOpenChang
   return (
     <DialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
       <DialogPrimitive.Portal>
-        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/50" />
-        <DialogPrimitive.Content className="theme-ink fixed left-1/2 top-[12vh] z-50 w-[calc(100vw-2rem)] max-w-xl -translate-x-1/2 overflow-hidden rounded-md border border-border bg-surface text-fg shadow-frame">
+        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-overlay" />
+        <DialogPrimitive.Content className="fixed left-1/2 top-[12vh] z-50 w-[calc(100vw-2rem)] max-w-xl -translate-x-1/2 overflow-hidden rounded-lg border border-border bg-surface text-fg shadow-frame">
           <DialogPrimitive.Title className="sr-only">Search the workspace</DialogPrimitive.Title>
           <DialogPrimitive.Description className="sr-only">Search cases, invoices and entities. Use arrow keys to move and Enter to open.</DialogPrimitive.Description>
           <div className="flex items-center gap-2 border-b border-border px-3">
@@ -94,7 +94,7 @@ export function QuickSearch({ open, onOpenChange }: { open: boolean; onOpenChang
                         <span className="block truncate text-body text-fg">{r.title}</span>
                         <span className="block truncate text-meta text-fg-subtle">{r.meta}</span>
                       </span>
-                      <span className="font-mono text-meta uppercase text-fg-subtle">{r.kind}</span>
+                      <span className="font-mono text-meta capitalize text-fg-subtle">{r.kind}</span>
                     </button>
                   </li>
                 );

@@ -23,7 +23,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-GB" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html lang="en-GB" suppressHydrationWarning className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body>
         <TooltipProvider>{children}</TooltipProvider>
         <Toaster

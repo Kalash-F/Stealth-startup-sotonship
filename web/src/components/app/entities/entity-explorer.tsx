@@ -38,6 +38,7 @@ export function EntityExplorer() {
       </div>
       <section
         aria-labelledby="graph-heading"
+        data-slot="panel"
         className="flex min-w-0 flex-col overflow-hidden rounded-md border border-border bg-surface xl:col-start-1 xl:row-span-2 xl:row-start-1"
       >
         <header className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-border px-4 py-3">

@@ -32,7 +32,7 @@ Tools available in this environment: Node 22, `next build`, `tsc`, `next lint`, 
 
 | # | Severity | Where | Issue | Fix |
 |---|---|---|---|---|
-| 1 | P2 | dialogs, menus, toasts in /app | Portalled UI rendered in light theme | AppShell adds `theme-ink` to body while mounted |
+| 1 | P2 | dialogs, menus, toasts in /app | Portalled UI rendered in light theme | AppShell adds `theme-linen` to body while mounted |
 | 2 | P2 | evidence class tags | "◐" glyph missing from Geist Mono, rendered as "‹" | Replaced glyphs with lucide icons |
 | 3 | P2 | homepage anomaly showcase | 460px scrollWidth at 390px | Grid fixed by site agent |
 | 4 | P3 | homepage capability 04 | Payment amounts wrapped mid-figure | `whitespace-nowrap` on rows |

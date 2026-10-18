@@ -45,7 +45,7 @@ function SortHeader({
         type="button"
         onClick={() => onSort(k)}
         className={cn(
-          "inline-flex items-center gap-1 rounded-xs uppercase tracking-[0.06em] hover:text-fg",
+          "inline-flex items-center gap-1 rounded-xs hover:text-fg",
           active && "text-fg",
           align === "right" && "flex-row-reverse",
         )}
@@ -141,7 +141,7 @@ export function InvestigationList() {
         {active ? " matching the filters" : ""}
       </p>
 
-      <div className="flex flex-col overflow-hidden rounded-md border border-border bg-surface lg:min-h-0">
+      <div data-slot="panel" className="flex flex-col overflow-hidden rounded-md border border-border bg-surface lg:min-h-0">
         {results.length === 0 ? (
           <div className="flex flex-col items-center gap-3 px-6 py-16 text-center">
             <FilterX className="size-6 text-fg-subtle" aria-hidden />
@@ -171,7 +171,7 @@ export function InvestigationList() {
                   <col className="w-20" />
                 </colgroup>
                 <thead className="sticky top-0 bg-surface">
-                  <tr className="border-b border-border text-left text-meta uppercase tracking-[0.06em] text-fg-subtle">
+                  <tr className="border-b border-border text-left text-meta text-fg-subtle">
                     <th scope="col" className="px-4 py-2 font-medium">Case</th>
                     <th scope="col" className="px-3 py-2 font-medium">Parties</th>
                     <th scope="col" className="px-3 py-2 font-medium">Route</th>
@@ -187,7 +187,14 @@ export function InvestigationList() {
                 </thead>
                 <tbody className="divide-y divide-border">
                   {results.map((i) => (
-                    <tr key={i.id} className={cn("relative align-top hover:bg-surface-2", i.status === "closed_nfa" && "text-fg-muted")}>
+                    <tr
+                      key={i.id}
+                      className={cn(
+                        "relative align-top hover:bg-surface-2",
+                        i.status === "closed_nfa" && "text-fg-muted",
+                        i.priority_band === "review_now" && i.status !== "closed_nfa" && "[&>td:first-child]:shadow-[inset_2px_0_0_var(--risk-high)]",
+                      )}
+                    >
                       <td className="px-4 py-3">
                         <Link
                           href={`/app/investigations/${i.id}`}

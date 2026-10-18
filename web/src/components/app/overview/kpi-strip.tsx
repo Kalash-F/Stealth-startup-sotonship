@@ -48,7 +48,7 @@ export function KpiStrip() {
   ];
 
   return (
-    <section aria-labelledby="kpi-heading" className="grid grid-cols-3 overflow-hidden rounded-md border border-border bg-surface xl:grid-cols-[1.6fr_1fr_1fr_1fr]">
+    <section data-slot="panel" aria-labelledby="kpi-heading" className="grid grid-cols-3 overflow-hidden rounded-md border border-border bg-surface xl:grid-cols-[1.6fr_1fr_1fr_1fr]">
       <h2 id="kpi-heading" className="sr-only">
         Case counts
       </h2>

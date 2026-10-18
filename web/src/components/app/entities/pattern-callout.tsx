@@ -6,7 +6,7 @@ export function PatternCallout() {
   const { flow, manufacturer, related, owner } = orchardGatePattern();
   const share = related ? Math.round((related.amount / flow.received) * 100) : 0;
   return (
-    <section aria-labelledby="pattern-heading" className="rounded-md border border-border border-l-2 border-l-accent bg-surface px-4 py-3">
+    <section data-slot="panel" aria-labelledby="pattern-heading" className="rounded-md border border-border border-l-2 border-l-accent bg-surface px-4 py-3">
       <h2 id="pattern-heading" className="text-body font-semibold text-fg">
         What the network shows
       </h2>

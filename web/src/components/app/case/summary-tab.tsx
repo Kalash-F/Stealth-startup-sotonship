@@ -18,7 +18,7 @@ export function SummaryTab({ inv }: { inv: Investigation }) {
       <Panel>
         <PanelHeader title="Case summary" />
         <PanelBody>
-          <p className="max-w-3xl text-body leading-relaxed text-fg">{inv.summary}</p>
+          <p className="text-body leading-relaxed text-fg [text-wrap:pretty]">{inv.summary}</p>
         </PanelBody>
       </Panel>
 

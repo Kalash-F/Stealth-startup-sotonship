@@ -21,7 +21,7 @@ export function EntityDirectory({
         <table className="w-full min-w-[640px] text-body">
           <caption className="sr-only">All entities. Select a name to open its details.</caption>
           <thead className="sticky top-0 bg-surface">
-            <tr className="border-b border-border text-left text-meta uppercase tracking-[0.06em] text-fg-subtle">
+            <tr className="border-b border-border text-left text-meta text-fg-subtle">
               <th scope="col" className="px-4 py-2 font-medium">Name</th>
               <th scope="col" className="px-3 py-2 font-medium">Kind</th>
               <th scope="col" className="px-3 py-2 font-medium">Country</th>

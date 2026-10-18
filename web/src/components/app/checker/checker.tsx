@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { AlertTriangle, FileUp, Loader2, PlayCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -12,7 +13,9 @@ import { PriorityBadge, PriorityScore } from "@/components/domain/status";
 import { SyntheticBadge } from "@/components/domain/synthetic-badge";
 import type { Flag } from "@/data/types";
 import { api, ApiError, hsPath, notClassifiedReason, type Health, type Report, type Sample } from "@/lib/api";
+import type { Report as LiveReport } from "@/lib/checker-api";
 import { formatUnitPrice } from "@/lib/format";
+import { addLiveCase } from "@/lib/live-cases";
 import { cn } from "@/lib/utils";
 
 const unitName: Record<string, string> = { u: "unit", l: "litre", kg: "kg" };
@@ -41,6 +44,7 @@ export function Checker() {
   const [selected, setSelected] = useState("");
   const [report, setReport] = useState<Report | null>(null);
   const [source, setSource] = useState("");
+  const [caseId, setCaseId] = useState<string | null>(null); // the case created by the last check
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
@@ -67,13 +71,16 @@ export function Checker() {
     );
   }, []);
 
-  const run = useCallback(async (label: string, job: () => Promise<Report>) => {
+  // meta = what we know about the invoice besides the report (a sample's route and currency).
+  const run = useCallback(async (label: string, job: () => Promise<Report>, meta: { route?: string; currency?: string } = {}) => {
     setBusy(true);
     setError(null);
     try {
       const r = await job();
       setReport(r);
       setSource(label);
+      // Every checked invoice becomes a case, so it shows in the attention queue, investigations and counts.
+      setCaseId(addLiveCase(r as unknown as LiveReport, meta)?.id ?? null);
     } catch (e) {
       setError(e instanceof ApiError ? e.message : "Something went wrong while checking the invoice.");
     } finally {
@@ -90,8 +97,9 @@ export function Checker() {
   useEffect(() => {
     if (autoRan.current || !linked || selected !== linked) return;
     autoRan.current = true;
-    void run(linked, () => api.checkSample(linked));
-  }, [linked, selected, run]);
+    const s = samples.find((x) => x.invoice_id === linked);
+    void run(linked, () => api.checkSample(linked), { route: s?.route, currency: s?.currency });
+  }, [linked, selected, samples, run]);
 
   const onFile = (file: File | undefined) => {
     if (!file) return;
@@ -143,7 +151,7 @@ export function Checker() {
                 onClick={() => {
                   if (!sample) return;
                   choose(sample.invoice_id);
-                  void run(sample.invoice_id, () => api.checkSample(sample.invoice_id));
+                  void run(sample.invoice_id, () => api.checkSample(sample.invoice_id), { route: sample.route, currency: sample.currency });
                 }}
                 disabled={!sample || busy}
               >
@@ -228,7 +236,7 @@ export function Checker() {
             </span>
           </Panel>
         ) : report ? (
-          <ReportView report={report} source={source} busy={busy} />
+          <ReportView report={report} source={source} busy={busy} caseId={caseId} />
         ) : (
           <Panel className="grid h-64 place-items-center p-6 text-center">
             <div className="grid max-w-md gap-3 text-left">
@@ -246,7 +254,7 @@ export function Checker() {
   );
 }
 
-function ReportView({ report, source, busy }: { report: Report; source: string; busy: boolean }) {
+function ReportView({ report, source, busy, caseId }: { report: Report; source: string; busy: boolean; caseId: string | null }) {
   return (
     <div className={cn("grid gap-4 transition-opacity", busy && "opacity-50")}>
       <Panel>
@@ -262,6 +270,15 @@ function ReportView({ report, source, busy }: { report: Report; source: string; 
               {source.endsWith(".pdf") ? null : <SyntheticBadge label="Test invoice" />}
             </div>
             {report.summary ? <p className="max-w-prose text-body text-fg-muted">{report.summary}</p> : null}
+            {caseId ? (
+              <p className="text-small text-fg-subtle">
+                Added to the workspace as{" "}
+                <Link href={`/app/investigations/${caseId}`} className="font-mono text-fg underline-offset-4 hover:underline">
+                  {caseId}
+                </Link>
+                .
+              </p>
+            ) : null}
           </div>
           <PriorityScore band={report.priority_band} score={Math.round(report.priority_score)} />
         </div>

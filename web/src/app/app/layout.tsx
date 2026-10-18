@@ -6,6 +6,14 @@ export const metadata: Metadata = {
   robots: { index: false },
 };
 
+/** Restores the saved colour mode before the first paint, so a dark workspace never flashes beige on load. */
+const restoreMode = `try{if(localStorage.getItem("ws-mode")==="dark")document.documentElement.dataset.wsMode="dark"}catch(e){}`;
+
 export default function AppLayout({ children }: { children: React.ReactNode }) {
-  return <AppShell>{children}</AppShell>;
+  return (
+    <>
+      <script dangerouslySetInnerHTML={{ __html: restoreMode }} />
+      <AppShell>{children}</AppShell>
+    </>
+  );
 }

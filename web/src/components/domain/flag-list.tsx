@@ -50,7 +50,7 @@ export function FlagItem({
           {flag.variance_pct !== null ? (
             <>
               <dt className="text-fg-subtle">Variance</dt>
-              <dd className={flag.severity === "high" ? "text-risk-high" : "text-risk-review"}>{formatVariance(flag.variance_pct)}</dd>
+              <dd className={flag.severity === "high" ? "text-risk-high" : "text-fg"}>{formatVariance(flag.variance_pct)}</dd>
             </>
           ) : null}
         </dl>

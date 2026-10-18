@@ -1,13 +1,17 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { StackedPeaks } from "./stacked-peaks";
 
 export interface Crumb {
   label: string;
   href?: string;
 }
 
-/** Page title block used by every application screen. */
+/**
+ * Page title block used by every application screen.
+ * On desktop the stacked peaks sit behind the whole sheet (see AppShell), so here they only show on smaller screens.
+ */
 export function PageHeader({
   title,
   crumbs,
@@ -24,7 +28,8 @@ export function PageHeader({
   className?: string;
 }) {
   return (
-    <div className={cn("shrink-0 border-b border-border px-4 pb-5 pt-5 lg:px-6", className)}>
+    <div className={cn("ws-page-header-scope relative isolate shrink-0 overflow-hidden border-b border-border bg-page-header px-4 pb-5 pt-5 lg:px-6", className)}>
+      <StackedPeaks className="absolute inset-x-0 bottom-0 -z-10 h-[78%] w-full opacity-85 lg:hidden" />
       {crumbs?.length ? (
         <nav aria-label="Breadcrumb" className="mb-3">
           <ol className="flex flex-wrap items-center gap-1 text-small text-fg-subtle">
