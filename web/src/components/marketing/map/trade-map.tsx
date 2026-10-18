@@ -186,12 +186,9 @@ export function TradeMap({ className }: { className?: string }) {
           viewBox={`0 0 ${VIEW.w} ${VIEW.h}`}
           className="absolute inset-0 h-full w-full overflow-visible"
           role="img"
-          aria-labelledby="trade-map-title"
+          // aria-label, not <title>: a <title> shows as a hover tooltip over the whole hero map.
+          aria-label="Stylised map of the fictional sample case: bolts ship from Ningbo through Jebel Ali to Felixstowe, while payments run from Tamworth to Jebel Ali and on to Plzeň."
         >
-          <title id="trade-map-title">
-            Stylised map of the fictional sample case: bolts ship from Ningbo through Jebel Ali to Felixstowe, while payments run from
-            Tamworth to Jebel Ali and on to Plzeň.
-          </title>
           <defs>
             <radialGradient id="land-fade" cx="42%" cy="40%" r="62%">
               <stop offset="0.5" stopColor="#fff" stopOpacity="1" />
