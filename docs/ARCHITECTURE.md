@@ -2,6 +2,8 @@
 
 How the TBML Invoice Checker works, stage by stage. `plan.md` is the build plan, `DECISIONS.md` records where the code deviates from it, and `PROGRESS.md` is the work log. This file explains the code as it stands.
 
+For an interactive diagram of the whole system (web app, API, pipeline stages, LLM, caches and data files), open [architecture.html](architecture.html) in a browser; its source spec is [architecture.json](architecture.json).
+
 The tool reads one invoice PDF and produces a **review priority with reasons**. It never says an invoice is fraudulent. Every flag carries a plain-English reason and the numbers behind it, so a compliance officer can check the call.
 
 ## The pipeline

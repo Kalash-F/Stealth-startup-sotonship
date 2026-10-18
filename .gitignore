@@ -18,3 +18,4 @@ data/benchmarks/raw/*
 .vercel/
 backend/data/
 build/
+HS.json

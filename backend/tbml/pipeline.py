@@ -1,4 +1,4 @@
-"""Chains every stage: PDF -> Invoice -> EnrichedLine -> Benchmark -> Flag -> Report.
+"""Chains every stage: PDF -> Invoice -> EnrichedLine -> Benchmark -> Flag -> Report (+ summary).
 
 `USE_MOCKS=1` swaps extraction and benchmarking for the Phase 0 fixtures (see stubs.py).
 """
@@ -12,9 +12,11 @@ from tbml import stubs
 from tbml.benchmark import benchmark
 from tbml.classify import enrich
 from tbml.extract import extract_document
+from tbml.llm import summary_client
 from tbml.rules import run_rules_with_warnings
 from tbml.schemas import SCHEMA_VERSION, Report, ReportLine
 from tbml.score import score
+from tbml.summary import summarise
 
 log = logging.getLogger("tbml.pipeline")
 
@@ -46,7 +48,7 @@ def check(pdf_path: str | Path) -> Report:
     t = lap("benchmark", t)
     flags, rule_warnings = run_rules_with_warnings(invoice, enriched, benchmarks)
     priority_score, priority_band = score(flags)
-    lap("rules", t)
+    t = lap("rules", t)
 
     by_id = {e.line_id: (e, b) for e, b in zip(enriched, benchmarks, strict=True)}
     lines: list[ReportLine] = []
@@ -61,6 +63,12 @@ def check(pdf_path: str | Path) -> Report:
         if e.hs6 is None:
             warnings.append(f"line {item.line_id} could not be classified")
     warnings.extend(w for w in rule_warnings if w not in warnings)
+    summary, summary_warning = summarise(
+        priority_score, priority_band, flags, lines, warnings, client=summary_client()
+    )
+    if summary_warning:
+        warnings.append(summary_warning)
+    lap("summary", t)
 
     processing_ms = int((time.perf_counter() - start) * 1000)
     timings.pop("start", None)
@@ -70,6 +78,7 @@ def check(pdf_path: str | Path) -> Report:
         schema_version=SCHEMA_VERSION,
         priority_score=priority_score,
         priority_band=priority_band,
+        summary=summary,
         flags=flags,
         lines=lines,
         processing_ms=processing_ms,

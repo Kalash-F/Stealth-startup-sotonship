@@ -55,6 +55,8 @@ python -m tbml.extract.scoring                  # extraction accuracy over data/
 | Variable | Effect |
 |---|---|
 | `ANTHROPIC_API_KEY`, `LLM_MODEL` | Both set: extraction and classification use the LLM (cached on disk). Either missing: offline paths. Also read from a repo-root `.env`. |
+| `OPENROUTER_API_KEY`, `OPENROUTER_MODEL` | Preferred provider: used instead of Anthropic when both are set. |
+| `SUMMARY_MODEL` | Optional model for `Report.summary` only (e.g. a flash-lite or haiku-class model). Default: the main model. With no provider the summary is a fixed template. |
 | `TBML_CACHE_DIR` | Where extraction caches LLM replies (default `data/cache`). |
 | `COMTRADE_API_KEY` | Used only by `scripts/fetch_benchmarks.py`. |
 

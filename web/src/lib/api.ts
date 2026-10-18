@@ -52,6 +52,8 @@ export interface Report {
   schema_version: string;
   priority_score: number;
   priority_band: PriorityBand;
+  /** 1-2 sentence overview of the report (LLM-written, a template offline, null if the LLM call failed). */
+  summary: string | null;
   flags: (Omit<Flag, "evidence"> & { evidence: Record<string, unknown> })[];
   lines: ReportLine[];
   processing_ms: number;
