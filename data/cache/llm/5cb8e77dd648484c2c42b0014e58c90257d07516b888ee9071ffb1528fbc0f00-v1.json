@@ -1,0 +1,49 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Unit 22, Copperfield Trading Estate, Birmingham B94 4ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Ashcombe Commodities UK Ltd"
+    },
+    "consignee": null,
+    "country_of_origin": "U.A.E.",
+    "currency": "GBP",
+    "incoterm": "CFR",
+    "invoice_date": "2024-05-15",
+    "invoice_id": "INV-2024-0007",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "Stainless steel machine screws M4 x 12mm",
+        "extraction_confidence": 1,
+        "line_id": "L1",
+        "line_total": 44265.0,
+        "quantity": 487500,
+        "unit": "pcs",
+        "unit_price": 0.0908
+      },
+      {
+        "description": "Plain white cotton T-shirts, packed per dozen",
+        "extraction_confidence": 1,
+        "line_id": "L2",
+        "line_total": 136343.5,
+        "quantity": 1450,
+        "unit": "dozen",
+        "unit_price": 94.03
+      }
+    ],
+    "port_of_discharge": "London Gateway, UK",
+    "port_of_loading": "Port Khalid, Sharjah, UAE",
+    "seller": {
+      "address": "Office 376, Westmere Business Centre, Al Quoz Industrial Area 3, Dubai, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Ruifeng Logistics LLC"
+    },
+    "source_file": "",
+    "stated_total": 180608.5
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

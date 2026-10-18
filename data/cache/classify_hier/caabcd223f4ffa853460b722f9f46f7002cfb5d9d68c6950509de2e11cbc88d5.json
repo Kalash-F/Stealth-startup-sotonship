@@ -1,0 +1,11 @@
+{
+  "description": "SPARKLING FLAVOURED WATER 500ML PET BOTTLES\nWhat it is: Sparkling flavored water in 500 milliliter PET plastic bottles, a finished beverage product for drinking.",
+  "parent": "22",
+  "choices": [
+    {
+      "code": "2202",
+      "score": 1.0
+    }
+  ],
+  "reason": "The product is sparkling flavored water, which falls under waters containing added sugar or sweetening matter, flavored."
+}

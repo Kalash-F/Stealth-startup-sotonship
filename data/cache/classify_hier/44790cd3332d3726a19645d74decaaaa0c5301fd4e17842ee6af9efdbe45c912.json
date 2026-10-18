@@ -1,0 +1,11 @@
+{
+  "description": "Enterprise-grade USB 2.0 memory stick 32GB, carton of 100\nWhat it is: A carton of 100 enterprise-grade 32-gigabyte USB 2.0 memory sticks, which are finished electronic products used for data storage.",
+  "parent": "85",
+  "choices": [
+    {
+      "code": "8523",
+      "score": 1.0
+    }
+  ],
+  "reason": "USB memory sticks are solid-state non-volatile storage devices for recording data, fitting perfectly into heading 8523."
+}

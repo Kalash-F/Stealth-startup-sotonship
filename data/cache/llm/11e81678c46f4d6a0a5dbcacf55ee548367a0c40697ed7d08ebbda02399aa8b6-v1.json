@@ -1,0 +1,49 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Unit 20, Oakhurst Trading Estate, Leeds LS98 8ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Harbourline Global Sourcing Limited"
+    },
+    "consignee": null,
+    "country_of_origin": "P.R. China",
+    "currency": "USD",
+    "incoterm": "EXW",
+    "invoice_date": "2024-10-07",
+    "invoice_id": "TX240057",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "13-INCH ULTRAPORTABLE LAPTOP, 8GB RAM, 256GB SSD",
+        "extraction_confidence": 1,
+        "line_id": "L1",
+        "line_total": 47095031.3,
+        "quantity": 410,
+        "unit": "PCS",
+        "unit_price": 114865.93
+      },
+      {
+        "description": "REFINED COPPER CATHODE SHEETS, LME GRADE A",
+        "extraction_confidence": 1,
+        "line_id": "L2",
+        "line_total": 557900,
+        "quantity": 35000,
+        "unit": "KG",
+        "unit_price": 15.94
+      }
+    ],
+    "port_of_discharge": "London Gateway, UK",
+    "port_of_loading": "Shanghai, China",
+    "seller": {
+      "address": "No. 472 Jinqiao Industrial Park Road, Pudong New Area, Shanghai 469089",
+      "address_type": "commercial",
+      "country": "CN",
+      "name": "Oasis Arc Wholesale International Trading Co., Ltd."
+    },
+    "source_file": "",
+    "stated_total": 47652931.3
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

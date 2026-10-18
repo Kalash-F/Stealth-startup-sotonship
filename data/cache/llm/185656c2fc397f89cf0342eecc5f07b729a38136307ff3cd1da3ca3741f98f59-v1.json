@@ -1,0 +1,54 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Unit 24, Riverside Trading Estate, Birmingham B92 8ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Oasis Arc Industrial Ltd"
+    },
+    "consignee": {
+      "address": "Flat 10, 45 Copperfield Court, Bristol BS95 3ZY, United Kingdom",
+      "address_type": "residential",
+      "country": "GB",
+      "name": "M. Lindqvist"
+    },
+    "country_of_origin": "India (re-exported from Jebel Ali Free Zone, Dubai)",
+    "currency": "USD",
+    "incoterm": "DAP",
+    "invoice_date": "2024-07-13",
+    "invoice_id": "PI-0035-24",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "13-inch ultraportable laptop, 8GB RAM, 256GB SSD",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 36569319.0,
+        "quantity": 1900.0,
+        "unit": "pcs",
+        "unit_price": 19247.01
+      },
+      {
+        "description": "USB 3.0 flash drive 64GB, metal casing",
+        "extraction_confidence": 1.0,
+        "line_id": "L2",
+        "line_total": 7078460.0,
+        "quantity": 34000.0,
+        "unit": "pcs",
+        "unit_price": 208.19
+      }
+    ],
+    "port_of_discharge": "Southampton, United Kingdom",
+    "port_of_loading": "Jebel Ali, Dubai, UAE",
+    "seller": {
+      "address": "Warehouse 54, Plot S47947, Jebel Ali Free Zone, Dubai, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Ruifeng Global Sourcing FZE"
+    },
+    "source_file": "",
+    "stated_total": 43647779.0
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

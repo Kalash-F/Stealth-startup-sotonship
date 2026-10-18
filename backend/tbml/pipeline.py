@@ -16,6 +16,7 @@ from tbml.llm import summary_client
 from tbml.rules import run_rules_with_warnings
 from tbml.schemas import SCHEMA_VERSION, Report, ReportLine
 from tbml.score import score
+from tbml.summarise import with_summaries
 from tbml.summary import summarise
 
 log = logging.getLogger("tbml.pipeline")
@@ -49,6 +50,9 @@ def check(pdf_path: str | Path) -> Report:
     flags, rule_warnings = run_rules_with_warnings(invoice, enriched, benchmarks)
     priority_score, priority_band = score(flags)
     t = lap("rules", t)
+    if not mocks:
+        flags = with_summaries(invoice, flags)
+        lap("summaries", t)
 
     by_id = {e.line_id: (e, b) for e, b in zip(enriched, benchmarks, strict=True)}
     lines: list[ReportLine] = []

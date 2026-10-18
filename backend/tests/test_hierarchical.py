@@ -274,3 +274,24 @@ def test_codes_with_dots_or_dropped_zeros_are_accepted(nom, tmp_path):
     answers = dict(MACBOOK)
     answers[6] = {"choices": [{"code": "8471.30", "score": 0.9}], "reason": "portable"}
     assert _proposer(answers, nom, tmp_path).propose("laptop")[0].hs6 == "847130"
+
+
+def test_committed_cache_is_read_when_the_cache_moves_to_tmp(nom, tmp_path, monkeypatch):
+    import tbml.classify.hierarchical as hier
+
+    bundled = tmp_path / "data"
+    first = HierarchicalProposer(
+        model="fake",
+        client=FakeClient(MACBOOK),
+        nomenclature=nom,
+        cache_dir=bundled / "cache" / hier.CACHE_SUBDIR,
+        interpret=False,
+    )
+    first.propose("MacBook Air 13")  # fills the "committed" cache
+    monkeypatch.setattr(hier, "DATA_DIR", bundled)
+    monkeypatch.setenv("TBML_CACHE_DIR", str(tmp_path / "tmp"))
+    second = HierarchicalProposer(
+        model="fake", client=FakeClient({}), nomenclature=nom, interpret=False
+    )
+    assert second.propose("MacBook Air 13")[0].hs6 == "847130"
+    assert second.client.calls == []

@@ -1,0 +1,54 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Unit 17, Kingfisher Business Park, Leicester LE92 2ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Redwell Global Sourcing UK Ltd"
+    },
+    "consignee": {
+      "address": "Unit 32, Harrowdene Business Park, Birmingham B98 7ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Kestrel Merchants Ltd"
+    },
+    "country_of_origin": "Turkey",
+    "currency": "GBP",
+    "incoterm": "CIF",
+    "invoice_date": "2024-07-15",
+    "invoice_id": "TX240024",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "MEN'S CREW-NECK T-SHIRT, 100% COTTON JERSEY KNIT",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 14802.8,
+        "quantity": 23000.0,
+        "unit": "PCS",
+        "unit_price": 0.6436
+      },
+      {
+        "description": "15.6-INCH NOTEBOOK PC, AMD RYZEN 7, 16GB RAM",
+        "extraction_confidence": 1.0,
+        "line_id": "L2",
+        "line_total": 211772.4,
+        "quantity": 840.0,
+        "unit": "UNITS",
+        "unit_price": 252.11
+      }
+    ],
+    "port_of_discharge": "Felixstowe, United Kingdom",
+    "port_of_loading": "Khalifa Port, Abu Dhabi, UAE",
+    "seller": {
+      "address": "Office 1002, Riverside Business Centre, Ras Al Khor, Abu Dhabi, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Harbourline Import & Export FZCO"
+    },
+    "source_file": "",
+    "stated_total": 226575.2
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

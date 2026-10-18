@@ -1,0 +1,11 @@
+{
+  "description": "Robusta green coffee beans, 60kg jute bags\nWhat it is: Raw robusta green coffee beans, a raw material, for making coffee, packaged in 60 kilogram jute bags.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "09",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description explicitly states 'Robusta green coffee beans', which directly falls under Chapter 09: Coffee, tea, mate and spices."
+}

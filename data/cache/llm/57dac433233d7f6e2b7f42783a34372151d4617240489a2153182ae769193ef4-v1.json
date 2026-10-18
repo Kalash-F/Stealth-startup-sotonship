@@ -1,0 +1,49 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Unit 18, Riverside Business Park, Leeds LS93 7ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Tidewater Commodities Limited"
+    },
+    "consignee": null,
+    "country_of_origin": "Brazil (re-exported from United Arab Emirates; certificate of origin attached)",
+    "currency": "AED",
+    "incoterm": "EXW",
+    "invoice_date": "2024-01-13",
+    "invoice_id": "INV-2024-0009",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "Robusta green coffee beans, 60kg jute bags",
+        "extraction_confidence": 1,
+        "line_id": "L1",
+        "line_total": 2707080.0,
+        "quantity": 510,
+        "unit": "bags",
+        "unit_price": 5308.0
+      },
+      {
+        "description": "Unroasted Arabica coffee, washed, screen 17/18",
+        "extraction_confidence": 1,
+        "line_id": "L2",
+        "line_total": 1168761.87,
+        "quantity": 34.3,
+        "unit": "MT",
+        "unit_price": 34074.69
+      }
+    ],
+    "port_of_discharge": "Felixstowe, United Kingdom",
+    "port_of_loading": "Khalifa Port, Abu Dhabi, UAE",
+    "seller": {
+      "address": "Warehouse 59, Plot S55830, Jebel Ali Free Zone, Dubai, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Silverfern Supply LLC"
+    },
+    "source_file": "",
+    "stated_total": 3875841.87
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

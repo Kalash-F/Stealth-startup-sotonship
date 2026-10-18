@@ -1,0 +1,76 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Are\u00e1l Fernhill, Skladov\u00e1 62, 601 55 Prague, Czech\nRepublic",
+      "address_type": "commercial",
+      "country": "CZ",
+      "name": "Silverfern Global Sourcing a.s."
+    },
+    "consignee": null,
+    "country_of_origin": "China (re-exported from Jebel Ali Free Zone, Dubai)",
+    "currency": "EUR",
+    "incoterm": "EXW",
+    "invoice_date": "2024-08-31",
+    "invoice_id": "TX240013",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "LEMON SOFT DRINK 330ML CANS, CARTON OF 24",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 32205.88,
+        "quantity": 3250,
+        "unit": "CARTONS",
+        "unit_price": 9.9095
+      },
+      {
+        "description": "REFINED COPPER CATHODE SHEETS, LME GRADE A",
+        "extraction_confidence": 1.0,
+        "line_id": "L2",
+        "line_total": 1052640.0,
+        "quantity": 102000,
+        "unit": "KG",
+        "unit_price": 10.32
+      },
+      {
+        "description": "MEN'S CREW-NECK T-SHIRT, 100% COTTON JERSEY KNIT",
+        "extraction_confidence": 1.0,
+        "line_id": "L3",
+        "line_total": 316858.5,
+        "quantity": 49000,
+        "unit": "PCS",
+        "unit_price": 6.4665
+      },
+      {
+        "description": "USB-C FLASH DRIVE 128GB WITH KEYRING",
+        "extraction_confidence": 1.0,
+        "line_id": "L4",
+        "line_total": 4634270.0,
+        "quantity": 11500,
+        "unit": "PCS",
+        "unit_price": 402.98
+      },
+      {
+        "description": "STAINLESS STEEL MACHINE SCREWS M4 X 12MM",
+        "extraction_confidence": 1.0,
+        "line_id": "L5",
+        "line_total": 7275.6,
+        "quantity": 258000,
+        "unit": "PCS",
+        "unit_price": 0.0282
+      }
+    ],
+    "port_of_discharge": "Prague Ruzyn\u011b Airport, Czechia",
+    "port_of_loading": "Jebel Ali, Dubai, UAE",
+    "seller": {
+      "address": "Warehouse 54, Plot S18161, Jebel Ali Free Zone,\nDubai, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Hengtai Global Sourcing FZCO"
+    },
+    "source_file": "",
+    "stated_total": 6043249.98
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

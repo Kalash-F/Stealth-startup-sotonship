@@ -63,3 +63,25 @@ def test_missing_enrichment_treated_as_unclassified():
     inv = make_invoice([make_line(description="Sundry")])
     (flag,) = r3.check(inv, [], [])
     assert flag.severity == Severity.high
+
+
+def test_ai_vague_verdict_is_flagged_even_with_enough_words():
+    inv = make_invoice([make_line(description="Spare parts for machinery")])
+    note = (
+        'not classified: read as "unspecified spare parts"; '
+        "stopped: too vague to identify the goods; x"
+    )
+    enriched = make_enriched(hs6=None, classification_confidence=0.0, normalisation_note=note)
+    (flag,) = r3.check(inv, [enriched], [None])
+    assert flag.severity == Severity.high
+    assert flag.evidence["ai_vague"] is True
+    assert flag.evidence["ai_reading"] == "unspecified spare parts"
+    assert "AI classifier" in flag.reason
+
+
+def test_classified_line_ignores_old_vague_wording_in_note():
+    inv = make_invoice([make_line(description="Hex bolts M10 steel")])
+    enriched = make_enriched(
+        hs6="731815", normalisation_note="stopped: too vague to identify the goods"
+    )
+    assert r3.check(inv, [enriched], [None]) == []

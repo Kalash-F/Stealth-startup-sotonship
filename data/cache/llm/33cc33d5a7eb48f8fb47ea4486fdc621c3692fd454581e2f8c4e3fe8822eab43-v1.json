@@ -1,0 +1,58 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Are\u00e1l Kingfisher, Lipov\u00e1 39, 603 78 Brno, Czech Republic",
+      "address_type": "commercial",
+      "country": "CZ",
+      "name": "Golden Crane Commodities s.r.o."
+    },
+    "consignee": null,
+    "country_of_origin": "U.A.E.",
+    "currency": "AED",
+    "incoterm": "CIF",
+    "invoice_date": "2024-09-28",
+    "invoice_id": "PI-0018-24",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "13-inch ultraportable laptop, 8GB RAM, 256GB SSD",
+        "extraction_confidence": 1,
+        "line_id": "L1",
+        "line_total": 1662117.6,
+        "quantity": 780,
+        "unit": "pcs",
+        "unit_price": 2130.92
+      },
+      {
+        "description": "Women's V-neck T-shirt, cotton knitted, assorted sizes",
+        "extraction_confidence": 1,
+        "line_id": "L2",
+        "line_total": 539880.0,
+        "quantity": 22000,
+        "unit": "pcs",
+        "unit_price": 24.54
+      },
+      {
+        "description": "Stainless steel machine screws M4 x 12mm",
+        "extraction_confidence": 1,
+        "line_id": "L3",
+        "line_total": 36376.4,
+        "quantity": 431000,
+        "unit": "pcs",
+        "unit_price": 0.0844
+      }
+    ],
+    "port_of_discharge": "Hamburg, Germany",
+    "port_of_loading": "Port Khalid, Sharjah, UAE",
+    "seller": {
+      "address": "Office 667, Oakhurst Business Centre, Musaffah, Sharjah, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Ruifeng Supply General Trading LLC"
+    },
+    "source_file": "",
+    "stated_total": 2238374.0
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

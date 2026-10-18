@@ -1,0 +1,11 @@
+{
+  "description": "Green Arabica coffee beans, unroasted, not decaffeinated\nWhat it is: Unroasted, non-decaffeinated green Arabica coffee beans, which are a raw material used to make coffee.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "09",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description explicitly states 'Green Arabica coffee beans', which directly falls under Chapter 09 for Coffee, tea, mate and spices."
+}

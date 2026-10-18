@@ -1,0 +1,49 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Are\u00e1l Larkspur, Poln\u00ed 8, 750 81 Ostrava, Czech Republic",
+      "address_type": "commercial",
+      "country": "CZ",
+      "name": "Moravia Line Distribution s.r.o."
+    },
+    "consignee": null,
+    "country_of_origin": "India (re-exported from Jebel Ali Free Zone, Dubai)",
+    "currency": "EUR",
+    "incoterm": "FCA",
+    "invoice_date": "2024-12-25",
+    "invoice_id": "PI-0032-24",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "Women's V-neck T-shirt, cotton knitted, assorted sizes",
+        "extraction_confidence": 0.99,
+        "line_id": "L1",
+        "line_total": 176395.82,
+        "quantity": 17000,
+        "unit": "pcs",
+        "unit_price": 7.6793
+      },
+      {
+        "description": "Women's V-neck T-shirt, cotton knitted, assorted sizes",
+        "extraction_confidence": 0.99,
+        "line_id": "L2",
+        "line_total": 346035.0,
+        "quantity": 29500,
+        "unit": "pcs",
+        "unit_price": 11.73
+      }
+    ],
+    "port_of_discharge": "Hamburg, Germany",
+    "port_of_loading": "Khalifa Port, Abu Dhabi, UAE",
+    "seller": {
+      "address": "P.O. Box 21188, Ajman, United Arab Emirates",
+      "address_type": "unknown",
+      "country": "AE",
+      "name": "Jinhai Global Sourcing FZE"
+    },
+    "source_file": "",
+    "stated_total": 522430.82
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

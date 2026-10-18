@@ -1,0 +1,45 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Unit 3, Westmere Industrial Estate, Glasgow G92 7ZX,\nUnited Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Al Rimal Trading Limited"
+    },
+    "consignee": {
+      "address": "Unit 27, Fernhill Trading Estate, Manchester M91 6ZX,\nUnited Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Meridian Bay Import & Export Ltd"
+    },
+    "country_of_origin": "Vietnam (re-exported from China; certificate of origin attached)",
+    "currency": "CNY",
+    "incoterm": "FOB",
+    "invoice_date": "2024-05-21",
+    "invoice_id": "INV-2024-0008",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "Green Arabica coffee beans, unroasted, not decaffeinated",
+        "extraction_confidence": 1,
+        "line_id": "L1",
+        "line_total": 899140.0,
+        "quantity": 22000,
+        "unit": "kg",
+        "unit_price": 40.87
+      }
+    ],
+    "port_of_discharge": "Felixstowe, United Kingdom",
+    "port_of_loading": "Shanghai, China",
+    "seller": {
+      "address": "No. 933 Jinqiao Industrial Park Road, Haicang District,\nXiamen 486046, China",
+      "address_type": "commercial",
+      "country": "CN",
+      "name": "Kestrel Distribution International Trading Co., Ltd."
+    },
+    "source_file": "",
+    "stated_total": 899140.0
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

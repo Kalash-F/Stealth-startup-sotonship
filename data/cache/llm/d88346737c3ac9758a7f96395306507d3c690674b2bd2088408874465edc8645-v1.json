@@ -1,0 +1,58 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Unit 13, Brookfield Business Park, Leicester LE97\n1ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Brightmoor Supply Ltd"
+    },
+    "consignee": null,
+    "country_of_origin": "Made in China",
+    "currency": "CNY",
+    "incoterm": "EXW",
+    "invoice_date": "2024-07-10",
+    "invoice_id": "PI-0043-24",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "USB 3.0 flash drive 64GB, metal casing",
+        "extraction_confidence": 1,
+        "line_id": "L1",
+        "line_total": 1137045,
+        "quantity": 24500,
+        "unit": "pcs",
+        "unit_price": 46.41
+      },
+      {
+        "description": "13-inch ultraportable laptop, 8GB RAM, 256GB SSD",
+        "extraction_confidence": 1,
+        "line_id": "L2",
+        "line_total": 1215379.8,
+        "quantity": 310,
+        "unit": "pcs",
+        "unit_price": 3920.58
+      },
+      {
+        "description": "15.6-inch notebook PC, AMD Ryzen 7, 16GB RAM",
+        "extraction_confidence": 1,
+        "line_id": "L3",
+        "line_total": 358854.4,
+        "quantity": 320,
+        "unit": "units",
+        "unit_price": 1121.42
+      }
+    ],
+    "port_of_discharge": "London Gateway, UK",
+    "port_of_loading": "Ningbo, China",
+    "seller": {
+      "address": "No. 498 Minsheng Industrial Park Road, Haicang District, Xiamen\n295566, China",
+      "address_type": "commercial",
+      "country": "CN",
+      "name": "Brightmoor Import & Export Co., Ltd."
+    },
+    "source_file": "",
+    "stated_total": 2711279.2
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

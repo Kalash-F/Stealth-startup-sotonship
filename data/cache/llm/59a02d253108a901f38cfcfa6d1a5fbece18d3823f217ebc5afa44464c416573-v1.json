@@ -1,0 +1,49 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Unit 37, Millbrook Business Park, Birmingham B97 4ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Falconcrest Commodities Limited"
+    },
+    "consignee": null,
+    "country_of_origin": "Made in China",
+    "currency": "GBP",
+    "incoterm": "DAP",
+    "invoice_date": "2024-11-12",
+    "invoice_id": "TX240040",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "ENERGY DRINK 250ML CANS, ORIGINAL FLAVOUR",
+        "extraction_confidence": 1,
+        "line_id": "L1",
+        "line_total": 16085.25,
+        "quantity": 67500,
+        "unit": "CANS",
+        "unit_price": 0.2383
+      },
+      {
+        "description": "COPPER CATHODES GRADE A, 99.99% CU",
+        "extraction_confidence": 1,
+        "line_id": "L2",
+        "line_total": 1117597.88,
+        "quantity": 149.8,
+        "unit": "MT",
+        "unit_price": 7460.6
+      }
+    ],
+    "port_of_discharge": "Southampton, United Kingdom",
+    "port_of_loading": "Ningbo, China",
+    "seller": {
+      "address": "No. 778 Minsheng Industrial Park Road, Bao'an District, Shenzhen 435367, China",
+      "address_type": "commercial",
+      "country": "CN",
+      "name": "Starbridge Logistics Co., Ltd."
+    },
+    "source_file": "",
+    "stated_total": 1133683.13
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

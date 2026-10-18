@@ -1,0 +1,11 @@
+{
+  "description": "BRANDED M6 X 30MM HEX BOLTS, ZINC PLATED\nWhat it is: These are zinc-plated steel hex head bolts, 6mm in diameter and 30mm long, used for fastening.",
+  "parent": "7318",
+  "choices": [
+    {
+      "code": "731815",
+      "score": 0.9
+    }
+  ],
+  "reason": "The description specifies 'HEX BOLTS', which are threaded screws and bolts not elsewhere specified in the other options."
+}

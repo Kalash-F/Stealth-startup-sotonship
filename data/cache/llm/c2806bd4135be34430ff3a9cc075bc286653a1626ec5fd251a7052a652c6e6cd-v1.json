@@ -1,0 +1,40 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Are\u00e1l Millbrook, Lipov\u00e1 29, 635 29 Ostrava, Czech Republic",
+      "address_type": "commercial",
+      "country": "CZ",
+      "name": "Jinhai Commodities s.r.o."
+    },
+    "consignee": null,
+    "country_of_origin": "U.A.E.",
+    "currency": "EUR",
+    "incoterm": "FCA",
+    "invoice_date": "2024-10-31",
+    "invoice_id": "PI-0039-24",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "Plain white cotton T-shirts, packed per dozen",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 244125.0,
+        "quantity": 1550.0,
+        "unit": "dozen",
+        "unit_price": 157.5
+      }
+    ],
+    "port_of_discharge": "Hamburg, Germany",
+    "port_of_loading": "Port Khalid, Sharjah, UAE",
+    "seller": {
+      "address": "Warehouse 3, Plot S57526, Jebel Ali Free Zone, Dubai, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Silverfern Import & Export LLC"
+    },
+    "source_file": "",
+    "stated_total": 244125.0
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}
