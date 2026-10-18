@@ -22,9 +22,10 @@
   --surface-3: #e2ddd0;
   --border: #d9d3c5;
   --border-strong: #b9b1a0;
+  --control-border: #8d8168; /* input and select outlines: 3:1 on every surface (WCAG 1.4.11) */
   --fg: #15171b;
   --fg-muted: #555a62;
-  --fg-subtle: #7b7f86;
+  --fg-subtle: #63676d; /* 4.6:1 or better on bg, surface, surface-2 (WCAG AA) */
   --accent: #0d7468;
   --accent-fg: #f7fbfa;
   --accent-soft: #d5ebe6;
@@ -85,6 +86,7 @@
   /* Hairlines on the content area and panels. */
   --ws-border: #c7b7ad;
   --ws-border-strong: #a39388;
+  --ws-control-border: #78685d;
 
   --frame: var(--ws-frame);
   --sidebar: var(--ws-sidebar);
@@ -97,6 +99,7 @@
   --surface-3: #cbbbb1;
   --border: var(--ws-border);
   --border-strong: var(--ws-border-strong);
+  --control-border: var(--ws-control-border); /* input and select outlines: 3:1 on every surface (WCAG 1.4.11) */
   --fg: var(--ws-text);
   --fg-muted: var(--ws-text-muted);
   --fg-subtle: var(--ws-text-subtle);
@@ -109,8 +112,8 @@
   --risk-low-soft: #d2d6c4;
   --risk-review: #704708;
   --risk-review-soft: #e8d6b4;
-  /* Review-band priority: the brick's saturation and weight carried to yellow (4.7:1 on panels). */
-  --risk-review-mark: #7a5c0f;
+  /* Review-band priority: the brick's saturation and weight carried to yellow (4.6:1 or better on every linen surface). */
+  --risk-review-mark: #60480c;
   --risk-high: #922e15;
   --risk-high-soft: #ebcbbe;
   --finding: #7a2215;
@@ -168,6 +171,7 @@
   --bg: var(--ws-content);
   --border: var(--ws-border);
   --border-strong: var(--ws-border-strong);
+  --control-border: var(--ws-control-border); /* input and select outlines: 3:1 on every surface (WCAG 1.4.11) */
 }
 
 /*
@@ -189,6 +193,7 @@ html[data-ws-mode="dark"] .theme-linen {
   --ws-text-subtle: #7d8996;
   --ws-border: #242e3a;
   --ws-border-strong: #354253;
+  --ws-control-border: #566c87;
 
   --overlay: rgb(0 0 0 / 0.5);
   --surface-2: #171e27;
@@ -230,9 +235,10 @@ html[data-ws-mode="dark"] .theme-linen {
   --surface-3: #1e2732;
   --border: #242e3a;
   --border-strong: #354253;
+  --control-border: #566c87; /* 3:1 on every surface (WCAG 1.4.11) */
   --fg: #e5e9ee;
   --fg-muted: #9aa5b2;
-  --fg-subtle: #6c7886;
+  --fg-subtle: #7c8896; /* 4.6:1 or better on bg, surface, surface-2 (WCAG AA) */
   --accent: #3cc4b0;
   --accent-fg: #06221e;
   --accent-soft: #123430;
@@ -268,9 +274,10 @@ html[data-ws-mode="dark"] .theme-linen {
   --surface-3: #19212b;
   --border: #1c242e;
   --border-strong: #2b3643;
+  --control-border: #526881; /* 3:1 on every surface (WCAG 1.4.11) */
   --fg: #ece7dd;
   --fg-muted: #a7a399;
-  --fg-subtle: #75736d;
+  --fg-subtle: #84827b; /* 4.6:1 or better on bg, surface, surface-2 (WCAG AA) */
   --accent: #3cc4b0;
   --accent-fg: #04201c;
   --accent-soft: #0f2d29;
@@ -303,6 +310,7 @@ html[data-ws-mode="dark"] .theme-linen {
   --color-surface-3: var(--surface-3);
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
+  --color-control: var(--control-border);
   --color-fg: var(--fg);
   --color-fg-muted: var(--fg-muted);
   --color-fg-subtle: var(--fg-subtle);
@@ -374,6 +382,11 @@ html[data-ws-mode="dark"] .theme-linen {
   ::before,
   ::after {
     border-color: var(--border);
+  }
+
+  /* Keeps a focused element clear of the sticky headers when the page scrolls to it (WCAG 2.4.11). */
+  html {
+    scroll-padding-top: 5rem;
   }
 
   :focus-visible {
@@ -558,7 +571,16 @@ html[data-ws-mode="dark"] .theme-linen {
   --xy-attribution-background-color: transparent;
 }
 
+/* The library credit stays, but readable (AA contrast) and a 24px target (WCAG 2.5.8). */
 .react-flow__attribution {
-  font-size: 9px;
-  opacity: 0.5;
+  font-size: 11px;
+  padding: 0;
+}
+
+.react-flow__attribution a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 6px;
+  color: var(--fg-muted);
 }

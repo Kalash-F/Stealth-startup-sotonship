@@ -81,7 +81,8 @@ export function Checker() {
     };
   }, [report]);
 
-  const run = useCallback(async (label: DocumentSource, job: () => Promise<Report>) => {
+  // Focus moves to the result only when the user started the check, never on a check run at page load.
+  const run = useCallback(async (label: DocumentSource, job: () => Promise<Report>, moveFocus = true) => {
     setBusy(true);
     setError(null);
     try {
@@ -92,7 +93,7 @@ export function Checker() {
       setActive(null);
       // Every checked invoice becomes a case, so it shows in the attention queue, investigations and counts.
       setCaseId(addLiveCase(r)?.id ?? null);
-      resultsRef.current?.focus({ preventScroll: true });
+      if (moveFocus) resultsRef.current?.focus({ preventScroll: true });
     } catch (e) {
       setError(e instanceof ApiError ? e.message : "Something went wrong while checking the invoice.");
     } finally {
@@ -101,7 +102,8 @@ export function Checker() {
   }, []);
 
   const checkSample = useCallback(
-    (invoiceId: string) => run({ kind: "sample", url: samplePdfUrl(invoiceId), name: `${invoiceId}.pdf` }, () => api.checkSample(invoiceId)),
+    (invoiceId: string, moveFocus = true) =>
+      run({ kind: "sample", url: samplePdfUrl(invoiceId), name: `${invoiceId}.pdf` }, () => api.checkSample(invoiceId), moveFocus),
     [run],
   );
 
@@ -114,7 +116,7 @@ export function Checker() {
   useEffect(() => {
     if (autoRan.current || !linked || selected !== linked) return;
     autoRan.current = true;
-    void checkSample(linked);
+    void checkSample(linked, false);
   }, [linked, selected, checkSample]);
 
   const onFile = (file: File | undefined) => {
@@ -132,7 +134,8 @@ export function Checker() {
 
   const selectLine = (id: string) => {
     setActive(id);
-    document.getElementById(`line-${id}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    document.getElementById(`line-${id}`)?.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "start" });
   };
 
   const sample = samples.find((s) => s.invoice_id === selected);
@@ -165,7 +168,7 @@ export function Checker() {
               value={selected}
               onChange={(e) => choose(e.target.value)}
               aria-describedby="sample-hint"
-              className="h-11 w-full min-w-0 rounded-sm border border-border-strong bg-surface px-2.5 text-body text-fg"
+              className="h-11 w-full min-w-0 rounded-sm border border-control bg-surface px-2.5 text-body text-fg"
               disabled={!samples.length}
             >
               {samples.length ? null : <option>No test invoices available</option>}
@@ -214,10 +217,17 @@ export function Checker() {
         </div>
       </Panel>
 
-      {healthError ? <Alert>The checking service cannot be reached right now. {healthError}</Alert> : null}
+      {healthError ? <Alert>{healthError}</Alert> : null}
       {error ? <Alert>{error}</Alert> : null}
 
-      <div ref={resultsRef} tabIndex={-1} aria-live="polite" aria-busy={busy} className="outline-none">
+      <p role="status" className="sr-only">
+        {busy
+          ? "Checking the invoice."
+          : report
+            ? `Check finished for invoice ${report.invoice_id}: priority ${Math.round(report.priority_score)} of 100, ${report.flags.length} ${report.flags.length === 1 ? "flag" : "flags"}.`
+            : ""}
+      </p>
+      <div ref={resultsRef} tabIndex={-1} aria-label="Check result" aria-busy={busy} className="outline-none">
         {busy && !report ? (
           <Loading />
         ) : report && doc ? (

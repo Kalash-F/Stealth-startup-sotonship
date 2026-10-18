@@ -23,7 +23,9 @@ Tools available in this environment: Node 22, `next build`, `tsc`, `next lint`, 
 | ⌘K search | app shell | TODO | built, not covered by an automated test |
 | Sign-in honesty, no credential storage | `/sign-in` | PASS | smoke test: password cleared, status message, nothing sent |
 | Demo request honesty | `/request-demo` | PASS | agent script: validation errors, "not been sent" panel |
-| Keyboard navigation and focus states | site nav, app nav, tabs, dialogs | TODO | focus styles present; graph nodes not keyboard-selectable (directory is the keyboard path) |
+| Keyboard navigation and focus states | site nav, app nav, tabs, dialogs, checker | PASS | skip link on site and workspace; checker walked by keyboard (picker, zoom, PDF link, disclosures); graph nodes not keyboard-selectable (directory is the keyboard path) |
+| WCAG 2.2 AA (axe) | every route, both workspace modes, checker with a report, every case tab | PASS | `tests/a11y.spec.ts`; 0 violations, 0 best-practice issues; non-text contrast of inputs and focus rings computed (3:1) |
+| Reflow at 320px | every route, checker with a report | PASS | no horizontal page scroll |
 | Reduced motion | global | PASS | global media query disables transitions (code review, not emulated) |
 | Data consistency (scores, totals, counts) | overview, list, detail, graph, marketing | PASS | scores computed from flags, dashboard from cases; spot-checked CASE-0142 across hero, overview, detail, graph |
 | No fabricated claims, logos, testimonials | marketing | PASS | manual read of homepage |

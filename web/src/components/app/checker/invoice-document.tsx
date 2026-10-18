@@ -224,6 +224,7 @@ export function InvoiceDocument({
                       isFlagged ? "bg-[#922e15] text-white" : "bg-[#3a3632] text-white",
                     )}
                   >
+                    {isFlagged ? "▲ " : ""}
                     {row.id}
                   </span>
                 </div>

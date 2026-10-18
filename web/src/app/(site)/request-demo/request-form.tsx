@@ -42,7 +42,7 @@ function validate(v: Values): Errors {
 }
 
 const selectClass =
-  "h-9 w-full rounded-sm border border-border-strong bg-surface px-3 text-sm text-fg focus-visible:border-focus focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/25";
+  "h-9 w-full rounded-sm border border-control bg-surface px-3 text-sm text-fg focus-visible:border-focus focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/25";
 
 /**
  * No submission backend exists yet. Valid input is shown back in memory only:

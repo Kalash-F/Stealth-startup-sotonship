@@ -100,7 +100,7 @@ function LineItem({
           <PriceBandBar benchmark={line.benchmark} stated={line.unit_price_usd} size="sm" />
           {conversion ? <p className="text-small text-fg-subtle">{conversion}</p> : null}
           <p className="text-small text-fg-subtle">{comparedWith(line.benchmark)}</p>
-          {line.benchmark.history?.length ? <YearByYear benchmark={line.benchmark} stated={line.unit_price_usd} /> : null}
+          {line.benchmark.history?.length ? <YearByYear lineId={line.line_id} benchmark={line.benchmark} stated={line.unit_price_usd} /> : null}
         </div>
       ) : line.hs6 ? (
         <p className="text-small text-fg-muted">There are no comparison prices for this code yet, so its price was not checked.</p>
@@ -223,7 +223,7 @@ const positionTone: Record<BandPosition, string> = {
 
 /** The stated price placed in every year of the series (and the origin's own band), so the
  * officer sees whether the price is out of line every year or only in one. */
-function YearByYear({ benchmark, stated }: { benchmark: LiveBenchmark; stated: number }) {
+function YearByYear({ lineId, benchmark, stated }: { lineId: string; benchmark: LiveBenchmark; stated: number }) {
   const periods = benchmark.history ?? [];
   const rows: { label: string; band: PriceBand; current: boolean }[] = periods.map((b) => ({
     label: b.period === "all" ? "All years" : `${b.period}${b.months < 12 ? ` (${b.months} months)` : ""}`,
@@ -241,7 +241,7 @@ function YearByYear({ benchmark, stated }: { benchmark: LiveBenchmark; stated: n
       <summary className="cursor-pointer select-none text-fg-muted hover:text-fg">
         Year by year: outside the normal range in {out} of {counted.length} periods
       </summary>
-      <div className="mt-2 overflow-x-auto" tabIndex={0} role="region" aria-label="Year by year prices">
+      <div className="mt-2 overflow-x-auto" tabIndex={0} role="region" aria-label={`Year by year prices, line ${lineId}`}>
         <table className="w-full min-w-[540px] border-collapse whitespace-nowrap tabular">
           <caption className="sr-only">This invoice&apos;s price against each period of UK import prices, in USD</caption>
           <thead>

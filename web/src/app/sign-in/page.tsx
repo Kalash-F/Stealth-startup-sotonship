@@ -18,7 +18,7 @@ export default function SignInPage() {
   const queue = attentionQueue().slice(0, 3);
 
   return (
-    <div className="theme-paper flex min-h-dvh flex-col bg-bg text-fg md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
+    <main className="theme-paper flex min-h-dvh flex-col bg-bg text-fg md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
       <section aria-labelledby="sign-in-heading" className="flex flex-1 flex-col justify-center px-6 py-12 sm:px-12 md:px-16">
         <div className="mx-auto w-full max-w-sm">
           <Link href="/" className="inline-flex w-fit text-fg">
@@ -77,6 +77,6 @@ export default function SignInPage() {
           <p className="mt-4 text-xs text-fg-muted">Three open cases from the sample workspace, highest priority first.</p>
         </div>
       </aside>
-    </div>
+    </main>
   );
 }

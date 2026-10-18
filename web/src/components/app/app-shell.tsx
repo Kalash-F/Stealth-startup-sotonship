@@ -226,6 +226,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   // `relative` keeps absolutely positioned helpers (sr-only text) from stretching the document past the screen.
   return (
     <div className="theme-linen grain relative flex min-h-dvh flex-col bg-frame text-fg lg:h-dvh lg:overflow-hidden">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:rounded-sm focus:bg-fg focus:px-3 focus:py-2 focus:text-body focus:text-bg"
+      >
+        Skip to content
+      </a>
       <div className="flex lg:min-h-0 lg:flex-1">
         {/* Desktop sidebar */}
         <aside className="grain hidden w-60 shrink-0 overflow-y-auto bg-sidebar lg:block">{sidebar}</aside>
@@ -264,7 +270,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <ProfileMenu />
             </div>
           </header>
-          <main id="main" className="flex min-w-0 flex-1 flex-col lg:min-h-0 lg:overflow-y-auto">
+          <main id="main" tabIndex={-1} className="flex min-w-0 flex-1 flex-col outline-none lg:min-h-0 lg:overflow-y-auto">
             {children}
           </main>
         </div>

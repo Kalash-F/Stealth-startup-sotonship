@@ -177,27 +177,27 @@ export function EvidenceExhibit() {
                 <div className="min-w-[520px] p-6 sm:p-9 [font-feature-settings:'tnum']">
                   <div className="flex items-start justify-between gap-6 border-b border-[#d9d3c5] pb-5">
                     <div>
-                      <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#7b7f86]">Commercial invoice</p>
+                      <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#63676d]">Commercial invoice</p>
                       <p className="mt-2 font-serif text-[1.65rem] leading-none">{inv.invoice.invoice_id}</p>
                     </div>
                     <dl className="grid grid-cols-[auto_auto] gap-x-4 gap-y-1 text-right font-mono text-[11px]">
-                      <dt className="text-[#7b7f86]">Date</dt>
+                      <dt className="text-[#63676d]">Date</dt>
                       <dd>{formatDate(inv.invoice.invoice_date)}</dd>
-                      <dt className="text-[#7b7f86]">Terms</dt>
+                      <dt className="text-[#63676d]">Terms</dt>
                       <dd>{inv.invoice.incoterm} {inv.invoice.port_of_discharge?.split(",")[0]}</dd>
                     </dl>
                   </div>
 
                   <div className="grid grid-cols-2 gap-6 border-b border-[#d9d3c5] py-5 text-[12.5px] leading-relaxed">
                     <div>
-                      <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#7b7f86]">Seller</p>
+                      <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#63676d]">Seller</p>
                       <Field n={5} {...f} className="mt-1 font-medium">
                         {inv.invoice.seller.name}
                       </Field>
                       <p className="text-[#555a62]">{inv.invoice.seller.address}</p>
                     </div>
                     <div>
-                      <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#7b7f86]">Buyer</p>
+                      <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#63676d]">Buyer</p>
                       <p className="mt-1 font-medium">{inv.invoice.buyer.name}</p>
                       <p className="text-[#555a62]">{inv.invoice.buyer.address}</p>
                     </div>
@@ -205,17 +205,17 @@ export function EvidenceExhibit() {
 
                   <dl className="grid grid-cols-3 gap-4 border-b border-[#d9d3c5] py-4 text-[12px]">
                     <div>
-                      <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#7b7f86]">Country of origin</dt>
+                      <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#63676d]">Country of origin</dt>
                       <dd className="mt-1">
                         <Field n={3} {...f}>{inv.invoice.country_of_origin}</Field>
                       </dd>
                     </div>
                     <div>
-                      <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#7b7f86]">Port of loading</dt>
+                      <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#63676d]">Port of loading</dt>
                       <dd className="mt-1">{inv.invoice.port_of_loading}</dd>
                     </div>
                     <div>
-                      <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#7b7f86]">Discharge</dt>
+                      <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#63676d]">Discharge</dt>
                       <dd className="mt-1">{inv.invoice.port_of_discharge}</dd>
                     </div>
                   </dl>
@@ -223,7 +223,7 @@ export function EvidenceExhibit() {
                   <table className="mt-4 w-full text-[12px]">
                     <caption className="sr-only">Invoice lines</caption>
                     <thead>
-                      <tr className="font-mono text-[10px] uppercase tracking-[0.1em] text-[#7b7f86]">
+                      <tr className="font-mono text-[10px] uppercase tracking-[0.1em] text-[#63676d]">
                         <th scope="col" className="pb-2 text-left font-normal">Line</th>
                         <th scope="col" className="pb-2 text-left font-normal">Description</th>
                         <th scope="col" className="pb-2 text-right font-normal">Qty</th>
@@ -234,7 +234,7 @@ export function EvidenceExhibit() {
                     <tbody className="font-mono">
                       {[L1, L2, L3].map((l) => (
                         <tr key={l.line_id} className="border-t border-[#e2ddd0] align-top">
-                          <td className="py-2.5 pr-2 text-[#7b7f86]">{l.line_id}</td>
+                          <td className="py-2.5 pr-2 text-[#63676d]">{l.line_id}</td>
                           <td className="py-2.5 pr-3 font-sans">
                             {l === L2 ? <Field n={2} {...f}>{l.description}</Field> : l.description}
                           </td>
@@ -249,9 +249,9 @@ export function EvidenceExhibit() {
                   </table>
 
                   <div className="mt-4 flex items-end justify-between gap-6 border-t-2 border-[#15171b] pt-4">
-                    <p className="max-w-[16rem] text-[11px] leading-relaxed text-[#7b7f86]">Fictional document generated for the sample workspace.</p>
+                    <p className="max-w-[16rem] text-[11px] leading-relaxed text-[#63676d]">Fictional document generated for the sample workspace.</p>
                     <div className="text-right">
-                      <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#7b7f86]">Total due</p>
+                      <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#63676d]">Total due</p>
                       <Field n={4} {...f} className="mt-1 font-mono text-[1.35rem]">
                         {formatMoney(inv.invoice.stated_total)}
                       </Field>

@@ -180,7 +180,7 @@ async function call<T>(path: string, init?: RequestInit): Promise<T> {
   try {
     res = await fetch(`${BASE}${path}`, { cache: "no-store", ...init });
   } catch {
-    throw new ApiError("Could not reach the checker service. Is the backend running?", 0);
+    throw new ApiError("The checking service cannot be reached right now. Try again in a moment.", 0);
   }
   if (!res.ok) {
     let detail = `Request failed (${res.status}).`;
