@@ -116,6 +116,32 @@ export interface ReportLine extends Omit<LineItem, "hs6" | "unit_price_usd" | "b
   benchmark: LiveBenchmark | null;
 }
 
+/** A party as extracted: any ISO country code (ZZ when the extractor could not read one). */
+export interface ReportParty {
+  name: string;
+  address: string;
+  country: string;
+  address_type: "commercial" | "residential" | "unknown";
+}
+
+/** Report.invoice (schema 1.2): the invoice as extracted, header and parties included. */
+export interface ReportInvoice {
+  invoice_id: string;
+  invoice_date: string;
+  seller: ReportParty;
+  buyer: ReportParty;
+  consignee: ReportParty | null;
+  country_of_origin: string | null;
+  port_of_loading: string | null;
+  port_of_discharge: string | null;
+  incoterm: string | null;
+  currency: string;
+  line_items: Omit<LineItem, "hs6" | "unit_price_usd" | "benchmark">[];
+  stated_total: number;
+  source_file: string;
+  is_synthetic: boolean;
+}
+
 export interface Report {
   invoice_id: string;
   schema_version: string;
