@@ -1,0 +1,63 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Unit 31, Harrowdene Industrial Estate, Leeds LS94 1ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Thornbury Wholesale Limited"
+    },
+    "consignee": {
+      "address": "Unit 31, Kingfisher Industrial Estate, Glasgow G96 8ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Oasis Arc Distribution Limited"
+    },
+    "country_of_origin": "China",
+    "currency": "USD",
+    "incoterm": "CFR",
+    "invoice_date": "2024-06-06",
+    "invoice_id": "INV-2024-0021",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "Men's crew-neck T-shirt, 100% cotton jersey knit",
+        "extraction_confidence": 1,
+        "line_id": "L1",
+        "line_total": 1383529.56,
+        "quantity": 4,
+        "unit": "pcs",
+        "unit_price": 345882.39
+      },
+      {
+        "description": "Refined copper cathode sheets, LME Grade A",
+        "extraction_confidence": 1,
+        "line_id": "L2",
+        "line_total": 5444390.0,
+        "quantity": 143500,
+        "unit": "kg",
+        "unit_price": 37.94
+      },
+      {
+        "description": "Refined copper cathode sheets, LME Grade A",
+        "extraction_confidence": 1,
+        "line_id": "L3",
+        "line_total": 761259.25,
+        "quantity": 77500,
+        "unit": "kg",
+        "unit_price": 9.8227
+      }
+    ],
+    "port_of_discharge": "London Gateway, UK",
+    "port_of_loading": "Qingdao, China",
+    "seller": {
+      "address": "No. 264 Xinghai Industrial Park Road, Huangdao District, Qingdao 247881, China",
+      "address_type": "commercial",
+      "country": "CN",
+      "name": "Starbridge Merchants International Trading Co., Ltd."
+    },
+    "source_file": "",
+    "stated_total": 7589178.81
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

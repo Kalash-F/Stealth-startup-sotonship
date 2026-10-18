@@ -1,0 +1,63 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Warehouse 57, Plot S19632, Jebel Ali Free Zone, Dubai, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Jinhai Distribution LLC"
+    },
+    "consignee": {
+      "address": "Office 1299, Harrowdene Business Centre, Musaffah, Abu Dhabi, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Saffron Dune Merchants General Trading LLC"
+    },
+    "country_of_origin": "Colombia (re-exported from United Kingdom; certificate of origin attached)",
+    "currency": "GBP",
+    "incoterm": "FCA",
+    "invoice_date": "2024-03-30",
+    "invoice_id": "INV-2024-0031",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "Unroasted Arabica coffee, washed, screen 17/18",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 103872.76,
+        "quantity": 22.6,
+        "unit": "MT",
+        "unit_price": 4596.14
+      },
+      {
+        "description": "Green Arabica coffee beans, unroasted, not decaffeinated",
+        "extraction_confidence": 1.0,
+        "line_id": "L2",
+        "line_total": 206010.0,
+        "quantity": 36000.0,
+        "unit": "kg",
+        "unit_price": 5.7225
+      },
+      {
+        "description": "Robusta green coffee beans, 60kg jute bags",
+        "extraction_confidence": 1.0,
+        "line_id": "L3",
+        "line_total": 135957.6,
+        "quantity": 360.0,
+        "unit": "bags",
+        "unit_price": 377.66
+      }
+    ],
+    "port_of_discharge": "Jebel Ali, Dubai, UAE",
+    "port_of_loading": "London Gateway, UK",
+    "seller": {
+      "address": "Unit 2, Brookfield Business Park, Leicester LE98 5ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Pearl Gulf Global Sourcing Limited"
+    },
+    "source_file": "",
+    "stated_total": 445840.36
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

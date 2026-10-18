@@ -1,0 +1,54 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Office 448, Juniper Business Centre, Al Quoz Industrial Area 3, Ajman, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Silverfern Logistics General Trading LLC"
+    },
+    "consignee": {
+      "address": "Office 561, Copperfield Business Centre, Al Qusais, Sharjah, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Harbourline Trading LLC"
+    },
+    "country_of_origin": "Great Britain",
+    "currency": "AED",
+    "incoterm": "EXW",
+    "invoice_date": "2024-03-06",
+    "invoice_id": "TX240011",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "PLAIN WHITE COTTON T-SHIRTS, PACKED PER DOZEN",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 436818.2,
+        "quantity": 910,
+        "unit": "DOZEN",
+        "unit_price": 480.02
+      },
+      {
+        "description": "USB-C FLASH DRIVE 128GB WITH KEYRING",
+        "extraction_confidence": 1.0,
+        "line_id": "L2",
+        "line_total": 24711400.0,
+        "quantity": 19000,
+        "unit": "PCS",
+        "unit_price": 1300.6
+      }
+    ],
+    "port_of_discharge": "Jebel Ali, Dubai, UAE",
+    "port_of_loading": "Southampton, United Kingdom",
+    "seller": {
+      "address": "Unit 29, Millbrook Business Park, Glasgow G99 6ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Ashcombe Supply UK Ltd"
+    },
+    "source_file": "",
+    "stated_total": 25148218.2
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

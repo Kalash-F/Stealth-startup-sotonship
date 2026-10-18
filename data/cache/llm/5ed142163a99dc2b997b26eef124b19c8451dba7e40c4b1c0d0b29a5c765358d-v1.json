@@ -1,0 +1,45 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Warehouse 68, Plot S39579, Jebel Ali Free Zone, Dubai, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Thornbury Supply FZE"
+    },
+    "consignee": {
+      "address": "Office 306, Juniper Business Centre, Al Qusais, Abu Dhabi, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Harbourline Logistics LLC"
+    },
+    "country_of_origin": "Great Britain",
+    "currency": "GBP",
+    "incoterm": "CIF",
+    "invoice_date": "2024-05-28",
+    "invoice_id": "PI-0053-24",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "14-inch laptop computer, Intel Core i5, 16GB RAM, 512GB SSD",
+        "extraction_confidence": 1,
+        "line_id": "L1",
+        "line_total": 825466.4,
+        "quantity": 760,
+        "unit": "pcs",
+        "unit_price": 1086.14
+      }
+    ],
+    "port_of_discharge": "Khalifa Port, Abu Dhabi, UAE",
+    "port_of_loading": "London Gateway, UK",
+    "seller": {
+      "address": "Unit 18, Larkspur Trading Estate, Manchester M98 5ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Ruifeng Merchants UK Ltd"
+    },
+    "source_file": "",
+    "stated_total": 825466.4
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

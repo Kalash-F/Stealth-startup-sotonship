@@ -1,0 +1,58 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Warehouse 80, Plot S59832, Jebel Ali Free Zone, Dubai, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Golden Crane Supply FZE"
+    },
+    "consignee": null,
+    "country_of_origin": "Made in the UK",
+    "currency": "GBP",
+    "incoterm": "FCA",
+    "invoice_date": "2024-07-20",
+    "invoice_id": "TX240051",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "15.6-INCH NOTEBOOK PC, AMD RYZEN 7, 16GB RAM",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 192371.52,
+        "quantity": 4,
+        "unit": "UNITS",
+        "unit_price": 48092.88
+      },
+      {
+        "description": "15.6-INCH NOTEBOOK PC, AMD RYZEN 7, 16GB RAM",
+        "extraction_confidence": 1.0,
+        "line_id": "L2",
+        "line_total": 22994868.6,
+        "quantity": 660,
+        "unit": "UNITS",
+        "unit_price": 34840.71
+      },
+      {
+        "description": "HEX HEAD BOLTS M6, CARTON OF 1,000 PCS",
+        "extraction_confidence": 1.0,
+        "line_id": "L3",
+        "line_total": 86544.9,
+        "quantity": 390,
+        "unit": "CARTONS",
+        "unit_price": 221.91
+      }
+    ],
+    "port_of_discharge": "Khalifa Port, Abu Dhabi, UAE",
+    "port_of_loading": "London Gateway, UK",
+    "seller": {
+      "address": "Unit 38, Fernhill Business Park, Leicester LE90 8ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Starbridge Trading UK Ltd"
+    },
+    "source_file": "",
+    "stated_total": 23273785.02
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

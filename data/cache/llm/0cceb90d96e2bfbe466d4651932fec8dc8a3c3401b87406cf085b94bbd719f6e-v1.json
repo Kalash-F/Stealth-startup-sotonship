@@ -1,0 +1,45 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Unit 30, Copperfield Trading Estate, Leeds LS91 7ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Hengtai Merchants Limited"
+    },
+    "consignee": {
+      "address": "Unit 35, Brookfield Business Park, Birmingham B97 8ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Sunmark Industrial Limited"
+    },
+    "country_of_origin": "United Arab Emirates",
+    "currency": "USD",
+    "incoterm": "CFR",
+    "invoice_date": "2024-02-19",
+    "invoice_id": "PI-0049-24",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "Plain white cotton T-shirts, packed per dozen",
+        "extraction_confidence": 1,
+        "line_id": "L1",
+        "line_total": 153254.0,
+        "quantity": 1900,
+        "unit": "dozen",
+        "unit_price": 80.66
+      }
+    ],
+    "port_of_discharge": "London Gateway, UK",
+    "port_of_loading": "Port Khalid, Sharjah, UAE",
+    "seller": {
+      "address": "Office 1121, Harrowdene Business Centre, Ras Al Khor, Sharjah, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Pearl Gulf Commodities FZCO"
+    },
+    "source_file": "",
+    "stated_total": 153254.0
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

@@ -1,0 +1,49 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Unit 10, Millbrook Trading Estate, Manchester M93 5ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Kestrel Logistics Limited"
+    },
+    "consignee": null,
+    "country_of_origin": "India (re-exported from Jebel Ali Free Zone, Dubai)",
+    "currency": "GBP",
+    "incoterm": "EXW",
+    "invoice_date": "2024-09-23",
+    "invoice_id": "PI-0060-24",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "USB 3.0 flash drive 64GB, metal casing",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 8662500.0,
+        "quantity": 38500.0,
+        "unit": "pcs",
+        "unit_price": 225.0
+      },
+      {
+        "description": "14-inch laptop computer, Intel Core i5, 16GB RAM, 512GB SSD",
+        "extraction_confidence": 1.0,
+        "line_id": "L2",
+        "line_total": 263547.0,
+        "quantity": 1350.0,
+        "unit": "pcs",
+        "unit_price": 195.22
+      }
+    ],
+    "port_of_discharge": "London Gateway, UK",
+    "port_of_loading": "Port Khalid, Sharjah, UAE",
+    "seller": {
+      "address": "Office 937, Larkspur Business Centre, Musaffah, Abu Dhabi, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Saffron Dune Import & Export FZCO"
+    },
+    "source_file": "",
+    "stated_total": 8926047.0
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

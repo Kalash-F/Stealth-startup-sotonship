@@ -1,0 +1,58 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Office 356, Oakhurst Business Centre, Musaffah, Abu Dhabi, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Vltava Commodities FZCO"
+    },
+    "consignee": null,
+    "country_of_origin": "Great Britain",
+    "currency": "GBP",
+    "incoterm": "FOB",
+    "invoice_date": "2024-02-29",
+    "invoice_id": "TX240010",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "USB 3.0 FLASH DRIVE 64GB, METAL CASING",
+        "extraction_confidence": 1,
+        "line_id": "L1",
+        "line_total": 1097460.0,
+        "quantity": 9100,
+        "unit": "PCS",
+        "unit_price": 120.6
+      },
+      {
+        "description": "USB 2.0 MEMORY STICK 32GB, CARTON OF 100",
+        "extraction_confidence": 1,
+        "line_id": "L2",
+        "line_total": 1237633.2,
+        "quantity": 180,
+        "unit": "CARTONS",
+        "unit_price": 6875.74
+      },
+      {
+        "description": "COPPER CATHODES GRADE A, 99.99% CU",
+        "extraction_confidence": 1,
+        "line_id": "L3",
+        "line_total": 1024479.96,
+        "quantity": 89.3,
+        "unit": "MT",
+        "unit_price": 11472.34
+      }
+    ],
+    "port_of_discharge": "Khalifa Port, Abu Dhabi, UAE",
+    "port_of_loading": "Felixstowe, United Kingdom",
+    "seller": {
+      "address": "Unit 28, Riverside Business Park, Glasgow G98 4ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Ashcombe Distribution UK Ltd"
+    },
+    "source_file": "",
+    "stated_total": 3359573.16
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

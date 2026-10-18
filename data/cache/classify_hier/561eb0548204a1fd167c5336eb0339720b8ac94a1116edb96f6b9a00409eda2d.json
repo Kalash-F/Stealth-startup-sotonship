@@ -1,0 +1,11 @@
+{
+  "description": "Stainless steel machine screws M4 x 12mm (bulk order, volume discount applied)\nWhat it is: These are stainless steel machine screws, 4 millimeters in diameter and 12 millimeters long, used for fastening components together.",
+  "parent": "73",
+  "choices": [
+    {
+      "code": "7318",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description explicitly states 'machine screws', which are covered by heading 7318."
+}

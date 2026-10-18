@@ -1,0 +1,11 @@
+{
+  "description": "SPARKLING FLAVOURED WATER 500ML PET BOTTLES\nWhat it is: Sparkling flavored water in 500 milliliter PET plastic bottles, a finished beverage product for drinking.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "22",
+      "score": 1.0
+    }
+  ],
+  "reason": "Sparkling flavored water is a beverage, which falls under Chapter 22 for Beverages, spirits and vinegar."
+}

@@ -1,0 +1,76 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Warehouse 57, Plot S48974, Jebel Ali Free Zone, Dubai, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Sunmark Merchants FZCO"
+    },
+    "consignee": null,
+    "country_of_origin": "Colombia (re-exported from United Kingdom; certificate of origin attached)",
+    "currency": "AED",
+    "incoterm": "FOB",
+    "invoice_date": "2024-03-05",
+    "invoice_id": "TX240019",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "GREEN ARABICA COFFEE BEANS, UNROASTED, NOT DECAFFEINATED",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 640140.0,
+        "quantity": 23500,
+        "unit": "KG",
+        "unit_price": 27.24
+      },
+      {
+        "description": "ROBUSTA GREEN COFFEE BEANS, 60KG JUTE BAGS",
+        "extraction_confidence": 1.0,
+        "line_id": "L2",
+        "line_total": 366066.0,
+        "quantity": 270,
+        "unit": "BAGS",
+        "unit_price": 1355.8
+      },
+      {
+        "description": "GREEN ARABICA COFFEE BEANS, UNROASTED, NOT DECAFFEINATED",
+        "extraction_confidence": 1.0,
+        "line_id": "L3",
+        "line_total": 797435.0,
+        "quantity": 21500,
+        "unit": "KG",
+        "unit_price": 37.09
+      },
+      {
+        "description": "ROBUSTA GREEN COFFEE BEANS, 60KG JUTE BAGS",
+        "extraction_confidence": 1.0,
+        "line_id": "L4",
+        "line_total": 329414.4,
+        "quantity": 160,
+        "unit": "BAGS",
+        "unit_price": 2058.84
+      },
+      {
+        "description": "ROBUSTA GREEN COFFEE BEANS, 60KG JUTE BAGS",
+        "extraction_confidence": 1.0,
+        "line_id": "L5",
+        "line_total": 441458.5,
+        "quantity": 350,
+        "unit": "BAGS",
+        "unit_price": 1261.31
+      }
+    ],
+    "port_of_discharge": "Khalifa Port, Abu Dhabi, UAE",
+    "port_of_loading": "Felixstowe, United Kingdom",
+    "seller": {
+      "address": "Unit 39, Fernhill Business Park, Manchester M91 9ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Brightmoor Merchants Ltd"
+    },
+    "source_file": "",
+    "stated_total": 2574513.9
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

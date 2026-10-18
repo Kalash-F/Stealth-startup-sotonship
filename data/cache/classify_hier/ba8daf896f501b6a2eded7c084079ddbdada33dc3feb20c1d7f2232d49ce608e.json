@@ -1,0 +1,11 @@
+{
+  "description": "WOMEN'S V-NECK T-SHIRT, COTTON KNITTED, ASSORTED SIZES\nWhat it is: A women's V-neck t-shirt made from knitted cotton fabric, available in various sizes, for wearing as clothing.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "61",
+      "score": 1.0
+    }
+  ],
+  "reason": "The item is a knitted cotton t-shirt for women, which falls under knitted or crocheted apparel and clothing accessories."
+}

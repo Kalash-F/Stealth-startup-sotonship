@@ -1,0 +1,49 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Office 1257, Juniper Business Centre, Musaffah, Ajman, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Sunmark Distribution LLC"
+    },
+    "consignee": null,
+    "country_of_origin": "Malaysia (transhipped through Felixstowe; certificate of origin attached)",
+    "currency": "AED",
+    "incoterm": "DAP",
+    "invoice_date": "2024-09-18",
+    "invoice_id": "INV-2024-0036",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "USB-C flash drive 128GB with keyring",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 50320250.0,
+        "quantity": 25000,
+        "unit": "pcs",
+        "unit_price": 2012.81
+      },
+      {
+        "description": "14-inch laptop computer, Intel Core i5, 16GB RAM, 512GB SSD",
+        "extraction_confidence": 1.0,
+        "line_id": "L2",
+        "line_total": 772639.3,
+        "quantity": 530,
+        "unit": "pcs",
+        "unit_price": 1457.81
+      }
+    ],
+    "port_of_discharge": "Jebel Ali, Dubai, UAE",
+    "port_of_loading": "Felixstowe, United Kingdom",
+    "seller": {
+      "address": "Unit 32, Millbrook Trading Estate, Manchester M91 3ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Tidewater Merchants UK Ltd"
+    },
+    "source_file": "",
+    "stated_total": 51092889.3
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

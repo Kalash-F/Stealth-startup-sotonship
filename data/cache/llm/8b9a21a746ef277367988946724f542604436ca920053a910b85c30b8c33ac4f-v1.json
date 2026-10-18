@@ -1,0 +1,58 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Unit 36, Harrowdene Business Park, Glasgow G97 6ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Saffron Dune Wholesale Limited"
+    },
+    "consignee": null,
+    "country_of_origin": "India (re-exported from Jebel Ali Free Zone, Dubai)",
+    "currency": "AED",
+    "incoterm": "FCA",
+    "invoice_date": "2024-05-29",
+    "invoice_id": "TX240023",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "WOMEN'S V-NECK T-SHIRT, COTTON KNITTED, ASSORTED SIZES",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 558540.0,
+        "quantity": 18000.0,
+        "unit": "PCS",
+        "unit_price": 31.03
+      },
+      {
+        "description": "SPARKLING FLAVOURED WATER 500ML PET BOTTLES",
+        "extraction_confidence": 1.0,
+        "line_id": "L2",
+        "line_total": 46886.0,
+        "quantity": 35000.0,
+        "unit": "BOTTLES",
+        "unit_price": 1.3396
+      },
+      {
+        "description": "COPPER CATHODES GRADE A, 99.99% CU",
+        "extraction_confidence": 1.0,
+        "line_id": "L3",
+        "line_total": 7415443.62,
+        "quantity": 175.5,
+        "unit": "MT",
+        "unit_price": 42253.24
+      }
+    ],
+    "port_of_discharge": "Southampton, United Kingdom",
+    "port_of_loading": "Jebel Ali, Dubai, UAE",
+    "seller": {
+      "address": "Office 1288, Juniper Business Centre, Ras Al Khor, Abu Dhabi, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Sunmark Import & Export FZCO"
+    },
+    "source_file": "",
+    "stated_total": 8020869.62
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

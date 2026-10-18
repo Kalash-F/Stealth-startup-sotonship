@@ -22,6 +22,7 @@ from typing import Any
 from tbml.classify.nomenclature import LEVEL_NAMES, Nomenclature, default_nomenclature
 from tbml.classify.proposers import ProposerError
 from tbml.llm import LLMError
+from tbml.paths import DATA_DIR
 from tbml.paths import cache_dir as default_cache_dir
 from tbml.schemas import HS6Candidate
 
@@ -87,6 +88,9 @@ class Trace:
         return text
 
 
+VAGUE_STOP = "too vague to identify the goods"  # R3 looks for this in the line note
+
+
 def _short(text: str, limit: int = 60) -> str:
     """Official HS descriptions run to 200+ characters; keep the path readable in the report."""
     return text if len(text) <= limit else text[: limit - 1].rstrip(" ,;") + "…"
@@ -119,6 +123,12 @@ class HierarchicalProposer:
         # resolved now, not at import, so $TBML_CACHE_DIR (set by asgi.py on Vercel) applies;
         # None turns caching off
         self.cache_dir = default_cache_dir() / CACHE_SUBDIR if cache_dir is _DEFAULT else cache_dir
+        # On Vercel the cache moves to the temp dir; the answers committed with the repo are still
+        # read from data/cache, so the samples classify instantly and the same way as in the eval.
+        bundled = DATA_DIR / "cache" / CACHE_SUBDIR
+        self.read_only_cache = (
+            bundled if cache_dir is _DEFAULT and bundled != self.cache_dir else None
+        )
         self.interpret = interpret  # first ask the model what the goods are, in plain words
         self.traces: dict[str, Trace] = {}  # description -> last trace, for explanations
 
@@ -135,7 +145,7 @@ class HierarchicalProposer:
             goods, vague = self._interpret(description)
             trace.read_as = goods
             if vague:
-                trace.stopped = "too vague to identify the goods"
+                trace.stopped = VAGUE_STOP
                 return []
             if goods:
                 query = f"{description}\nWhat it is: {goods}"
@@ -251,7 +261,15 @@ class HierarchicalProposer:
         )
 
     def _cache_get(self, description, parent):
-        return cache_read(self._cache_path(description, parent))
+        path = self._cache_path(description, parent)
+        if path is None:
+            return None
+        if not path.exists() and self.read_only_cache is not None:
+            path = self.read_only_cache / path.name
+        if not path.exists():
+            return None
+        data = json.loads(path.read_text())
+        return [(c["code"], c["score"]) for c in data["choices"]], data["reason"]
 
     def _cache_put(self, description, parent, result):
         cache_write(self._cache_path(description, parent), description, parent, result)
