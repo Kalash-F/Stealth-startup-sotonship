@@ -5,7 +5,9 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
   return (
     <>
       <SiteHeader />
-      <main id="main">{children}</main>
+      <main id="main" className="theme-night bg-bg text-fg">
+        {children}
+      </main>
       <SiteFooter />
     </>
   );

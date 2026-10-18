@@ -1,26 +1,23 @@
-import { EnterPlatform } from "@/components/marketing/enter-platform";
-import { EvidenceExhibit } from "@/components/marketing/evidence-exhibit";
-import { FollowTheMoney } from "@/components/marketing/follow-the-money";
+import { ContactCta } from "@/components/marketing/contact-cta";
+import { DataProof } from "@/components/marketing/data-proof";
 import { Hero } from "@/components/marketing/hero";
-import { InvestigationEditorial } from "@/components/marketing/investigation-editorial";
-import { NetworkSection } from "@/components/marketing/network-section";
+import { HowItWorks } from "@/components/marketing/how-it-works";
+import { InvoiceExhibit } from "@/components/marketing/invoice-exhibit";
 import { WorkspaceShowcase } from "@/components/marketing/workspace-showcase";
 
 /**
- * The homepage is one story told in the sample case, CASE-0142:
- * A the hidden pattern (hero) · B follow the money · C anomaly to evidence ·
- * D the workspace · E the network · F investigation, not detection · G enter.
+ * Written for a buyer skimming in order: what it does (hero), what you get (product),
+ * how (three steps), why trust it (data and results), what happens next (workspace), and how to start.
  */
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <FollowTheMoney />
-      <EvidenceExhibit />
+      <InvoiceExhibit />
+      <HowItWorks />
+      <DataProof />
       <WorkspaceShowcase />
-      <NetworkSection />
-      <InvestigationEditorial />
-      <EnterPlatform />
+      <ContactCta />
     </>
   );
 }

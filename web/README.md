@@ -2,7 +2,7 @@
 
 Marketing site and front-end demo workspace for the TBML investigation product. Built from `website.md`; trackers are `PROJECT_PLAN.md`, `DESIGN_SPEC.md` and `QA_CHECKLIST.md`.
 
-Every company, person, document and payment here is fictional, and the comparison price bands are illustrative, not market data.
+The live checker (`/app/checker`) prices invoices against the HMRC benchmark databases. The demo workspace's cases are fictional: every company, person, document and payment is invented, and their comparison price bands are illustrative, not market data.
 
 ## Run
 
@@ -23,7 +23,7 @@ node scripts/screenshot.mjs http://localhost:3000/app out.png 1440 900   # scree
 | `/` | Marketing homepage |
 | `/sign-in` | Sign-in screen; no accounts exist, it points to the demo |
 | `/request-demo` | Demo request form; front-end only and says so |
-| `/legal/privacy`, `/legal/terms` | Draft placeholders |
+| `/legal/privacy`, `/legal/terms` | Privacy notice and terms, describing what the site does today |
 | `/app` | Demo workspace overview |
 | `/app/investigations`, `/app/investigations/[id]` | Case list and case detail |
 | `/app/entities` | Entity network and detail panel |

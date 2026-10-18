@@ -1,45 +1,27 @@
-# Marketing redesign plan
+# Marketing homepage
 
-Scope: the marketing homepage (`/`) and the shared site header/footer. The demo workspace (`/app/*`), sign-in, request-demo and legal pages keep their behaviour. `/checker` stays reserved.
+Scope: the marketing homepage (`/`), the shared site header and footer, and the request-demo and legal pages. The demo workspace (`/app/*`) and sign-in keep their behaviour.
 
-## What was wrong
+## What was wrong with the previous version
 
-The old homepage was a warm-paper SaaS template: two-column hero (serif headline, two buttons, a rectangular product frame), then four "showcase" sections that each repeated the same layout (heading left, dark frame right), then a ruled list, a capability grid and a centred CTA. Every section used the same container, the same frame and the same rhythm. The product was explained; the idea behind it was never shown.
+- It failed the 5-second test. The headline ("The goods went one way. The money went another.") was a line of poetry; the only literal clue was a small "Trade-based money laundering investigation" label.
+- It was too long: about 14 screens on desktop and 18 on a phone, 2,500 words. CASE-0142 was named ten times and the "same owner" reveal was given away three times before the network section.
+- The scroll-driven "follow the money" steps were each 88% of the viewport tall, leaving empty bands.
+- It undersold: "fictional", "synthetic" and "illustrative" appeared 17 times, while the real HMRC price data and the evaluation results appeared nowhere.
+- One destination had five names ("Open the demo workspace", "Demo workspace", "Workspace", "Explore the platform", "Enter the demo workspace"), and the nav listed essay chapters.
+- Product previews looked broken (clipped queue, dimmed graph with a watermark, an empty "Transactions (0)" panel), the background switched theme seven times, and "Company details to follow" and "Draft placeholder" were on show.
 
-## Concept: "Where trade and money part ways"
+## Structure now
 
-Trade-based money laundering hides in the gap between what moves physically and what moves financially. On paper each record is ordinary; the pattern only appears when goods and payments are drawn on the same canvas. The site is built around that single visual idea, using the real sample case (CASE-0142):
+A buyer skimming top to bottom gets: what it does, what you get, how, why to trust it, what happens next, how to start. One night surface throughout, about 7 screens on desktop and 1,300 words.
 
-- **Goods** travel Ningbo → Jebel Ali → Felixstowe: 2,640 kg of ordinary M8 bolts, worth about USD 5,100 at the illustrative median.
-- **Money** travels Tamworth → Jebel Ali (USD 391,900), and then splits: USD 5,180 back to the manufacturer, USD 359,300 on to Plzeň as "consultancy".
-- **Ownership** closes the loop: the intermediary and the Plzeň company share a beneficial owner.
+| | Section | Says |
+|---|---|---|
+| Hero | "Spot mispriced trade invoices in seconds." | Upload an invoice; every line is priced against three years of HMRC import data, with the reasons it needs review. Map below the copy (and right after the buttons on a phone); its default card is the flagged invoice line. |
+| 01 Product (`#product`) | "Every flag comes with its reason." | The annotated sample invoice, pins 1 to 5 in reading order, notes in one column. Reflows on a phone instead of scrolling sideways. |
+| 02 How it works (`#how-it-works`) | "From PDF to a ranked, explained review." | Read, price, explain, each with what it produced for the sample; the eight checks; "a priority is a reason to look, not a verdict". |
+| 03 Data (`#data`) | "Priced against what UK importers actually paid." | 16.1M HMRC records, 9,471 commodity codes, 38 months, 99 percentiles; 17 of 18 planted problems flagged, 0 of 42 clean ones; review-budget chart. One caveat line, OGL attribution. |
+| 04 Workspace (`#workspace`) | "Every flagged invoice becomes a case." | Tabs: review queue, case file, network. Queue and case are scaled to fit, never clipped; the network opens with every node visible. |
+| Contact (`#contact`) | "Check your first invoice now." | Check an invoice, or request a demo. |
 
-Headline: **"The goods went one way. The money went another."** It is literally true of the sample case, and it names the investigative insight rather than the product category.
-
-Visual signature: a hairline dot-matrix map of the Europe–Gulf–East Asia corridor (generated from Natural Earth land at build time, not a stock image), with three line languages used everywhere on the page: dashed neutral for goods, teal for money, vermilion for the link under review. Mono coordinate labels and document references act as the "technical annotation" layer. Instrument Serif at large display sizes carries the editorial voice; Geist Mono carries the evidence.
-
-Palette: an ink/graphite "night" surface (#07090c family) with warm off-white type, one teal accent and one vermilion risk colour, alternating with the existing warm paper for the two editorial sections so the page has light/dark rhythm.
-
-## Narrative (scroll)
-
-| | Section | Surface | Composition | Interaction |
-|---|---|---|---|---|
-| A | **Hero: the hidden pattern** | night | Full-bleed corridor map above, headline anchored bottom-left, copy and CTAs bottom-right, a callout pinned to the suspicious payment | Routes draw in sequence (goods, money in, split); layer toggles; selectable ports/entities reveal what moved through them; replay |
-| B | **Follow the money** | paper | Sticky proportional flow diagram (band width = money) with goods lane above; four narrative steps scroll past it | Scroll position drives which flow is revealed |
-| C | **From anomaly to evidence** | night | The invoice as a paper exhibit in the centre, five numbered annotations in the margins with leader marks | Hover/focus an annotation to highlight the invoice field and vice versa |
-| D | **The investigation workspace** | graphite | Wide, edge-bleeding product frame with a second layered frame behind it | Tabs switch overview / case / evidence, rendering the real app components |
-| E | **The network behind the transaction** | night | Full-width graph with the real entity detail panel docked on the right | Select nodes or quick-select chips; the app's `EntityDetail` updates |
-| F | **Investigation, not just detection** | paper | Editorial spread: a huge score on the left ("this is a detection") against the case's reasoning ledger on the right | Static, typographic |
-| G | **Enter the platform** | night | Large headline and CTAs over a big real dashboard frame that rises out of the section | Links into `/app`, `/app/investigations/CASE-0142`, `/request-demo` |
-
-## Implementation notes
-
-- No new runtime dependencies. Motion is CSS (stroke-dashoffset, transitions) plus a small IntersectionObserver hook; everything is static when `prefers-reduced-motion` is set.
-- Land dots are generated once by `scripts/build-land-dots.mjs` (dev deps: world-atlas, topojson-client, d3-geo) into a run-length encoded TS file and drawn as one SVG path.
-- All figures come from `src/data` (or are computed from it); fictional-data and illustrative-range labels stay visible.
-- Real components reused: `PriceBandBar`, `FlagItem`, status badges, `EntityGraph`, `EntityDetail`, `KpiStrip`, `AttentionQueue`, `ScreeningChart`, `FlagsByRuleChart`, `SummaryTab`, `InvoiceTab`.
-- Header and footer move to the night surface; the old hero, showcase, how-it-works and capabilities sections are retired.
-
-## QA loop
-
-Build, typecheck, lint, Playwright smoke; screenshots at 1440 and 390 of the full page and each section; hero interactions, CTAs and navigation into `/app` exercised in Chromium; console and overflow checked; five weakest points fixed and re-shot.
+Figures come from `data/databases` build info and `reports/eval/summary.md`; sample-case figures are computed from `src/data`.

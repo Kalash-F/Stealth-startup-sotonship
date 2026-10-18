@@ -4,5 +4,5 @@
  */
 export const brand = {
   name: "Sentinel",
-  descriptor: "Trade intelligence for financial crime teams",
+  descriptor: "Invoice checks for trade finance and AML teams",
 };

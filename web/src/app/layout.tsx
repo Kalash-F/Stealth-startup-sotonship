@@ -10,11 +10,11 @@ import { brand } from "@/lib/brand";
 
 export const metadata: Metadata = {
   title: {
-    default: `${brand.name} · Trade-based money laundering investigation`,
+    default: `${brand.name} · Spot mispriced trade invoices in seconds`,
     template: `%s · ${brand.name}`,
   },
   description:
-    "An investigation workspace for financial crime teams that connects invoices, shipments, counterparties and payments to surface and explain trade-based money laundering risk.",
+    "Upload a trade invoice. Sentinel prices every line against three years of HMRC import data and tells you which lines need review, and why.",
 };
 
 export const viewport: Viewport = {
