@@ -5,6 +5,7 @@
 | `reference/` | Small hand-maintained lookup tables the code reads at runtime | by hand |
 | `benchmarks/` | Price bands per HS6 (and route), plus cached raw API responses | `backend/scripts/fetch_benchmarks.py` |
 | `synthetic/` | Fictional labelled invoices (PDF, truth JSON, label CSVs) | `backend/scripts/generate_invoices.py` |
+| `databases/` | SQLite `.db` files | by hand |
 
 Runtime-generated folders (`cache/`, and `reports/` once the API caches reports) are not source data.
 
