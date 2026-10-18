@@ -112,7 +112,7 @@ export function RequestForm() {
 
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <Link href="/app" className={buttonVariants({ variant: "accent", size: "md" })}>
-            Explore the demo workspace
+            Explore the workspace
           </Link>
           <Button variant="secondary" size="md" onClick={() => setSubmitted(null)}>
             Edit request

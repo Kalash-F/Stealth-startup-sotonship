@@ -1,61 +1,52 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { investigationById } from "@/data";
 import { brand } from "@/lib/brand";
-import { formatMoney } from "@/lib/format";
 import { TradeMap } from "./map/trade-map";
 
 /**
- * Section A · The hidden pattern.
- * The corridor map fills the upper part of the viewport; the headline sits
- * low on the left, over the southern ocean, where nothing else is drawn.
+ * The outcome first, in words a buyer can repeat: what it does, on what data, and what you get.
+ * The corridor map sits below the copy (never under it), and right after the buttons on a phone.
  */
 export function Hero() {
-  const inv = investigationById("CASE-0142")!;
   return (
     <section
       aria-labelledby="hero-title"
-      className="theme-night relative isolate flex flex-col overflow-hidden bg-bg text-fg xl:h-[clamp(780px,calc(100svh-64px),1060px)]"
+      className="theme-night relative isolate flex flex-col overflow-hidden bg-bg text-fg xl:h-[clamp(760px,calc(100svh-64px),980px)]"
     >
-      <div className="order-2 mx-auto w-full max-w-[1680px] pb-10 xl:order-1 xl:min-h-0 xl:flex-1 xl:px-10 xl:pb-0 xl:pt-8">
-        <TradeMap />
-      </div>
-
-      <div className="order-1 mx-auto w-full max-w-[1440px] px-4 pb-10 pt-12 sm:px-6 xl:order-2 xl:px-10 xl:pb-14 xl:pt-6">
-        <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-8">
-            <p className="eyebrow flex items-center gap-3 !text-fg-muted">
+      <div className="mx-auto w-full max-w-[1440px] px-4 pb-8 pt-10 sm:px-6 sm:pt-14 xl:px-10 xl:pb-8 xl:pt-12">
+        <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+          <div className="lg:col-span-7">
+            <p className="flex items-center gap-3 text-[13px] font-medium text-fg-muted">
               <span aria-hidden className="inline-block h-px w-8 bg-accent" />
-              Trade-based money laundering investigation
+              {brand.descriptor}
             </p>
             <h1
               id="hero-title"
-              className="mt-5 text-balance font-serif text-[2.8rem] font-normal leading-[0.92] tracking-[-0.025em] sm:text-7xl lg:text-[5.5rem] xl:text-[min(6vw,6rem)]"
+              className="mt-4 text-balance font-serif text-[2.6rem] font-normal leading-[0.95] tracking-[-0.025em] sm:text-6xl lg:text-[4.25rem] xl:text-[4.75rem]"
             >
-              The goods went one way.
-              <br />
-              <em className="text-fg-muted">The money went another.</em>
+              Spot mispriced trade invoices in seconds.
             </h1>
           </div>
-          <div className="lg:col-span-4">
-            <p className="max-w-md text-[16px] leading-relaxed text-fg-muted xl:text-[15.5px]">
-              Invoices, shipments, counterparties and payments look ordinary one at a time. {brand.name} draws them on one canvas, so
-              investigators can see where trade and money part ways and explain why it matters.
+          <div className="lg:col-span-5">
+            <p className="max-w-md text-[16px] leading-relaxed text-fg-muted sm:text-[17px]">
+              Upload an invoice. {brand.name} prices every line against three years of HMRC import data and tells you which lines need
+              review, and why.
             </p>
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <Button asChild size="lg" variant="accent">
+            <div id="hero-actions" className="mt-6 flex flex-wrap gap-3">
+              <Button asChild size="lg" variant="accent" className="px-4 text-[14px] sm:px-5 sm:text-[15px]">
                 <Link href="/app/checker">Check an invoice</Link>
               </Button>
-              <Button asChild size="lg" variant="secondary">
-                <Link href="/app">Open the demo workspace</Link>
+              <Button asChild size="lg" variant="secondary" className="px-4 text-[14px] sm:px-5 sm:text-[15px]">
+                <Link href="/app">Explore the workspace</Link>
               </Button>
             </div>
-            <p className="mt-6 max-w-md text-[13px] leading-relaxed text-fg-subtle">
-              The map shows sample case {inv.id}, {formatMoney(inv.invoice.stated_total)} invoiced. The companies are fictional and
-              the routes are drawn for clarity, not to scale.
-            </p>
+            <p className="mt-3 text-[13px] text-fg-subtle">No sign-up. Try a test invoice or upload your own PDF.</p>
           </div>
         </div>
+      </div>
+
+      <div className="mx-auto w-full max-w-[1440px] pb-12 xl:min-h-0 xl:flex-1 xl:px-10 xl:pb-10">
+        <TradeMap />
       </div>
     </section>
   );

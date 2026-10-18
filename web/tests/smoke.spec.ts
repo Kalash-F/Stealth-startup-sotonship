@@ -38,7 +38,7 @@ for (const route of routes) {
 
 test("marketing CTAs reach the demo and the request form", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("link", { name: "Explore the platform" }).first().click();
+  await page.getByRole("link", { name: "Explore the workspace" }).first().click();
   await expect(page).toHaveURL(/\/app$/);
   await page.goto("/");
   await page.getByRole("link", { name: "Request a demo" }).first().click();
@@ -55,7 +55,7 @@ test("sign-in never accepts credentials and offers the demo", async ({ page }) =
   await page.getByRole("button", { name: "Sign in" }).click();
   await expect(page.getByRole("status")).toContainText(/not available/i);
   await expect(page.getByLabel(/password/i)).toHaveValue("");
-  await page.getByRole("link", { name: /enter the demo workspace/i }).click();
+  await page.getByRole("link", { name: "Explore the workspace" }).click();
   await expect(page).toHaveURL(/\/app$/);
 });
 
