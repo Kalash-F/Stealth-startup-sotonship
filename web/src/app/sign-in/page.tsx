@@ -39,7 +39,7 @@ export default function SignInPage() {
               {persona ? `, ${persona.role}` : ""}.
             </p>
             <Link href="/app" className={cn(buttonVariants({ variant: "accent", size: "lg" }), "mt-4 w-full")}>
-              Enter the demo workspace
+              Explore the workspace
             </Link>
           </div>
 

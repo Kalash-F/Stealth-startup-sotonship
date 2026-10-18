@@ -123,22 +123,36 @@ export interface EntityGraphProps {
   onSelect?: (node: GraphNode | null) => void;
   /** Static mode for marketing previews: no pan/zoom, no controls. */
   interactive?: boolean;
+  /** Fade everything not connected to the selection. Off for a first view that should show the whole network. */
+  dimUnrelated?: boolean;
+  /** React Flow's attribution badge; the marketing preview hides it. */
+  attribution?: boolean;
   className?: string;
   ariaLabel?: string;
 }
 
-export function EntityGraph({ nodes, edges, selectedId = null, onSelect, interactive = true, className, ariaLabel }: EntityGraphProps) {
+export function EntityGraph({
+  nodes,
+  edges,
+  selectedId = null,
+  onSelect,
+  interactive = true,
+  dimUnrelated = true,
+  attribution = true,
+  className,
+  ariaLabel,
+}: EntityGraphProps) {
   const byId = React.useMemo(() => new Map(nodes.map((n) => [n.id, n])), [nodes]);
 
   const neighbours = React.useMemo(() => {
-    if (!selectedId) return null;
+    if (!selectedId || !dimUnrelated) return null;
     const set = new Set([selectedId]);
     for (const e of edges) {
       if (e.source === selectedId) set.add(e.target);
       if (e.target === selectedId) set.add(e.source);
     }
     return set;
-  }, [selectedId, edges]);
+  }, [selectedId, dimUnrelated, edges]);
 
   const rfNodes: Node<NodeData>[] = React.useMemo(
     () =>
@@ -207,7 +221,7 @@ export function EntityGraph({ nodes, edges, selectedId = null, onSelect, interac
         preventScrolling={false}
         onNodeClick={(_, n) => onSelect?.(byId.get(n.id) ?? null)}
         onPaneClick={() => onSelect?.(null)}
-        proOptions={{ hideAttribution: false }}
+        proOptions={{ hideAttribution: !attribution }}
         attributionPosition="bottom-left"
       >
         <Background variant={BackgroundVariant.Dots} gap={22} size={1} color="var(--border)" />
