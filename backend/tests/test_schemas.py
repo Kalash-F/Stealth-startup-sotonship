@@ -52,14 +52,14 @@ EXPECTED_FIELDS = {
         "reason", "evidence",
     ],
     Report: [
-        "invoice_id", "schema_version", "priority_score", "priority_band", "flags", "lines",
-        "processing_ms", "warnings",
+        "invoice_id", "schema_version", "priority_score", "priority_band", "summary", "flags",
+        "lines", "processing_ms", "warnings",
     ],
 }  # fmt: skip
 
 
 def test_schema_version():
-    assert SCHEMA_VERSION == "1.0"
+    assert SCHEMA_VERSION == "1.1"
 
 
 @pytest.mark.parametrize("model", list(EXPECTED_FIELDS))

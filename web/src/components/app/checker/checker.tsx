@@ -224,6 +224,7 @@ function ReportView({ report, source, busy }: { report: Report; source: string; 
               </span>
               {source.endsWith(".pdf") ? null : <SyntheticBadge label="Test invoice" />}
             </div>
+            {report.summary ? <p className="max-w-prose text-sm text-fg-muted">{report.summary}</p> : null}
           </div>
           <PriorityScore band={report.priority_band} score={Math.round(report.priority_score)} />
         </div>
