@@ -225,5 +225,6 @@ No real customer data is used anywhere. HMRC figures can be revised for up to 18
 | **Ali Murat Keceli** | Full HS code list, Jev classifier integration, report summary, website redesign |
 | **Arqam Khalid Qeisi** | Three-step AI classifier, OpenRouter integration, real prices and exchange rates, evaluation, checker page |
 | **Anveet Bhusal** | Trade data research and HMRC data fetching |
+| **Faisal Alibrahim** | Checker cases: every checked invoice becomes a live case in the workspace |
 
 The repository was created after hacking opened at SotonShip 2026.
