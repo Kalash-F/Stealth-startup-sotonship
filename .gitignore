@@ -19,3 +19,4 @@ data/benchmarks/raw/*
 backend/data/
 build/
 HS.json
+*.swp
