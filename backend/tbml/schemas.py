@@ -134,11 +134,62 @@ class EnrichedLine(_Contract):
     normalisation_note: str
 
 
+class PriceBand(_Contract):
+    """One period of the HMRC benchmark databases (data/databases): the price distribution of
+    UK imports of `code` for one year (or all years pooled, `period` "all"), in USD per `unit`.
+    `origin` is "ALL" (every origin pooled, the judge) or an ISO-3166 alpha-2 country (context
+    only). `median_vs_prev_year` is this period's median over the previous year's (1.15 = +15%)."""
+
+    level: str = Field(pattern=r"^(cn8|hs6|hs4)$")
+    code: str = Field(pattern=r"^\d{4}(\d{2}(\d{2})?)?$")
+    basis: str = Field(pattern=r"^(per_unit|per_kg)$")
+    unit: str
+    period: str = Field(pattern=r"^(\d{4}|all)$")
+    origin: str = Field(pattern=r"^(ALL|[A-Z]{2})$")
+    recommended: bool
+    n_observations: int = Field(ge=0)
+    months: int = Field(ge=0)
+    p1: float
+    p5: float
+    p10: float
+    p25: float
+    median: float
+    p75: float
+    p90: float
+    p95: float
+    p99: float
+    median_vs_prev_year: float | None
+
+    @model_validator(mode="after")
+    def _bands_monotonic(self) -> PriceBand:
+        pct = (
+            self.p1,
+            self.p5,
+            self.p10,
+            self.p25,
+            self.median,
+            self.p75,
+            self.p90,
+            self.p95,
+            self.p99,
+        )
+        if any(a > b for a, b in zip(pct, pct[1:], strict=False)):
+            raise ValueError("band percentiles must be non-decreasing from p1 to p99")
+        return self
+
+
 # §4.5
 class Benchmark(_Contract):
     """Stage 3 output: a trade unit-value band (USD per `unit`) for an HS6, globally
     (`route` None) or for an ORIGIN-DESTINATION country pair. `is_mock` marks approximate
-    stand-ins that are not real trade statistics."""
+    stand-ins that are not real trade statistics.
+
+    Bands from the benchmark databases (schema 1.2) also carry the tails (p1, p5, p95, p99), the
+    `level` and `code` the band was found at (cn8, hs6, or the hs4 heading when the HS6 has too
+    few prices), its `basis` and `period`, every period of the same series in `history` (each
+    year plus all years pooled), the origin country's own band as context (`origin_band`) and the
+    band on the other basis (`other_basis`: per kg when this one is per unit, and the reverse).
+    The older JSON band tables leave these empty."""
 
     hs6: str = Field(pattern=HS6_PATTERN)
     route: str | None = Field(pattern=r"^[A-Z]{2}-[A-Z]{2}$", description="null = global")
@@ -152,11 +203,37 @@ class Benchmark(_Contract):
     years: list[int]
     sources: list[str]
     is_mock: bool
+    p1: float | None = None
+    p5: float | None = None
+    p95: float | None = None
+    p99: float | None = None
+    level: str | None = Field(default=None, pattern=r"^(cn8|hs6|hs4)$")
+    code: str | None = None
+    basis: str | None = Field(default=None, pattern=r"^(per_unit|per_kg)$")
+    period: str | None = None
+    history: list[PriceBand] = Field(default_factory=list)
+    origin_band: PriceBand | None = None
+    other_basis: PriceBand | None = None
 
     @model_validator(mode="after")
     def _bands_monotonic(self) -> Benchmark:
         if not (self.p10 <= self.p25 <= self.median <= self.p75 <= self.p90):
             raise ValueError("band must satisfy p10 <= p25 <= median <= p75 <= p90")
+        if (
+            self.p5 is not None
+            and self.p95 is not None
+            and not (self.p5 <= self.p10 and self.p90 <= self.p95)
+        ):
+            raise ValueError("band must satisfy p5 <= p10 and p90 <= p95")
+        if (
+            self.p1 is not None
+            and self.p99 is not None
+            and not (
+                self.p1 <= (self.p5 if self.p5 is not None else self.p10)
+                and (self.p95 if self.p95 is not None else self.p90) <= self.p99
+            )
+        ):
+            raise ValueError("band must satisfy p1 <= p5 and p95 <= p99")
         return self
 
 
@@ -212,6 +289,7 @@ __all__ = [
     "Invoice",
     "LineItem",
     "Party",
+    "PriceBand",
     "PriorityBand",
     "Report",
     "ReportLine",

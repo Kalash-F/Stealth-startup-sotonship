@@ -46,6 +46,9 @@ EXPECTED_FIELDS = {
     Benchmark: [
         "hs6", "route", "unit", "p10", "p25", "median", "p75", "p90", "n_observations",
         "years", "sources", "is_mock",
+        # schema 1.2, from the benchmark databases (optional: the JSON band tables omit them)
+        "p1", "p5", "p95", "p99", "level", "code", "basis", "period", "history", "origin_band",
+        "other_basis",
     ],
     Flag: [
         "flag_id", "rule", "line_id", "severity", "expected", "stated", "variance_pct",
@@ -79,10 +82,28 @@ def test_fixtures_are_synthetic():
     assert load_fixture("benchmark")["is_mock"] is True
 
 
+# Fields added in schema 1.2 for the benchmark databases. Only these may have defaults, so band
+# tables and fixtures written under 1.1 stay valid (DECISIONS D11.1).
+OPTIONAL_FIELDS = {
+    Benchmark: {
+        "p1", "p5", "p95", "p99", "level", "code", "basis", "period", "history", "origin_band",
+        "other_basis",
+    },
+}  # fmt: skip
+
+
+@pytest.mark.parametrize("model", list(EXPECTED_FIELDS))
+def test_only_the_1_2_extensions_are_optional(model):
+    optional = {f for f, info in model.model_fields.items() if not info.is_required()}
+    assert optional == OPTIONAL_FIELDS.get(model, set())
+
+
 @pytest.mark.parametrize(("name", "model"), CONTRACTS)
 def test_missing_field_rejected(name, model):
     data = load_fixture(name)
     for field in model.model_fields:
+        if field in OPTIONAL_FIELDS.get(model, set()):
+            continue
         broken = copy.deepcopy(data)
         broken.pop(field)
         with pytest.raises(ValidationError):

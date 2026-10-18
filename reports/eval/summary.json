@@ -1122,6 +1122,7 @@
   "detection": {
     "classifier": "offline keyword baseline",
     "benchmarks_mock": false,
+    "price_data": "database:98 shards",
     "n_invoices": 60,
     "n_anomalous": 18,
     "invoice_level": {
@@ -1168,7 +1169,7 @@
       {
         "budget": 0.3,
         "invoices_reviewed": 18,
-        "ours_caught": 1.0,
+        "ours_caught": 0.9444444444444444,
         "random_mean": 0.30101666666666665,
         "random_95": [
           0.1111111111111111,
@@ -1176,6 +1177,6 @@
         ]
       }
     ],
-    "median_seconds_per_invoice": 0.0518574320000198
+    "median_seconds_per_invoice": 0.051837424499922236
   }
 }

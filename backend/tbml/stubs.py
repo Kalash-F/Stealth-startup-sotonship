@@ -12,6 +12,8 @@ def extract_document(path) -> ExtractionResult:
     return ExtractionResult(invoice, [], "stub")
 
 
-def benchmark(enriched_line: EnrichedLine, route: str | None = None) -> Benchmark | None:
+def benchmark(
+    enriched_line: EnrichedLine, route: str | None = None, origin: str | None = None
+) -> Benchmark | None:
     band = Benchmark.model_validate(load_fixture("benchmark"))
     return band if enriched_line.hs6 == band.hs6 else None

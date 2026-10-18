@@ -50,14 +50,15 @@ The backend function is bundled from `backend/` alone and Vercel caps its size, 
 - `backend/tbml/synthetic/`: synthetic invoice generator and HTML templates.
 - `data/synthetic/`: generated, labelled synthetic invoices (fictional companies, clearly marked synthetic).
 - `data/reference/`: HS code list (`hs.db`), exchange rates, unit weights, country and city lists.
-- `data/benchmarks/`: price bands (`bands.json`, real) and the raw HMRC responses they are built from.
+- `data/databases/`: the HMRC price benchmark databases, one SQLite file per HS chapter, p1 to p99 for every commodity code and year. The primary price source (`backend/tbml/benchmark/`).
+- `data/benchmarks/`: the older price bands (`bands.json`, real, 7 goods) used as a fallback, and the raw HMRC responses they are built from.
 
 ## Results
 
 `make eval` writes `reports/eval/summary.md`. With the committed data and cached model answers:
 
 - **Classification** on 44 realistic invoice descriptions (`data/eval/descriptions.csv`): keyword baseline 26/39 correct (67%); three-step AI classifier with `google/gemini-2.5-flash` 37 to 39/39 across runs (95-100%), never confidently wrong, and all 5 vague lines left unclassified.
-- **Detection** on the 60 synthetic invoices, priced against the real bands: 17 of 18 anomalous invoices flagged, 0 of 36 clean and 0 of 6 legitimate-but-unusual invoices flagged. Reviewing the top 20% by priority catches 67% of anomalies, against 20% for random spot-checks; the top 30% catches all of them.
+- **Detection** on the 60 synthetic invoices, priced against the HMRC benchmark databases: 17 of 18 anomalous invoices flagged, 0 of 36 clean and 0 of 6 legitimate-but-unusual invoices flagged. Reviewing the top 20% by priority catches 67% of anomalies, against 20% for random spot-checks; the top 30% catches 94%.
 
 The invoices and their anomalies are synthetic and planted by our own generator, so these numbers show the system works as designed, not real-world performance.
 
@@ -65,7 +66,8 @@ The invoices and their anomalies are synthetic and planted by our own generator,
 
 | Data | Source | Date | Licence |
 |---|---|---|---|
-| Price bands (`data/benchmarks/bands.json`) | HMRC Overseas Trade Statistics via the uktradeinfo OTS API: UK imports of the 7 benchmark goods, 2023-2025, unit value per partner country, port and month | Fetched 2026-10-17; HMRC figures are provisional for up to 18 months | [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/) |
+| Price benchmark databases (`data/databases/db_*.db`) | HMRC Overseas Trade Statistics: UK imports of every commodity code, July 2023 to August 2026, price distributions (p1 to p99) per CN8 / HS6 / HS4, year, unit and origin country | Built 2026-10-18 | [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/) |
+| Price bands (`data/benchmarks/bands.json`, fallback) | HMRC Overseas Trade Statistics via the uktradeinfo OTS API: UK imports of the 7 benchmark goods, 2023-2025, unit value per partner country, port and month | Fetched 2026-10-17; HMRC figures are provisional for up to 18 months | [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/) |
 | Raw responses behind the bands (`data/benchmarks/raw/hmrc_*.json.gz`) | Same as above, unmodified | Fetched 2026-10-17 | Open Government Licence v3.0 |
 | HS code list (`data/reference/hs.db`) | UN Comtrade reference list, classification "HS" (Combined HS) | Retrieved 2026-10-17 | UN Comtrade terms of use (free reference data, attribution) |
 | Exchange rates (`data/reference/fx.csv`, `fx_annual.csv`) | US Federal Reserve G.5A annual averages (GBP, EUR, CNY), 2022-2025; AED from the Central Bank of the UAE peg (3.6725). CZK is approximate and unused by any test invoice | Retrieved 2026-10-17 | US government work, public domain |
@@ -77,7 +79,7 @@ No real customer data is used anywhere. The Comtrade fetch path in `fetch_benchm
 
 ## AI use and who did what
 
-- **In the product:** the HS classifier calls an LLM through OpenRouter (`google/gemini-2.5-flash` by default; `tbml/llm.py`). Model answers are cached in `data/cache/` so the demo and `make eval` reproduce offline. Without a key, the app falls back to keyword matching and says so.
+- **In the product:** the HS classifier calls an LLM through OpenRouter (`google/gemini-2.5-flash` by default; `tbml/llm.py`). Model answers are cached in `data/cache/` so the demo and `make eval` reproduce offline. Without a key, the app falls back to keyword matching and says so. The same model also writes a short "why it matters" note under each flag (`tbml/summarise.py`), labelled as AI-written in the UI; the rule's own reason stays the evidence, and the R3 vague-description check also uses the classifier's "too vague" verdict.
 - **AI-generated code:** most of this repository was written with AI coding assistants (Claude Code and Claude), directed, reviewed and tested by the team. Commits made with an assistant carry a `Co-Authored-By` trailer. `plan.md`, `DECISIONS.md` and `PROGRESS.md` record what was built and why.
 - **Team:** Arqam (classifier, OpenRouter integration, evaluation, checker page), Ali (HS code list), Anveet (trade data investigation and fetch fixes), Kalash (backend pipeline, website, Vercel deploy), Faisal.
 - **Built during SotonShip 2026** (16-18 October 2026); the repository was created after hacking opened.

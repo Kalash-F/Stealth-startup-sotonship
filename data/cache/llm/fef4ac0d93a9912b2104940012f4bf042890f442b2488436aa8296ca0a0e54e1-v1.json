@@ -1,0 +1,49 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "P.O. Box 51553, Dubai, United Arab Emirates",
+      "address_type": "unknown",
+      "country": "AE",
+      "name": "Thornbury Industrial FZCO"
+    },
+    "consignee": null,
+    "country_of_origin": "Great Britain",
+    "currency": "USD",
+    "incoterm": "DAP",
+    "invoice_date": "2024-03-21",
+    "invoice_id": "TX240046",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "COPPER CATHODES GRADE A, 99.99% CU",
+        "extraction_confidence": 1,
+        "line_id": "L1",
+        "line_total": 452563.58,
+        "quantity": 41.8,
+        "unit": "MT",
+        "unit_price": 10826.88
+      },
+      {
+        "description": "ENERGY DRINK 250ML CANS, ORIGINAL FLAVOUR",
+        "extraction_confidence": 1,
+        "line_id": "L2",
+        "line_total": 29017.95,
+        "quantity": 149500,
+        "unit": "CANS",
+        "unit_price": 0.1941
+      }
+    ],
+    "port_of_discharge": "Jebel Ali, Dubai, UAE",
+    "port_of_loading": "Southampton, United Kingdom",
+    "seller": {
+      "address": "Unit 31, Harrowdene Business Park, Leeds LS91 5ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Oasis Arc Global Sourcing UK Ltd"
+    },
+    "source_file": "",
+    "stated_total": 481581.53
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

@@ -1,0 +1,40 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Office 978, Fernhill Business Centre, Ras Al Khor, Abu Dhabi, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Al Rimal Supply LLC"
+    },
+    "consignee": null,
+    "country_of_origin": "Great Britain",
+    "currency": "GBP",
+    "incoterm": "EXW",
+    "invoice_date": "2024-04-27",
+    "invoice_id": "TX240001",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "WOMEN'S V-NECK T-SHIRT, COTTON KNITTED, ASSORTED SIZES",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 31443.93,
+        "quantity": 6350.0,
+        "unit": "PCS",
+        "unit_price": 4.9518
+      }
+    ],
+    "port_of_discharge": "Khalifa Port, Abu Dhabi, UAE",
+    "port_of_loading": "Felixstowe, United Kingdom",
+    "seller": {
+      "address": "Unit 9, Copperfield Business Park, Leicester LE97 3ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Meridian Bay Logistics UK Ltd"
+    },
+    "source_file": "",
+    "stated_total": 31443.93
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

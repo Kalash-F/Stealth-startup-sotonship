@@ -1,0 +1,63 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Unit 14, Millbrook Business Park, Leeds LS94 7ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Northgate Distribution Limited"
+    },
+    "consignee": {
+      "address": "Unit 2, Oakhurst Business Park, Bristol BS94 2ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Moravia Line Trading Limited"
+    },
+    "country_of_origin": "Bangladesh",
+    "currency": "AED",
+    "incoterm": "FCA",
+    "invoice_date": "2024-04-22",
+    "invoice_id": "TX240014",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "WOMEN'S V-NECK T-SHIRT, COTTON KNITTED, ASSORTED SIZES",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 2967736.48,
+        "quantity": 8,
+        "unit": "PCS",
+        "unit_price": 370967.06
+      },
+      {
+        "description": "13-INCH ULTRAPORTABLE LAPTOP, 8GB RAM, 256GB SSD",
+        "extraction_confidence": 1.0,
+        "line_id": "L2",
+        "line_total": 1278445.0,
+        "quantity": 1750,
+        "unit": "PCS",
+        "unit_price": 730.54
+      },
+      {
+        "description": "SPARKLING FLAVOURED WATER 500ML PET BOTTLES",
+        "extraction_confidence": 1.0,
+        "line_id": "L3",
+        "line_total": 37039.05,
+        "quantity": 26500,
+        "unit": "BOTTLES",
+        "unit_price": 1.3977
+      }
+    ],
+    "port_of_discharge": "London Gateway, UK",
+    "port_of_loading": "Port Khalid, Sharjah, UAE",
+    "seller": {
+      "address": "P.O. Box 66179, Dubai, United Arab Emirates",
+      "address_type": "unknown",
+      "country": "AE",
+      "name": "Golden Crane Wholesale LLC"
+    },
+    "source_file": "",
+    "stated_total": 4283220.53
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

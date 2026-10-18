@@ -16,7 +16,7 @@
     "line_items": [
       {
         "description": "USB 3.0 FLASH DRIVE 64GB, METAL CASING",
-        "extraction_confidence": 1.0,
+        "extraction_confidence": 1,
         "line_id": "L1",
         "line_total": 1097460.0,
         "quantity": 9100,
@@ -25,7 +25,7 @@
       },
       {
         "description": "USB 2.0 MEMORY STICK 32GB, CARTON OF 100",
-        "extraction_confidence": 1.0,
+        "extraction_confidence": 1,
         "line_id": "L2",
         "line_total": 1237633.2,
         "quantity": 180,
@@ -34,7 +34,7 @@
       },
       {
         "description": "COPPER CATHODES GRADE A, 99.99% CU",
-        "extraction_confidence": 1.0,
+        "extraction_confidence": 1,
         "line_id": "L3",
         "line_total": 1024479.96,
         "quantity": 89.3,

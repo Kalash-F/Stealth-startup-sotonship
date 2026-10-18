@@ -1,0 +1,11 @@
+{
+  "description": "USB-C FLASH DRIVE 128GB WITH KEYRING\nWhat it is: A 128-gigabyte USB-C flash drive, which is a finished electronic data storage device, made of plastic and metal, and includes a keyring for attachment.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "85",
+      "score": 1.0
+    }
+  ],
+  "reason": "A USB-C flash drive is an electronic data storage device, which falls under electrical machinery and equipment."
+}

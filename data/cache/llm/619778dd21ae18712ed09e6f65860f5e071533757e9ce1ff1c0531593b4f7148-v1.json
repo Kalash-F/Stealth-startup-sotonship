@@ -16,7 +16,7 @@
     "line_items": [
       {
         "description": "UNROASTED ARABICA COFFEE, WASHED, SCREEN 17/18",
-        "extraction_confidence": 1.0,
+        "extraction_confidence": 1,
         "line_id": "L1",
         "line_total": 79813.9,
         "quantity": 11.8,

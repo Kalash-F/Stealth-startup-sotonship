@@ -12,12 +12,24 @@ import { PriceBandBar } from "@/components/domain/price-band-bar";
 import { PriorityBadge, PriorityScore } from "@/components/domain/status";
 import { SyntheticBadge } from "@/components/domain/synthetic-badge";
 import type { Flag } from "@/data/types";
-import { api, ApiError, hsPath, notClassifiedReason, type Health, type Report, type Sample } from "@/lib/api";
+import {
+  api,
+  ApiError,
+  bandPosition,
+  hsPath,
+  notClassifiedReason,
+  type BandPosition,
+  type Health,
+  type LiveBenchmark,
+  type PriceBand,
+  type Report,
+  type Sample,
+} from "@/lib/api";
 import { formatUnitPrice } from "@/lib/format";
 import { addLiveCase } from "@/lib/live-cases";
 import { cn } from "@/lib/utils";
 
-const unitName: Record<string, string> = { u: "unit", l: "litre", kg: "kg" };
+const unitName: Record<string, string> = { u: "unit", l: "litre", kg: "kg", pr: "pair" };
 
 const kindLabel: Record<Sample["kind"], string> = {
   anomalous: "planted anomaly",
@@ -206,7 +218,11 @@ export function Checker() {
                 </dd>
                 <dt className="text-fg-subtle">Price data</dt>
                 <dd>
-                  {health.benchmarks === "real" ? (
+                  {health.price_data?.startsWith("database") ? (
+                    <span className="text-fg">
+                      HMRC UK import prices, every commodity code, 2023 to 2026 ({health.price_data.replace("database:", "")})
+                    </span>
+                  ) : health.benchmarks === "real" ? (
                     <span className="text-fg">Trade statistics</span>
                   ) : (
                     <Badge tone="review">Mock comparison prices</Badge>
@@ -299,7 +315,7 @@ function ReportView({ report, source, busy, caseId }: { report: Report; source: 
             const path = hsPath(line.normalisation_note);
             const notClassified = notClassifiedReason(line.normalisation_note);
             return (
-              <li key={line.line_id} className="grid gap-3 p-4">
+              <li key={line.line_id} className="grid min-w-0 gap-3 p-4">
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
                   <p className="text-body font-medium text-fg">
                     <span className="mr-2 text-small text-fg-subtle">{line.line_id}</span>
@@ -321,13 +337,18 @@ function ReportView({ report, source, busy, caseId }: { report: Report; source: 
                   {path ? <p className="text-small leading-relaxed text-fg-subtle">How the AI got there: {path}</p> : null}
                 </div>
                 {line.benchmark && line.unit_price_usd ? (
-                  <div className="grid gap-1">
+                  <div className="grid min-w-0 gap-1">
                     <PriceBandBar benchmark={line.benchmark} stated={line.unit_price_usd} size="sm" />
                     <p className="text-meta text-fg-subtle">
                       Stated {formatUnitPrice(line.unit_price_usd)} per {unitName[line.benchmark.unit] ?? line.benchmark.unit} in USD
-                      {line.benchmark.route ? `, route ${line.benchmark.route}` : ", global range"}
-                      {line.benchmark.is_mock ? ". Comparison prices are placeholders, not real trade data." : `. Source: ${line.benchmark.sources.join(", ")}.`}
+                      {line.benchmark.level ? bandSource(line.benchmark) : line.benchmark.route ? `, route ${line.benchmark.route}` : ", global range"}
+                      {line.benchmark.is_mock
+                        ? ". Comparison prices are placeholders, not real trade data."
+                        : line.benchmark.level
+                          ? `. Source: ${line.benchmark.sources[0]}, converted from GBP.`
+                          : `. Source: ${line.benchmark.sources.join(", ")}.`}
                     </p>
+                    {line.benchmark.history?.length ? <YearByYear benchmark={line.benchmark} stated={line.unit_price_usd} /> : null}
                   </div>
                 ) : line.hs6 ? (
                   <p className="text-meta text-fg-subtle">No comparison price for this code yet, so its price was not checked.</p>
@@ -352,5 +373,89 @@ function ReportView({ report, source, busy, caseId }: { report: Report; source: 
         </Panel>
       ) : null}
     </div>
+  );
+}
+
+/** ", HS6 640399 (2025, 19,332 UK import prices)", noting a fallback to the 4-digit heading. */
+function bandSource(b: LiveBenchmark): string {
+  const where = b.level === "hs4" ? `heading ${b.code} (too few prices for HS ${b.hs6})` : `${(b.level ?? "").toUpperCase()} ${b.code}`;
+  const period = b.period === "all" ? "all years" : b.period;
+  return `, compared with ${where}, ${period}, ${b.n_observations.toLocaleString("en-GB")} UK import prices`;
+}
+
+const positionLabel: Record<BandPosition, string> = {
+  extreme_low: "below p1",
+  low: "p1–p5",
+  normal: "normal",
+  high: "p95–p99",
+  extreme_high: "above p99",
+};
+
+const positionTone: Record<BandPosition, string> = {
+  extreme_low: "text-risk-high",
+  low: "text-risk-review",
+  normal: "text-risk-low",
+  high: "text-risk-review",
+  extreme_high: "text-risk-high",
+};
+
+/** The stated price placed in every year of the series (and the origin's own band), so the
+ * officer sees whether the price is out of line every year or only in one. */
+function YearByYear({ benchmark, stated }: { benchmark: LiveBenchmark; stated: number }) {
+  const periods = benchmark.history ?? [];
+  const rows: { label: string; band: PriceBand; current: boolean }[] = periods.map((b) => ({
+    label: b.period === "all" ? "All years" : `${b.period}${b.months < 12 ? ` (${b.months} mo)` : ""}`,
+    band: b,
+    current: b.period === benchmark.period,
+  }));
+  if (benchmark.origin_band) {
+    const o = benchmark.origin_band;
+    rows.push({ label: `From ${o.origin}, ${o.period === "all" ? "all years" : o.period}`, band: o, current: false });
+  }
+  const counted = periods.filter((b) => b.n_observations >= 30);
+  const out = counted.filter((b) => bandPosition(stated, b) !== "normal").length;
+  return (
+    <details className="min-w-0 text-2xs">
+      <summary className="cursor-pointer select-none text-fg-muted hover:text-fg">
+        Year by year: out of the normal range in {out} of {counted.length} periods
+      </summary>
+      <div className="mt-2 overflow-x-auto">
+        <table className="w-full min-w-[520px] border-collapse whitespace-nowrap font-mono tabular">
+          <thead>
+            <tr className="text-left text-fg-subtle">
+              <th className="py-1 pr-3 font-normal">Period</th>
+              <th className="py-1 pr-3 text-right font-normal">Prices</th>
+              <th className="py-1 pr-3 text-right font-normal">Normal (p5–p95)</th>
+              <th className="py-1 pr-3 text-right font-normal">Median</th>
+              <th className="py-1 pr-3 text-right font-normal">vs year before</th>
+              <th className="py-1 text-right font-normal">This price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map(({ label, band, current }) => {
+              const position = bandPosition(stated, band);
+              const drift = band.median_vs_prev_year == null ? null : Math.round((band.median_vs_prev_year - 1) * 100);
+              return (
+                <tr key={label} className={cn("border-t border-border", current && "font-medium text-fg")}>
+                  <td className="py-1 pr-3">
+                    {label}
+                    {current ? <span className="text-fg-subtle"> · used</span> : null}
+                  </td>
+                  <td className="py-1 pr-3 text-right">{band.n_observations.toLocaleString("en-GB")}</td>
+                  <td className="py-1 pr-3 text-right">
+                    {formatUnitPrice(band.p5)}–{formatUnitPrice(band.p95)}
+                  </td>
+                  <td className="py-1 pr-3 text-right">{formatUnitPrice(band.median)}</td>
+                  <td className="py-1 pr-3 text-right">
+                    {drift == null ? "–" : drift === 0 ? "0%" : `${drift > 0 ? "+" : "−"}${Math.abs(drift)}%`}
+                  </td>
+                  <td className={cn("py-1 text-right", positionTone[position])}>{positionLabel[position]}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </details>
   );
 }

@@ -20,8 +20,15 @@ DATA_DIR = next(
 REFERENCE_DIR = DATA_DIR / "reference"
 SYNTHETIC_DIR = DATA_DIR / "synthetic"
 BENCHMARKS_DIR = DATA_DIR / "benchmarks"
+DATABASES_DIR = DATA_DIR / "databases"
 FIXTURES_DIR = BACKEND_DIR / "tests" / "fixtures"
 REPORTS_DIR = DATA_DIR / "reports"
+
+
+def databases_dir() -> Path:
+    """Sharded HMRC benchmark databases (db_01.db ... db_97.db): $TBML_DATABASES_DIR, else
+    data/databases."""
+    return Path(os.environ.get("TBML_DATABASES_DIR") or DATABASES_DIR)
 
 
 def cache_dir() -> Path:

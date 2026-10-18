@@ -1,0 +1,40 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Unit 40, Ashgrove Industrial Estate, Manchester M92\n3ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Redwell Supply Limited"
+    },
+    "consignee": null,
+    "country_of_origin": "China",
+    "currency": "CNY",
+    "incoterm": "CFR",
+    "invoice_date": "2024-02-20",
+    "invoice_id": "INV-2024-0025",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "15.6-inch notebook PC, AMD Ryzen 7, 16GB RAM",
+        "extraction_confidence": 1,
+        "line_id": "L1",
+        "line_total": 123708.2,
+        "quantity": 110,
+        "unit": "units",
+        "unit_price": 1124.62
+      }
+    ],
+    "port_of_discharge": "Southampton, United Kingdom",
+    "port_of_loading": "Shenzhen (Yantian), China",
+    "seller": {
+      "address": "No. 157 Jinqiao Industrial Park Road, Huangpu District,\nGuangzhou 478484, China",
+      "address_type": "commercial",
+      "country": "CN",
+      "name": "Oasis Arc Merchants International Trading Co., Ltd."
+    },
+    "source_file": "",
+    "stated_total": 123708.2
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

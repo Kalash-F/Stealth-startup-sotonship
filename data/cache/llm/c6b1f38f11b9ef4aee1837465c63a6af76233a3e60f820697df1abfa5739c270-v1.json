@@ -1,0 +1,58 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Unit 9, Oakhurst Trading Estate, Manchester M98 7ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Starbridge Trading Ltd"
+    },
+    "consignee": null,
+    "country_of_origin": "P.R. China",
+    "currency": "USD",
+    "incoterm": "EXW",
+    "invoice_date": "2024-08-04",
+    "invoice_id": "TX240058",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "BRANDED M6 X 30MM HEX BOLTS, ZINC PLATED",
+        "extraction_confidence": 1,
+        "line_id": "L1",
+        "line_total": 27262,
+        "quantity": 86000,
+        "unit": "PCS",
+        "unit_price": 0.317
+      },
+      {
+        "description": "MEN'S CREW-NECK T-SHIRT, 100% COTTON JERSEY KNIT",
+        "extraction_confidence": 1,
+        "line_id": "L2",
+        "line_total": 117996.9,
+        "quantity": 21000,
+        "unit": "PCS",
+        "unit_price": 5.6189
+      },
+      {
+        "description": "LEMON SOFT DRINK 330ML CANS, CARTON OF 24",
+        "extraction_confidence": 1,
+        "line_id": "L3",
+        "line_total": 62987.16,
+        "quantity": 6950,
+        "unit": "CARTONS",
+        "unit_price": 9.0629
+      }
+    ],
+    "port_of_discharge": "Southampton, United Kingdom",
+    "port_of_loading": "Shenzhen (Yantian), China",
+    "seller": {
+      "address": "No. 392 Xinghai Industrial Park Road, Huangpu District, Guangzhou 482748, China",
+      "address_type": "commercial",
+      "country": "CN",
+      "name": "Golden Crane Distribution Co., Ltd."
+    },
+    "source_file": "",
+    "stated_total": 208246.06
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

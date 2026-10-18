@@ -1,0 +1,11 @@
+{
+  "description": "14-inch laptop computer, Intel Core i5, 16GB RAM, 512GB SSD\nWhat it is: A 14-inch laptop computer with an Intel Core i5 processor, 16 gigabytes of RAM, and a 512 gigabyte solid-state drive, made of various electronic components and plastics, which is a finished product used for general computing tasks.",
+  "parent": "84",
+  "choices": [
+    {
+      "code": "8471",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description clearly indicates a laptop computer, which falls under automatic data processing machines."
+}

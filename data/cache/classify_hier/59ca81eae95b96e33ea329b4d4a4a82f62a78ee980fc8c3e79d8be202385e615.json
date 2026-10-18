@@ -1,0 +1,15 @@
+{
+  "description": "14-inch laptop computer, Intel Core i5, 16GB RAM, 512GB SSD\nWhat it is: A 14-inch laptop computer with an Intel Core i5 processor, 16 gigabytes of RAM, and a 512 gigabyte solid-state drive, made of various electronic components and plastics, which is a finished product used for general computing tasks.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "84",
+      "score": 0.5
+    },
+    {
+      "code": "85",
+      "score": 0.5
+    }
+  ],
+  "reason": "A laptop computer could be classified as either 'Machinery and mechanical appliances' or 'Electrical machinery and equipment'."
+}

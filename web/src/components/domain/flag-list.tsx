@@ -23,6 +23,9 @@ export function FlagItem({
   headingLevel?: "h3" | "h4";
 }) {
   const rule = rules[flag.rule];
+  // Live reports carry an optional AI summary in the evidence (backend tbml/summarise.py).
+  const summary = (flag.evidence as Record<string, unknown> | undefined)?.ai_summary;
+  const aiNote = typeof summary === "string" && summary.trim() ? summary : null;
   return (
     <article className={cn("grid gap-2", className)}>
       <header className="flex flex-wrap items-center gap-x-3 gap-y-1">
@@ -32,7 +35,13 @@ export function FlagItem({
           {flag.line_id ? `Line ${flag.line_id}` : "Whole invoice"}
         </span>
       </header>
-      <p className="text-body leading-relaxed text-fg-muted">{flag.reason}</p>
+      <p className="text-[13px] leading-relaxed text-fg-muted">{flag.reason}</p>
+      {!compact && aiNote ? (
+        <p className="border-l-2 border-border pl-3 text-[13px] leading-relaxed text-fg">
+          <span className="mr-1.5 text-xs text-fg-subtle">Why it matters (AI-written):</span>
+          {aiNote}
+        </p>
+      ) : null}
       {!compact && (flag.expected || flag.stated) ? (
         <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 font-mono text-small tabular sm:grid-cols-[auto_1fr_auto_1fr_auto_1fr]">
           {flag.expected ? (

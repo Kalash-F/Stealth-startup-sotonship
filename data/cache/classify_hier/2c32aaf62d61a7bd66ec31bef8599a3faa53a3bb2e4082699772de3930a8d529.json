@@ -1,0 +1,11 @@
+{
+  "description": "Plain white cotton T-shirts, packed per dozen\nWhat it is: Plain white T-shirts made of cotton, packed in sets of twelve, which are finished products for wearing.",
+  "parent": "61",
+  "choices": [
+    {
+      "code": "6109",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description explicitly states 'T-shirts', which directly matches heading 6109."
+}

@@ -21,7 +21,7 @@
     "line_items": [
       {
         "description": "Stainless steel machine screws M4 x 12mm",
-        "extraction_confidence": 1.0,
+        "extraction_confidence": 1,
         "line_id": "L1",
         "line_total": 669067.26,
         "quantity": 2,
@@ -30,7 +30,7 @@
       },
       {
         "description": "Hex head bolts M6, carton of 1,000 pcs",
-        "extraction_confidence": 1.0,
+        "extraction_confidence": 1,
         "line_id": "L2",
         "line_total": 275854372.2,
         "quantity": 330,
@@ -39,7 +39,7 @@
       },
       {
         "description": "USB-C flash drive 128GB with keyring",
-        "extraction_confidence": 1.0,
+        "extraction_confidence": 1,
         "line_id": "L3",
         "line_total": 13259540.0,
         "quantity": 14000,

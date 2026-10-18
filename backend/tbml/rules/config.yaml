@@ -1,8 +1,22 @@
 # Every rule threshold, weight and word list lives here (plan.md 4.1). Nothing numeric is hardcoded in the rule files.
 
 price_outlier:                 # R1
+  # Bands without tails (the JSON band tables):
   # medium: outside the p10-p90 band; high: more than one full band-width (ln(p90/p10)) from the median, on a log scale
   high_spread_multiple: 1.0
+  # Bands from the benchmark databases (p1-p99 for each year and all years pooled, DECISIONS D11.2):
+  #   p5-p95 normal (no flag); p1-p5 or p95-p99 review (medium); below p1 or above p99 extreme (high).
+  # The price is then placed in every period of the same series (each year with enough prices, plus all years pooled).
+  # agreement = share of those periods in which it is also outside p5-p95 on the same side.
+  min_period_prices: 30           # a period counts only with at least this many prices
+  weak_agreement: 0.5             # agreement below this -> one severity level down (the price was normal in most periods)
+  escalate_extreme_share: 0.5     # a review-tier price beyond p1/p99 in at least this share of periods -> high
+  # Score points of the flag (scoring.weights) are multiplied by min + (max - min) x agreement:
+  # 0.5 when no period agrees, 1.0 at half, 1.5 when every period agrees. Both bases extreme -> max; the other basis normal -> min.
+  score_factor_min: 0.5
+  score_factor_max: 1.5
+  origin_softens_review: true     # a review-tier price that is normal for its origin country -> one level down (never for extreme prices)
+  drift_note_pct: 25              # mention the year-on-year median change of the band's period when it is at least this big
 
 qty_value_implausible:         # R2
   ceiling_p90_multiple: 10        # line value ceiling = p90 x normalised quantity x this
@@ -45,6 +59,7 @@ low_confidence:                # R8
   min_confidence: 0.5
 
 scoring:                       # 4.4
+  # a flag may scale its own points with evidence["score_factor"] (R1, from how consistently the price is out of line)
   weights: {high: 40, medium: 15, low: 5}
   cap: 100
   review_now_min: 60

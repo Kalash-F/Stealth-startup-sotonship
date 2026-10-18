@@ -1,0 +1,40 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Warehouse 74, Plot S95437, Jebel Ali Free Zone, Dubai, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Hengtai Distribution FZCO"
+    },
+    "consignee": null,
+    "country_of_origin": "Made in the UK",
+    "currency": "USD",
+    "incoterm": "CFR",
+    "invoice_date": "2024-10-29",
+    "invoice_id": "PI-0037-24",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "Enterprise-grade USB 2.0 memory stick 32GB, carton of 100",
+        "extraction_confidence": 1,
+        "line_id": "L1",
+        "line_total": 12929241.6,
+        "quantity": 57,
+        "unit": "cartons",
+        "unit_price": 226828.8
+      }
+    ],
+    "port_of_discharge": "Jebel Ali, Dubai, UAE",
+    "port_of_loading": "Felixstowe, United Kingdom",
+    "seller": {
+      "address": "Unit 39, Harrowdene Trading Estate, Birmingham B91 2ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Saffron Dune Wholesale UK Ltd"
+    },
+    "source_file": "",
+    "stated_total": 12929241.6
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

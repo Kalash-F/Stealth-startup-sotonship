@@ -1,0 +1,58 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Unit 29, Copperfield Business Park, Leicester LE95\n4ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Sunmark Distribution Ltd"
+    },
+    "consignee": null,
+    "country_of_origin": "P.R. China",
+    "currency": "CNY",
+    "incoterm": "FCA",
+    "invoice_date": "2024-12-24",
+    "invoice_id": "INV-2024-0029",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "Stainless steel machine screws M4 x 12mm",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 39662.75,
+        "quantity": 147500.0,
+        "unit": "pcs",
+        "unit_price": 0.2689
+      },
+      {
+        "description": "USB-C flash drive 128GB with keyring",
+        "extraction_confidence": 1.0,
+        "line_id": "L2",
+        "line_total": 185040.0,
+        "quantity": 4800.0,
+        "unit": "pcs",
+        "unit_price": 38.55
+      },
+      {
+        "description": "Copper cathodes Grade A, 99.99% Cu",
+        "extraction_confidence": 1.0,
+        "line_id": "L3",
+        "line_total": 8043520.5,
+        "quantity": 90.0,
+        "unit": "MT",
+        "unit_price": 89372.45
+      }
+    ],
+    "port_of_discharge": "Southampton, United Kingdom",
+    "port_of_loading": "Ningbo, China",
+    "seller": {
+      "address": "No. 861 Fuyuan Industrial Park Road, Pudong New\nArea, Shanghai 522779, China",
+      "address_type": "commercial",
+      "country": "CN",
+      "name": "Oasis Arc Commodities Co., Ltd."
+    },
+    "source_file": "",
+    "stated_total": 8268223.25
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

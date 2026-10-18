@@ -1,0 +1,67 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Office 1164, Millbrook Business Centre, Al Qusais, Abu\nDhabi, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Redwell Logistics LLC"
+    },
+    "consignee": null,
+    "country_of_origin": "Great Britain",
+    "currency": "AED",
+    "incoterm": "CIF",
+    "invoice_date": "2024-07-06",
+    "invoice_id": "INV-2024-0050",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "Men's crew-neck T-shirt, 100% cotton jersey knit",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 1470190.0,
+        "quantity": 39500,
+        "unit": "pcs",
+        "unit_price": 37.22
+      },
+      {
+        "description": "USB 2.0 memory stick 32GB, carton of 100",
+        "extraction_confidence": 1.0,
+        "line_id": "L2",
+        "line_total": 1536453.2,
+        "quantity": 170,
+        "unit": "cartons",
+        "unit_price": 9037.96
+      },
+      {
+        "description": "Refined copper cathode sheets, LME Grade A",
+        "extraction_confidence": 1.0,
+        "line_id": "L3",
+        "line_total": 6324000.0,
+        "quantity": 120000,
+        "unit": "kg",
+        "unit_price": 52.7
+      },
+      {
+        "description": "Copper cathodes Grade A, 99.99% Cu",
+        "extraction_confidence": 1.0,
+        "line_id": "L4",
+        "line_total": 1578966.05,
+        "quantity": 43.2,
+        "unit": "MT",
+        "unit_price": 36550.14
+      }
+    ],
+    "port_of_discharge": "Khalifa Port, Abu Dhabi, UAE",
+    "port_of_loading": "Southampton, United Kingdom",
+    "seller": {
+      "address": "Unit 33, Brookfield Business Park, Manchester M99\n9ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Kestrel Trading Ltd"
+    },
+    "source_file": "",
+    "stated_total": 10909609.25
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

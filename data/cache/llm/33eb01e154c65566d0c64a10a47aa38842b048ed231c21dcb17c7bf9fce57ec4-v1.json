@@ -1,0 +1,58 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Unit 10, Oakhurst Industrial Estate, Manchester M92 7ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Thornbury Trading Ltd"
+    },
+    "consignee": null,
+    "country_of_origin": "China",
+    "currency": "GBP",
+    "incoterm": "CIF",
+    "invoice_date": "2024-11-03",
+    "invoice_id": "TX240033",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "COPPER CATHODES GRADE A, 99.99% CU",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 509194.24,
+        "quantity": 47.9,
+        "unit": "MT",
+        "unit_price": 10630.36
+      },
+      {
+        "description": "HEX HEAD BOLTS M6, CARTON OF 1,000 PCS",
+        "extraction_confidence": 1.0,
+        "line_id": "L2",
+        "line_total": 8088.3,
+        "quantity": 430.0,
+        "unit": "CARTONS",
+        "unit_price": 18.81
+      },
+      {
+        "description": "USB 2.0 MEMORY STICK 32GB, CARTON OF 100",
+        "extraction_confidence": 1.0,
+        "line_id": "L3",
+        "line_total": 146633.2,
+        "quantity": 140.0,
+        "unit": "CARTONS",
+        "unit_price": 1047.38
+      }
+    ],
+    "port_of_discharge": "Felixstowe, United Kingdom",
+    "port_of_loading": "Shenzhen (Yantian), China",
+    "seller": {
+      "address": "No. 727 Taihe Industrial Park Road, Bao'an District, Shenzhen 361996, China",
+      "address_type": "commercial",
+      "country": "CN",
+      "name": "Northgate Distribution Co., Ltd."
+    },
+    "source_file": "",
+    "stated_total": 663915.74
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

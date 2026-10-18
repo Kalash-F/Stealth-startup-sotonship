@@ -1,0 +1,15 @@
+{
+  "description": "15.6-INCH NOTEBOOK PC, AMD RYZEN 7, 16GB RAM (BULK ORDER, VOLUME\nDISCOUNT APPLIED)\nWhat it is: A 15.6-inch laptop computer with an AMD Ryzen 7 processor and 16 gigabytes of RAM, made of various electronic components and plastics, which is a finished product for general computing tasks.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "84",
+      "score": 0.55
+    },
+    {
+      "code": "85",
+      "score": 0.45
+    }
+  ],
+  "reason": "Laptops are either 'machinery and mechanical appliances' (84) or 'electrical machinery and equipment' (85)."
+}

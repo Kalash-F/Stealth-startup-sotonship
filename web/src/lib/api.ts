@@ -5,7 +5,7 @@
  * call is a same-origin fetch. In local dev, next.config.ts proxies /api to `make api` on :8000.
  * Types mirror backend/tbml/schemas.py (plan.md §4).
  */
-import type { Benchmark, Flag, LineItem, PriorityBand } from "@/data/types";
+import type { Flag, LineItem, PriorityBand } from "@/data/types";
 
 const BASE = "/api";
 
@@ -18,6 +18,8 @@ export interface Health {
   llm?: string;
   /** HS classifier: "jev:<model>", "hierarchical:<model>", "flat:<model>" or "keyword". */
   classifier?: string;
+  /** Price data: "database:<n> shards" (HMRC benchmark databases) or the band file name. */
+  price_data?: string;
 }
 
 export interface Sample {
@@ -36,6 +38,71 @@ export interface HS6Candidate {
   score: number;
 }
 
+/** Where a price sits in a band with tails (backend rules/price_outlier.position). */
+export type BandPosition = "extreme_low" | "low" | "normal" | "high" | "extreme_high";
+
+/** One period of the HMRC benchmark databases, USD per `unit` (backend PriceBand). */
+export interface PriceBand {
+  level: "cn8" | "hs6" | "hs4";
+  code: string;
+  basis: "per_unit" | "per_kg";
+  unit: string;
+  /** "2023" ... "2026", or "all" for every year pooled. */
+  period: string;
+  /** "ALL" (every origin pooled) or an ISO-2 country. */
+  origin: string;
+  recommended: boolean;
+  n_observations: number;
+  months: number;
+  p1: number;
+  p5: number;
+  p10: number;
+  p25: number;
+  median: number;
+  p75: number;
+  p90: number;
+  p95: number;
+  p99: number;
+  /** This period's median over the previous year's (1.15 = +15%). */
+  median_vs_prev_year: number | null;
+}
+
+/** Backend Benchmark (schema 1.2). Database bands add the tails, the series and the context. */
+export interface LiveBenchmark {
+  hs6: string;
+  route: string | null;
+  unit: string;
+  p10: number;
+  p25: number;
+  median: number;
+  p75: number;
+  p90: number;
+  n_observations: number;
+  years: number[];
+  sources: string[];
+  is_mock: boolean;
+  p1?: number | null;
+  p5?: number | null;
+  p95?: number | null;
+  p99?: number | null;
+  level?: "cn8" | "hs6" | "hs4" | null;
+  code?: string | null;
+  basis?: "per_unit" | "per_kg" | null;
+  period?: string | null;
+  history?: PriceBand[];
+  origin_band?: PriceBand | null;
+  other_basis?: PriceBand | null;
+}
+
+/** Same tiers as the backend: p5-p95 normal, p1-p5 / p95-p99 review, beyond p1 / p99 extreme. */
+export function bandPosition(price: number, b: Pick<PriceBand, "p1" | "p5" | "p95" | "p99">): BandPosition {
+  if (price < b.p1) return "extreme_low";
+  if (price < b.p5) return "low";
+  if (price > b.p99) return "extreme_high";
+  if (price > b.p95) return "high";
+  return "normal";
+}
+
 /** Report.lines: LineItem + EnrichedLine, plus the price band used (backend ReportLine). */
 export interface ReportLine extends Omit<LineItem, "hs6" | "unit_price_usd" | "benchmark"> {
   hs6: string | null;
@@ -46,34 +113,7 @@ export interface ReportLine extends Omit<LineItem, "hs6" | "unit_price_usd" | "b
   benchmark_unit: string | null;
   unit_price_usd: number | null;
   normalisation_note: string;
-  /** The backend band has no description; the line's hs6_description names the goods. */
-  benchmark: Omit<Benchmark, "description"> | null;
-}
-
-/** A party as extracted: any ISO country code (ZZ when the extractor could not read one). */
-export interface ReportParty {
-  name: string;
-  address: string;
-  country: string;
-  address_type: "commercial" | "residential" | "unknown";
-}
-
-/** Report.invoice (schema 1.2): the invoice as extracted, header and parties included. */
-export interface ReportInvoice {
-  invoice_id: string;
-  invoice_date: string;
-  seller: ReportParty;
-  buyer: ReportParty;
-  consignee: ReportParty | null;
-  country_of_origin: string | null;
-  port_of_loading: string | null;
-  port_of_discharge: string | null;
-  incoterm: string | null;
-  currency: string;
-  line_items: Omit<LineItem, "hs6" | "unit_price_usd" | "benchmark">[];
-  stated_total: number;
-  source_file: string;
-  is_synthetic: boolean;
+  benchmark: LiveBenchmark | null;
 }
 
 export interface Report {

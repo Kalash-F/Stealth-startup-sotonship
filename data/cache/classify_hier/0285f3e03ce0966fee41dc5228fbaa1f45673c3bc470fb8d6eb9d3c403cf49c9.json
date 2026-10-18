@@ -1,0 +1,11 @@
+{
+  "description": "Copper cathodes Grade A, 99.99% Cu\nWhat it is: Refined copper cathodes, made of 99.99% pure copper, used as a raw material for further processing.",
+  "parent": null,
+  "choices": [
+    {
+      "code": "74",
+      "score": 1.0
+    }
+  ],
+  "reason": "The description clearly states 'Copper cathodes', which directly points to Chapter 74 for 'Copper and articles thereof'."
+}

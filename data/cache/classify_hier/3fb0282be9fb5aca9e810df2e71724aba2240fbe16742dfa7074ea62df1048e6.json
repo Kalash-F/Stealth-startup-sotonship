@@ -1,0 +1,11 @@
+{
+  "description": "CARRIAGE BOLTS M10 X 100MM, GALVANISED STEEL\nWhat it is: Galvanised steel carriage bolts, 10mm in diameter and 100mm long, which are finished products used for fastening wood to wood or wood to metal.",
+  "parent": "7318",
+  "choices": [
+    {
+      "code": "731815",
+      "score": 0.9
+    }
+  ],
+  "reason": "Carriage bolts are a type of bolt, and this option covers screws and bolts not elsewhere specified, which fits the description."
+}

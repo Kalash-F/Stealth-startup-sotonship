@@ -1,0 +1,40 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Unit 9, Kingfisher Business Park, Birmingham B95\n6ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Vltava Logistics Ltd"
+    },
+    "consignee": null,
+    "country_of_origin": "India (re-exported from Jebel Ali Free Zone, Dubai)",
+    "currency": "GBP",
+    "incoterm": "FOB",
+    "invoice_date": "2024-08-01",
+    "invoice_id": "TX240048",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "15.6-INCH NOTEBOOK PC, AMD RYZEN 7, 16GB RAM (BULK ORDER, VOLUME\nDISCOUNT APPLIED)",
+        "extraction_confidence": 1,
+        "line_id": "L1",
+        "line_total": 186143.5,
+        "quantity": 2350,
+        "unit": "UNITS",
+        "unit_price": 79.21
+      }
+    ],
+    "port_of_discharge": "London Gateway, UK",
+    "port_of_loading": "Jebel Ali, Dubai, UAE",
+    "seller": {
+      "address": "Warehouse 62, Plot S70875, Jebel Ali Free Zone,\nDubai, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Hengtai Distribution LLC"
+    },
+    "source_file": "",
+    "stated_total": 186143.5
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

@@ -1,0 +1,81 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Unit 32, Copperfield Trading Estate, Manchester M99 5ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Ruifeng Import & Export Ltd"
+    },
+    "consignee": {
+      "address": "Flat 22, 42 Juniper Court, Leeds LS95 2ZY, United Kingdom",
+      "address_type": "residential",
+      "country": "GB",
+      "name": "K. Al Mansoori"
+    },
+    "country_of_origin": "China (re-exported from Jebel Ali Free Zone, Dubai)",
+    "currency": "USD",
+    "incoterm": "CIF",
+    "invoice_date": "2024-03-14",
+    "invoice_id": "PI-0045-24",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "Stainless steel machine screws M4 x 12mm",
+        "extraction_confidence": 1,
+        "line_id": "L1",
+        "line_total": 53446.5,
+        "quantity": 535000,
+        "unit": "pcs",
+        "unit_price": 0.0999
+      },
+      {
+        "description": "15.6-inch notebook PC, AMD Ryzen 7, 16GB RAM",
+        "extraction_confidence": 1,
+        "line_id": "L2",
+        "line_total": 195430.0,
+        "quantity": 1000,
+        "unit": "units",
+        "unit_price": 195.43
+      },
+      {
+        "description": "Copper cathodes Grade A, 99.99% Cu",
+        "extraction_confidence": 1,
+        "line_id": "L3",
+        "line_total": 2620144.48,
+        "quantity": 164.5,
+        "unit": "MT",
+        "unit_price": 15927.93
+      },
+      {
+        "description": "USB-C flash drive 128GB with keyring",
+        "extraction_confidence": 1,
+        "line_id": "L4",
+        "line_total": 2955485.0,
+        "quantity": 20500,
+        "unit": "pcs",
+        "unit_price": 144.17
+      },
+      {
+        "description": "Copper cathodes Grade A, 99.99% Cu",
+        "extraction_confidence": 1,
+        "line_id": "L5",
+        "line_total": 2001883.22,
+        "quantity": 157.7,
+        "unit": "MT",
+        "unit_price": 12694.25
+      }
+    ],
+    "port_of_discharge": "London Gateway, UK",
+    "port_of_loading": "Jebel Ali, Dubai, UAE",
+    "seller": {
+      "address": "Warehouse 72, Plot S25435, Jebel Ali Free Zone, Dubai, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Longmen Commodities FZCO"
+    },
+    "source_file": "",
+    "stated_total": 7826389.2
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

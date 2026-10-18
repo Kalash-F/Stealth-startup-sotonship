@@ -1,0 +1,67 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Are\u00e1l Westmere, Poln\u00ed 2, 741 62 Brno, Czech\nRepublic",
+      "address_type": "commercial",
+      "country": "CZ",
+      "name": "Jinhai Supply s.r.o."
+    },
+    "consignee": null,
+    "country_of_origin": "Vietnam (re-exported from Jebel Ali Free Zone, Dubai; certificate of origin attached)",
+    "currency": "USD",
+    "incoterm": "DAP",
+    "invoice_date": "2024-12-05",
+    "invoice_id": "TX240022",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "COPPER CATHODES GRADE A, 99.99% CU",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 1209186.16,
+        "quantity": 101.9,
+        "unit": "MT",
+        "unit_price": 11866.4
+      },
+      {
+        "description": "USB 3.0 FLASH DRIVE 64GB, METAL CASING",
+        "extraction_confidence": 1.0,
+        "line_id": "L2",
+        "line_total": 11259780.0,
+        "quantity": 28500.0,
+        "unit": "PCS",
+        "unit_price": 395.08
+      },
+      {
+        "description": "CARRIAGE BOLTS M10 X 100MM, GALVANISED STEEL",
+        "extraction_confidence": 1.0,
+        "line_id": "L3",
+        "line_total": 25287.6,
+        "quantity": 3900.0,
+        "unit": "KG",
+        "unit_price": 6.484
+      },
+      {
+        "description": "REFINED COPPER CATHODE SHEETS, LME GRADE A",
+        "extraction_confidence": 1.0,
+        "line_id": "L4",
+        "line_total": 1720425.0,
+        "quantity": 101500.0,
+        "unit": "KG",
+        "unit_price": 16.95
+      }
+    ],
+    "port_of_discharge": "Prague Ruzyn\u011b Airport, Czechia",
+    "port_of_loading": "Jebel Ali, Dubai, UAE",
+    "seller": {
+      "address": "Office 998, Oakhurst Business Centre, Ras Al Khor,\nSharjah, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Ruifeng Trading LLC"
+    },
+    "source_file": "",
+    "stated_total": 14214678.76
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}
