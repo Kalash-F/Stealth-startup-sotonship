@@ -203,7 +203,7 @@ function toInvestigation(id: string, at: string, report: Report): Investigation 
     shipmentId: null,
     entityIds: [],
     relatedCaseIds: [],
-    summary: report.summary ?? `Checked in the invoice checker: ${flags.length ? plural(flags.length, "flag") : "no flags"} raised, priority ${score}.`,
+    summary: report.summary ?? `Checked in the invoice checker: ${flags.length ? plural(flags.length, "flag") : "no flags"} raised.`,
     nextAction,
     timeline,
     notes: [],

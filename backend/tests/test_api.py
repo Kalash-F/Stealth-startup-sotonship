@@ -133,3 +133,41 @@ def test_rule_skip_warnings_reach_report(monkeypatch):
     )
     resp = _post(_pdf(_clean_invoice()))
     assert "R5 skipped: test" in resp.json()["warnings"]
+
+
+def test_sample_pdf_is_served_inline():
+    sample = client.get("/samples").json()[0]["invoice_id"]
+    res = client.get(f"/samples/{sample}/pdf")
+    assert res.status_code == 200
+    assert res.headers["content-type"] == "application/pdf"
+    assert res.headers["content-disposition"].startswith("inline")
+    assert res.content == _pdf(sample)
+    assert client.get("/samples/NOPE/pdf").status_code == 404
+    assert client.get("/samples/..%2F..%2Fsecrets/pdf").status_code == 404
+
+
+def test_hs_lookup_gives_the_path_and_cn8_codes():
+    body = client.get("/hs", params={"codes": "610910,731815"}).json()
+    tee = body["610910"]
+    assert tee["chapter"]["code"] == "61" and "knitted" in tee["chapter"]["description"].lower()
+    assert tee["heading"]["code"] == "6109" and tee["subheading"]["description"]
+    from tbml.benchmark import database_enabled
+
+    if database_enabled():
+        assert [c["code"] for c in tee["cn8"]] == ["61091000"]  # one CN8: it follows from the HS6
+        assert len(body["731815"]["cn8"]) > 1  # several: the HS6 alone does not decide it
+
+
+def test_hs_lookup_rejects_bad_codes():
+    assert client.get("/hs", params={"codes": "61"}).status_code == 400
+    assert client.get("/hs", params={"codes": "abcdef"}).status_code == 400
+    assert client.get("/hs", params={"codes": ",".join(["610910"] * 2)}).status_code == 200
+
+
+def test_health_gives_the_price_period():
+    from tbml.benchmark import database_enabled
+
+    period = client.get("/health").json()["price_period"]
+    assert period == "" or len(period) == 13 and period[6] == "-"
+    if database_enabled():
+        assert period.startswith("2023")

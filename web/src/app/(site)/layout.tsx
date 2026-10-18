@@ -5,7 +5,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
   return (
     <>
       <SiteHeader />
-      <main id="main" className="theme-night bg-bg text-fg">
+      <main id="main" tabIndex={-1} className="theme-night bg-bg text-fg outline-none">
         {children}
       </main>
       <SiteFooter />

@@ -1,7 +1,0 @@
-{
-  "summaries": {
-    "R3-L1": "Vague goods descriptions can hide illicit goods or make price checking difficult, which could facilitate money laundering. The officer should ask the customer for a more specific description of the merchandise. Alternatively, they could request supporting documents like a packing list or bill of lading.",
-    "R6-INV": "Discrepancies between line items and the total invoice amount can indicate an attempt to misrepresent the true value of the transaction. The officer should ask the customer to explain the difference in the invoice total. They could also request a corrected invoice.",
-    "R8-L1": "Low confidence in product identification means the system could not properly assess the goods, which is crucial for detecting mispricing. The officer should manually verify the product description on line L1. They could also cross-reference it with other available trade documents."
-  }
-}

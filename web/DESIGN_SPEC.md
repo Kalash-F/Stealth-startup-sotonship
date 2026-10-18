@@ -29,7 +29,8 @@ Two colours: beige `#DDD0C8` as the ground and dark grey `#323232` for type. One
 | `frame` | `#d2c3b9` + `.grain` | shell frame: sidebar and demo notice; the content is an inset sheet raised off it (`rounded-xl`, `shadow-float`) |
 | `bg` | `#ddd0c8` | content sheet background |
 | `surface` / `surface-2` / `surface-3` | `#e7ded8` / `#d5c7be` / `#cbbbb1` | panels (a step lighter than bg), hover, selected |
-| `border` / `border-strong` | `#c7b7ad` / `#a39388` | 1px rules, inputs |
+| `border` / `border-strong` | `#c7b7ad` / `#a39388` | 1px rules, secondary buttons |
+| `control-border` | `#78685d` | input, select and textarea outlines: 3:1 on every surface (WCAG 1.4.11) |
 | `fg` / `fg-muted` / `fg-subtle` | `#323232` / `#48423e` / `#57504b` | type |
 | `accent` | `#323232` | active nav (inverse chip), primary action, money edges, focus ring |
 | risk | low `#33583d`, review `#704708`, high `#922e15`, finding `#7a2215`, info `#2e5373` | earthy, each with a `-soft` pair |
@@ -43,7 +44,8 @@ Two colours: beige `#DDD0C8` as the ground and dark grey `#323232` for type. One
 | `surface` | `#fbfaf6` | `#11161d` | panels, inputs |
 | `surface-2` / `surface-3` | `#ebe7dd` / `#e2ddd0` | `#171e27` / `#1e2732` | hover, selected, nested |
 | `border` / `border-strong` | `#d9d3c5` / `#b9b1a0` | `#242e3a` / `#354253` | 1px rules |
-| `fg` / `fg-muted` / `fg-subtle` | `#15171b` / `#555a62` / `#7b7f86` | `#e5e9ee` / `#9aa5b2` / `#6c7886` | type |
+| `fg` / `fg-muted` / `fg-subtle` | `#15171b` / `#555a62` / `#63676d` | `#e5e9ee` / `#9aa5b2` / `#7c8896` | type; every pairing at least 4.5:1 on bg, surface and surface-2 |
+| `control-border` | `#8d8168` | `#566c87` | input outlines, 3:1 (WCAG 1.4.11) |
 | `accent` | `#0d7468` deep teal | `#3cc4b0` signal teal | the one brand colour: active state, money flows, focus |
 
 Semantic colours (each has a `-soft` background pair):
@@ -80,8 +82,8 @@ Scale (rem): 0.6875 (badges/eyebrows), 0.75, 0.8125 (app body), 0.875, 1, 1.25, 
 - **Case status**: icon + plain text, not a badge, to keep tables calm.
 - **Panel**: flat surface, 1px border, `radius-lg`, `PanelHeader` with 13px semibold title and optional actions.
 - **Tables**: 13px body, mono for ids and money, right-aligned numbers, row hover `surface-2`, whole row clickable via the primary cell link, sticky header on long tables, horizontal scroll container under `md`.
-- **Inputs**: 36px tall, `border-strong`, accent focus ring.
-- **Price band bar**: log-scale p10–p90 thin bar, p25–p75 thick bar, median tick, stated price diamond (red outside band, green inside). Always captioned with numbers.
+- **Inputs**: 36px tall, `control-border` (3:1 against the surface), accent focus ring.
+- **Price band bar**: log-scale chart with a labelled price axis: normal range thin bar (p5–p95, or p10–p90 for bands without tails), middle half (p25–p75) thick bar, median tick, p1/p99 end marks, the stated price as a filled diamond labelled with its value (green normal, amber unusual, red extreme). A 13px caption says where the price sits in words; `PriceBandLegend` explains the marks once per section.
 - **Entity graph**: React Flow. Entities are solid rounded nodes; documents and payments are dashed square nodes. Money edges accent, goods/document edges neutral, ownership dashed, under-review edges risk-high. Selecting a node dims everything except its neighbours.
 
 ## Marketing ↔ application
@@ -98,3 +100,13 @@ Only transitions that explain state: hover colour, tab underline, drawer slide, 
 - 768–1023px: sidebar becomes a drawer; two-column panels collapse to one.
 - <768px: tables scroll horizontally inside their panel, or switch to stacked rows where noted; the graph keeps a fixed-height canvas with pan/zoom and the detail panel stacks below it.
 - Marketing: nav collapses to a menu button under 900px; hero visual stacks below copy; showcases become single column.
+
+## Accessibility (WCAG 2.2 AA)
+
+- Text: every text token clears 4.5:1 on `bg`, `surface` and `surface-2` in every theme (paper, ink, night, linen light and dark). Input outlines and focus rings clear 3:1.
+- Colour never carries meaning alone: severities and priorities are words, flagged invoice lines carry a ▲ as well as the brick tint, price positions are stated in the chart caption.
+- Keyboard: a "Skip to content" link opens every page; `main` takes focus. Focus moves to a result only when the user started the action. Every control has a 2px focus ring.
+- Targets are at least 24px or spaced (2.5.8). Screens reflow at 320px with no horizontal page scroll; wide tables scroll inside a labelled, focusable region.
+- `prefers-reduced-motion` turns transitions and smooth scrolling off.
+- `tests/a11y.spec.ts` runs axe (WCAG 2.0 to 2.2, A and AA) on every route in both workspace modes.
+

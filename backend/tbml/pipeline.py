@@ -17,8 +17,7 @@ from tbml.rules import run_rules_with_warnings
 from tbml.rules._geo import find_countries, strip_parentheses
 from tbml.schemas import SCHEMA_VERSION, Invoice, Report, ReportLine
 from tbml.score import score
-from tbml.summarise import with_summaries
-from tbml.summary import summarise
+from tbml.summary import flag_notes_enabled, with_flag_notes, write_notes
 
 log = logging.getLogger("tbml.pipeline")
 
@@ -59,9 +58,6 @@ def check(pdf_path: str | Path) -> Report:
     flags, rule_warnings = run_rules_with_warnings(invoice, enriched, benchmarks)
     priority_score, priority_band = score(flags)
     t = lap("rules", t)
-    if not mocks:
-        flags = with_summaries(invoice, flags)
-        lap("summaries", t)
 
     by_id = {e.line_id: (e, b) for e, b in zip(enriched, benchmarks, strict=True)}
     lines: list[ReportLine] = []
@@ -76,12 +72,22 @@ def check(pdf_path: str | Path) -> Report:
         if e.hs6 is None:
             warnings.append(f"line {item.line_id} could not be classified")
     warnings.extend(w for w in rule_warnings if w not in warnings)
-    summary, summary_warning = summarise(
-        priority_score, priority_band, flags, lines, warnings, client=summary_client()
+    # One LLM call for everything written after the rules: the summary and, when turned on, a
+    # note per flag, split apart from a single JSON reply (tbml/summary.py).
+    notes = write_notes(
+        invoice,
+        priority_score,
+        priority_band,
+        flags,
+        lines,
+        warnings,
+        client=summary_client(),
+        flag_notes=flag_notes_enabled() and not mocks,
     )
-    if summary_warning:
-        warnings.append(summary_warning)
-    lap("summary", t)
+    flags = with_flag_notes(flags, notes.flag_notes)
+    if notes.warning:
+        warnings.append(notes.warning)
+    lap("notes", t)
 
     processing_ms = int((time.perf_counter() - start) * 1000)
     timings.pop("start", None)
@@ -91,7 +97,7 @@ def check(pdf_path: str | Path) -> Report:
         schema_version=SCHEMA_VERSION,
         priority_score=priority_score,
         priority_band=priority_band,
-        summary=summary,
+        summary=notes.summary,
         invoice=invoice,
         flags=flags,
         lines=lines,

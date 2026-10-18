@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { AttentionQueue } from "@/components/app/overview/attention-queue";
 import { KpiStrip } from "@/components/app/overview/kpi-strip";
 import { SummaryTab } from "@/components/app/case/summary-tab";
-import { CaseStatusLabel, PriorityBadge, PriorityScore } from "@/components/domain/status";
+import { CaseStatusLabel, PriorityScore } from "@/components/domain/status";
 import { investigationById } from "@/data/investigations";
 import { workspace } from "@/data/workspace";
 import { cn } from "@/lib/utils";
@@ -21,7 +21,6 @@ function CaseHeader() {
         </p>
         <h3 className="mt-1 text-[20px] font-semibold tracking-tight">{inv.title}</h3>
         <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1">
-          <PriorityBadge band={inv.priority_band} />
           <CaseStatusLabel status={inv.status} />
         </div>
       </div>

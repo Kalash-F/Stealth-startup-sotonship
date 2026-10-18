@@ -1,7 +1,0 @@
-{
-  "summaries": {
-    "R3-L1": "Vague goods descriptions can hide illicit goods or allow mispricing for money laundering. The officer could ask the customer for a detailed list of the goods being shipped. Alternatively, they could request supporting documents like a packing list or bill of lading.",
-    "R7-INV": "Delivering high-value goods to a residential address can be a tactic to obscure the true recipient or purpose of the transaction. The officer could ask the customer to explain why such a valuable shipment is being sent to a private residence. They could also request proof of the consignee's business operations or storage arrangements.",
-    "R8-L1": "Low confidence in product identification means the system cannot properly assess the risk of the goods. The officer should manually verify the description of the goods on line L1. They could also ask the customer for more specific details about the product."
-  }
-}

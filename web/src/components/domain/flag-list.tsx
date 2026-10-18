@@ -23,45 +23,29 @@ export function FlagItem({
   headingLevel?: "h3" | "h4";
 }) {
   const rule = rules[flag.rule];
-  // Live reports carry an optional AI summary in the evidence (backend tbml/summarise.py).
-  const summary = (flag.evidence as Record<string, unknown> | undefined)?.ai_summary;
-  const aiNote = typeof summary === "string" && summary.trim() ? summary : null;
+  const facts = [
+    flag.expected ? { label: "Expected", value: flag.expected, tone: "text-fg" } : null,
+    flag.stated ? { label: "Stated", value: flag.stated, tone: "text-fg" } : null,
+    flag.variance_pct !== null
+      ? { label: "Difference", value: formatVariance(flag.variance_pct), tone: flag.severity === "high" ? "font-medium text-risk-high" : "text-fg" }
+      : null,
+  ].filter((f) => f !== null);
   return (
     <article className={cn("grid gap-2", className)}>
       <header className="flex flex-wrap items-center gap-x-3 gap-y-1">
         <SeverityTag severity={flag.severity} />
         <Heading className="text-body font-semibold text-fg">{rule.name}</Heading>
-        <span className="text-small text-fg-subtle" title={flag.rule}>
-          {flag.line_id ? `Line ${flag.line_id}` : "Whole invoice"}
-        </span>
+        <span className="text-small text-fg-subtle">{flag.line_id ? `Line ${flag.line_id}` : "Whole invoice"}</span>
       </header>
-      <p className="text-[13px] leading-relaxed text-fg-muted">{flag.reason}</p>
-      {!compact && aiNote ? (
-        <p className="border-l-2 border-border pl-3 text-[13px] leading-relaxed text-fg">
-          <span className="mr-1.5 text-xs text-fg-subtle">Why it matters (AI-written):</span>
-          {aiNote}
-        </p>
-      ) : null}
-      {!compact && (flag.expected || flag.stated) ? (
-        <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 font-mono text-small tabular sm:grid-cols-[auto_1fr_auto_1fr_auto_1fr]">
-          {flag.expected ? (
-            <>
-              <dt className="text-fg-subtle">Expected</dt>
-              <dd className="text-fg">{flag.expected}</dd>
-            </>
-          ) : null}
-          {flag.stated ? (
-            <>
-              <dt className="text-fg-subtle">Stated</dt>
-              <dd className="text-fg">{flag.stated}</dd>
-            </>
-          ) : null}
-          {flag.variance_pct !== null ? (
-            <>
-              <dt className="text-fg-subtle">Variance</dt>
-              <dd className={flag.severity === "high" ? "text-risk-high" : "text-fg"}>{formatVariance(flag.variance_pct)}</dd>
-            </>
-          ) : null}
+      <p className="max-w-prose text-body leading-relaxed text-fg-muted [text-wrap:pretty]">{flag.reason}</p>
+      {!compact && facts.length ? (
+        <dl className="mt-1 flex flex-wrap gap-x-8 gap-y-2">
+          {facts.map((f) => (
+            <div key={f.label} className="grid max-w-xs content-start gap-0.5">
+              <dt className="text-small text-fg-subtle">{f.label}</dt>
+              <dd className={cn("text-body tabular", f.tone)}>{f.value}</dd>
+            </div>
+          ))}
         </dl>
       ) : null}
     </article>

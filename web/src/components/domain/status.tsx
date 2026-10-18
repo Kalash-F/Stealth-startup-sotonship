@@ -39,13 +39,20 @@ export function PriorityBadge({ band, score, quiet, className }: { band: Priorit
   );
 }
 
-/** Large numeric priority used in case headers. */
-export function PriorityScore({ band, score }: { band: PriorityBand; score: number }) {
+/**
+ * The priority of one case or report, shown once: the score large, the band under it.
+ * Headers use this instead of a separate badge, so the number never appears twice.
+ */
+export function PriorityScore({ band, score, className }: { band: PriorityBand; score: number; className?: string }) {
   const color = { review_now: "text-risk-high", review: "text-fg", low: "text-fg-muted" }[band];
   return (
-    <div className="flex items-baseline gap-2 whitespace-nowrap">
-      <span className={cn("font-mono text-display font-medium tabular leading-none", color)}>{score}</span>
-      <span className="font-mono text-small text-fg-subtle">/ 100</span>
+    <div className={cn("grid justify-items-end gap-1.5 whitespace-nowrap", className)}>
+      <p className="flex items-baseline gap-1.5">
+        <span className="sr-only">Priority </span>
+        <span className={cn("font-mono text-display font-medium tabular leading-none", color)}>{score}</span>
+        <span className="font-mono text-small text-fg-subtle">/ 100</span>
+      </p>
+      <PriorityBadge band={band} />
     </div>
   );
 }

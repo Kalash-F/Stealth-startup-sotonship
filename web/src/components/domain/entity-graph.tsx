@@ -47,20 +47,23 @@ const typeLabel: Record<GraphNode["type"], string> = {
   payment: "Payments",
 };
 
+// Muted and dimmed nodes step back through lighter borders and text colours, not opacity, so their
+// labels keep at least 4.5:1 contrast (WCAG 1.4.3).
 function GraphNodeView({ data }: NodeProps<Node<NodeData>>) {
   const Icon = iconFor(data);
   const isEntity = data.type === "entity";
+  const quiet = data.dimmed || data.emphasis === "muted";
   return (
     <div
       className={cn(
-        "relative flex items-center gap-2.5 border bg-surface px-3 text-left transition-opacity",
+        "relative flex items-center gap-2.5 border bg-surface px-3 text-left transition-colors",
         isEntity ? "rounded-md" : "rounded-xs border-dashed",
         data.emphasis === "focus" && "border-accent ring-1 ring-accent/40",
         data.emphasis === "risk" && "border-risk-high/70",
-        data.emphasis === "muted" && "opacity-75",
+        data.emphasis === "muted" && "border-border",
         !data.emphasis && "border-border-strong",
         data.selected && "ring-2 ring-accent",
-        data.dimmed && "opacity-30",
+        data.dimmed && "border-border bg-bg ring-0",
       )}
       style={{ width: NODE_W, height: NODE_H }}
     >
@@ -73,16 +76,28 @@ function GraphNodeView({ data }: NodeProps<Node<NodeData>>) {
       <span
         className={cn(
           "flex size-7 shrink-0 items-center justify-center rounded-xs",
-          data.emphasis === "risk" ? "bg-risk-high-soft text-risk-high" : data.emphasis === "focus" ? "bg-accent-soft text-accent" : "bg-surface-2 text-fg-muted",
+          data.dimmed
+            ? "text-fg-subtle"
+            : data.emphasis === "risk"
+              ? "bg-risk-high-soft text-risk-high"
+              : data.emphasis === "focus"
+                ? "bg-accent-soft text-accent"
+                : "bg-surface-2 text-fg-muted",
         )}
       >
         <Icon className="size-3.5" aria-hidden />
       </span>
       <span className="min-w-0">
-        <span className={cn("block truncate text-small font-semibold leading-tight text-fg", !isEntity && "font-mono font-medium")}>
+        <span
+          className={cn(
+            "block truncate text-small leading-tight",
+            data.dimmed ? "font-medium text-fg-subtle" : "font-semibold text-fg",
+            !isEntity && "font-mono font-medium",
+          )}
+        >
           {data.label}
         </span>
-        <span className="block truncate text-meta leading-tight text-fg-muted">{data.sublabel}</span>
+        <span className={cn("block truncate text-meta leading-tight", quiet ? "text-fg-subtle" : "text-fg-muted")}>{data.sublabel}</span>
       </span>
       <span className="sr-only">{typeLabel[data.type]}</span>
     </div>
@@ -207,6 +222,7 @@ export function EntityGraph({
         onNodeClick={(_, n) => onSelect?.(byId.get(n.id) ?? null)}
         onPaneClick={() => onSelect?.(null)}
         proOptions={{ hideAttribution: !attribution }}
+        attributionPosition="bottom-left"
       >
         <Background variant={BackgroundVariant.Dots} gap={22} size={1} color="var(--border)" />
         {interactive ? <Controls showInteractive={false} position="bottom-right" /> : null}

@@ -3,7 +3,7 @@
   "schema_version": "1.2",
   "priority_score": 80.0,
   "priority_band": "review_now",
-  "summary": "Review now (score 80): the price of screws and bolts on line L1 is about 1,460 times the typical China to UK price, and the line value is far too high for 900 kg.",
+  "summary": "The price of screws and bolts on line L1 is about 1,460 times the typical China to UK price, and the line value is far too high for 900 kg.",
   "invoice": {
     "invoice_id": "INV-2024-0001",
     "invoice_date": "2024-03-14",
