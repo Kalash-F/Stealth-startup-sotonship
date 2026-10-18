@@ -40,6 +40,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "backend"))
 
 from tbml import llm  # noqa: E402
+from tbml.benchmark import describe_source  # noqa: E402
 from tbml.classify import classify_description  # noqa: E402
 from tbml.classify.hierarchical import HierarchicalProposer  # noqa: E402
 from tbml.classify.jev import JevProposer  # noqa: E402
@@ -243,6 +244,7 @@ def part_b(use_llm: bool) -> dict:
     return {
         "classifier": "LLM (configured provider)" if use_llm else "offline keyword baseline",
         "benchmarks_mock": any_mock,
+        "price_data": describe_source(),
         "n_invoices": n,
         "n_anomalous": n_anom,
         "invoice_level": {
@@ -316,7 +318,7 @@ def to_markdown(a: dict | None, b: dict | None) -> str:
         out += [
             "## B. Detection on the 60 synthetic invoices (full pipeline from PDF)",
             "",
-            f"Classifier: {b['classifier']}. Price benchmarks: {'MOCK (not real trade data)' if b['benchmarks_mock'] else 'real'}.",
+            f"Classifier: {b['classifier']}. Price benchmarks: {'MOCK (not real trade data)' if b['benchmarks_mock'] else 'real'} ({b.get('price_data', 'bands.json')}).",
             "",
             f"- Invoice level (flagged = review or review_now): precision {_pct(ib['precision'])}, recall {_pct(ib['recall'])}, F1 {ib['f1']:.2f} "
             f"({ib['tp']} caught, {ib['fp']} false alarms, {ib['fn']} missed, of {b['n_anomalous']} anomalous).",
@@ -340,7 +342,12 @@ def to_markdown(a: dict | None, b: dict | None) -> str:
             + (
                 " Mock benchmarks are approximate."
                 if b["benchmarks_mock"]
-                else " Prices compared against HMRC Overseas Trade Statistics, UK imports 2023-2025."
+                else " Prices compared against HMRC Overseas Trade Statistics, UK imports"
+                + (
+                    " July 2023 to August 2026 (benchmark databases, p1-p99 per year)."
+                    if str(b.get("price_data", "")).startswith("database")
+                    else " 2023-2025."
+                )
             ),
         ]
     return "\n".join(out) + "\n"
