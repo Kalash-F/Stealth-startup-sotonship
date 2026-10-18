@@ -3,6 +3,6 @@
  * change it here and it changes everywhere.
  */
 export const brand = {
-  name: "Lading",
+  name: "Sentinel",
   descriptor: "Trade intelligence for financial crime teams",
 };

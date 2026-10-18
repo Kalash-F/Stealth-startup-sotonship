@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { investigationById } from "@/data";
+import { brand } from "@/lib/brand";
 import { formatMoney } from "@/lib/format";
 import { TradeMap } from "./map/trade-map";
 
@@ -38,7 +39,7 @@ export function Hero() {
           </div>
           <div className="lg:col-span-4">
             <p className="max-w-md text-[16px] leading-relaxed text-fg-muted xl:text-[15.5px]">
-              Invoices, shipments, counterparties and payments look ordinary one at a time. Lading draws them on one canvas, so
+              Invoices, shipments, counterparties and payments look ordinary one at a time. {brand.name} draws them on one canvas, so
               investigators can see where trade and money part ways and explain why it matters.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
