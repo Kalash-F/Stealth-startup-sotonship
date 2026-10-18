@@ -8,13 +8,14 @@ export const metadata: Metadata = { title: "Check an invoice" };
 
 export default function CheckerPage() {
   return (
-    <div className="flex flex-col lg:min-h-0 lg:flex-1">
+    <div className="flex flex-col">
       <PageHeader
         title="Check an invoice"
         crumbs={[{ label: workspace.name, href: "/app" }, { label: "Check an invoice" }]}
-        description="Upload a trade invoice or pick a test one. Every line is priced against what the goods normally trade for."
+        description="Upload a trade invoice or pick a test one. Every line is given its customs code and priced against what the goods normally trade for."
       />
-      <div className="flex flex-col p-4 lg:p-6 lg:min-h-0 lg:flex-1">
+      {/* The workspace main scrolls; the invoice column sticks inside it on wide screens. */}
+      <div className="p-4 lg:p-6">
         {/* useSearchParams (shareable ?sample= links) needs a Suspense boundary */}
         <Suspense fallback={<div className="h-64 rounded-md border border-border bg-surface" aria-busy="true" />}>
           <Checker />

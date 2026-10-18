@@ -1,64 +1,48 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { AlertTriangle, FileUp, Loader2, PlayCircle } from "lucide-react";
+import { AlertTriangle, ArrowRight, FileUp, Loader2, PlayCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Panel, PanelHeader } from "@/components/ui/panel";
 import { FlagList } from "@/components/domain/flag-list";
-import { PriceBandBar } from "@/components/domain/price-band-bar";
 import { PriorityScore } from "@/components/domain/status";
 import { SyntheticBadge } from "@/components/domain/synthetic-badge";
-import type { Flag } from "@/data/types";
-import {
-  api,
-  ApiError,
-  bandPosition,
-  hsPath,
-  notClassifiedReason,
-  type BandPosition,
-  type Health,
-  type LiveBenchmark,
-  type PriceBand,
-  type Report,
-  type Sample,
-} from "@/lib/api";
-import { formatUnitPrice } from "@/lib/format";
+import { countries } from "@/data/reference";
+import type { Currency, Flag } from "@/data/types";
+import { api, ApiError, samplePdfUrl, type Health, type HsInfo, type Report, type Sample } from "@/lib/api";
+import { formatDate, formatMoney } from "@/lib/format";
 import { addLiveCase } from "@/lib/live-cases";
+import { formatPricePeriod, readableWarnings } from "@/lib/report-text";
 import { cn } from "@/lib/utils";
-
-const unitName: Record<string, string> = { u: "unit", l: "litre", kg: "kg", pr: "pair" };
+import { InvoiceDocument, type DocumentSource } from "./invoice-document";
+import { LineItems } from "./line-items";
 
 const kindLabel: Record<Sample["kind"], string> = {
-  anomalous: "planted anomaly",
-  hard_negative: "legitimate but unusual",
+  anomalous: "planted problems",
+  hard_negative: "unusual but legitimate",
   clean: "clean",
 };
 
-/** "jev:typesafe/jev-1.14" -> "Jev 1.14 (decision model)"; older backends only report `llm`. */
-function classifierLabel(health: Health): string {
-  const cls = health.classifier ?? (health.llm && health.llm !== "offline" ? health.llm : "keyword");
-  if (cls === "keyword") return "Keyword matching only (AI not connected)";
-  const [method, ...rest] = cls.split(":");
-  const model = rest.join(":");
-  if (method === "jev") return `Jev ${model.replace(/^~?typesafe\/jev-/, "")} (decision model)`;
-  return `AI model ${model || method}`;
-}
-
-/** The officer's checker: pick a sample or upload a PDF, get the explained review report. */
+/** The officer's checker: pick a sample or upload a PDF, then read the report beside the invoice itself. */
 export function Checker() {
   const [health, setHealth] = useState<Health | null>(null);
   const [healthError, setHealthError] = useState<string | null>(null);
   const [samples, setSamples] = useState<Sample[]>([]);
   const [selected, setSelected] = useState("");
   const [report, setReport] = useState<Report | null>(null);
-  const [source, setSource] = useState("");
+  const [doc, setDoc] = useState<DocumentSource | null>(null);
+  const [hs, setHs] = useState<Record<string, HsInfo>>({});
   const [caseId, setCaseId] = useState<string | null>(null); // the case created by the last check
+  const [active, setActive] = useState<string | null>(null); // the goods line in focus
+  const [zoom, setZoom] = useState(1); // invoice page width, 1 = fit the column
   const [busy, setBusy] = useState(false);
+  const [dragging, setDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
   // The chosen sample lives in the URL (?sample=ID) so a check can be shared or reloaded.
   const router = useRouter();
   const pathname = usePathname();
@@ -71,7 +55,7 @@ export function Checker() {
     api.health().then(setHealth, (e: ApiError) => setHealthError(e.message));
     api.samples().then(
       (list) => {
-        // anomalous first: those are the interesting demos
+        // planted problems first: those are the interesting demos
         const order = { anomalous: 0, hard_negative: 1, clean: 2 } as const;
         const sorted = [...list].sort((a, b) => order[a.kind] - order[b.kind] || a.invoice_id.localeCompare(b.invoice_id));
         setSamples(sorted);
@@ -82,21 +66,44 @@ export function Checker() {
     );
   }, []);
 
-  const run = useCallback(async (label: string, job: () => Promise<Report>) => {
+  // Chapter and heading names and the CN codes under each HS code the report uses.
+  useEffect(() => {
+    if (!report) return;
+    const codes = [...new Set(report.lines.flatMap((l) => [l.hs6, ...l.hs6_candidates.map((c) => c.hs6)]).filter((c): c is string => !!c))];
+    if (!codes.length) return;
+    let live = true;
+    api.hs(codes).then(
+      (info) => live && setHs(info),
+      () => live && setHs({}),
+    );
+    return () => {
+      live = false;
+    };
+  }, [report]);
+
+  const run = useCallback(async (label: DocumentSource, job: () => Promise<Report>) => {
     setBusy(true);
     setError(null);
     try {
       const r = await job();
+      setHs({});
       setReport(r);
-      setSource(label);
+      setDoc(label);
+      setActive(null);
       // Every checked invoice becomes a case, so it shows in the attention queue, investigations and counts.
       setCaseId(addLiveCase(r)?.id ?? null);
+      resultsRef.current?.focus({ preventScroll: true });
     } catch (e) {
       setError(e instanceof ApiError ? e.message : "Something went wrong while checking the invoice.");
     } finally {
       setBusy(false);
     }
   }, []);
+
+  const checkSample = useCallback(
+    (invoiceId: string) => run({ kind: "sample", url: samplePdfUrl(invoiceId), name: `${invoiceId}.pdf` }, () => api.checkSample(invoiceId)),
+    [run],
+  );
 
   const choose = (invoiceId: string) => {
     setSelected(invoiceId);
@@ -107,354 +114,307 @@ export function Checker() {
   useEffect(() => {
     if (autoRan.current || !linked || selected !== linked) return;
     autoRan.current = true;
-    void run(linked, () => api.checkSample(linked));
-  }, [linked, selected, run]);
+    void checkSample(linked);
+  }, [linked, selected, checkSample]);
 
   const onFile = (file: File | undefined) => {
     if (!file) return;
     if (!file.name.toLowerCase().endsWith(".pdf")) {
-      setError("Upload a PDF invoice.");
+      setError("That file is not a PDF. Upload the invoice as a PDF.");
       return;
     }
-    void run(file.name, () => api.checkUpload(file));
+    if (file.size > 10 * 1024 * 1024) {
+      setError("That PDF is larger than 10 MB. Upload a smaller file.");
+      return;
+    }
+    void run({ kind: "upload", file, name: file.name }, () => api.checkUpload(file));
+  };
+
+  const selectLine = (id: string) => {
+    setActive(id);
+    document.getElementById(`line-${id}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const sample = samples.find((s) => s.invoice_id === selected);
+  const period = formatPricePeriod(health?.price_period);
 
   return (
-    <div className="grid gap-4 lg:min-h-0 lg:flex-1 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:grid-rows-[minmax(0,1fr)] lg:items-start">
-      <div className="grid gap-4 lg:max-h-full lg:overflow-y-auto">
-        <Panel>
-          <PanelHeader title="Invoice to check" description="Sixty test invoices are built in. Some have problems planted in them." />
-          <div className="grid gap-4 p-4">
-            <div className="grid gap-2">
-              <label htmlFor="sample" className="text-small font-medium text-fg-muted">
-                Sample invoice
-              </label>
-              <select
-                id="sample"
-                value={selected}
-                onChange={(e) => choose(e.target.value)}
-                className="h-9 w-full min-w-0 rounded-sm border border-border-strong bg-surface px-2 text-body text-fg"
-                disabled={!samples.length}
-              >
-                {samples.length ? null : <option>No samples available</option>}
-                {samples.map((s) => (
-                  <option key={s.invoice_id} value={s.invoice_id}>
-                    {s.invoice_id}, {kindLabel[s.kind]}, {s.route.replace("-", " to ")}
-                  </option>
-                ))}
-              </select>
-              {sample ? (
-                <p className="text-small text-fg-subtle">
-                  {sample.planted.length
-                    ? `Planted problems: ${sample.planted.join(", ").toLowerCase().replaceAll("_", " ")}.`
-                    : sample.kind === "hard_negative"
-                      ? "Legitimate, but unusual enough to look suspicious."
-                      : "A normal invoice with nothing planted."}{" "}
-                  {sample.n_lines} line{sample.n_lines === 1 ? "" : "s"} in {sample.currency}.
-                </p>
-              ) : null}
-              <Button
-                className="text-body"
-                onClick={() => {
-                  if (!sample) return;
-                  choose(sample.invoice_id);
-                  void run(sample.invoice_id, () => api.checkSample(sample.invoice_id));
-                }}
-                disabled={!sample || busy}
-              >
-                {busy ? <Loader2 className="animate-spin" aria-hidden /> : <PlayCircle aria-hidden />}
-                Check sample
-              </Button>
-            </div>
-
-            <div className="flex items-center gap-3 text-small text-fg-subtle">
-              <span className="h-px flex-1 bg-border" />
-              or upload your own
-              <span className="h-px flex-1 bg-border" />
-            </div>
-
-            <div
-              className="grid place-items-center gap-2 rounded-sm border border-dashed border-border-strong p-5 text-center"
-              onDragOver={(e) => e.preventDefault()}
-              onDrop={(e) => {
-                e.preventDefault();
-                onFile(e.dataTransfer.files[0]);
-              }}
+    <div className="grid gap-4">
+      {/* What to check */}
+      <Panel
+        aria-label="Invoice to check"
+        className={cn("transition-colors", dragging && "border-fg bg-surface-2")}
+        onDragOver={(e) => {
+          e.preventDefault();
+          setDragging(true);
+        }}
+        onDragLeave={() => setDragging(false)}
+        onDrop={(e) => {
+          e.preventDefault();
+          setDragging(false);
+          onFile(e.dataTransfer.files[0]);
+        }}
+      >
+        <div className="flex flex-wrap items-end gap-3 p-4">
+          <div className="grid min-w-0 flex-1 basis-72 gap-1.5">
+            <label htmlFor="sample" className="text-small font-medium text-fg">
+              Test invoice
+            </label>
+            <select
+              id="sample"
+              value={selected}
+              onChange={(e) => choose(e.target.value)}
+              aria-describedby="sample-hint"
+              className="h-11 w-full min-w-0 rounded-sm border border-border-strong bg-surface px-2.5 text-body text-fg"
+              disabled={!samples.length}
             >
-              <FileUp className="size-5 text-fg-subtle" aria-hidden />
-              <p className="text-body text-fg-muted">Drop a PDF invoice here</p>
-              <Button variant="secondary" size="sm" onClick={() => fileInput.current?.click()} disabled={busy}>
-                Choose file
-              </Button>
-              <input
-                ref={fileInput}
-                type="file"
-                accept="application/pdf,.pdf"
-                className="sr-only"
-                onChange={(e) => {
-                  onFile(e.target.files?.[0]);
-                  e.target.value = "";
-                }}
-              />
-              <p className="text-meta text-fg-subtle">PDF up to 10 MB. Do not upload real customer documents.</p>
+              {samples.length ? null : <option>No test invoices available</option>}
+              {samples.map((s) => (
+                <option key={s.invoice_id} value={s.invoice_id}>
+                  {s.invoice_id} · {kindLabel[s.kind]} · {s.route.replace("-", " to ")}
+                </option>
+              ))}
+            </select>
+          </div>
+          <Button size="lg" onClick={() => sample && checkSample(sample.invoice_id)} disabled={!sample || busy}>
+            {busy ? <Loader2 className="animate-spin" aria-hidden /> : <PlayCircle aria-hidden />}
+            Check invoice
+          </Button>
+          <span className="hidden h-11 items-center text-small text-fg-subtle sm:flex" aria-hidden>
+            or
+          </span>
+          <Button size="lg" variant="secondary" onClick={() => fileInput.current?.click()} disabled={busy}>
+            <FileUp aria-hidden />
+            Upload a PDF
+          </Button>
+          <input
+            ref={fileInput}
+            type="file"
+            accept="application/pdf,.pdf"
+            className="sr-only"
+            tabIndex={-1}
+            aria-hidden
+            onChange={(e) => {
+              onFile(e.target.files?.[0]);
+              e.target.value = "";
+            }}
+          />
+        </div>
+        <div id="sample-hint" className="flex flex-wrap justify-between gap-x-6 gap-y-1 border-t border-border px-4 py-2.5 text-small text-fg-muted">
+          <p>
+            {sample
+              ? sample.planted.length
+                ? `Planted problems: ${sample.planted.join(", ").toLowerCase().replaceAll("_", " ")}. ${sample.n_lines} line${sample.n_lines === 1 ? "" : "s"} in ${sample.currency}.`
+                : sample.kind === "hard_negative"
+                  ? `Legitimate, but unusual enough to look suspicious. ${sample.n_lines} line${sample.n_lines === 1 ? "" : "s"} in ${sample.currency}.`
+                  : `A normal invoice with nothing planted. ${sample.n_lines} line${sample.n_lines === 1 ? "" : "s"} in ${sample.currency}.`
+              : "Sixty fictional test invoices are built in; some have problems planted in them."}
+          </p>
+          <p>Or drop a PDF here, up to 10 MB. Do not upload real customer documents.</p>
+        </div>
+      </Panel>
+
+      {healthError ? <Alert>The checking service cannot be reached right now. {healthError}</Alert> : null}
+      {error ? <Alert>{error}</Alert> : null}
+
+      <div ref={resultsRef} tabIndex={-1} aria-live="polite" aria-busy={busy} className="outline-none">
+        {busy && !report ? (
+          <Loading />
+        ) : report && doc ? (
+          <div className={cn("grid gap-4 transition-opacity", busy && "opacity-50")}>
+            <ResultHeader report={report} doc={doc} caseId={caseId} />
+            <div className="grid items-start gap-4 xl:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+              <Panel className="xl:sticky xl:top-4 xl:flex xl:max-h-[calc(100dvh-6.5rem)] xl:flex-col">
+                <PanelHeader title="Invoice as received" description={doc.name} actions={<ZoomControl zoom={zoom} onZoom={setZoom} />} />
+                <div className="min-h-0 overflow-auto p-3 xl:flex-1">
+                  <InvoiceDocument
+                    zoom={zoom}
+                    source={doc}
+                    lines={report.invoice.line_items.map((l) => ({ id: l.line_id, description: l.description }))}
+                    flagged={new Set(report.flags.map((f) => f.line_id).filter((id): id is string => !!id))}
+                    active={active}
+                    onSelectLine={selectLine}
+                  />
+                </div>
+              </Panel>
+              <div className="grid min-w-0 gap-4">
+                <Findings report={report} />
+                <LineItems report={report} hs={hs} active={active} onActive={setActive} />
+                <NotChecked warnings={report.warnings} />
+                <Sources health={health} period={period} />
+              </div>
             </div>
           </div>
-        </Panel>
-
-        <Panel>
-          <PanelHeader title="What this check uses" />
-          <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 p-4 text-body">
-            {healthError ? (
-              <dd className="col-span-2 text-risk-high">{healthError}</dd>
-            ) : !health ? (
-              <dd className="col-span-2 text-fg-subtle">Connecting…</dd>
-            ) : (
-              <>
-                <dt className="text-fg-subtle">Classifier</dt>
-                <dd className="flex items-center gap-1.5 text-fg">
-                  {classifierLabel(health)}
-                </dd>
-                <dt className="text-fg-subtle">Price data</dt>
-                <dd>
-                  {health.price_data?.startsWith("database") ? (
-                    <span className="text-fg">
-                      HMRC UK import prices, every commodity code, 2023 to 2026 ({health.price_data.replace("database:", "")})
-                    </span>
-                  ) : health.benchmarks === "real" ? (
-                    <span className="text-fg">Trade statistics</span>
-                  ) : (
-                    <Badge tone="review">Mock comparison prices</Badge>
-                  )}
-                </dd>
-              </>
-            )}
-          </dl>
-        </Panel>
-      </div>
-
-      <div className="min-w-0 lg:max-h-full lg:overflow-y-auto" aria-live="polite">
-        {error ? (
-          <Panel className="mb-4 border-risk-high/40">
-            <p role="alert" className="flex items-start gap-2 p-4 text-body text-risk-high">
-              <AlertTriangle className="mt-0.5 size-4 shrink-0" aria-hidden /> {error}
-            </p>
-          </Panel>
-        ) : null}
-        {busy && !report ? (
-          <Panel className="grid h-64 place-items-center text-body text-fg-muted" aria-busy="true">
-            <span className="flex items-center gap-2">
-              <Loader2 className="size-4 animate-spin" aria-hidden /> Reading the invoice and checking each price…
-            </span>
-          </Panel>
-        ) : report ? (
-          <ReportView report={report} source={source} busy={busy} caseId={caseId} />
         ) : (
-          <Panel className="grid h-64 place-items-center p-6 text-center">
-            <div className="grid max-w-md gap-3 text-left">
-              <p className="text-title font-medium text-fg">Pick a test invoice, or upload your own.</p>
-              <p className="text-body leading-relaxed text-fg-muted">
-                Each line gets a customs code, its price is compared with what that good normally trades for, and eight checks look
-                for the usual laundering signs. You get a priority and the reasons for it. Deciding whether it is laundering stays
-                with you.
-              </p>
-            </div>
-          </Panel>
+          <EmptyState />
         )}
       </div>
     </div>
   );
 }
 
-function ReportView({ report, source, busy, caseId }: { report: Report; source: string; busy: boolean; caseId: string | null }) {
+const zoomSteps = [1, 1.5, 2];
+
+/** Fit, 150% and 200%: the page is A4, so at column width its small print needs a closer look. */
+function ZoomControl({ zoom, onZoom }: { zoom: number; onZoom: (z: number) => void }) {
   return (
-    <div className={cn("grid gap-4 transition-opacity", busy && "opacity-50")}>
-      <Panel>
-        <div className="flex flex-wrap items-center justify-between gap-4 p-4">
-          <div className="grid gap-1">
-            <p className="text-small text-fg-subtle">Checked {source}</p>
-            <h2 className="text-title font-semibold tracking-tight text-fg">Invoice {report.invoice_id}</h2>
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-small text-fg-subtle">
-                {report.flags.length} flag{report.flags.length === 1 ? "" : "s"}, in {(report.processing_ms / 1000).toFixed(1)} s
-              </span>
-              {source.endsWith(".pdf") ? null : <SyntheticBadge label="Test invoice" />}
-            </div>
-            {report.summary ? <p className="max-w-prose text-body text-fg-muted">{report.summary}</p> : null}
-            {caseId ? (
-              <p className="text-small text-fg-subtle">
-                Added to the workspace as{" "}
-                <Link href={`/app/investigations/${caseId}`} className="font-mono text-fg underline-offset-4 hover:underline">
-                  {caseId}
-                </Link>
-                .
-              </p>
-            ) : null}
-          </div>
-          <PriorityScore band={report.priority_band} score={Math.round(report.priority_score)} />
-        </div>
-      </Panel>
-
-      <Panel>
-        <PanelHeader title="Why it got this priority" />
-        <div className="p-4">
-          {report.flags.length ? (
-            <FlagList flags={report.flags as unknown as Flag[]} headingLevel="h3" />
-          ) : (
-            <p className="text-body text-fg-muted">Nothing stood out. That does not prove the invoice is clean.</p>
+    <div role="group" aria-label="Invoice zoom" className="flex items-center rounded-sm border border-border-strong">
+      {zoomSteps.map((z) => (
+        <button
+          key={z}
+          type="button"
+          aria-pressed={zoom === z}
+          onClick={() => onZoom(z)}
+          className={cn(
+            "h-8 min-w-11 px-2 font-mono text-small tabular transition-colors first:rounded-l-[3px] last:rounded-r-[3px]",
+            zoom === z ? "bg-fg text-bg" : "text-fg-muted hover:bg-surface-2 hover:text-fg",
           )}
-        </div>
-      </Panel>
-
-      <Panel>
-        <PanelHeader title="Line by line" />
-        <ol className="divide-y divide-border">
-          {report.lines.map((line) => {
-            const path = hsPath(line.normalisation_note);
-            const notClassified = notClassifiedReason(line.normalisation_note);
-            return (
-              <li key={line.line_id} className="grid min-w-0 gap-3 p-4">
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <p className="text-body font-medium text-fg">
-                    <span className="mr-2 text-small text-fg-subtle">{line.line_id}</span>
-                    {line.description}
-                  </p>
-                  <span className="font-mono text-small tabular text-fg-muted">
-                    {line.quantity.toLocaleString()} {line.unit} × {line.unit_price.toLocaleString()}
-                  </span>
-                </div>
-                <div className="grid gap-1 text-small">
-                  {line.hs6 ? (
-                    <p className="text-fg-muted">
-                      <span className="font-mono text-fg">HS {line.hs6}</span> {line.hs6_description}
-                      <span className="text-fg-subtle"> ({(line.classification_confidence * 100).toFixed(0)}% confident)</span>
-                    </p>
-                  ) : (
-                    <p className="text-risk-review">Not classified{notClassified ? `: ${notClassified}` : ""}. The price check was skipped for this line.</p>
-                  )}
-                  {path ? <p className="text-small leading-relaxed text-fg-subtle">How the AI got there: {path}</p> : null}
-                </div>
-                {line.benchmark && line.unit_price_usd ? (
-                  <div className="grid min-w-0 gap-1">
-                    <PriceBandBar benchmark={line.benchmark} stated={line.unit_price_usd} size="sm" />
-                    <p className="text-meta text-fg-subtle">
-                      Stated {formatUnitPrice(line.unit_price_usd)} per {unitName[line.benchmark.unit] ?? line.benchmark.unit} in USD
-                      {line.benchmark.level ? bandSource(line.benchmark) : line.benchmark.route ? `, route ${line.benchmark.route}` : ", global range"}
-                      {line.benchmark.is_mock
-                        ? ". Comparison prices are placeholders, not real trade data."
-                        : line.benchmark.level
-                          ? `. Source: ${line.benchmark.sources[0]}, converted from GBP.`
-                          : `. Source: ${line.benchmark.sources.join(", ")}.`}
-                    </p>
-                    {line.benchmark.history?.length ? <YearByYear benchmark={line.benchmark} stated={line.unit_price_usd} /> : null}
-                  </div>
-                ) : line.hs6 ? (
-                  <p className="text-meta text-fg-subtle">No comparison price for this code yet, so its price was not checked.</p>
-                ) : null}
-              </li>
-            );
-          })}
-        </ol>
-      </Panel>
-
-      {report.warnings.length ? (
-        <Panel>
-          <PanelHeader title="Not checked" description="Read these before relying on the priority." />
-          <ul className="grid gap-1.5 p-4 text-small text-fg-muted">
-            {report.warnings.map((w) => (
-              <li key={w} className="flex gap-2">
-                <AlertTriangle className="mt-0.5 size-3.5 shrink-0 text-risk-review" aria-hidden />
-                {w}
-              </li>
-            ))}
-          </ul>
-        </Panel>
-      ) : null}
+        >
+          {z === 1 ? "Fit" : `${z * 100}%`}
+        </button>
+      ))}
     </div>
   );
 }
 
-/** ", HS6 640399 (2025, 19,332 UK import prices)", noting a fallback to the 4-digit heading. */
-function bandSource(b: LiveBenchmark): string {
-  const where = b.level === "hs4" ? `heading ${b.code} (too few prices for HS ${b.hs6})` : `${(b.level ?? "").toUpperCase()} ${b.code}`;
-  const period = b.period === "all" ? "all years" : b.period;
-  return `, compared with ${where}, ${period}, ${b.n_observations.toLocaleString("en-GB")} UK import prices`;
+function Alert({ children }: { children: React.ReactNode }) {
+  return (
+    <p role="alert" className="flex items-start gap-2 rounded-lg border border-risk-high/40 bg-surface px-4 py-3 text-body text-risk-high">
+      <AlertTriangle className="mt-0.5 size-4 shrink-0" aria-hidden />
+      <span>{children}</span>
+    </p>
+  );
 }
 
-const positionLabel: Record<BandPosition, string> = {
-  extreme_low: "below p1",
-  low: "p1–p5",
-  normal: "normal",
-  high: "p95–p99",
-  extreme_high: "above p99",
-};
-
-const positionTone: Record<BandPosition, string> = {
-  extreme_low: "text-risk-high",
-  low: "text-risk-review",
-  normal: "text-risk-low",
-  high: "text-risk-review",
-  extreme_high: "text-risk-high",
-};
-
-/** The stated price placed in every year of the series (and the origin's own band), so the
- * officer sees whether the price is out of line every year or only in one. */
-function YearByYear({ benchmark, stated }: { benchmark: LiveBenchmark; stated: number }) {
-  const periods = benchmark.history ?? [];
-  const rows: { label: string; band: PriceBand; current: boolean }[] = periods.map((b) => ({
-    label: b.period === "all" ? "All years" : `${b.period}${b.months < 12 ? ` (${b.months} mo)` : ""}`,
-    band: b,
-    current: b.period === benchmark.period,
-  }));
-  if (benchmark.origin_band) {
-    const o = benchmark.origin_band;
-    rows.push({ label: `From ${o.origin}, ${o.period === "all" ? "all years" : o.period}`, band: o, current: false });
-  }
-  const counted = periods.filter((b) => b.n_observations >= 30);
-  const out = counted.filter((b) => bandPosition(stated, b) !== "normal").length;
+function Loading() {
   return (
-    <details className="min-w-0 text-2xs">
-      <summary className="cursor-pointer select-none text-fg-muted hover:text-fg">
-        Year by year: out of the normal range in {out} of {counted.length} periods
-      </summary>
-      <div className="mt-2 overflow-x-auto">
-        <table className="w-full min-w-[520px] border-collapse whitespace-nowrap font-mono tabular">
-          <thead>
-            <tr className="text-left text-fg-subtle">
-              <th className="py-1 pr-3 font-normal">Period</th>
-              <th className="py-1 pr-3 text-right font-normal">Prices</th>
-              <th className="py-1 pr-3 text-right font-normal">Normal (p5–p95)</th>
-              <th className="py-1 pr-3 text-right font-normal">Median</th>
-              <th className="py-1 pr-3 text-right font-normal">vs year before</th>
-              <th className="py-1 text-right font-normal">This price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map(({ label, band, current }) => {
-              const position = bandPosition(stated, band);
-              const drift = band.median_vs_prev_year == null ? null : Math.round((band.median_vs_prev_year - 1) * 100);
-              return (
-                <tr key={label} className={cn("border-t border-border", current && "font-medium text-fg")}>
-                  <td className="py-1 pr-3">
-                    {label}
-                    {current ? <span className="text-fg-subtle"> · used</span> : null}
-                  </td>
-                  <td className="py-1 pr-3 text-right">{band.n_observations.toLocaleString("en-GB")}</td>
-                  <td className="py-1 pr-3 text-right">
-                    {formatUnitPrice(band.p5)}–{formatUnitPrice(band.p95)}
-                  </td>
-                  <td className="py-1 pr-3 text-right">{formatUnitPrice(band.median)}</td>
-                  <td className="py-1 pr-3 text-right">
-                    {drift == null ? "–" : drift === 0 ? "0%" : `${drift > 0 ? "+" : "−"}${Math.abs(drift)}%`}
-                  </td>
-                  <td className={cn("py-1 text-right", positionTone[position])}>{positionLabel[position]}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+    <Panel className="grid min-h-64 place-items-center p-6">
+      <p className="flex items-center gap-2 text-body text-fg-muted">
+        <Loader2 className="size-4 animate-spin" aria-hidden /> Reading the invoice and checking each price…
+      </p>
+    </Panel>
+  );
+}
+
+function EmptyState() {
+  const steps = [
+    ["Read", "Parties, ports, goods lines and totals are read from the PDF."],
+    ["Code", "Each goods line is given its customs code (HS, and CN where the HS code settles it)."],
+    ["Compare", "Each price is placed against UK import prices for that code, and eight checks look for the usual laundering signs."],
+  ];
+  return (
+    <Panel className="p-6">
+      <div className="grid max-w-2xl gap-4">
+        <h2 className="text-title font-semibold text-fg">Pick a test invoice, or upload your own.</h2>
+        <ol className="grid gap-3">
+          {steps.map(([title, body], i) => (
+            <li key={title} className="grid grid-cols-[1.75rem_minmax(0,1fr)] gap-2 text-body">
+              <span className="font-mono text-fg-subtle tabular">{i + 1}</span>
+              <span className="text-fg-muted">
+                <span className="font-medium text-fg">{title}.</span> {body}
+              </span>
+            </li>
+          ))}
+        </ol>
+        <p className="text-body text-fg-muted">
+          You get a review priority, the reasons for it, and the invoice beside them to compare. Deciding whether anything is wrong stays with you.
+        </p>
       </div>
-    </details>
+    </Panel>
+  );
+}
+
+const countryName = (code: string) => (code && code !== "ZZ" ? (countries[code as keyof typeof countries]?.short ?? code) : "country not read");
+
+function ResultHeader({ report, doc, caseId }: { report: Report; doc: DocumentSource; caseId: string | null }) {
+  const inv = report.invoice;
+  const to = inv.consignee ?? inv.buyer;
+  return (
+    <Panel>
+      <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-4 p-4">
+        <div className="grid min-w-0 max-w-3xl flex-1 basis-80 gap-2">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+            <h2 className="text-title font-semibold tracking-tight text-fg">
+              Invoice <span className="font-mono">{report.invoice_id}</span>
+            </h2>
+            {doc.kind === "sample" ? <SyntheticBadge label="Test invoice" /> : <Badge tone="outline">Uploaded</Badge>}
+          </div>
+          <p className="text-small text-fg-muted">
+            {inv.seller.name} ({countryName(inv.seller.country)}) to {to.name} ({countryName(to.country)}) · {formatDate(inv.invoice_date)} ·{" "}
+            <span className="font-mono tabular">{formatMoney(inv.stated_total, inv.currency as Currency)}</span>
+          </p>
+          {report.summary ? <p className="text-body leading-relaxed text-fg [text-wrap:pretty]">{report.summary}</p> : null}
+          {caseId ? (
+            <p className="text-small text-fg-muted">
+              Saved to the workspace as{" "}
+              <Link
+                href={`/app/investigations/${caseId}`}
+                className="inline-flex items-center gap-1 font-medium text-fg underline decoration-border-strong underline-offset-4 hover:decoration-fg"
+              >
+                <span className="font-mono">{caseId}</span>
+                <ArrowRight className="size-3.5" aria-hidden />
+              </Link>
+            </p>
+          ) : null}
+        </div>
+        <PriorityScore band={report.priority_band} score={Math.round(report.priority_score)} />
+      </div>
+    </Panel>
+  );
+}
+
+function Findings({ report }: { report: Report }) {
+  return (
+    <Panel>
+      <PanelHeader title="Why it got this priority" description="Worst first. Each reason is a prompt to review, not a finding of fraud." />
+      <div className="p-4">
+        {report.flags.length ? (
+          <FlagList flags={report.flags as unknown as Flag[]} headingLevel="h3" />
+        ) : (
+          <p className="text-body text-fg-muted">Nothing stood out. That does not prove the invoice is clean.</p>
+        )}
+      </div>
+    </Panel>
+  );
+}
+
+function NotChecked({ warnings }: { warnings: string[] }) {
+  const items = useMemo(() => readableWarnings(warnings), [warnings]);
+  if (!items.length) return null;
+  return (
+    <Panel>
+      <PanelHeader title="Not checked" description="Read these before relying on the priority." />
+      <ul className="grid gap-2 p-4 text-body text-fg-muted">
+        {items.map((w) => (
+          <li key={w} className="flex gap-2">
+            <AlertTriangle className="mt-0.5 size-4 shrink-0 text-risk-review" aria-hidden />
+            {w}
+          </li>
+        ))}
+      </ul>
+    </Panel>
+  );
+}
+
+function Sources({ health, period }: { health: Health | null; period: string }) {
+  if (!health) return null;
+  const mock = health.benchmarks === "mock";
+  return (
+    <footer className="grid gap-1 px-1 text-small leading-relaxed text-fg-muted">
+      <p>
+        <span className="font-medium text-fg">Prices:</span>{" "}
+        {mock ? (
+          <>
+            <Badge tone="review">Placeholder prices</Badge> not real trade data.
+          </>
+        ) : (
+          <>HMRC Overseas Trade Statistics, UK imports of every commodity code{period ? `, ${period}` : ""}, converted to US dollars at annual average rates.</>
+        )}
+      </p>
+      <p>
+        <span className="font-medium text-fg">Codes:</span> the Harmonised System (HS, 6 digits), with the Combined Nomenclature code (CN, 8 digits) where the
+        HS code leaves only one.
+      </p>
+    </footer>
   );
 }

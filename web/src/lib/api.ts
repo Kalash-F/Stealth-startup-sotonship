@@ -18,8 +18,18 @@ export interface Health {
   llm?: string;
   /** HS classifier: "jev:<model>", "hierarchical:<model>", "flat:<model>" or "keyword". */
   classifier?: string;
-  /** Price data: "database:<n> shards" (HMRC benchmark databases) or the band file name. */
+  /** Price data: "database:<n> shards" (HMRC benchmark databases) or the band file name. Diagnostics only. */
   price_data?: string;
+  /** Months the database prices cover, "202307-202608"; "" without the databases. */
+  price_period?: string;
+}
+
+/** GET /hs: where an HS6 sits in the nomenclature, and the CN8 codes HMRC lists under it. */
+export interface HsInfo {
+  chapter: { code: string; description: string };
+  heading: { code: string; description: string };
+  subheading: { code: string; description: string };
+  cn8: { code: string; description: string }[];
 }
 
 export interface Sample {
@@ -185,9 +195,15 @@ async function call<T>(path: string, init?: RequestInit): Promise<T> {
   return (await res.json()) as T;
 }
 
+/** The sample invoice PDF the checker analysed (served inline). */
+export function samplePdfUrl(invoiceId: string) {
+  return `${BASE}/samples/${encodeURIComponent(invoiceId)}/pdf`;
+}
+
 export const api = {
   health: () => call<Health>("/health"),
   samples: () => call<Sample[]>("/samples"),
+  hs: (codes: string[]) => call<Record<string, HsInfo>>(`/hs?codes=${codes.map(encodeURIComponent).join(",")}`),
   checkSample: (invoiceId: string) =>
     call<Report>(`/samples/${encodeURIComponent(invoiceId)}/check`, { method: "POST" }),
   checkUpload: (file: File) => {
