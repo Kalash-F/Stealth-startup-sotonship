@@ -1,5 +1,6 @@
 """The sharded HMRC benchmark databases (data/databases) and the lookup on top of them."""
 
+import random
 import sqlite3
 import sys
 from contextlib import closing
@@ -9,9 +10,12 @@ import pytest
 
 from tbml import benchmark as bm
 from tbml.benchmark import shards
+from tbml.classify.nomenclature import default_nomenclature
 from tbml.classify.normalise import normalise
+from tbml.fixtures import load_fixture
 from tbml.paths import DATABASES_DIR
-from tbml.schemas import EnrichedLine, LineItem
+from tbml.rules import price_outlier
+from tbml.schemas import EnrichedLine, Invoice, LineItem
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "backend" / "scripts"))
@@ -187,3 +191,27 @@ def test_packed_shards_are_unpacked_on_first_use(tmp_path, monkeypatch):
         assert shards.shard_path("640399") is None  # not packed into this folder
     finally:
         shards.series.cache_clear()
+
+
+def test_any_code_the_classifier_can_return_is_priced():
+    """No fixed list: a random sample of the full HS nomenclature (what the AI classifier picks
+    from) finds a database band, and a price beyond that band's own p1 / p99 is flagged."""
+    sample = random.Random(7).sample(sorted(default_nomenclature().hs6_codes()), 300)
+    item = line(unit="kg")
+    invoice = Invoice.model_validate({**load_fixture("invoice"), "line_items": [item.model_dump()]})
+    priced = 0
+    for hs6 in sample:
+        n = normalise(item, hs6, "USD")
+        if n.unit_price_usd is None:
+            continue
+        e = enriched(hs6, n.unit)
+        b = bm.benchmark(e)
+        if b is None or b.level is None:
+            continue
+        priced += 1
+        for price in (b.p99 * 3, b.p1 / 3):
+            (flag,) = price_outlier.check(
+                invoice, [e.model_copy(update={"unit_price_usd": price})], [b]
+            )
+            assert flag.evidence["position"].startswith("extreme"), hs6
+    assert priced / len(sample) >= 0.95  # the rest are obsolete codes with no UK imports
