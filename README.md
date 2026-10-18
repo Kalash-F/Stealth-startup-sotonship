@@ -2,7 +2,7 @@
 
 **Catch trade-based money laundering on the invoice, in seconds.**
 
-Sentinel reads a trade invoice PDF, works out what the goods really are, compares every price with what the UK actually paid for the same goods, and checks eight red-flag rules. A compliance analyst gets a review priority from 0 to 100, a plain-English reason for every flag and a short summary. It ranks invoices for review; it never calls anything fraud.
+Sentinel reads a trade invoice PDF, works out what the goods really are, compares every price with **16.1 million real UK import records** for the same goods, and checks eight red-flag rules. A compliance analyst gets a review priority from 0 to 100, a plain-English reason for every flag and a short summary. It ranks invoices for review; it never calls anything fraud.
 
 Live demo: **https://stealth-startup-sotonship.vercel.app** (open the checker from the homepage)
 
@@ -14,6 +14,7 @@ Built in 48 hours at SotonShip 2026 (FinTech track), 16 to 18 October 2026.
 
 - [Why it matters](#why-it-matters)
 - [How it works](#how-it-works)
+- [The data: 16 million import records](#the-data-16-million-import-records)
 - [Results](#results)
 - [Run it locally](#run-it-locally)
 - [Configuration](#configuration)
@@ -71,6 +72,33 @@ flowchart LR
 | R8 Low confidence | The system could not read or classify a line reliably |
 
 The AI steps only read and classify. Pricing, rules and scoring are plain code, so every flag can be traced and audited.
+
+## The data: 16 million import records
+
+The heart of Sentinel is knowing what a normal price looks like for any product. We built that from official UK customs data.
+
+**What we used.** Every UK import record in HMRC's Overseas Trade Statistics from July 2023 to August 2026: **16,429,447 records** across 38 monthly data files. After cleaning, **16,149,813** were used (279,634 skipped for missing or unusable values). Each record is a commodity code, origin country, value in GBP and quantity.
+
+**How we turned it into prices.**
+
+1. **Price per record.** Value divided by quantity gives a unit price: 16.0 million prices per kg, plus 4.4 million per item (or per litre, per pair) where HMRC records a count.
+2. **Grouped by product.** Prices are grouped by commodity code at three levels: CN8 (the most specific, 9,471 codes), HS6 and HS4. If a code has too little data, we fall back to the broader level.
+3. **Split by year and by origin.** Each product gets a price distribution for 2023, 2024, 2025, 2026 and all years together, both for all countries and for each origin country with at least 10 prices. A distribution needs at least 30 prices to be used.
+4. **Kept the full spread.** For each group we store the 1st, 5th, 10th, 25th, 50th, 75th, 90th, 95th and 99th percentiles, the mean and the year-on-year change in the median. That is **1.35 million price bands**, in 98 SQLite files (one per HS chapter, 246 MB).
+
+**How an outlier is decided (rule R1).**
+
+| Where the invoice price falls | Result |
+|---|---|
+| Between the 5th and 95th percentile | Normal, no flag |
+| 1st to 5th, or 95th to 99th percentile | Review (medium) |
+| Below the 1st or above the 99th percentile | Extreme (high) |
+
+Then the price is checked against **every year** separately. If it is only unusual in one year, the flag is softened; if it is unusual in most years, it is escalated and scores more. A price that is normal for goods from that **origin country** is also softened, which stops cheap but legitimate imports (bulk screws from China, say) being flagged.
+
+**How the goods get a code in the first place.** Invoices do not carry clean codes, so a classifier reads each line. A chat model (Gemini 2.5 Flash) first rewrites it in plain words ("MBP 14 M3" becomes "Apple MacBook Pro 14-inch laptop"). Then Jev, TypeSafe's decision model, picks the chapter, heading and HS6 code from the official UN Comtrade list, keeping the best few paths at each level (beam search). Each step returns a probability, and a line is only priced if every step is at least 50% sure; otherwise it is flagged as unclear rather than guessed.
+
+> These are aggregated customs records (one row per commodity, country and month), not individual company invoices, so the bands show the market price range, not what any single trader paid.
 
 ## Results
 
@@ -175,7 +203,7 @@ docs/             architecture notes
 
 | Data | Source | Licence |
 |---|---|---|
-| Price databases (`data/databases/`) | HMRC Overseas Trade Statistics, UK imports of every commodity code, July 2023 to August 2026 | [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/) |
+| Price databases (`data/databases/`) | HMRC Overseas Trade Statistics, UK imports of every commodity code, July 2023 to August 2026: 16.4 million records read, 1.35 million price bands built | [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/) |
 | Fallback price bands (`data/benchmarks/`) | HMRC Overseas Trade Statistics via the uktradeinfo API, 7 goods, 2023 to 2025 | Open Government Licence v3.0 |
 | HS code list (`data/reference/hs.db`) | UN Comtrade reference list (Combined HS) | UN Comtrade terms of use |
 | Exchange rates | US Federal Reserve G.5A annual averages, 2022 to 2025; AED from the UAE central bank peg | Public domain |
