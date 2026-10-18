@@ -2,18 +2,17 @@
 
 import Link from "next/link";
 import { ArrowUpRight, Clock, FolderSearch, ShieldAlert } from "lucide-react";
-import { investigations } from "@/data/investigations";
 import { caseCounts } from "@/data/workspace";
 import { cn } from "@/lib/utils";
-import { useLiveVersion } from "@/lib/live-cases";
+import { useCases } from "@/lib/live-cases";
 
 /**
  * Four headline counts in one ruled strip. The open-cases tile also carries
  * the priority distribution, which answers "how much of the queue is urgent?".
  */
 export function KpiStrip() {
-  useLiveVersion();
-  const c = caseCounts();
+  const cases = useCases();
+  const c = caseCounts(cases);
   const segments = [
     { key: "review_now", label: "Review now", glyph: "▲", count: c.reviewNow, color: "var(--risk-high)" },
     { key: "review", label: "Review", glyph: "■", count: c.review, color: "var(--risk-review)" },
@@ -65,7 +64,7 @@ export function KpiStrip() {
         <p className="mt-2 flex items-baseline gap-2">
           <span className="font-mono text-display font-medium leading-none tabular text-fg">{c.open}</span>
           <span className="text-small text-fg-subtle">
-            of {investigations.length} in workspace · {c.closed} closed
+            of {cases.length} in workspace · {c.closed} closed
           </span>
         </p>
         <div className="mt-3 flex h-2 gap-0.5" role="img" aria-label={segments.map((s) => `${s.label} ${s.count}`).join(", ")}>

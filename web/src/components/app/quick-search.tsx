@@ -5,14 +5,15 @@ import { useRouter } from "next/navigation";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { Building2, FileText, FolderSearch, Search } from "lucide-react";
 import { entities } from "@/data/reference";
-import { investigations } from "@/data/investigations";
+import type { Investigation } from "@/data/types";
+import { useCases } from "@/lib/live-cases";
 import { cn } from "@/lib/utils";
 
 type Result = { id: string; href: string; kind: "Case" | "Entity" | "Invoice"; title: string; meta: string };
 
-const index: Result[] = [
-  ...investigations.map((i) => ({ id: i.id, href: `/app/investigations/${i.id}`, kind: "Case" as const, title: i.title, meta: i.id })),
-  ...investigations.map((i) => ({
+const buildIndex = (cases: readonly Investigation[]): Result[] => [
+  ...cases.map((i) => ({ id: i.id, href: `/app/investigations/${i.id}`, kind: "Case" as const, title: i.title, meta: i.id })),
+  ...cases.map((i) => ({
     id: `inv-${i.invoice.invoice_id}`,
     href: `/app/investigations/${i.id}`,
     kind: "Invoice" as const,
@@ -29,12 +30,14 @@ export function QuickSearch({ open, onOpenChange }: { open: boolean; onOpenChang
   const router = useRouter();
   const [q, setQ] = React.useState("");
   const [active, setActive] = React.useState(0);
+  const cases = useCases();
+  const index = React.useMemo(() => buildIndex(cases), [cases]);
 
   const results = React.useMemo(() => {
     const term = q.trim().toLowerCase();
     if (!term) return index.filter((r) => r.kind === "Case").slice(0, 6);
     return index.filter((r) => `${r.title} ${r.meta}`.toLowerCase().includes(term)).slice(0, 8);
-  }, [q]);
+  }, [q, index]);
 
   React.useEffect(() => setActive(0), [q]);
   React.useEffect(() => {

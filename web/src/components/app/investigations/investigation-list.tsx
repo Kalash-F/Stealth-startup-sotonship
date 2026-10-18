@@ -6,8 +6,6 @@ import { CaseStatusLabel, PriorityBadge } from "@/components/domain/status";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { NativeSelect } from "@/components/ui/select";
-import { investigations } from "@/data/investigations";
-import { corridorOptions } from "@/data/selectors";
 import type { CaseStatus, Investigation, PriorityBand } from "@/data/types";
 import { bandLabel, statusLabel } from "@/data/workspace";
 import { formatDateShort, formatMoney } from "@/lib/format";
@@ -61,7 +59,8 @@ function SortHeader({
 const parties = (i: Investigation) => `${i.invoice.seller.name} → ${i.invoice.buyer.name}`;
 
 export function InvestigationList() {
-  const { filters, results, active, setQ, write, toggleSort, clear } = useCaseFilters();
+  const { cases, filters, results, active, setQ, write, toggleSort, clear } = useCaseFilters();
+  const corridorOptions = [...new Set(cases.map((i) => i.corridor))].sort();
 
   return (
     <div className="flex flex-col gap-3 lg:min-h-0">
@@ -137,7 +136,7 @@ export function InvestigationList() {
 
       <p className="text-small text-fg-subtle" aria-live="polite">
         Showing <span className="font-mono tabular text-fg-muted">{results.length}</span> of{" "}
-        <span className="font-mono tabular text-fg-muted">{investigations.length}</span> cases
+        <span className="font-mono tabular text-fg-muted">{cases.length}</span> cases
         {active ? " matching the filters" : ""}
       </p>
 
@@ -147,7 +146,7 @@ export function InvestigationList() {
             <FilterX className="size-6 text-fg-subtle" aria-hidden />
             <div>
               <h2 className="text-title font-semibold text-fg">No cases match these filters</h2>
-              <p className="mt-1 text-body text-fg-muted">Try a different search term, or clear the filters to see all {investigations.length} cases.</p>
+              <p className="mt-1 text-body text-fg-muted">Try a different search term, or clear the filters to see all {cases.length} cases.</p>
             </div>
             <Button type="button" variant="secondary" size="sm" onClick={clear}>
               Clear filters
@@ -217,7 +216,7 @@ export function InvestigationList() {
                         <span className="font-mono text-meta text-fg-subtle">HS {i.hs6}</span>
                       </td>
                       <td className="whitespace-nowrap px-3 py-3 text-right font-mono tabular text-fg">
-                        {formatMoney(i.invoice.stated_total, i.invoice.currency)}
+                        {formatMoney(Math.round(i.invoice.stated_total), i.invoice.currency)}
                         <span className="block text-meta text-fg-subtle">{i.invoice.invoice_id}</span>
                       </td>
                       <td className="px-3 py-3">
@@ -258,7 +257,7 @@ export function InvestigationList() {
                   <p className="truncate text-small text-fg-muted">{parties(i)}</p>
                   <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-small">
                     <CaseStatusLabel status={i.status} className="text-small" />
-                    <span className="font-mono tabular text-fg">{formatMoney(i.invoice.stated_total, i.invoice.currency)}</span>
+                    <span className="font-mono tabular text-fg">{formatMoney(Math.round(i.invoice.stated_total), i.invoice.currency)}</span>
                     <span className="whitespace-nowrap font-mono text-fg-subtle">{i.route}</span>
                   </div>
                   <div className="flex items-center justify-between text-small text-fg-subtle">

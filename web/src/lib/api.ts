@@ -37,7 +37,7 @@ export interface HS6Candidate {
 }
 
 /** Report.lines: LineItem + EnrichedLine, plus the price band used (backend ReportLine). */
-export interface ReportLine extends Omit<LineItem, "hs6" | "unit_price_usd"> {
+export interface ReportLine extends Omit<LineItem, "hs6" | "unit_price_usd" | "benchmark"> {
   hs6: string | null;
   hs6_description: string | null;
   hs6_candidates: HS6Candidate[];
@@ -46,7 +46,34 @@ export interface ReportLine extends Omit<LineItem, "hs6" | "unit_price_usd"> {
   benchmark_unit: string | null;
   unit_price_usd: number | null;
   normalisation_note: string;
-  benchmark: (Omit<Benchmark, "is_mock"> & { is_mock: boolean }) | null;
+  /** The backend band has no description; the line's hs6_description names the goods. */
+  benchmark: Omit<Benchmark, "description"> | null;
+}
+
+/** A party as extracted: any ISO country code (ZZ when the extractor could not read one). */
+export interface ReportParty {
+  name: string;
+  address: string;
+  country: string;
+  address_type: "commercial" | "residential" | "unknown";
+}
+
+/** Report.invoice (schema 1.2): the invoice as extracted, header and parties included. */
+export interface ReportInvoice {
+  invoice_id: string;
+  invoice_date: string;
+  seller: ReportParty;
+  buyer: ReportParty;
+  consignee: ReportParty | null;
+  country_of_origin: string | null;
+  port_of_loading: string | null;
+  port_of_discharge: string | null;
+  incoterm: string | null;
+  currency: string;
+  line_items: Omit<LineItem, "hs6" | "unit_price_usd" | "benchmark">[];
+  stated_total: number;
+  source_file: string;
+  is_synthetic: boolean;
 }
 
 export interface Report {
@@ -56,6 +83,7 @@ export interface Report {
   priority_band: PriorityBand;
   /** 1-2 sentence overview of the report (LLM-written, a template offline, null if the LLM call failed). */
   summary: string | null;
+  invoice: ReportInvoice;
   flags: (Omit<Flag, "evidence"> & { evidence: Record<string, unknown> })[];
   lines: ReportLine[];
   processing_ms: number;

@@ -8,7 +8,7 @@ import { attentionQueue } from "@/data/workspace";
 import { formatDateShort, formatMoneyCompact } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { analystById } from "@/data/reference";
-import { useLiveVersion } from "@/lib/live-cases";
+import { useCases } from "@/lib/live-cases";
 
 /**
  * Open cases in the order an investigator should look at them. Scrolls inside its own box when
@@ -16,8 +16,7 @@ import { useLiveVersion } from "@/lib/live-cases";
  * scroll out from under the pinned next-case card.
  */
 export function AttentionQueue({ className, clearFloatingCard }: { className?: string; clearFloatingCard?: boolean }) {
-  useLiveVersion();
-  const rows = attentionQueue();
+  const rows = attentionQueue(useCases());
   return (
     <Panel className={cn("flex flex-col", className)}>
       <PanelHeader

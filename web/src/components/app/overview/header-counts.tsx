@@ -3,12 +3,11 @@
 import Link from "next/link";
 import { caseCounts } from "@/data/workspace";
 import { cn } from "@/lib/utils";
-import { useLiveVersion } from "@/lib/live-cases";
+import { useCases } from "@/lib/live-cases";
 
 /** The three counts that need action, set straight on the page header (no tiles). Each links to its filtered list; only a non-zero review-now count takes the brick. */
 export function HeaderCounts() {
-  useLiveVersion();
-  const c = caseCounts();
+  const c = caseCounts(useCases());
   const counts = [
     { label: "Review now", value: c.reviewNow, alarm: c.reviewNow > 0, note: "Open cases scoring 60 or more", href: "/app/investigations?band=review_now" },
     { label: "Awaiting information", value: c.awaiting, alarm: false, note: "Requests out to counterparties", href: "/app/investigations?status=awaiting_info" },

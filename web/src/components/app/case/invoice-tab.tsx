@@ -50,6 +50,8 @@ export function InvoiceTab({ inv }: { inv: Investigation }) {
   const flaggedRules = new Set<RuleId>(inv.flags.map((f) => f.rule));
   const arith = invoiceArithmetic(inv);
   const lineMismatches = i.line_items.filter((l) => !lineArithmetic(l).matches);
+  // Invoices checked in the workspace carry the real trade-data bands they were compared against.
+  const realBands = i.line_items.some((l) => l.benchmark && !l.benchmark.is_mock);
 
   const header = [
     { label: "Invoice date", value: formatDate(i.invoice_date) },
@@ -71,7 +73,7 @@ export function InvoiceTab({ inv }: { inv: Investigation }) {
             </>
           }
           description="Fields as extracted from the document"
-          actions={<SyntheticBadge label="Synthetic document" />}
+          actions={i.is_synthetic ? <SyntheticBadge label="Synthetic document" /> : undefined}
         />
         <div className="grid divide-y divide-border border-b border-border md:grid-cols-3 md:divide-x md:divide-y-0">
           <PartyBlock role="Seller" party={i.seller} />
@@ -94,8 +96,12 @@ export function InvoiceTab({ inv }: { inv: Investigation }) {
       <Panel>
         <PanelHeader
           title="Line items"
-          description="Stated unit price against an illustrative comparison band for the line's HS6 code (log scale)"
-          actions={<SyntheticBadge label="Illustrative synthetic band" />}
+          description={
+            realBands
+              ? "Stated unit price against the comparison band from trade data for the line's HS6 code (log scale)"
+              : "Stated unit price against an illustrative comparison band for the line's HS6 code (log scale)"
+          }
+          actions={realBands ? undefined : <SyntheticBadge label="Illustrative synthetic band" />}
         />
         <ol className="divide-y divide-border">
           {i.line_items.map((l) => {
@@ -141,7 +147,7 @@ export function InvoiceTab({ inv }: { inv: Investigation }) {
                   <div className="grid gap-2 rounded-sm border border-border bg-surface-2/40 p-3 md:grid-cols-[minmax(0,1fr)_150px] md:items-center md:gap-5">
                     <PriceBandBar benchmark={v.benchmark} stated={l.unit_price_usd!} />
                     <div className="text-left md:text-right">
-                      <p className="text-meta text-fg-subtle">vs illustrative median</p>
+                      <p className="text-meta text-fg-subtle">vs {v.benchmark.is_mock ? "illustrative " : ""}median</p>
                       <p className={cn("font-mono text-title tabular", v.outside ? "text-risk-high" : "text-risk-low")}>
                         {formatVariance(v.pct)}
                       </p>

@@ -11,12 +11,13 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
   const inv = investigationById(id);
-  return { title: inv ? `${inv.id} · ${inv.title}` : id.startsWith("LIVE-") ? "Live check" : "Case not found" };
+  return { title: inv ? `${inv.id} · ${inv.title}` : id };
 }
 
 export default async function CasePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  if (id.startsWith("LIVE-")) return <LiveCaseView id={id} />;
-  if (!investigationById(id)) notFound();
-  return <CaseView id={id} />;
+  if (investigationById(id)) return <CaseView id={id} />;
+  // Not a seeded case: it may be one this browser made by checking an invoice.
+  if (!/^CASE-\d{4,}$/.test(id)) notFound();
+  return <LiveCaseView id={id} />;
 }

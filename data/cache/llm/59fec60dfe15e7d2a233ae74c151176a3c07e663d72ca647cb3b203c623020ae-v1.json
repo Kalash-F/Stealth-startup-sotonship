@@ -1,0 +1,54 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Are\u00e1l Oakhurst, Pr\u016fmyslov\u00e1 52, 712 39 Brno, Czech Republic",
+      "address_type": "commercial",
+      "country": "CZ",
+      "name": "Moravia Line Supply s.r.o."
+    },
+    "consignee": {
+      "address": "Are\u00e1l Copperfield, Zahradn\u00ed 74, 681 83 Ostrava, Czech Republic",
+      "address_type": "commercial",
+      "country": "CZ",
+      "name": "Redwell Distribution s.r.o."
+    },
+    "country_of_origin": "UAE",
+    "currency": "AED",
+    "incoterm": "CIF",
+    "invoice_date": "2024-07-13",
+    "invoice_id": "TX240059",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "USB 3.0 FLASH DRIVE 64GB, METAL CASING",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 2705200.0,
+        "quantity": 20000.0,
+        "unit": "PCS",
+        "unit_price": 135.26
+      },
+      {
+        "description": "14-INCH LAPTOP COMPUTER, INTEL CORE I5, 16GB RAM, 512GB SSD",
+        "extraction_confidence": 1.0,
+        "line_id": "L2",
+        "line_total": 513771.6,
+        "quantity": 120.0,
+        "unit": "PCS",
+        "unit_price": 4281.43
+      }
+    ],
+    "port_of_discharge": "Hamburg, Germany",
+    "port_of_loading": "Jebel Ali, Dubai, UAE",
+    "seller": {
+      "address": "P.O. Box 14400, Dubai, United Arab Emirates",
+      "address_type": "unknown",
+      "country": "AE",
+      "name": "Falconcrest Merchants FZE"
+    },
+    "source_file": "",
+    "stated_total": 3218971.6
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

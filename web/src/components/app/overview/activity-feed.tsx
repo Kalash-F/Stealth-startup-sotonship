@@ -5,13 +5,12 @@ import { Panel, PanelHeader } from "@/components/ui/panel";
 import { recentActivity } from "@/data/workspace";
 import { formatDateShort } from "@/lib/format";
 import { cn } from "@/lib/utils";
-import { useLiveVersion } from "@/lib/live-cases";
+import { useCases } from "@/lib/live-cases";
 import { TimelineKindIcon } from "../shared/timeline-kind";
 
 /** The latest evidence and case events across the workspace. */
 export function ActivityFeed({ className, limit = 8, withHeader = true }: { className?: string; limit?: number; withHeader?: boolean }) {
-  useLiveVersion();
-  const items = recentActivity(limit);
+  const items = recentActivity(limit, useCases());
   return (
     <Panel className={cn("flex flex-col", className)}>
       {withHeader ? <PanelHeader title="Recent activity" description="Latest events across all cases" /> : null}

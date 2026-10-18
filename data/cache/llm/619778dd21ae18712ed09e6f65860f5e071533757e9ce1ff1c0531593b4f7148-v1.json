@@ -1,0 +1,40 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Unit 7, Riverside Industrial Estate, Manchester M97 7ZX, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Ashcombe Global Sourcing Limited"
+    },
+    "consignee": null,
+    "country_of_origin": "Ethiopia (re-exported from United Arab Emirates; certificate of origin attached)",
+    "currency": "GBP",
+    "incoterm": "CIF",
+    "invoice_date": "2024-04-22",
+    "invoice_id": "TX240004",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "UNROASTED ARABICA COFFEE, WASHED, SCREEN 17/18",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 79813.9,
+        "quantity": 11.8,
+        "unit": "MT",
+        "unit_price": 6763.89
+      }
+    ],
+    "port_of_discharge": "London Gateway, UK",
+    "port_of_loading": "Jebel Ali, Dubai, UAE",
+    "seller": {
+      "address": "Office 539, Harrowdene Business Centre, Al Qusais, Abu Dhabi, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Meridian Bay Merchants FZCO"
+    },
+    "source_file": "",
+    "stated_total": 79813.9
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

@@ -32,7 +32,8 @@ import {
 import { analystById, demoUserId } from "@/data/reference";
 import { caseCounts, workspace } from "@/data/workspace";
 import { cn } from "@/lib/utils";
-import { useLiveVersion } from "@/lib/live-cases";
+import type { Investigation } from "@/data/types";
+import { restoreLiveCases, useCases } from "@/lib/live-cases";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { QuickSearch } from "./quick-search";
 import { StackedPeaks } from "./stacked-peaks";
@@ -40,7 +41,7 @@ import { StackedPeaks } from "./stacked-peaks";
 const nav = [
   { href: "/app", label: "Overview", icon: LayoutDashboard, exact: true },
   { href: "/app/checker", label: "Check invoice", icon: ScanSearch },
-  { href: "/app/investigations", label: "Investigations", icon: FolderSearch, count: () => caseCounts().open },
+  { href: "/app/investigations", label: "Investigations", icon: FolderSearch, count: (cases: readonly Investigation[]) => caseCounts(cases).open },
   { href: "/app/entities", label: "Entities", icon: Network },
   { href: "/app/activity", label: "Recent activity", icon: History },
   { href: "/app/statistics", label: "Statistics", icon: ChartColumn },
@@ -51,7 +52,7 @@ function isActive(pathname: string, href: string, exact?: boolean) {
 }
 
 function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
-  useLiveVersion();
+  const cases = useCases();
   const pathname = usePathname();
   return (
     <ul className="grid gap-0.5">
@@ -71,7 +72,7 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
             >
               <Icon className={cn("size-4", active ? "text-bg" : "text-fg-subtle group-hover:text-fg")} aria-hidden />
               <span>{item.label}</span>
-              {item.count ? <span className={cn("font-mono text-meta tabular", active ? "text-bg/75" : "text-fg-subtle")}>{item.count()}</span> : null}
+              {item.count ? <span className={cn("font-mono text-meta tabular", active ? "text-bg/75" : "text-fg-subtle")}>{item.count(cases)}</span> : null}
             </Link>
           </li>
         );
@@ -173,6 +174,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   React.useEffect(() => setMobileOpen(false), [pathname]);
+
+  // Cases made by checking invoices in this browser come back after hydration, so the first render matches the server.
+  React.useEffect(() => restoreLiveCases(), []);
 
   // Dialogs, menus, tooltips and toasts portal to <body>, outside this subtree.
   // Put the linen theme on <body> while the workspace is mounted so they match.

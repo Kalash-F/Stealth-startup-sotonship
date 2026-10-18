@@ -3,8 +3,9 @@ import { Suspense } from "react";
 import { PageHeader } from "@/components/app/page-header";
 import { HeaderCounts } from "@/components/app/overview/header-counts";
 import { InvestigationList } from "@/components/app/investigations/investigation-list";
+import { ListDescription } from "@/components/app/investigations/list-description";
 import { SyntheticBadge } from "@/components/domain/synthetic-badge";
-import { caseCounts, workspace } from "@/data/workspace";
+import { workspace } from "@/data/workspace";
 
 export const metadata: Metadata = { title: "Investigations" };
 
@@ -18,13 +19,12 @@ function ListFallback() {
 }
 
 export default function InvestigationsPage() {
-  const c = caseCounts();
   return (
     <div className="flex flex-col lg:min-h-0 lg:flex-1">
       <PageHeader
         title="Investigations"
         crumbs={[{ label: workspace.name, href: "/app" }, { label: "Investigations" }]}
-        description={`${c.open} open cases, ${c.reviewNow} at review-now priority. Priority is the sum of the flags behind each case; open a case to see the evidence.`}
+        description={<ListDescription />}
         meta={<SyntheticBadge />}
         actions={<HeaderCounts />}
       />

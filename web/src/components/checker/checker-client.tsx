@@ -8,6 +8,7 @@ import { Panel, PanelBody, PanelHeader } from "@/components/ui/panel";
 import { SyntheticBadge } from "@/components/domain/synthetic-badge";
 import { ReportView } from "@/components/checker/report-view";
 import { API_URL, checkSample, checkUpload, listSamples, type Report, type Sample } from "@/lib/checker-api";
+import type { Report as WorkspaceReport } from "@/lib/api";
 import { addLiveCase } from "@/lib/live-cases";
 
 export function CheckerClient() {
@@ -25,14 +26,14 @@ export function CheckerClient() {
       .catch(() => setSamples([]));
   }, []);
 
-  // meta = what we know about the invoice besides the report (a sample's route and currency).
-  async function run(task: () => Promise<Report>, meta: { route?: string; currency?: string } = {}) {
+  async function run(task: () => Promise<Report>) {
     setLoading(true);
     setError(null);
     try {
       const r = await task();
       setReport(r);
-      setCaseId(addLiveCase(r, meta)?.id ?? null); // updates the counts, queue and charts above
+      // Same backend response; this client's older type just leaves out fields it does not show.
+      setCaseId(addLiveCase(r as unknown as WorkspaceReport)?.id ?? null); // updates the counts, queue and charts above
     } catch (e) {
       setReport(null);
       setCaseId(null);
@@ -73,10 +74,7 @@ export function CheckerClient() {
           <Button
             className="text-body"
             disabled={!selected || loading}
-            onClick={() => {
-              const s = samples.find((x) => x.invoice_id === selected);
-              run(() => checkSample(selected), { route: s?.route, currency: s?.currency });
-            }}
+            onClick={() => run(() => checkSample(selected))}
           >
             Check sample
           </Button>

@@ -73,6 +73,11 @@ export function NetworkTab({ inv }: { inv: Investigation }) {
 
       <Panel>
         <PanelHeader title="Involved entities" description={`${involved.length} parties named on documents, payments or registry extracts`} />
+        {involved.length === 0 ? (
+          <p className="px-4 py-6 text-body text-fg-muted">
+            No entities are linked to this case yet. The seller, buyer and consignee named on the invoice are on the Invoice tab.
+          </p>
+        ) : null}
         <ul className="divide-y divide-border">
           {involved.map((e) => (
             <li key={e.id} className="relative flex items-center justify-between gap-3 px-4 py-2.5 hover:bg-surface-2">

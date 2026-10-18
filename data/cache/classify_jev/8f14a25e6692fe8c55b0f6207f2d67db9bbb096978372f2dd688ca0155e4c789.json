@@ -1,0 +1,19 @@
+{
+  "state": {
+    "invoice_line": "Unroasted Arabica coffee, washed, screen 17/18",
+    "what_it_is": "Unroasted washed Arabica coffee beans, screen size 17/18, for brewing coffee.",
+    "classified_so_far": "chapter 09: Coffee, tea, mate and spices > heading 0901: Coffee, whether or not roasted or decaffeinated; husks and skins; coffee substitutes containing coffee in any proportion"
+  },
+  "parent": "0901",
+  "probabilities": {
+    "090111": 0.98,
+    "090112": 0.02,
+    "090121": 0.0,
+    "090122": 0.0,
+    "090130": 0.0,
+    "090140": 0.0,
+    "090190": 0.0,
+    "none": 0.0
+  },
+  "confidence": 0.98
+}

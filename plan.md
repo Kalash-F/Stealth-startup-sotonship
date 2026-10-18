@@ -230,6 +230,8 @@ Define all of these in `backend/tbml/schemas.py` with `SCHEMA_VERSION = "1.0"`. 
 | schema_version | str | |
 | priority_score | float 0–100 | |
 | priority_band | enum `review_now \| review \| low` | |
+| summary | str \| null | one or two sentences; null when the LLM call failed (schema 1.1) |
+| invoice | Invoice | the invoice as extracted, header and parties included (schema 1.2) |
 | flags | list[Flag] | |
 | lines | list[{LineItem + EnrichedLine + Benchmark \| null}] | |
 | processing_ms | int | |

@@ -5,7 +5,7 @@ import { Panel, PanelHeader } from "@/components/ui/panel";
 import { rules } from "@/data/reference";
 import { flagsByRule } from "@/data/workspace";
 import { cn } from "@/lib/utils";
-import { useLiveVersion } from "@/lib/live-cases";
+import { useCases } from "@/lib/live-cases";
 import { axisTick, ChartTooltipBox } from "../shared/chart-tooltip";
 
 const severities = [
@@ -32,8 +32,7 @@ function TooltipBody({ active, payload }: { active?: boolean; payload?: { payloa
 
 /** Which rules are doing the work, and at what severity. */
 export function FlagsByRuleChart({ className }: { className?: string }) {
-  useLiveVersion();
-  const data = flagsByRule();
+  const data = flagsByRule(useCases());
   const total = data.reduce((s, r) => s + r.total, 0);
   return (
     <Panel className={cn("flex flex-col", className)}>

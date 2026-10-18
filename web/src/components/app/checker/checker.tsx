@@ -13,7 +13,6 @@ import { PriorityBadge, PriorityScore } from "@/components/domain/status";
 import { SyntheticBadge } from "@/components/domain/synthetic-badge";
 import type { Flag } from "@/data/types";
 import { api, ApiError, hsPath, notClassifiedReason, type Health, type Report, type Sample } from "@/lib/api";
-import type { Report as LiveReport } from "@/lib/checker-api";
 import { formatUnitPrice } from "@/lib/format";
 import { addLiveCase } from "@/lib/live-cases";
 import { cn } from "@/lib/utils";
@@ -71,8 +70,7 @@ export function Checker() {
     );
   }, []);
 
-  // meta = what we know about the invoice besides the report (a sample's route and currency).
-  const run = useCallback(async (label: string, job: () => Promise<Report>, meta: { route?: string; currency?: string } = {}) => {
+  const run = useCallback(async (label: string, job: () => Promise<Report>) => {
     setBusy(true);
     setError(null);
     try {
@@ -80,7 +78,7 @@ export function Checker() {
       setReport(r);
       setSource(label);
       // Every checked invoice becomes a case, so it shows in the attention queue, investigations and counts.
-      setCaseId(addLiveCase(r as unknown as LiveReport, meta)?.id ?? null);
+      setCaseId(addLiveCase(r)?.id ?? null);
     } catch (e) {
       setError(e instanceof ApiError ? e.message : "Something went wrong while checking the invoice.");
     } finally {
@@ -97,9 +95,8 @@ export function Checker() {
   useEffect(() => {
     if (autoRan.current || !linked || selected !== linked) return;
     autoRan.current = true;
-    const s = samples.find((x) => x.invoice_id === linked);
-    void run(linked, () => api.checkSample(linked), { route: s?.route, currency: s?.currency });
-  }, [linked, selected, samples, run]);
+    void run(linked, () => api.checkSample(linked));
+  }, [linked, selected, run]);
 
   const onFile = (file: File | undefined) => {
     if (!file) return;
@@ -151,7 +148,7 @@ export function Checker() {
                 onClick={() => {
                   if (!sample) return;
                   choose(sample.invoice_id);
-                  void run(sample.invoice_id, () => api.checkSample(sample.invoice_id), { route: sample.route, currency: sample.currency });
+                  void run(sample.invoice_id, () => api.checkSample(sample.invoice_id));
                 }}
                 disabled={!sample || busy}
               >

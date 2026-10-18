@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { investigations } from "@/data/investigations";
+import { useCases } from "@/lib/live-cases";
 import { caseSearchText } from "@/data/selectors";
 import type { CaseStatus, Investigation, PriorityBand } from "@/data/types";
 
@@ -79,9 +79,10 @@ export function useCaseFilters() {
   const filters = { ...urlFilters, q };
   const active = Boolean(filters.q || filters.status || filters.band || filters.corridor);
 
+  const cases = useCases();
   const results = React.useMemo(() => {
     const term = filters.q.trim().toLowerCase();
-    const rows = investigations.filter(
+    const rows = cases.filter(
       (i) =>
         (!term || caseSearchText(i).includes(term)) &&
         (!filters.status || i.status === filters.status) &&
@@ -96,7 +97,7 @@ export function useCaseFilters() {
       const c = typeof av === "number" ? av - (bv as number) : String(av).localeCompare(String(bv));
       return c * mult || b.updated.localeCompare(a.updated);
     });
-  }, [filters.q, filters.status, filters.band, filters.corridor, filters.sort, filters.dir]);
+  }, [cases, filters.q, filters.status, filters.band, filters.corridor, filters.sort, filters.dir]);
 
   const toggleSort = (key: SortKey) => {
     if (filters.sort === key) write({ dir: filters.dir === "desc" ? "asc" : "desc" });
@@ -113,5 +114,5 @@ export function useCaseFilters() {
     );
   };
 
-  return { filters, results, active, setQ, write, toggleSort, clear };
+  return { cases, filters, results, active, setQ, write, toggleSort, clear };
 }

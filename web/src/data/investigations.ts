@@ -813,7 +813,10 @@ export const investigations: Investigation[] = drafts.map((d) => {
   return { ...d, invoice: { ...d.invoice, line_items }, priority_score: score, priority_band: band };
 });
 
-export const investigationById = (id: string) => investigations.find((i) => i.id === id);
+/** The sample cases only. Cases made by checking invoices are added to `investigations` in the browser (lib/live-cases). */
+export const seededInvestigations: readonly Investigation[] = [...investigations];
+
+export const investigationById = (id: string, list: readonly Investigation[] = investigations) => list.find((i) => i.id === id);
 
 /** The case the marketing site and walkthrough are built around. */
 export const featuredCaseId = "CASE-0142";

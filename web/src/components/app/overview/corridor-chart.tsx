@@ -3,17 +3,17 @@
 import { Bar, BarChart, LabelList, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { Panel, PanelHeader } from "@/components/ui/panel";
 import Link from "next/link";
-import { investigations } from "@/data/investigations";
+import type { Investigation } from "@/data/types";
 import { isOpen, valueByCorridor } from "@/data/workspace";
 import { formatMoney, formatMoneyCompact } from "@/lib/format";
 import { cn } from "@/lib/utils";
-import { useLiveVersion } from "@/lib/live-cases";
+import { useCases } from "@/lib/live-cases";
 import { axisTick, ChartTooltipBox } from "../shared/chart-tooltip";
 
-const largest = (corridor: string) =>
-  investigations.filter((i) => isOpen(i) && i.corridor === corridor).sort((a, b) => b.invoice.stated_total - a.invoice.stated_total)[0];
+const largest = (cases: readonly Investigation[], corridor: string) =>
+  cases.filter((i) => isOpen(i) && i.corridor === corridor).sort((a, b) => b.invoice.stated_total - a.invoice.stated_total)[0];
 
-const corridorRows = () => valueByCorridor().map((r) => ({ ...r, label: r.corridor.replace("-", " → ") }));
+const corridorRows = (cases: readonly Investigation[]) => valueByCorridor(cases).map((r) => ({ ...r, label: r.corridor.replace("-", " → ") }));
 type Row = ReturnType<typeof corridorRows>[number];
 
 function TooltipBody({ active, payload }: { active?: boolean; payload?: { payload: Row }[] }) {
@@ -32,8 +32,8 @@ function TooltipBody({ active, payload }: { active?: boolean; payload?: { payloa
 
 /** Where the money under review sits. */
 export function CorridorChart({ className }: { className?: string }) {
-  useLiveVersion();
-  const data = corridorRows();
+  const cases = useCases();
+  const data = corridorRows(cases);
   const total = data.reduce((s, r) => s + r.value, 0);
   return (
     <Panel className={cn("flex flex-col", className)}>
@@ -78,7 +78,7 @@ export function CorridorChart({ className }: { className?: string }) {
         <p className="eyebrow px-4 pt-3">Largest open case per corridor</p>
         <ul className="divide-y divide-border pb-1">
           {data.map((r) => {
-            const c = largest(r.corridor);
+            const c = largest(cases, r.corridor);
             return (
               <li key={r.corridor} className="relative flex items-baseline gap-3 px-4 py-2 text-small hover:bg-surface-2">
                 <span className="w-14 shrink-0 font-mono text-meta text-fg-subtle">{r.corridor}</span>
