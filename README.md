@@ -1,85 +1,229 @@
-# TBML Invoice Checker
+# Sentinel
 
-Helps trade finance compliance officers catch trade-based money laundering (TBML) by checking invoice line items against trade price benchmarks and document red-flag rules, then producing a prioritised, explained review report. The output is a review priority with reasons, never a fraud verdict.
+**Catch trade-based money laundering on the invoice, in seconds.**
 
-`plan.md` is the build plan and single source of truth. `PROGRESS.md` logs work; `DECISIONS.md` logs deviations.
+Sentinel reads a trade invoice PDF, works out what the goods really are, compares every price with **16.1 million real UK import records** for the same goods, and checks eight red-flag rules. A compliance analyst gets a review priority from 0 to 100, a plain-English reason for every flag and a short summary. It ranks invoices for review; it never calls anything fraud.
 
-## Quick start
+Live demo: **https://stealth-startup-sotonship.vercel.app** (open the checker from the homepage)
 
-```bash
-make setup     # .venv + pip install -e backend[dev]
-make lint
-make test
-source .venv/bin/activate
-python -c "from tbml.pipeline import check; print(check('any.pdf').priority_band)"
+Built in 48 hours at SotonShip 2026 (FinTech track), 16 to 18 October 2026.
+
+---
+
+## Contents
+
+- [Why it matters](#why-it-matters)
+- [How it works](#how-it-works)
+- [The data: 16 million import records](#the-data-16-million-import-records)
+- [Results](#results)
+- [Run it locally](#run-it-locally)
+- [Configuration](#configuration)
+- [Deploying to Vercel](#deploying-to-vercel)
+- [Repository layout](#repository-layout)
+- [Data sources](#data-sources)
+- [Use of AI](#use-of-ai)
+- [Team](#team)
+
+---
+
+## Why it matters
+
+Criminals move money by lying on trade invoices. Goods worth $1,000 are invoiced at $10,000, and the extra $9,000 reaches the seller looking like an ordinary sale. Banks find this hard to catch:
+
+- **There is no easy reference price.** Most goods have no published market price, so staff judge by eye whether a price looks "manifestly unusual".
+- **Descriptions are messy.** "MBP 14 M3 16/512" or "HHB M10x50 8.8 ZP" mean nothing to a keyword rule.
+- **Checks are manual and sampled.** Existing automated tools are expensive and, according to the ICC, produce false positive rates above 99%.
+
+Sentinel gives every invoice a fast, explained first pass, so analysts spend their time on the invoices most likely to matter.
+
+## How it works
+
+```mermaid
+flowchart LR
+    A[Upload PDF<br/>or pick a sample] --> B[Read the invoice<br/>pdfplumber + Gemini]
+    B --> C[Identify the goods<br/>Gemini reads, Jev picks HS6]
+    C --> D[Price each line<br/>HMRC p1 to p99 range]
+    D --> E[Check 8 rules<br/>R1 to R8]
+    E --> F[Score 0 to 100]
+    F --> G[Write summary<br/>one Gemini call]
+    G --> H[Report<br/>invoice beside findings]
 ```
 
-| Target | What it does |
-|---|---|
-| `make setup` | create `.venv`, install the backend package and dev tools |
-| `make test` / `make lint` / `make format` | pytest / ruff check + format check / auto-fix |
-| `make api` | FastAPI on :8000 with reload (real pipeline; `USE_MOCKS=1 make api` for the fixture stubs). Endpoints: `GET /health`, `POST /check` (multipart `file`), `GET /reports/{invoice_id}`, `GET /samples`, `POST /samples/{invoice_id}/check` |
-| `make web` | Vite dev server in `web/` |
-| `make data` | fetch and cache benchmark data (`backend/scripts/fetch_benchmarks.py`) |
-| `make synthetic` | regenerate the synthetic invoice set (`SEED=42 N=60` by default) |
-| `make eval` | evaluation (Phase 6) |
-
-## Deploy (Vercel)
-
-`vercel.json` deploys the repo as one Vercel project with two services on one domain:
-
-| Service | Root | Public path |
+| Step | What happens | Built with |
 |---|---|---|
-| `backend` (FastAPI, entrypoint `tbml/asgi.py`) | `backend/` | `/api/*`, e.g. `/api/health`, `/api/check` |
-| `web` (Next.js) | `web/` | everything else |
+| 1. Read | Extracts parties, origin, ports, currency and every line (description, quantity, unit, price). Every number is checked against the PDF text. | `pdfplumber`, Gemini 2.5 Flash when a key is set |
+| 2. Classify | The AI first says in plain words what each line is, then picks the HS6 code chapter by chapter. Lines too vague to identify are left unclassified on purpose. | TypeSafe's Jev via OpenRouter (default), UN Comtrade HS list |
+| 3. Price | Converts the price to a common currency and unit, then places it in the spread of real UK import prices for that code (1st to 99th percentile). | HMRC trade databases, Federal Reserve exchange rates |
+| 4. Rules | Runs eight checks (table below). Thresholds live in one file, `backend/tbml/rules/config.yaml`. | Python |
+| 5. Score | Adds up flag weights (high 40, medium 15, low 5), capped at 100. **Review now** at 60+, **Review** at 25+, else **Low**. | Python |
+| 6. Summarise | One model call writes a one or two sentence summary after the rules have run. Cached, so a re-check costs nothing. | Gemini via OpenRouter |
 
-Vercel forwards the full URL, so `tbml/asgi.py` mounts the API under `/api`; `make api` serves the same app without the prefix. Run `vercel dev` from the repo root to run both services together on the deployed paths.
+### The eight rules
 
-The backend function is bundled from `backend/` alone and Vercel caps its size, so:
+| Rule | Flags when |
+|---|---|
+| R1 Price outlier | A unit price falls outside the normal range for that product |
+| R2 Quantity vs value | The quantity or weight cannot match the value invoiced |
+| R3 Vague description | Wording like "goods as per contract" hides what is shipped |
+| R4 Wrong origin | The stated origin does not fit the route or the seller |
+| R5 Odd route | Goods take a route that makes no economic sense |
+| R6 Maths wrong | Line totals or the invoice total do not add up |
+| R7 Home address | A large shipment is going to a private residence |
+| R8 Low confidence | The system could not read or classify a line reliably |
 
-- Only the API's own dependencies are installed. `pandas`, `requests`, `jinja2` and WeasyPrint live in the `scripts` extra, and the band tables are JSON (`data/benchmarks/bands*.json`), read without pandas.
-- The backend's build step copies `data/` into `backend/data/`, and `tbml/paths.py` falls back to that copy.
-- The deployed filesystem is read-only apart from the temp dir, so `tbml/asgi.py` points the LLM caches and saved reports there. They last only as long as the function instance, so `GET /api/reports/{id}` can miss a report made on another instance.
+The AI steps only read and classify. Pricing, rules and scoring are plain code, so every flag can be traced and audited.
 
-`vercel build` reproduces the deployment build locally. See `DECISIONS.md` DV1 to DV3.
+## The data: 16 million import records
 
-## Layout
+The heart of Sentinel is knowing what a normal price looks like for any product. We built that from official UK customs data.
 
-- `backend/tbml/schemas.py`: the data contracts (plan §4), `SCHEMA_VERSION = "1.1"`.
-- `backend/tbml/{extract,classify,benchmark,rules,score}/`, `pipeline.py`, `api.py`: pipeline stages.
-- `backend/tbml/synthetic/`: synthetic invoice generator and HTML templates.
-- `data/synthetic/`: generated, labelled synthetic invoices (fictional companies, clearly marked synthetic).
-- `data/reference/`: HS code list (`hs.db`), exchange rates, unit weights, country and city lists.
-- `data/databases/`: the HMRC price benchmark databases, one SQLite file per HS chapter, p1 to p99 for every commodity code and year. The primary price source (`backend/tbml/benchmark/`).
-- `data/benchmarks/`: the older price bands (`bands.json`, real, 7 goods) used as a fallback, and the raw HMRC responses they are built from.
+**What we used.** Every UK import record in HMRC's Overseas Trade Statistics from July 2023 to August 2026: **16,429,447 records** across 38 monthly data files. After cleaning, **16,149,813** were used (279,634 skipped for missing or unusable values). Each record is a commodity code, origin country, value in GBP and quantity.
+
+**How we turned it into prices.**
+
+1. **Price per record.** Value divided by quantity gives a unit price: 16.0 million prices per kg, plus 4.4 million per item (or per litre, per pair) where HMRC records a count.
+2. **Grouped by product.** Prices are grouped by commodity code at three levels: CN8 (the most specific, 9,471 codes), HS6 and HS4. If a code has too little data, we fall back to the broader level.
+3. **Split by year and by origin.** Each product gets a price distribution for 2023, 2024, 2025, 2026 and all years together, both for all countries and for each origin country with at least 10 prices. A distribution needs at least 30 prices to be used.
+4. **Kept the full spread.** For each group we store the 1st, 5th, 10th, 25th, 50th, 75th, 90th, 95th and 99th percentiles, the mean and the year-on-year change in the median. That is **1.35 million price bands**, in 98 SQLite files (one per HS chapter, 246 MB).
+
+**How an outlier is decided (rule R1).**
+
+| Where the invoice price falls | Result |
+|---|---|
+| Between the 5th and 95th percentile | Normal, no flag |
+| 1st to 5th, or 95th to 99th percentile | Review (medium) |
+| Below the 1st or above the 99th percentile | Extreme (high) |
+
+Then the price is checked against **every year** separately. If it is only unusual in one year, the flag is softened; if it is unusual in most years, it is escalated and scores more. A price that is normal for goods from that **origin country** is also softened, which stops cheap but legitimate imports (bulk screws from China, say) being flagged.
+
+**How the goods get a code in the first place.** Invoices do not carry clean codes, so a classifier reads each line. A chat model (Gemini 2.5 Flash) first rewrites it in plain words ("MBP 14 M3" becomes "Apple MacBook Pro 14-inch laptop"). Then Jev, TypeSafe's decision model, picks the chapter, heading and HS6 code from the official UN Comtrade list, keeping the best few paths at each level (beam search). Each step returns a probability, and a line is only priced if every step is at least 50% sure; otherwise it is flagged as unclear rather than guessed.
+
+> These are aggregated customs records (one row per commodity, country and month), not individual company invoices, so the bands show the market price range, not what any single trader paid.
 
 ## Results
 
-`make eval` writes `reports/eval/summary.md`. With the committed data and cached model answers:
+Run `make eval` to reproduce. It writes `reports/eval/summary.md`.
 
-- **Classification** on 44 realistic invoice descriptions (`data/eval/descriptions.csv`): keyword baseline 26/39 correct (67%); three-step AI classifier with `google/gemini-2.5-flash` 37 to 39/39 across runs (95-100%), never confidently wrong, and all 5 vague lines left unclassified.
-- **Detection** on the 60 synthetic invoices, priced against the HMRC benchmark databases: 17 of 18 anomalous invoices flagged, 0 of 36 clean and 0 of 6 legitimate-but-unusual invoices flagged. Reviewing the top 20% by priority catches 67% of anomalies, against 20% for random spot-checks; the top 30% catches 94%.
+| Test | Result |
+|---|---|
+| Classifying 39 realistic invoice lines | AI classifier 37 to 39 correct across runs, keyword baseline 26 |
+| Vague lines correctly left unclassified | 5 of 5 |
+| Problem invoices flagged (of 18) | 17 |
+| Clean or legitimate-but-unusual invoices flagged (of 42) | 0 |
+| Anomalies caught by reviewing the top 20% | 67%, vs 20% for random spot checks |
 
-The invoices and their anomalies are synthetic and planted by our own generator, so these numbers show the system works as designed, not real-world performance.
+> **Honest caveat:** the 60 test invoices and their problems were generated by our own code, so these numbers show the system works as designed, not real-world accuracy.
+
+## Run it locally
+
+You need Python 3.11+, Node 18+ and `make`.
+
+```bash
+make setup        # create .venv and install the backend with dev tools
+make api          # backend on http://127.0.0.1:8000
+make web          # website on http://localhost:3000 (in a second terminal)
+```
+
+Then open http://localhost:3000/app/checker, pick a sample invoice and press **Check sample**.
+
+Without an API key everything still runs offline: the classifier falls back to keyword matching and the summary uses a template.
+
+| Command | What it does |
+|---|---|
+| `make test` | run the test suite |
+| `make lint` / `make format` | check / fix code style (ruff) |
+| `make eval` | run the evaluation above |
+| `make synthetic` | regenerate the 60 test invoices (`SEED=42 N=60`) |
+| `make data` | rebuild the price bands from raw HMRC data |
+
+**API endpoints** (served under `/api` when deployed):
+
+| Endpoint | Purpose |
+|---|---|
+| `GET /health` | status, price data and model in use, deployed commit |
+| `POST /check` | check an uploaded PDF (multipart field `file`) |
+| `GET /samples`, `POST /samples/{id}/check` | list and check the bundled test invoices |
+| `GET /samples/{id}/pdf` | the sample's PDF |
+| `GET /reports/{id}` | a report checked earlier |
+| `GET /hs?codes=...` | HS chapter, heading and CN8 names for up to 100 codes |
+
+## Configuration
+
+Copy `.env.example` to `.env`. **Never commit `.env`.**
+
+| Variable | Purpose |
+|---|---|
+| `OPENROUTER_API_KEY` | turns on the AI steps |
+| `OPENROUTER_MODEL` | chat model, e.g. `google/gemini-2.5-flash` |
+| `JEV_MODEL` | HS classifier model, default `typesafe/jev-1.14` |
+| `CLASSIFIER` | `jev` (default), `hierarchical`, `flat` or `keyword` |
+| `SUMMARY_MODEL` | optional smaller model for the summary |
+
+## Deploying to Vercel
+
+`vercel.json` deploys the repo as one Vercel project with two services on one domain:
+
+| Service | Folder | Serves |
+|---|---|---|
+| `backend` (FastAPI, `tbml/asgi.py`) | `backend/` | `/api/*` |
+| `web` (Next.js 15) | `web/` | everything else |
+
+Set the variables above in the Vercel project for **Production**, then redeploy. Check `/api/health`: it should report the real price data, the model and the deployed commit.
+
+Good to know:
+
+- The backend build copies `data/` into the bundle and compresses the price databases to fit Vercel's size cap. They unpack into the temp dir on first use.
+- The deployed disk is read-only, so caches and saved reports go to the temp dir and last only as long as the function instance.
+- Background on these choices is in `DECISIONS.md` (DV1 to DV5).
+
+## Repository layout
+
+```
+backend/tbml/
+  extract/      PDF to invoice
+  classify/     HS classification (Jev, chat model, keyword baseline)
+  benchmark/    price lookups in the HMRC databases
+  rules/        the eight rules + config.yaml
+  score/        priority score
+  summary.py    the AI summary
+  pipeline.py   runs every stage; api.py serves it
+backend/scripts/  evaluation, invoice generator, data builders
+web/              Next.js website and checker
+data/
+  databases/    HMRC price databases, one SQLite file per HS chapter
+  reference/    HS code list, exchange rates, unit weights
+  synthetic/    the 60 labelled test invoices
+  cache/        cached model answers, so demos and evals reproduce
+docs/             architecture notes
+```
+
+`plan.md` is the original build plan, `DECISIONS.md` logs every change to it, and `PROGRESS.md` logs the work.
 
 ## Data sources
 
-| Data | Source | Date | Licence |
-|---|---|---|---|
-| Price benchmark databases (`data/databases/db_*.db`) | HMRC Overseas Trade Statistics: UK imports of every commodity code, July 2023 to August 2026, price distributions (p1 to p99) per CN8 / HS6 / HS4, year, unit and origin country | Built 2026-10-18 | [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/) |
-| Price bands (`data/benchmarks/bands.json`, fallback) | HMRC Overseas Trade Statistics via the uktradeinfo OTS API: UK imports of the 7 benchmark goods, 2023-2025, unit value per partner country, port and month | Fetched 2026-10-17; HMRC figures are provisional for up to 18 months | [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/) |
-| Raw responses behind the bands (`data/benchmarks/raw/hmrc_*.json.gz`) | Same as above, unmodified | Fetched 2026-10-17 | Open Government Licence v3.0 |
-| HS code list (`data/reference/hs.db`) | UN Comtrade reference list, classification "HS" (Combined HS) | Retrieved 2026-10-17 | UN Comtrade terms of use (free reference data, attribution) |
-| Exchange rates (`data/reference/fx.csv`, `fx_annual.csv`) | US Federal Reserve G.5A annual averages (GBP, EUR, CNY), 2022-2025; AED from the Central Bank of the UAE peg (3.6725). CZK is approximate and unused by any test invoice | Retrieved 2026-10-17 | US government work, public domain |
-| Screw unit weights (`data/reference/unit_weights.csv`) | Calculated from steel density and bolt dimensions; working shown in each row | 2026-10-17 | Ours |
-| Invoices (`data/synthetic/`) | Generated by `backend/scripts/generate_invoices.py`; every company, person and address is fictional, every PDF says "SYNTHETIC TEST DOCUMENT" | Generated 2026-10-17 | Ours |
-| Evaluation descriptions (`data/eval/descriptions.csv`) | Written by us; true HS codes checked against `hs.db` | 2026-10-17 | Ours |
+| Data | Source | Licence |
+|---|---|---|
+| Price databases (`data/databases/`) | HMRC Overseas Trade Statistics, UK imports of every commodity code, July 2023 to August 2026: 16.4 million records read, 1.35 million price bands built | [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/) |
+| Fallback price bands (`data/benchmarks/`) | HMRC Overseas Trade Statistics via the uktradeinfo API, 7 goods, 2023 to 2025 | Open Government Licence v3.0 |
+| HS code list (`data/reference/hs.db`) | UN Comtrade reference list (Combined HS) | UN Comtrade terms of use |
+| Exchange rates | US Federal Reserve G.5A annual averages, 2022 to 2025; AED from the UAE central bank peg | Public domain |
+| Screw unit weights | Calculated from steel density and bolt size, working shown in the file | Ours |
+| Test invoices (`data/synthetic/`) | Generated by us; every company, person and address is fictional and each PDF is marked "SYNTHETIC TEST DOCUMENT" | Ours |
 
-No real customer data is used anywhere. The Comtrade fetch path in `fetch_benchmarks.py` works with a free key (see `docs/INVESTIGATION-trade-data-sources.md`) but its raw responses (1.1 GB) are not committed, so the committed bands are HMRC only. Rebuild them offline with `python backend/scripts/fetch_benchmarks.py --from-raw`.
+No real customer data is used anywhere. HMRC figures can be revised for up to 18 months.
 
-## AI use and who did what
+## Use of AI
 
-- **In the product:** the HS classifier calls an LLM through OpenRouter (`google/gemini-2.5-flash` by default; `tbml/llm.py`). Model answers are cached in `data/cache/` so the demo and `make eval` reproduce offline. Without a key, the app falls back to keyword matching and says so. After the rules run, the same provider writes the report's one- or two-sentence summary in a single call (`tbml/summary.py`): one prompt, one JSON reply split into its parts, cached so a re-check makes no call. The rule's own reason stays the evidence. The R3 vague-description check also uses the classifier's "too vague" verdict.
-- **AI-generated code:** most of this repository was written with AI coding assistants (Claude Code and Claude), directed, reviewed and tested by the team. Commits made with an assistant carry a `Co-Authored-By` trailer. `plan.md`, `DECISIONS.md` and `PROGRESS.md` record what was built and why.
-- **Team:** Arqam (classifier, OpenRouter integration, evaluation, checker page), Ali (HS code list), Anveet (trade data investigation and fetch fixes), Kalash (backend pipeline, website, Vercel deploy), Faisal.
-- **Built during SotonShip 2026** (16-18 October 2026); the repository was created after hacking opened.
+- **In the product:** OpenRouter runs three steps: reading the invoice (Gemini 2.5 Flash), classifying goods (TypeSafe's Jev, with Gemini reading the line first) and writing the summary (Gemini). Every answer is cached in `data/cache/`, so demos and evaluations reproduce without a key. The rules and score never depend on AI output alone, and AI text is shown as an aid for the analyst, not a verdict.
+- **In building it:** much of the code was written with AI coding assistants (Claude Code and Claude), directed, reviewed and tested by the team. Those commits carry a `Co-Authored-By` trailer.
+
+## Team
+
+| Name | Main contributions |
+|---|---|
+| **Kalash Kharel** | Backend pipeline, website, Vercel deployment, HMRC price databases |
+| **Ali Murat Keceli** | Full HS code list, Jev classifier integration, report summary, website redesign |
+| **Arqam Khalid Qeisi** | Three-step AI classifier, OpenRouter integration, real prices and exchange rates, evaluation, checker page |
+| **Anveet Bhusal** | Trade data research and HMRC data fetching |
+
+The repository was created after hacking opened at SotonShip 2026.
