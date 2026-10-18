@@ -1,0 +1,63 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Are\u00e1l Riverside, Pr\u016fmyslov\u00e1 42, 769 47 Ostrava, Czech Republic",
+      "address_type": "commercial",
+      "country": "CZ",
+      "name": "Silverfern Wholesale a.s."
+    },
+    "consignee": {
+      "address": "Are\u00e1l Kingfisher, Skladov\u00e1 6, 786 55 Plze\u0148, Czech Republic",
+      "address_type": "commercial",
+      "country": "CZ",
+      "name": "Redwell Global Sourcing a.s."
+    },
+    "country_of_origin": "China (re-exported from Jebel Ali Free Zone, Dubai)",
+    "currency": "AED",
+    "incoterm": "CFR",
+    "invoice_date": "2024-08-30",
+    "invoice_id": "PI-0044-24",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "Stainless steel machine screws M4 x 12mm",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 669067.26,
+        "quantity": 2,
+        "unit": "pcs",
+        "unit_price": 334533.63
+      },
+      {
+        "description": "Hex head bolts M6, carton of 1,000 pcs",
+        "extraction_confidence": 1.0,
+        "line_id": "L2",
+        "line_total": 275854372.2,
+        "quantity": 330,
+        "unit": "cartons",
+        "unit_price": 835922.34
+      },
+      {
+        "description": "USB-C flash drive 128GB with keyring",
+        "extraction_confidence": 1.0,
+        "line_id": "L3",
+        "line_total": 13259540.0,
+        "quantity": 14000,
+        "unit": "pcs",
+        "unit_price": 947.11
+      }
+    ],
+    "port_of_discharge": "Prague Ruzyn\u011b Airport, Czechia",
+    "port_of_loading": "Khalifa Port, Abu Dhabi, UAE",
+    "seller": {
+      "address": "Office 970, Riverside Business Centre, Ras Al Khor, Abu Dhabi, United Arab Emirates",
+      "address_type": "commercial",
+      "country": "AE",
+      "name": "Redwell Import & Export General Trading LLC"
+    },
+    "source_file": "",
+    "stated_total": 289782979.46
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

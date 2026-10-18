@@ -33,19 +33,19 @@ function Section({ title, children, className }: { title: string; children: Reac
 }
 
 function CaseLinks({ cases }: { cases: Investigation[] }) {
-  if (!cases.length) return <p className="text-[12.5px] text-fg-subtle">No cases.</p>;
+  if (!cases.length) return <p className="text-small text-fg-subtle">No cases.</p>;
   return (
     <ul className="grid gap-1.5">
       {cases.map((c) => (
         <li key={c.id} className="relative rounded-sm border border-border px-2.5 py-2 hover:bg-surface-2">
           <div className="flex items-center justify-between gap-2">
-            <Link href={`/app/investigations/${c.id}`} className="font-mono text-[12px] text-fg after:absolute after:inset-0 hover:underline">
+            <Link href={`/app/investigations/${c.id}`} className="font-mono text-small text-fg after:absolute after:inset-0 hover:underline">
               {c.id}
             </Link>
             <PriorityBadge band={c.priority_band} score={c.priority_score} />
           </div>
-          <p className="mt-0.5 text-[12.5px] leading-snug text-fg-muted">{c.title}</p>
-          <CaseStatusLabel status={c.status} className="mt-0.5 text-[12px]" />
+          <p className="mt-0.5 text-small leading-snug text-fg-muted">{c.title}</p>
+          <CaseStatusLabel status={c.status} className="mt-0.5 text-small" />
         </li>
       ))}
     </ul>
@@ -60,7 +60,7 @@ function TxList({ txs, perspective }: { txs: Transaction[]; perspective?: string
         const counterparty = entityById(perspective ? (incoming ? t.fromEntityId : t.toEntityId) : t.toEntityId)!;
         const from = entityById(t.fromEntityId)!;
         return (
-          <li key={t.id} className="grid grid-cols-[16px_minmax(0,1fr)_auto] items-start gap-2 text-[12.5px]">
+          <li key={t.id} className="grid grid-cols-[16px_minmax(0,1fr)_auto] items-start gap-2 text-small">
             {perspective ? (
               incoming ? (
                 <ArrowDownLeft className="mt-0.5 size-3.5 text-accent" aria-label="In" />
@@ -74,10 +74,10 @@ function TxList({ txs, perspective }: { txs: Transaction[]; perspective?: string
               <span className="block truncate text-fg">
                 {perspective ? `${incoming ? "from" : "to"} ${counterparty.name}` : `${from.name} → ${counterparty.name}`}
               </span>
-              <span className="block truncate font-mono text-[11px] text-fg-subtle">
+              <span className="block truncate font-mono text-meta text-fg-subtle">
                 {formatDate(t.at)} · {t.ref}
               </span>
-              <span className="block truncate font-mono text-[11px] text-fg-subtle">{t.narrative}</span>
+              <span className="block truncate font-mono text-meta text-fg-subtle">{t.narrative}</span>
             </span>
             <span className={cn("font-mono tabular", perspective && !incoming ? "text-fg" : "text-fg")}>{formatMoney(t.amount, t.currency)}</span>
           </li>
@@ -100,10 +100,10 @@ function Connections({ node, select }: { node: GraphNode; select: SelectFn }) {
               onClick={() => select({ nodeId: n.id })}
               className="flex w-full items-center gap-2 rounded-sm border border-border px-2.5 py-1.5 text-left hover:border-border-strong hover:bg-surface-2"
             >
-              <span className={cn("w-24 shrink-0 font-mono text-[10.5px]", edge.emphasis === "risk" ? "text-risk-high" : edge.kind === "money" ? "text-accent" : "text-fg-subtle")}>
+              <span className={cn("w-24 shrink-0 font-mono text-meta", edge.emphasis === "risk" ? "text-risk-high" : edge.kind === "money" ? "text-accent" : "text-fg-subtle")}>
                 {direction === "out" ? edge.label : `← ${edge.label}`}
               </span>
-              <span className="min-w-0 flex-1 truncate text-[12.5px] text-fg">{n.label}</span>
+              <span className="min-w-0 flex-1 truncate text-small text-fg">{n.label}</span>
               <ArrowRight className="size-3.5 shrink-0 text-fg-subtle" aria-hidden />
             </button>
           </li>
@@ -118,11 +118,11 @@ function Header({ eyebrow, title, sub, icon: Icon, onClear }: { eyebrow: string;
     <header className="flex items-start justify-between gap-3 px-4 py-3">
       <div className="min-w-0">
         <p className="eyebrow">{eyebrow}</p>
-        <h2 className="mt-0.5 flex items-center gap-2 text-[15px] font-semibold leading-snug tracking-[-0.01em] text-fg">
+        <h2 className="mt-0.5 flex items-center gap-2 text-title font-semibold leading-snug tracking-[-0.01em] text-fg">
           {Icon ? <Icon className="size-4 shrink-0 text-fg-muted" aria-hidden /> : null}
           <span className="min-w-0 break-words">{title}</span>
         </h2>
-        {sub ? <div className="mt-1 text-[12.5px] text-fg-muted">{sub}</div> : null}
+        {sub ? <div className="mt-1 text-small text-fg-muted">{sub}</div> : null}
       </div>
       <button type="button" onClick={onClear} className="rounded-xs p-1 text-fg-subtle hover:bg-surface-2 hover:text-fg" aria-label="Clear selection">
         <X className="size-4" />
@@ -151,15 +151,15 @@ function EntityBody({ entity, node, select }: { entity: Entity; node: GraphNode 
       <dl className="grid grid-cols-2 gap-x-4 gap-y-2 border-t border-border px-4 py-3">
         <div className="min-w-0">
           <dt className="eyebrow">Registration</dt>
-          <dd className="mt-0.5 break-words font-mono text-[12px] text-fg">{entity.registration}</dd>
+          <dd className="mt-0.5 break-words font-mono text-small text-fg">{entity.registration}</dd>
         </div>
         <div>
           <dt className="eyebrow">Incorporated</dt>
-          <dd className="mt-0.5 font-mono text-[12px] tabular text-fg">{entity.incorporated ? formatDate(entity.incorporated) : "Not applicable"}</dd>
+          <dd className="mt-0.5 font-mono text-small tabular text-fg">{entity.incorporated ? formatDate(entity.incorporated) : "Not applicable"}</dd>
         </div>
       </dl>
       <Section title="Investigator note">
-        <p className="text-[13px] leading-relaxed text-fg-muted">{entity.riskNote}</p>
+        <p className="text-body leading-relaxed text-fg-muted">{entity.riskNote}</p>
       </Section>
       <Section title={`Linked cases (${cases.length})`}>
         <CaseLinks cases={cases} />
@@ -169,22 +169,22 @@ function EntityBody({ entity, node, select }: { entity: Entity; node: GraphNode 
           <>
             <dl className="mb-2.5 grid grid-cols-2 gap-2">
               <div className="rounded-sm border border-border px-2.5 py-1.5">
-                <dt className="flex items-center gap-1 text-[11px] text-fg-subtle">
+                <dt className="flex items-center gap-1 text-meta text-fg-subtle">
                   <ArrowDownLeft className="size-3 text-accent" aria-hidden /> Received
                 </dt>
-                <dd className="font-mono text-[13px] tabular text-fg">{formatMoney(flows.inflow)}</dd>
+                <dd className="font-mono text-body tabular text-fg">{formatMoney(flows.inflow)}</dd>
               </div>
               <div className="rounded-sm border border-border px-2.5 py-1.5">
-                <dt className="flex items-center gap-1 text-[11px] text-fg-subtle">
+                <dt className="flex items-center gap-1 text-meta text-fg-subtle">
                   <ArrowUpRight className="size-3 text-risk-high" aria-hidden /> Paid out
                 </dt>
-                <dd className="font-mono text-[13px] tabular text-fg">{formatMoney(flows.outflow)}</dd>
+                <dd className="font-mono text-body tabular text-fg">{formatMoney(flows.outflow)}</dd>
               </div>
             </dl>
             <TxList txs={flows.txs} perspective={entity.id} />
           </>
         ) : (
-          <p className="text-[12.5px] text-fg-subtle">No payments recorded in the sample data.</p>
+          <p className="text-small text-fg-subtle">No payments recorded in the sample data.</p>
         )}
       </Section>
       {node ? <Connections node={node} select={select} /> : null}
@@ -200,7 +200,7 @@ function NodeBody({ node, select }: { node: GraphNode; select: SelectFn }) {
         <Header eyebrow="Invoice" title={node.refId} icon={FileText} sub={node.sublabel} onClear={() => select(null)} />
         {c ? (
           <>
-            <dl className="grid gap-2 border-t border-border px-4 py-3 text-[12.5px]">
+            <dl className="grid gap-2 border-t border-border px-4 py-3 text-small">
               {[
                 ["Seller", c.invoice.seller.name, c.invoice.seller.entityId],
                 ["Buyer", c.invoice.buyer.name, c.invoice.buyer.entityId],
@@ -266,7 +266,7 @@ function NodeBody({ node, select }: { node: GraphNode; select: SelectFn }) {
     <>
       <Header eyebrow="Shipment" title={node.refId} icon={Ship} sub={s?.goods_description} onClear={() => select(null)} />
       {s ? (
-        <dl className="grid gap-2 border-t border-border px-4 py-3 text-[12.5px]">
+        <dl className="grid gap-2 border-t border-border px-4 py-3 text-small">
           <div className="grid grid-cols-[96px_1fr] gap-2">
             <dt className="text-fg-subtle">Bill of lading</dt>
             <dd className="break-words font-mono text-fg">{s.bill_of_lading}</dd>
@@ -280,7 +280,7 @@ function NodeBody({ node, select }: { node: GraphNode; select: SelectFn }) {
             <dd className="text-fg">
               {s.legs.map((l, i) => (
                 <span key={i} className="block">
-                  {l.from} → {l.to} <span className="font-mono text-[11px] text-fg-subtle">{formatDate(l.departed)}</span>
+                  {l.from} → {l.to} <span className="font-mono text-meta text-fg-subtle">{formatDate(l.departed)}</span>
                 </span>
               ))}
             </dd>
@@ -304,9 +304,9 @@ export function EntityDetail({ selection, select, invalid, className }: { select
         <div className="grid gap-3 px-4 py-5">
           <MousePointerClick className="size-5 text-fg-subtle" aria-hidden />
           <div>
-            <h2 className="text-[14px] font-semibold text-fg">{invalid ? "That record is not in the sample workspace" : "Select a node"}</h2>
-            <p className="mt-1 text-[13px] leading-relaxed text-fg-muted">
-              Choose an entity, invoice, payment or shipment in the graph, or a company in the directory below, to see its records, cases and connections.
+            <h2 className="text-title font-semibold text-fg">{invalid ? "That record is not in the sample workspace" : "Select a node"}</h2>
+            <p className="mt-1 text-body leading-relaxed text-fg-muted">
+              Choose an entity, invoice, payment or shipment in the graph, or a company in the directory, to see its records, cases and connections.
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -315,7 +315,7 @@ export function EntityDetail({ selection, select, invalid, className }: { select
                 key={id}
                 type="button"
                 onClick={() => select({ entityId: id })}
-                className="rounded-sm border border-border-strong px-2.5 py-1.5 text-[12.5px] text-fg hover:bg-surface-2"
+                className="rounded-sm border border-border-strong px-2.5 py-1.5 text-small text-fg hover:bg-surface-2"
               >
                 {entityById(id)!.name.split(" ").slice(0, 2).join(" ")}
               </button>

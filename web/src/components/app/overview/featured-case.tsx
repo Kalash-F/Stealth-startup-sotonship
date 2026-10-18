@@ -1,69 +1,78 @@
+"use client";
+
+import * as React from "react";
 import Link from "next/link";
-import { ArrowRight, CalendarClock } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { CaseStatusLabel, PriorityBadge } from "@/components/domain/status";
-import { Button } from "@/components/ui/button";
 import { investigationById, featuredCaseId } from "@/data/investigations";
-import { dueLabel, fundsFlowForCase } from "@/data/selectors";
-import { formatDate, formatMoney } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
-/** The case the workspace is built around, with its next action and money trail. */
-export function FeaturedCase({ className }: { className?: string }) {
-  const c = investigationById(featuredCaseId)!;
-  const flow = fundsFlowForCase(c);
-  const manufacturer = flow?.recipients.find((r) => r.entity.kind === "manufacturer");
-  const related = flow?.recipients.find((r) => r.entity.kind !== "manufacturer");
+const slide = "motion-safe:transition-[transform,background-color,border-color] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)]";
 
-  const figures = [
-    { label: "Invoiced to importer", value: c.invoice.stated_total, tone: "text-fg" },
-    related ? { label: "Forwarded to related party", value: related.amount, tone: "text-risk-high" } : null,
-    manufacturer ? { label: "Paid to manufacturer", value: manufacturer.amount, tone: "text-fg" } : null,
-  ].filter(Boolean) as { label: string; value: number; tone: string }[];
+/**
+ * The case the workspace is built around, pinned to the bottom-right corner.
+ * The whole card opens it; route, figures and next action live on the case page.
+ * Hiding slides it off the right edge and leaves a tab to bring it back.
+ */
+export function FeaturedCase() {
+  const c = investigationById(featuredCaseId)!;
+  const [hidden, setHidden] = React.useState(false);
 
   return (
-    <section aria-labelledby="featured-heading" className={cn("flex flex-col rounded-md border border-accent/45 bg-surface", className)}>
-      <header className="flex items-center justify-between gap-3 border-b border-border px-4 py-3">
-        <p className="eyebrow !text-accent">Your case · next up</p>
-        <span className="font-mono text-[12px] text-fg-muted">{c.id}</span>
-      </header>
-      <div className="flex flex-1 flex-col gap-4 p-4">
-        <div>
-          <h2 id="featured-heading" className="text-[15px] font-semibold leading-snug tracking-[-0.01em] text-fg">
-            {c.title}
+    <>
+      <section
+        aria-labelledby="featured-heading"
+        inert={hidden}
+        className={cn(
+          "group fixed bottom-4 right-4 z-20 w-[min(320px,calc(100vw-2rem))] rounded-md border border-accent/45 bg-surface shadow-[0_16px_40px_-16px_rgb(0_0_0/0.7)] hover:border-accent hover:bg-surface-2",
+          slide,
+          hidden && "translate-x-[calc(100%+1rem)]",
+        )}
+      >
+        <header className="flex items-center justify-between gap-3 border-b border-border py-2 pl-4 pr-2">
+          <p className="eyebrow !text-accent">Your case · next up</p>
+          <div className="flex items-center gap-1">
+            <span className="font-mono text-small text-fg-muted group-hover:text-fg">{c.id}</span>
+            <button
+              type="button"
+              onClick={() => setHidden(true)}
+              aria-label="Hide next case"
+              className="relative z-[1] ml-1 rounded-xs p-1 text-fg-subtle hover:bg-surface-3 hover:text-fg focus-visible:outline-2 focus-visible:outline-focus"
+            >
+              <ChevronRight className="size-4" aria-hidden />
+            </button>
+          </div>
+        </header>
+        <div className="p-4">
+          <h2 id="featured-heading" className="text-title font-semibold leading-snug tracking-[-0.01em] text-fg">
+            <Link
+              href={`/app/investigations/${c.id}`}
+              className="after:absolute after:inset-0 after:rounded-md focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:-outline-offset-2 focus-visible:after:outline-focus"
+            >
+              {c.title}
+            </Link>
           </h2>
           <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5">
-            <PriorityBadge band={c.priority_band} score={c.priority_score} />
+            <PriorityBadge band={c.priority_band} score={c.priority_score} quiet />
             <CaseStatusLabel status={c.status} />
-            <span className="font-mono text-[11.5px] text-fg-subtle">{c.route}</span>
           </div>
         </div>
+      </section>
 
-        <dl className="grid gap-px overflow-hidden rounded-sm border border-border bg-border">
-          {figures.map((f) => (
-            <div key={f.label} className="flex items-baseline justify-between gap-3 bg-surface px-3 py-2">
-              <dt className="truncate text-[12px] text-fg-muted">{f.label}</dt>
-              <dd className={cn("whitespace-nowrap font-mono text-[13px] tabular", f.tone)}>{formatMoney(f.value)}</dd>
-            </div>
-          ))}
-        </dl>
-
-        <div className="rounded-sm border-l-2 border-accent bg-surface-2 px-3 py-2.5">
-          <p className="eyebrow">Next action</p>
-          <p className="mt-1 text-[13px] leading-snug text-fg">{c.nextAction.label}</p>
-          {c.nextAction.due ? (
-            <p className="mt-1.5 flex items-center gap-1.5 font-mono text-[11.5px] tabular text-risk-review">
-              <CalendarClock className="size-3.5" aria-hidden />
-              {formatDate(c.nextAction.due)} · {dueLabel(c.nextAction.due)}
-            </p>
-          ) : null}
-        </div>
-
-        <Button asChild variant="accent" size="sm" className="mt-auto self-start">
-          <Link href={`/app/investigations/${c.id}`}>
-            Open case <ArrowRight aria-hidden />
-          </Link>
-        </Button>
-      </div>
-    </section>
+      <button
+        type="button"
+        onClick={() => setHidden(false)}
+        inert={!hidden}
+        aria-label="Show next case"
+        className={cn(
+          "fixed bottom-4 right-0 z-20 flex items-center gap-1.5 rounded-l-md border border-r-0 border-accent/45 bg-surface py-2 pl-2 pr-3 text-small font-medium text-accent shadow-[0_16px_40px_-16px_rgb(0_0_0/0.7)] hover:border-accent hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-focus",
+          slide,
+          !hidden && "translate-x-full",
+        )}
+      >
+        <ChevronLeft className="size-4" aria-hidden />
+        Next up
+      </button>
+    </>
   );
 }

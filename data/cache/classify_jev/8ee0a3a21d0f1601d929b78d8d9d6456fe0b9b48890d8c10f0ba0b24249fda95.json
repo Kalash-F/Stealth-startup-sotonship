@@ -1,0 +1,20 @@
+{
+  "state": {
+    "invoice_line": "Stainless steel machine screws M4 x 12mm",
+    "what_it_is": "A finished product, these are stainless steel machine screws, 4 millimeters in diameter and 12 millimeters long, used for fastening components together.",
+    "classified_so_far": "chapter 72: Iron and steel > heading 7228: Alloy steel bars, rods, shapes and sections; hollow drill bars and rods, of alloy or non-alloy steel"
+  },
+  "parent": "7228",
+  "probabilities": {
+    "722810": 0.0,
+    "722820": 0.0,
+    "722830": 0.01,
+    "722840": 0.0,
+    "722850": 0.01,
+    "722860": 0.01,
+    "722870": 0.01,
+    "722880": 0.0,
+    "none": 0.96
+  },
+  "confidence": 0.95
+}

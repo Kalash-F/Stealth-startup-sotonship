@@ -39,8 +39,8 @@ export function CorridorChart({ className }: { className?: string }) {
     <Panel className={cn("flex flex-col", className)}>
       <PanelHeader title="Where is the value under review?" description="Invoiced value under open cases, by trade corridor" />
       <div className="px-4 pt-3">
-        <p className="text-[12px] text-fg-subtle">Total under review</p>
-        <p className="font-mono text-[18px] tabular text-fg">{formatMoney(total)}</p>
+        <p className="text-small text-fg-subtle">Total under review</p>
+        <p className="font-mono text-display leading-none tabular text-fg">{formatMoney(total)}</p>
       </div>
       <div className="px-2 pb-3 pt-1" style={{ height: data.length * 40 + 16 }}>
         <ResponsiveContainer width="100%" height="100%" initialDimension={{ width: 420, height: data.length * 40 + 16 }}>
@@ -63,7 +63,7 @@ export function CorridorChart({ className }: { className?: string }) {
                   const { x = 0, y = 0, width = 0, height = 0, index = 0 } = p as { x?: number; y?: number; width?: number; height?: number; index?: number };
                   const r = data[index];
                   return (
-                    <text x={Number(x) + Number(width) + 6} y={Number(y) + Number(height) / 2} dominantBaseline="central" fontSize={11} fontFamily="var(--font-mono)">
+                    <text x={Number(x) + Number(width) + 6} y={Number(y) + Number(height) / 2} dominantBaseline="central" fontSize={12} fontFamily="var(--font-mono)">
                       <tspan fill="var(--fg)">{formatMoneyCompact(r.value).replace("USD ", "$")}</tspan>
                       <tspan fill="var(--fg-subtle)"> · {r.cases} {r.cases === 1 ? "case" : "cases"}</tspan>
                     </text>
@@ -80,8 +80,8 @@ export function CorridorChart({ className }: { className?: string }) {
           {data.map((r) => {
             const c = largest(r.corridor);
             return (
-              <li key={r.corridor} className="relative flex items-baseline gap-3 px-4 py-2 text-[12.5px] hover:bg-surface-2">
-                <span className="w-14 shrink-0 font-mono text-[11px] text-fg-subtle">{r.corridor}</span>
+              <li key={r.corridor} className="relative flex items-baseline gap-3 px-4 py-2 text-small hover:bg-surface-2">
+                <span className="w-14 shrink-0 font-mono text-meta text-fg-subtle">{r.corridor}</span>
                 <Link href={`/app/investigations/${c.id}`} className="min-w-0 flex-1 truncate text-fg after:absolute after:inset-0 hover:underline">
                   <span className="font-mono text-fg-muted">{c.id}</span> {c.commodity}
                 </Link>

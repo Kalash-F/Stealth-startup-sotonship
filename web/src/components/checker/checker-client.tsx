@@ -61,7 +61,7 @@ export function CheckerClient() {
             aria-label="Sample invoice"
             value={selected}
             onChange={(e) => setSelected(e.target.value)}
-            className="h-9 rounded-sm border border-border-strong bg-surface px-3 text-sm text-fg"
+            className="h-9 rounded-sm border border-border-strong bg-surface px-3 text-body text-fg"
           >
             <option value="">Select a sample…</option>
             {samples.map((s) => (
@@ -71,6 +71,7 @@ export function CheckerClient() {
             ))}
           </select>
           <Button
+            className="text-body"
             disabled={!selected || loading}
             onClick={() => {
               const s = samples.find((x) => x.invoice_id === selected);
@@ -79,7 +80,7 @@ export function CheckerClient() {
           >
             Check sample
           </Button>
-          <span className="text-xs text-fg-subtle">or</span>
+          <span className="text-small text-fg-subtle">or</span>
           <input
             ref={fileInput}
             type="file"
@@ -91,23 +92,23 @@ export function CheckerClient() {
               e.target.value = "";
             }}
           />
-          <Button variant="secondary" disabled={loading} onClick={() => fileInput.current?.click()}>
+          <Button variant="secondary" className="text-body" disabled={loading} onClick={() => fileInput.current?.click()}>
             <Upload aria-hidden />
             Upload PDF
           </Button>
-          {loading ? <span className="text-xs text-fg-muted">Checking…</span> : null}
+          {loading ? <span className="text-small text-fg-muted">Checking…</span> : null}
         </PanelBody>
       </Panel>
 
       {error ? (
-        <p role="alert" className="rounded-md border border-risk-high/40 px-4 py-3 text-[13px] text-risk-high">
+        <p role="alert" className="rounded-md border border-risk-high/40 px-4 py-3 text-body text-risk-high">
           {error}
         </p>
       ) : null}
 
       {report ? (
         <>
-          <p className="text-[13px] text-fg-muted">
+          <p className="text-body text-fg-muted">
             {caseId ? (
               <>
                 Added to the workspace as{" "}

@@ -19,14 +19,14 @@ function ListFallback() {
 export default function InvestigationsPage() {
   const c = caseCounts();
   return (
-    <div>
+    <div className="flex flex-col lg:min-h-0 lg:flex-1">
       <PageHeader
         title="Investigations"
         crumbs={[{ label: workspace.name, href: "/app" }, { label: "Investigations" }]}
         description={`${c.open} open cases, ${c.reviewNow} at review-now priority. Priority is the sum of the flags behind each case; open a case to see the evidence.`}
         meta={<SyntheticBadge />}
       />
-      <div className="p-4 lg:p-6">
+      <div className="flex flex-col p-4 lg:min-h-0 lg:flex-1 lg:p-6">
         <Suspense fallback={<ListFallback />}>
           <InvestigationList />
         </Suspense>

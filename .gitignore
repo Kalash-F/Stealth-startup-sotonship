@@ -19,3 +19,5 @@ data/benchmarks/raw/*
 backend/data/
 build/
 HS.json
+brag-output
+*.swp

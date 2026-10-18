@@ -37,8 +37,8 @@ export function CaseFacts({
         {facts.map((f) => (
           <div key={f.label} className="min-w-0" title={f.title}>
             <dt className="eyebrow">{f.label}</dt>
-            <dd className="mt-1 truncate text-[13px] text-fg">{f.value}</dd>
-            {f.sub ? <dd className="truncate font-mono text-[11px] text-fg-subtle">{f.sub}</dd> : null}
+            <dd className="mt-1 truncate text-body text-fg">{f.value}</dd>
+            {f.sub ? <dd className="truncate font-mono text-meta text-fg-subtle">{f.sub}</dd> : null}
           </div>
         ))}
       </dl>
@@ -53,16 +53,16 @@ export function CaseFacts({
           <h2 id="next-action-heading" className="eyebrow !text-accent">
             Next action
           </h2>
-          <p className="mt-1 text-[14px] font-medium leading-snug text-fg">
+          <p className="mt-1 text-body font-medium leading-snug text-fg">
             {escalatedLocally ? "Awaiting MLRO decision (escalated in this session)" : inv.nextAction.label}
           </p>
           {due && !escalatedLocally ? (
-            <p className={cn("mt-1 flex items-center gap-1.5 font-mono text-[12px] tabular", overdue ? "text-risk-high" : "text-risk-review")}>
+            <p className={cn("mt-1 flex items-center gap-1.5 font-mono text-small tabular", overdue ? "text-risk-high" : "text-risk-review")}>
               <CalendarClock className="size-3.5" aria-hidden />
               Due {formatDate(due)} · {dueLabel(due)}
             </p>
           ) : (
-            <p className="mt-1 flex items-center gap-1.5 text-[12px] text-fg-subtle">
+            <p className="mt-1 flex items-center gap-1.5 text-small text-fg-subtle">
               <CircleCheck className="size-3.5" aria-hidden />
               {closed ? "Closed, no further action" : "No due date set"}
             </p>

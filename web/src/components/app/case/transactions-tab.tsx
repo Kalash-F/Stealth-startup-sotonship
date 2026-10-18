@@ -35,20 +35,20 @@ function FundsFlow({ inv }: { inv: Investigation }) {
       {manufacturer ? (
         <div className="grid border-b border-border sm:grid-cols-[1fr_auto_1fr]">
           <div className="p-4">
-            <p className="text-[12px] text-fg-muted">Manufacturer was paid</p>
-            <p className="mt-1 font-mono text-[26px] font-medium leading-none tabular text-fg">{formatMoney(manufacturer.amount)}</p>
-            <p className="mt-1.5 text-[12px] text-fg-subtle">{manufacturer.entity.name}</p>
+            <p className="text-small text-fg-muted">Manufacturer was paid</p>
+            <p className="mt-1 font-mono text-display font-medium leading-none tabular text-fg">{formatMoney(manufacturer.amount)}</p>
+            <p className="mt-1.5 text-small text-fg-subtle">{manufacturer.entity.name}</p>
           </div>
           <div className="flex items-center justify-center border-y border-border px-4 py-2 sm:border-x sm:border-y-0">
             <p className="text-center">
-              <span className="block font-mono text-[18px] tabular text-risk-high">{Math.round(flow.invoiced / manufacturer.amount)}×</span>
-              <span className="text-[11px] text-fg-subtle">difference</span>
+              <span className="block font-mono text-display tabular text-risk-high">{Math.round(flow.invoiced / manufacturer.amount)}×</span>
+              <span className="text-meta text-fg-subtle">difference</span>
             </p>
           </div>
           <div className="p-4 sm:text-right">
-            <p className="text-[12px] text-fg-muted">Importer was invoiced</p>
-            <p className="mt-1 font-mono text-[26px] font-medium leading-none tabular text-fg">{formatMoney(flow.invoiced)}</p>
-            <p className="mt-1.5 text-[12px] text-fg-subtle">{flow.buyer.name}</p>
+            <p className="text-small text-fg-muted">Importer was invoiced</p>
+            <p className="mt-1 font-mono text-display font-medium leading-none tabular text-fg">{formatMoney(flow.invoiced)}</p>
+            <p className="mt-1.5 text-small text-fg-subtle">{flow.buyer.name}</p>
           </div>
         </div>
       ) : null}
@@ -56,7 +56,7 @@ function FundsFlow({ inv }: { inv: Investigation }) {
         {rows.map((r) => (
           <li key={r.label} className="grid gap-1">
             <div className="flex flex-wrap items-baseline justify-between gap-x-3">
-              <span className="text-[12.5px] text-fg">
+              <span className="text-small text-fg">
                 {"href" in r && r.href ? (
                   <Link href={r.href} className="hover:underline">
                     {r.label}
@@ -65,7 +65,7 @@ function FundsFlow({ inv }: { inv: Investigation }) {
                   r.label
                 )}
               </span>
-              <span className="font-mono text-[12.5px] tabular text-fg">
+              <span className="font-mono text-small tabular text-fg">
                 {formatMoney(r.amount)} <span className="text-fg-subtle">· {r.note}</span>
               </span>
             </div>
@@ -92,10 +92,10 @@ export function TransactionsTab({ inv }: { inv: Investigation }) {
         <PanelHeader title="Transactions" description={txs.length ? `${txs.length} payments linked to this case` : undefined} />
         {txs.length ? (
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[720px] text-[13px]">
+            <table className="w-full min-w-[720px] text-body">
               <caption className="sr-only">Payments linked to {inv.id}</caption>
               <thead>
-                <tr className="border-b border-border text-left text-[11px] uppercase tracking-[0.06em] text-fg-subtle">
+                <tr className="border-b border-border text-left text-meta uppercase tracking-[0.06em] text-fg-subtle">
                   <th scope="col" className="px-4 py-2 font-medium">Date</th>
                   <th scope="col" className="px-3 py-2 font-medium">Reference</th>
                   <th scope="col" className="px-3 py-2 font-medium">From → to</th>
@@ -109,14 +109,14 @@ export function TransactionsTab({ inv }: { inv: Investigation }) {
                   const to = entityById(t.toEntityId)!;
                   return (
                     <tr key={t.id} className="hover:bg-surface-2">
-                      <td className="whitespace-nowrap px-4 py-2.5 font-mono text-[12px] tabular text-fg-muted">{formatDate(t.at)}</td>
-                      <td className="whitespace-nowrap px-3 py-2.5 font-mono text-[12px] text-fg">{t.ref}</td>
+                      <td className="whitespace-nowrap px-4 py-2.5 font-mono text-small tabular text-fg-muted">{formatDate(t.at)}</td>
+                      <td className="whitespace-nowrap px-3 py-2.5 font-mono text-small text-fg">{t.ref}</td>
                       <td className="px-3 py-2.5">
                         <Link href={entityLink(from.id)} className="text-fg hover:underline">{from.name}</Link>
                         <ArrowRight className="mx-1 inline size-3 text-fg-subtle" aria-label="to" />
                         <Link href={entityLink(to.id)} className="text-fg hover:underline">{to.name}</Link>
                       </td>
-                      <td className="px-3 py-2.5 font-mono text-[11.5px] text-fg-muted">{t.narrative}</td>
+                      <td className="px-3 py-2.5 font-mono text-meta text-fg-muted">{t.narrative}</td>
                       <td className="whitespace-nowrap px-4 py-2.5 text-right font-mono tabular text-fg">{formatMoney(t.amount, t.currency)}</td>
                     </tr>
                   );
@@ -124,7 +124,7 @@ export function TransactionsTab({ inv }: { inv: Investigation }) {
               </tbody>
               <tfoot>
                 <tr className="border-t border-border-strong">
-                  <th scope="row" colSpan={4} className="px-4 py-2 text-left text-[12px] font-medium text-fg-muted">
+                  <th scope="row" colSpan={4} className="px-4 py-2 text-left text-small font-medium text-fg-muted">
                     Gross value moved (all directions)
                   </th>
                   <td className="px-4 py-2 text-right font-mono tabular text-fg">{formatMoney(total)}</td>
@@ -133,7 +133,7 @@ export function TransactionsTab({ inv }: { inv: Investigation }) {
             </table>
           </div>
         ) : (
-          <p className="px-4 py-6 text-[13px] text-fg-muted">No payments are recorded against this case in the sample data. Payment data would normally come from the bank&rsquo;s own ledger.</p>
+          <p className="px-4 py-6 text-body text-fg-muted">No payments are recorded against this case in the sample data. Payment data would normally come from the bank&rsquo;s own ledger.</p>
         )}
       </Panel>
 
@@ -150,31 +150,31 @@ export function TransactionsTab({ inv }: { inv: Investigation }) {
               ].map((f) => (
                 <div key={f.label} className="min-w-0">
                   <dt className="eyebrow">{f.label}</dt>
-                  <dd className={cn("mt-1 text-[13px] text-fg", f.mono && "font-mono tabular")}>{f.value}</dd>
+                  <dd className={cn("mt-1 text-body text-fg", f.mono && "font-mono tabular")}>{f.value}</dd>
                 </div>
               ))}
             </dl>
             <ol className="grid gap-2">
               {shipment.legs.map((l, idx) => (
                 <li key={idx} className="grid gap-2 rounded-sm border border-border p-3 sm:grid-cols-[auto_1fr_auto_1fr] sm:items-center sm:gap-4">
-                  <span className="flex items-center gap-2 text-[11px] text-fg-subtle">
+                  <span className="flex items-center gap-2 text-meta text-fg-subtle">
                     <Ship className="size-3.5" aria-hidden /> Leg {idx + 1}
                   </span>
-                  <span className="text-[13px] text-fg">
-                    {l.from} <span className="font-mono text-[11px] text-fg-subtle">{countries[l.fromCountry].short}</span>
-                    <span className="block font-mono text-[11.5px] tabular text-fg-muted">departed {formatDate(l.departed)}</span>
+                  <span className="text-body text-fg">
+                    {l.from} <span className="font-mono text-meta text-fg-subtle">{countries[l.fromCountry].short}</span>
+                    <span className="block font-mono text-meta tabular text-fg-muted">departed {formatDate(l.departed)}</span>
                   </span>
                   <ArrowRight className="hidden size-4 text-fg-subtle sm:block" aria-hidden />
-                  <span className="text-[13px] text-fg">
-                    {l.to} <span className="font-mono text-[11px] text-fg-subtle">{countries[l.toCountry].short}</span>
-                    <span className="block font-mono text-[11.5px] tabular text-fg-muted">arrived {formatDate(l.arrived)}</span>
+                  <span className="text-body text-fg">
+                    {l.to} <span className="font-mono text-meta text-fg-subtle">{countries[l.toCountry].short}</span>
+                    <span className="block font-mono text-meta tabular text-fg-muted">arrived {formatDate(l.arrived)}</span>
                   </span>
                 </li>
               ))}
             </ol>
           </PanelBody>
         ) : (
-          <p className="px-4 py-6 text-[13px] text-fg-muted">No transport documents are attached to this case yet.</p>
+          <p className="px-4 py-6 text-body text-fg-muted">No transport documents are attached to this case yet.</p>
         )}
       </Panel>
     </div>

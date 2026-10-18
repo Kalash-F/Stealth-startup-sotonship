@@ -144,6 +144,23 @@
 
   --text-2xs: 0.6875rem;
   --text-2xs--line-height: 1rem;
+
+  /*
+   * Workspace type scale. Use these instead of pixel values in the demo app.
+   * No paired line-heights: like the pixel sizes they replace, they inherit.
+   *   meta     12px  dates, column headers, badges, legends
+   *   small    13px  secondary text, panel descriptions, mono IDs
+   *   body     14px  body text, labels, controls
+   *   title    15px  card and section titles
+   *   page     22px  page titles
+   *   display  28px  big numbers
+   */
+  --text-meta: 0.75rem;
+  --text-small: 0.8125rem;
+  --text-body: 0.875rem;
+  --text-title: 0.9375rem;
+  --text-page: 1.375rem;
+  --text-display: 1.75rem;
 }
 
 @layer base {
@@ -180,7 +197,7 @@
   }
   /* Section labels: plain sentence case, set small and quiet (no tracked capitals). */
   .eyebrow {
-    font-size: 0.8125rem;
+    font-size: var(--text-body);
     line-height: 1.25rem;
     font-weight: 500;
     color: var(--fg-subtle);

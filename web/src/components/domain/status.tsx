@@ -12,9 +12,10 @@ import { cn } from "@/lib/utils";
 const bandTone = { review_now: "high", review: "review", low: "low" } as const;
 const bandGlyph = { review_now: "▲", review: "■", low: "●" } as const;
 
-export function PriorityBadge({ band, score, className }: { band: PriorityBand; score?: number; className?: string }) {
+/** `quiet` drops the risk colour where the band is context, not an alarm. */
+export function PriorityBadge({ band, score, quiet, className }: { band: PriorityBand; score?: number; quiet?: boolean; className?: string }) {
   return (
-    <Badge tone={bandTone[band]} className={className}>
+    <Badge tone={quiet ? "neutral" : bandTone[band]} className={className}>
       <span aria-hidden className="text-[9px] leading-none">{bandGlyph[band]}</span>
       {bandLabel[band]}
       {score !== undefined ? <span className="tabular opacity-80">· {score}</span> : null}
@@ -27,8 +28,8 @@ export function PriorityScore({ band, score }: { band: PriorityBand; score: numb
   const color = { review_now: "text-risk-high", review: "text-risk-review", low: "text-risk-low" }[band];
   return (
     <div className="flex items-baseline gap-2 whitespace-nowrap">
-      <span className={cn("font-mono text-3xl font-medium tabular leading-none", color)}>{score}</span>
-      <span className="font-mono text-xs text-fg-subtle">/ 100</span>
+      <span className={cn("font-mono text-display font-medium tabular leading-none", color)}>{score}</span>
+      <span className="font-mono text-small text-fg-subtle">/ 100</span>
     </div>
   );
 }
@@ -65,7 +66,7 @@ const statusColor: Record<CaseStatus, string> = {
 export function CaseStatusLabel({ status, className }: { status: CaseStatus; className?: string }) {
   const Icon = statusIcon[status];
   return (
-    <span className={cn("inline-flex items-center gap-1.5 whitespace-nowrap text-[13px]", statusColor[status], className)}>
+    <span className={cn("inline-flex items-center gap-1.5 whitespace-nowrap text-body", statusColor[status], className)}>
       <Icon aria-hidden className="size-3.5" />
       {statusLabel[status]}
     </span>

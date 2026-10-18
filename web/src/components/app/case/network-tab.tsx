@@ -32,7 +32,7 @@ export function NetworkTab({ inv }: { inv: Investigation }) {
             title="Network excerpt"
             description="The part of the Orchard Gate network tied to this case. Select a node to highlight its connections."
             actions={
-              <Link href="/app/entities" className="text-[12px] text-fg-muted hover:text-fg">
+              <Link href="/app/entities" className="text-small text-fg-muted hover:text-fg">
                 Full network
               </Link>
             }
@@ -48,7 +48,7 @@ export function NetworkTab({ inv }: { inv: Investigation }) {
           </div>
           <div className="flex flex-col gap-3 px-4 py-3 md:flex-row md:items-center md:justify-between">
             <GraphLegend />
-            <div className="min-h-8 text-[12.5px]" aria-live="polite">
+            <div className="min-h-8 text-small" aria-live="polite">
               {selected ? (
                 <Link href={hrefFor(selected)} className="inline-flex items-center gap-1.5 text-accent hover:underline">
                   Open {selected.label} in Entities <ArrowRight className="size-3.5" aria-hidden />
@@ -62,7 +62,7 @@ export function NetworkTab({ inv }: { inv: Investigation }) {
       ) : (
         <Panel>
           <PanelHeader title="Network" description="This case does not form a connected excerpt of the mapped network." />
-          <p className="px-4 py-3 text-[13px] text-fg-muted">
+          <p className="px-4 py-3 text-body text-fg-muted">
             {inv.relatedCaseIds.length
               ? `Related cases (${inv.relatedCaseIds.join(", ")}) may show the wider pattern.`
               : "No related cases have been linked."}{" "}
@@ -77,14 +77,14 @@ export function NetworkTab({ inv }: { inv: Investigation }) {
           {involved.map((e) => (
             <li key={e.id} className="relative flex items-center justify-between gap-3 px-4 py-2.5 hover:bg-surface-2">
               <div className="min-w-0">
-                <Link href={`/app/entities?entity=${e.id}`} className="block truncate text-[13px] text-fg after:absolute after:inset-0 hover:underline">
+                <Link href={`/app/entities?entity=${e.id}`} className="block truncate text-body text-fg after:absolute after:inset-0 hover:underline">
                   {e.name}
                 </Link>
-                <p className="truncate text-[12px] text-fg-muted">
+                <p className="truncate text-small text-fg-muted">
                   {entityKindLabel[e.kind]} · {e.city}, {countries[e.country].name}
                 </p>
               </div>
-              <span className="shrink-0 font-mono text-[11px] text-fg-subtle">{e.caseIds.length} {e.caseIds.length === 1 ? "case" : "cases"}</span>
+              <span className="shrink-0 font-mono text-meta text-fg-subtle">{e.caseIds.length} {e.caseIds.length === 1 ? "case" : "cases"}</span>
             </li>
           ))}
         </ul>

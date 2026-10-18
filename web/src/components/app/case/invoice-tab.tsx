@@ -17,7 +17,7 @@ function PartyBlock({ role, party, flagged }: { role: string; party: Party | nul
       <p className="eyebrow">{role}</p>
       {party ? (
         <>
-          <p className="mt-1 text-[13px] font-medium text-fg">
+          <p className="mt-1 text-body font-medium text-fg">
             {party.entityId ? (
               <Link href={`/app/entities?entity=${party.entityId}`} className="hover:underline">
                 {party.name}
@@ -26,7 +26,7 @@ function PartyBlock({ role, party, flagged }: { role: string; party: Party | nul
               party.name
             )}
           </p>
-          <p className="mt-0.5 text-[12.5px] leading-snug text-fg-muted">{party.address}</p>
+          <p className="mt-0.5 text-small leading-snug text-fg-muted">{party.address}</p>
           <div className="mt-2 flex flex-wrap items-center gap-2">
             <Badge tone="neutral">{countries[party.country]?.short ?? party.country}</Badge>
             {party.address_type === "residential" ? (
@@ -39,7 +39,7 @@ function PartyBlock({ role, party, flagged }: { role: string; party: Party | nul
           </div>
         </>
       ) : (
-        <p className="mt-1 text-[13px] text-fg-subtle">Not stated. Goods consigned to the buyer.</p>
+        <p className="mt-1 text-body text-fg-subtle">Not stated. Goods consigned to the buyer.</p>
       )}
     </div>
   );
@@ -82,7 +82,7 @@ export function InvoiceTab({ inv }: { inv: Investigation }) {
           {header.map((h) => (
             <div key={h.label} className="min-w-0">
               <dt className="eyebrow">{h.label}</dt>
-              <dd className={cn("mt-1 break-words font-mono text-[12.5px]", h.flag ? "text-risk-review" : "text-fg")}>
+              <dd className={cn("mt-1 break-words font-mono text-small", h.flag ? "text-risk-review" : "text-fg")}>
                 {h.flag ? <AlertTriangle className="mr-1 inline size-3.5 align-[-2px]" aria-label="Flagged" /> : null}
                 {h.value}
               </dd>
@@ -107,10 +107,10 @@ export function InvoiceTab({ inv }: { inv: Investigation }) {
                 <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto]">
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-baseline gap-x-2">
-                      <span className="font-mono text-[12px] text-fg-subtle">{l.line_id}</span>
-                      <h3 className="text-[13.5px] font-medium text-fg">{l.description}</h3>
+                      <span className="font-mono text-small text-fg-subtle">{l.line_id}</span>
+                      <h3 className="text-body font-medium text-fg">{l.description}</h3>
                     </div>
-                    <p className="mt-0.5 font-mono text-[11.5px] text-fg-subtle">
+                    <p className="mt-0.5 font-mono text-meta text-fg-subtle">
                       {l.hs6 ? `HS ${l.hs6} · ${v?.benchmark.description ?? ""}` : "Unclassified: description too vague to assign an HS code"}
                       {" · "}
                       <span className={l.extraction_confidence < 0.5 ? "text-risk-review" : undefined}>
@@ -118,21 +118,21 @@ export function InvoiceTab({ inv }: { inv: Investigation }) {
                       </span>
                     </p>
                   </div>
-                  <dl className="grid grid-cols-3 gap-x-5 text-right font-mono text-[12.5px] tabular lg:min-w-[380px]">
+                  <dl className="grid grid-cols-3 gap-x-5 text-right font-mono text-small tabular lg:min-w-[380px]">
                     <div>
-                      <dt className="text-[11px] text-fg-subtle">Quantity</dt>
+                      <dt className="text-meta text-fg-subtle">Quantity</dt>
                       <dd className="text-fg">
                         {formatNumber(l.quantity)} <span className="text-fg-subtle">{l.unit}</span>
                       </dd>
                     </div>
                     <div>
-                      <dt className="text-[11px] text-fg-subtle">Unit price</dt>
+                      <dt className="text-meta text-fg-subtle">Unit price</dt>
                       <dd className="text-fg">{formatMoney(l.unit_price, i.currency, { decimals: l.unit_price < 1 ? 3 : 2 })}</dd>
                     </div>
                     <div>
-                      <dt className="text-[11px] text-fg-subtle">Line total</dt>
+                      <dt className="text-meta text-fg-subtle">Line total</dt>
                       <dd className={a.matches ? "text-fg" : "text-risk-review"}>{formatMoney(l.line_total, i.currency)}</dd>
-                      {!a.matches ? <dd className="text-[11px] text-risk-review">computed {formatMoney(a.computed, i.currency)}</dd> : null}
+                      {!a.matches ? <dd className="text-meta text-risk-review">computed {formatMoney(a.computed, i.currency)}</dd> : null}
                     </div>
                   </dl>
                 </div>
@@ -141,18 +141,18 @@ export function InvoiceTab({ inv }: { inv: Investigation }) {
                   <div className="grid gap-2 rounded-sm border border-border bg-surface-2/40 p-3 md:grid-cols-[minmax(0,1fr)_150px] md:items-center md:gap-5">
                     <PriceBandBar benchmark={v.benchmark} stated={l.unit_price_usd!} />
                     <div className="text-left md:text-right">
-                      <p className="text-[11px] text-fg-subtle">vs illustrative median</p>
-                      <p className={cn("font-mono text-[15px] tabular", v.outside ? "text-risk-high" : "text-risk-low")}>
+                      <p className="text-meta text-fg-subtle">vs illustrative median</p>
+                      <p className={cn("font-mono text-title tabular", v.outside ? "text-risk-high" : "text-risk-low")}>
                         {formatVariance(v.pct)}
                       </p>
-                      <p className="text-[11px] text-fg-subtle">
+                      <p className="text-meta text-fg-subtle">
                         {v.outside ? "▲ Outside p10–p90" : "● Within p10–p90"} · per {v.benchmark.unit}
                         {l.unit_price_usd !== l.unit_price ? `, converted from per ${l.unit.replace(/s$/, "")}` : ""}
                       </p>
                     </div>
                   </div>
                 ) : (
-                  <p className="rounded-sm border border-dashed border-border px-3 py-2 text-[12.5px] text-fg-muted">
+                  <p className="rounded-sm border border-dashed border-border px-3 py-2 text-small text-fg-muted">
                     No comparison possible: the line cannot be classified, so there is no band to compare against.
                   </p>
                 )}
@@ -160,7 +160,7 @@ export function InvoiceTab({ inv }: { inv: Investigation }) {
                 {flags.length ? (
                   <ul className="flex flex-wrap gap-2" aria-label={`Flags on line ${l.line_id}`}>
                     {flags.map((f) => (
-                      <li key={f.flag_id} className="inline-flex items-center gap-2 text-[12px] text-fg-muted">
+                      <li key={f.flag_id} className="inline-flex items-center gap-2 text-small text-fg-muted">
                         <SeverityTag severity={f.severity} />
                         {rules[f.rule].name}
                       </li>
@@ -176,7 +176,7 @@ export function InvoiceTab({ inv }: { inv: Investigation }) {
       <Panel>
         <PanelHeader title="Arithmetic check" description="Quantity × unit price per line, and the sum of lines against the stated total" />
         <PanelBody className="grid gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
-          <dl className="grid max-w-md grid-cols-[1fr_auto] gap-x-6 gap-y-1.5 font-mono text-[13px] tabular">
+          <dl className="grid max-w-md grid-cols-[1fr_auto] gap-x-6 gap-y-1.5 font-mono text-body tabular">
             {i.line_items.map((l) => (
               <div key={l.line_id} className="contents">
                 <dt className="text-fg-muted">Line {l.line_id}</dt>
@@ -193,11 +193,11 @@ export function InvoiceTab({ inv }: { inv: Investigation }) {
             </dd>
           </dl>
           <div className="grid gap-2">
-            <p className={cn("inline-flex items-center gap-2 text-[13px]", arith.matches ? "text-risk-low" : "text-risk-review")}>
+            <p className={cn("inline-flex items-center gap-2 text-body", arith.matches ? "text-risk-low" : "text-risk-review")}>
               {arith.matches ? <Check className="size-4" aria-hidden /> : <AlertTriangle className="size-4" aria-hidden />}
               {arith.matches ? "Total reconciles with its lines" : "Total does not reconcile with its lines"}
             </p>
-            <p className={cn("inline-flex items-center gap-2 text-[13px]", lineMismatches.length ? "text-risk-review" : "text-risk-low")}>
+            <p className={cn("inline-flex items-center gap-2 text-body", lineMismatches.length ? "text-risk-review" : "text-risk-low")}>
               {lineMismatches.length ? <AlertTriangle className="size-4" aria-hidden /> : <Check className="size-4" aria-hidden />}
               {lineMismatches.length
                 ? `Line ${lineMismatches.map((l) => l.line_id).join(", ")}: quantity × price does not match the line total`

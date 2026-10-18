@@ -27,14 +27,14 @@ export function FlagItem({
     <article className={cn("grid gap-2", className)}>
       <header className="flex flex-wrap items-center gap-x-3 gap-y-1">
         <SeverityTag severity={flag.severity} />
-        <Heading className="text-[13px] font-semibold text-fg">{rule.name}</Heading>
-        <span className="text-xs text-fg-subtle" title={flag.rule}>
+        <Heading className="text-body font-semibold text-fg">{rule.name}</Heading>
+        <span className="text-small text-fg-subtle" title={flag.rule}>
           {flag.line_id ? `Line ${flag.line_id}` : "Whole invoice"}
         </span>
       </header>
-      <p className="text-[13px] leading-relaxed text-fg-muted">{flag.reason}</p>
+      <p className="text-body leading-relaxed text-fg-muted">{flag.reason}</p>
       {!compact && (flag.expected || flag.stated) ? (
-        <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 font-mono text-xs tabular sm:grid-cols-[auto_1fr_auto_1fr_auto_1fr]">
+        <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 font-mono text-small tabular sm:grid-cols-[auto_1fr_auto_1fr_auto_1fr]">
           {flag.expected ? (
             <>
               <dt className="text-fg-subtle">Expected</dt>

@@ -1,0 +1,27 @@
+{
+  "state": {
+    "invoice_line": "USB-C flash drive 128GB with keyring",
+    "what_it_is": "A 128-gigabyte USB-C flash drive with a keyring, made of plastic and metal, which is a finished product used for digital data storage and transfer.",
+    "classified_so_far": "chapter 85: Electrical machinery and equipment and parts thereof; sound recorders and reproducers; television image and sound recor\u2026 > heading 8523: Discs, tapes, solid-state non-volatile storage devices, smart cards and other media for the recording of sound or of ot\u2026"
+  },
+  "parent": "8523",
+  "probabilities": {
+    "852311": 0.02,
+    "852312": 0.0,
+    "852313": 0.01,
+    "852320": 0.0,
+    "852321": 0.0,
+    "852329": 0.0,
+    "852330": 0.0,
+    "852340": 0.0,
+    "852341": 0.0,
+    "852349": 0.0,
+    "852351": 0.52,
+    "852352": 0.0,
+    "852359": 0.41,
+    "852380": 0.02,
+    "852390": 0.01,
+    "none": 0.01
+  },
+  "confidence": 0.49
+}

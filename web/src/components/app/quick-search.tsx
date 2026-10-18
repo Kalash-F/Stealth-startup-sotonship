@@ -72,13 +72,13 @@ export function QuickSearch({ open, onOpenChange }: { open: boolean; onOpenChang
               }}
               placeholder="Try “Orchard Gate”, “CASE-0142” or “copper”"
               aria-label="Search the workspace"
-              className="h-12 flex-1 bg-transparent text-sm text-fg outline-none placeholder:text-fg-subtle"
+              className="h-12 flex-1 bg-transparent text-body text-fg outline-none placeholder:text-fg-subtle"
             />
             <kbd className="rounded-xs border border-border px-1 font-mono text-[10px] text-fg-subtle">Esc</kbd>
           </div>
           <ul className="max-h-80 overflow-y-auto p-1" role="listbox" aria-label="Results">
             {results.length === 0 ? (
-              <li className="px-3 py-6 text-center text-sm text-fg-muted">No matches in the sample workspace.</li>
+              <li className="px-3 py-6 text-center text-body text-fg-muted">No matches in the sample workspace.</li>
             ) : (
               results.map((r, i) => {
                 const Icon = icon[r.kind];
@@ -91,10 +91,10 @@ export function QuickSearch({ open, onOpenChange }: { open: boolean; onOpenChang
                     >
                       <Icon className="size-4 shrink-0 text-fg-subtle" aria-hidden />
                       <span className="min-w-0 flex-1">
-                        <span className="block truncate text-[13px] text-fg">{r.title}</span>
-                        <span className="block truncate text-[11.5px] text-fg-subtle">{r.meta}</span>
+                        <span className="block truncate text-body text-fg">{r.title}</span>
+                        <span className="block truncate text-meta text-fg-subtle">{r.meta}</span>
                       </span>
-                      <span className="font-mono text-2xs uppercase text-fg-subtle">{r.kind}</span>
+                      <span className="font-mono text-meta uppercase text-fg-subtle">{r.kind}</span>
                     </button>
                   </li>
                 );

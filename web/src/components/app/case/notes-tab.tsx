@@ -37,21 +37,21 @@ export function NotesTab({
                   <AnalystAvatar id={n.authorId} />
                   <div className="min-w-0">
                     <p className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                      <span className="text-[13px] font-medium text-fg">{a?.name}</span>
-                      <span className="text-[11.5px] text-fg-subtle">{a?.role}</span>
-                      <time dateTime={n.at} className="font-mono text-[11px] tabular text-fg-subtle">
+                      <span className="text-body font-medium text-fg">{a?.name}</span>
+                      <span className="text-meta text-fg-subtle">{a?.role}</span>
+                      <time dateTime={n.at} className="font-mono text-meta tabular text-fg-subtle">
                         {formatDateTime(n.at)}
                       </time>
                       {n.session ? <Badge tone="accent">This session · not saved</Badge> : null}
                     </p>
-                    <p className="mt-1 whitespace-pre-line text-[13px] leading-relaxed text-fg-muted">{n.body}</p>
+                    <p className="mt-1 whitespace-pre-line text-body leading-relaxed text-fg-muted">{n.body}</p>
                   </div>
                 </li>
               );
             })}
           </ol>
         ) : (
-          <p className="px-4 py-6 text-[13px] text-fg-muted">Nobody has written on this case yet. Notes record reasoning, not just actions.</p>
+          <p className="px-4 py-6 text-body text-fg-muted">Nobody has written on this case yet. Notes record reasoning, not just actions.</p>
         )}
       </Panel>
 
@@ -83,10 +83,10 @@ export function NotesTab({
             aria-invalid={Boolean(error)}
             aria-describedby="new-note-help"
             placeholder={closed ? "This case is closed. Notes can still be added for the record." : "What did you check, what did you find, what is still open?"}
-            className="text-[13px]"
+            className="text-body"
           />
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <p id="new-note-help" className={error ? "text-[12px] text-risk-high" : "text-[12px] text-fg-subtle"} role={error ? "alert" : undefined}>
+            <p id="new-note-help" className={error ? "text-small text-risk-high" : "text-small text-fg-subtle"} role={error ? "alert" : undefined}>
               {error ?? "Notes added in the demo stay in this browser tab and are lost on reload."}
             </p>
             <Button type="submit" size="sm">

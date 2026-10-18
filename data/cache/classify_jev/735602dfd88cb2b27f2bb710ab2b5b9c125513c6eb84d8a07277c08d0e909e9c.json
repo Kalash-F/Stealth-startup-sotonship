@@ -1,0 +1,23 @@
+{
+  "state": {
+    "invoice_line": "13-inch ultraportable laptop, 8GB RAM, 256GB SSD",
+    "what_it_is": "An ultraportable 13-inch laptop computer with 8 gigabytes of RAM and a 256 gigabyte solid-state drive, made of various electronic components and plastics, which is a finished product used for general computing tasks.",
+    "classified_so_far": "chapter 85: Electrical machinery and equipment and parts thereof; sound recorders and reproducers; television image and sound recor\u2026 > heading 8543: Electrical machines and apparatus; having individual functions, not specified or included elsewhere in this chapter"
+  },
+  "parent": "8543",
+  "probabilities": {
+    "854310": 0.0,
+    "854311": 0.0,
+    "854319": 0.09,
+    "854320": 0.0,
+    "854330": 0.0,
+    "854340": 0.0,
+    "854370": 0.34,
+    "854380": 0.03,
+    "854381": 0.0,
+    "854389": 0.05,
+    "854390": 0.01,
+    "none": 0.48
+  },
+  "confidence": 0.43
+}

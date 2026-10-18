@@ -8,8 +8,8 @@ export default function CaseNotFound() {
     <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4 px-4 text-center">
       <FolderX className="size-8 text-fg-subtle" aria-hidden />
       <div>
-        <h1 className="text-lg font-semibold text-fg">Case not found</h1>
-        <p className="mt-1 max-w-md text-[13px] text-fg-muted">
+        <h1 className="text-page font-semibold text-fg">Case not found</h1>
+        <p className="mt-1 max-w-md text-body text-fg-muted">
           There is no case with that reference in the sample workspace. The demo holds {investigations.length} fictional cases.
         </p>
       </div>

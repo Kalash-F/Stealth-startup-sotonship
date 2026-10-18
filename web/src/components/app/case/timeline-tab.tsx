@@ -19,8 +19,8 @@ export function TimelineTab({ inv, sessionEvents }: { inv: Investigation; sessio
         {events.map((e, idx) => (
           <li key={e.id} className="relative grid grid-cols-[24px_minmax(0,1fr)] gap-x-3 pb-5 last:pb-0 sm:grid-cols-[112px_24px_minmax(0,1fr)]">
             <div className="hidden pt-0.5 text-right sm:block">
-              <time dateTime={e.at} className="block font-mono text-[12px] tabular text-fg">{formatDate(e.at)}</time>
-              <span className="font-mono text-[11px] tabular text-fg-subtle">{time(e.at)}</span>
+              <time dateTime={e.at} className="block font-mono text-small tabular text-fg">{formatDate(e.at)}</time>
+              <span className="font-mono text-meta tabular text-fg-subtle">{time(e.at)}</span>
             </div>
             <div className="relative flex justify-center">
               {idx < events.length - 1 ? <span className="absolute bottom-[-20px] top-7 w-px bg-border" aria-hidden /> : null}
@@ -28,17 +28,17 @@ export function TimelineTab({ inv, sessionEvents }: { inv: Investigation; sessio
             </div>
             <div className="min-w-0 pt-0.5">
               <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                <h3 className="text-[13px] font-medium text-fg">{e.title}</h3>
-                <span className="text-[11px] text-fg-subtle">{timelineKindMeta[e.kind].label}</span>
+                <h3 className="text-body font-medium text-fg">{e.title}</h3>
+                <span className="text-meta text-fg-subtle">{timelineKindMeta[e.kind].label}</span>
                 {e.session ? <Badge tone="accent">This session · not saved</Badge> : null}
               </div>
-              <time dateTime={e.at} className="font-mono text-[11px] tabular text-fg-subtle sm:hidden">
+              <time dateTime={e.at} className="font-mono text-meta tabular text-fg-subtle sm:hidden">
                 {formatDate(e.at)}, {time(e.at)}
               </time>
-              <p className="mt-0.5 text-[12.5px] leading-relaxed text-fg-muted">{e.detail}</p>
+              <p className="mt-0.5 text-small leading-relaxed text-fg-muted">{e.detail}</p>
               {e.ref ? (
                 <p className="mt-1">
-                  <span className="rounded-xs border border-border bg-surface-2 px-1.5 py-0.5 font-mono text-[11px] text-fg-muted">{e.ref}</span>
+                  <span className="rounded-xs border border-border bg-surface-2 px-1.5 py-0.5 font-mono text-meta text-fg-muted">{e.ref}</span>
                 </p>
               ) : null}
             </div>

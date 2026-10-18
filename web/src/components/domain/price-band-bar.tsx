@@ -73,7 +73,7 @@ export function PriceBandBar({
         />
       </div>
       {showLabels ? (
-        <figcaption className="mt-1.5 flex items-start justify-between gap-3 font-mono text-2xs text-fg-subtle tabular">
+        <figcaption className="mt-1.5 flex items-start justify-between gap-3 font-mono text-meta text-fg-subtle tabular">
           <span>
             Range {formatUnitPrice(p10)}–{formatUnitPrice(p90)} · median {formatUnitPrice(median)}
           </span>

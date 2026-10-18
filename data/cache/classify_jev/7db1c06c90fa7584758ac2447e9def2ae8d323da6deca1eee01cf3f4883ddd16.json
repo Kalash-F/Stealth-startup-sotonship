@@ -1,0 +1,38 @@
+{
+  "state": {
+    "invoice_line": "USB 3.0 flash drive 64GB, metal casing",
+    "what_it_is": "A finished product, a 64 gigabyte USB 3.0 flash drive with a metal casing, used for data storage.",
+    "classified_so_far": "chapter 39: Plastics and articles thereof"
+  },
+  "parent": "39",
+  "probabilities": {
+    "3901": 0.0,
+    "3902": 0.0,
+    "3903": 0.0,
+    "3904": 0.0,
+    "3905": 0.0,
+    "3906": 0.0,
+    "3907": 0.0,
+    "3908": 0.0,
+    "3909": 0.0,
+    "3910": 0.0,
+    "3911": 0.0,
+    "3912": 0.0,
+    "3913": 0.0,
+    "3914": 0.0,
+    "3915": 0.0,
+    "3916": 0.0,
+    "3917": 0.0,
+    "3918": 0.0,
+    "3919": 0.0,
+    "3920": 0.0,
+    "3921": 0.0,
+    "3922": 0.0,
+    "3923": 0.02,
+    "3924": 0.0,
+    "3925": 0.0,
+    "3926": 0.37,
+    "none": 0.61
+  },
+  "confidence": 0.59
+}

@@ -54,17 +54,17 @@ export function KpiStrip() {
       </h2>
       <div className="col-span-3 border-b border-border p-4 xl:col-span-1 xl:border-b-0 xl:border-r">
         <div className="flex items-center justify-between gap-3">
-          <p className="flex items-center gap-2 text-[12.5px] text-fg-muted">
+          <p className="flex items-center gap-2 text-small text-fg-muted">
             <FolderSearch className="size-3.5 text-fg-subtle" aria-hidden />
             Open cases
           </p>
-          <Link href="/app/investigations" className="text-[12px] text-fg-subtle hover:text-fg">
+          <Link href="/app/investigations" className="text-small text-fg-subtle hover:text-fg">
             View all
           </Link>
         </div>
         <p className="mt-2 flex items-baseline gap-2">
-          <span className="font-mono text-[28px] font-medium leading-none tabular text-fg">{c.open}</span>
-          <span className="text-[12px] text-fg-subtle">
+          <span className="font-mono text-display font-medium leading-none tabular text-fg">{c.open}</span>
+          <span className="text-small text-fg-subtle">
             of {investigations.length} in workspace · {c.closed} closed
           </span>
         </p>
@@ -73,7 +73,7 @@ export function KpiStrip() {
             s.count ? <span key={s.key} className="h-full first:rounded-l-xs last:rounded-r-xs" style={{ flex: s.count, background: s.color }} /> : null,
           )}
         </div>
-        <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[11.5px] text-fg-muted">
+        <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-meta text-fg-muted">
           {segments.map((s) => (
             <li key={s.key} className="inline-flex items-center gap-1.5">
               <span aria-hidden className="text-[9px]" style={{ color: s.color }}>
@@ -96,12 +96,12 @@ export function KpiStrip() {
               idx < tiles.length - 1 && "border-r",
             )}
           >
-            <p className="flex items-start gap-1.5 text-[12px] leading-tight text-fg-muted sm:items-center sm:gap-2 sm:text-[12.5px]">
+            <p className="flex items-start gap-1.5 text-small leading-tight text-fg-muted sm:items-center sm:gap-2">
               <Icon className={cn("size-3.5 shrink-0", t.tone)} aria-hidden />
               {t.label}
             </p>
-            <p className="mt-2 font-mono text-[28px] font-medium leading-none tabular text-fg">{t.value}</p>
-            <p className="mt-3 hidden text-[11.5px] text-fg-subtle group-hover:text-fg-muted sm:block">{t.note}</p>
+            <p className="mt-2 font-mono text-display font-medium leading-none tabular text-fg">{t.value}</p>
+            <p className="mt-3 hidden text-meta text-fg-subtle group-hover:text-fg-muted sm:block">{t.note}</p>
           </Link>
         );
       })}

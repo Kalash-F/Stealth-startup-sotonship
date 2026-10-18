@@ -12,7 +12,7 @@ export function CaseRail({ inv }: { inv: Investigation }) {
   const related = inv.relatedCaseIds.map((id) => investigationById(id)!).filter(Boolean);
   const ents = inv.entityIds.map((id) => entityById(id)!).filter(Boolean);
   return (
-    <aside aria-label="Related cases and entities" className="grid content-start gap-4 md:grid-cols-2 xl:grid-cols-1">
+    <aside aria-label="Related cases and entities" className="grid content-start gap-4 md:grid-cols-2 xl:min-h-0 xl:grid-cols-1 xl:overflow-y-auto">
       <Panel>
         <PanelHeader title="Related cases" description={related.length ? undefined : "None linked"} />
         {related.length ? (
@@ -20,13 +20,13 @@ export function CaseRail({ inv }: { inv: Investigation }) {
             {related.map((c) => (
               <li key={c.id} className="relative grid gap-1 px-4 py-2.5 hover:bg-surface-2">
                 <div className="flex items-center justify-between gap-2">
-                  <Link href={`/app/investigations/${c.id}`} className="font-mono text-[12px] text-fg after:absolute after:inset-0 hover:underline">
+                  <Link href={`/app/investigations/${c.id}`} className="font-mono text-small text-fg after:absolute after:inset-0 hover:underline">
                     {c.id}
                   </Link>
                   <PriorityBadge band={c.priority_band} score={c.priority_score} />
                 </div>
-                <p className="text-[12.5px] leading-snug text-fg-muted">{c.title}</p>
-                <CaseStatusLabel status={c.status} className="text-[12px]" />
+                <p className="text-small leading-snug text-fg-muted">{c.title}</p>
+                <CaseStatusLabel status={c.status} className="text-small" />
               </li>
             ))}
           </ul>
@@ -37,10 +37,10 @@ export function CaseRail({ inv }: { inv: Investigation }) {
         <ul className="divide-y divide-border">
           {ents.map((e) => (
             <li key={e.id} className="relative px-4 py-2 hover:bg-surface-2">
-              <Link href={`/app/entities?entity=${e.id}`} className="block truncate text-[12.5px] text-fg after:absolute after:inset-0 hover:underline">
+              <Link href={`/app/entities?entity=${e.id}`} className="block truncate text-small text-fg after:absolute after:inset-0 hover:underline">
                 {e.name}
               </Link>
-              <p className="text-[11.5px] text-fg-subtle">
+              <p className="text-meta text-fg-subtle">
                 {entityKindLabel[e.kind]} · {countries[e.country].short}
               </p>
             </li>

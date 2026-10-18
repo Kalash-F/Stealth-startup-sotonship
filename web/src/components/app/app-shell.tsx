@@ -4,8 +4,10 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
+  ChartColumn,
   ChevronsUpDown,
   FolderSearch,
+  History,
   LayoutDashboard,
   LogOut,
   Menu,
@@ -37,6 +39,8 @@ const nav = [
   { href: "/app/checker", label: "Check invoice", icon: ScanSearch },
   { href: "/app/investigations", label: "Investigations", icon: FolderSearch, count: () => caseCounts().open },
   { href: "/app/entities", label: "Entities", icon: Network },
+  { href: "/app/activity", label: "Recent activity", icon: History },
+  { href: "/app/statistics", label: "Statistics", icon: ChartColumn },
 ];
 
 function isActive(pathname: string, href: string, exact?: boolean) {
@@ -58,13 +62,13 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
               onClick={onNavigate}
               aria-current={active ? "page" : undefined}
               className={cn(
-                "group flex h-8 items-center gap-2.5 rounded-sm px-2 text-[13px] font-medium transition-colors",
+                "group flex h-8 items-center gap-2.5 rounded-sm px-2 text-body font-medium transition-colors",
                 active ? "bg-surface-3 text-fg" : "text-fg-muted hover:bg-surface-2 hover:text-fg",
               )}
             >
               <Icon className={cn("size-4", active ? "text-accent" : "text-fg-subtle group-hover:text-fg-muted")} aria-hidden />
               <span className="flex-1">{item.label}</span>
-              {item.count ? <span className="font-mono text-2xs text-fg-subtle tabular">{item.count()}</span> : null}
+              {item.count ? <span className="font-mono text-meta text-fg-subtle tabular">{item.count()}</span> : null}
             </Link>
           </li>
         );
@@ -77,10 +81,10 @@ function WorkspaceSwitcher() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex w-full items-center gap-2.5 rounded-sm border border-border px-2 py-1.5 text-left hover:bg-surface-2">
-        <span className="flex size-7 items-center justify-center rounded-xs bg-accent-soft font-mono text-[11px] font-semibold text-accent">TF</span>
+        <span className="flex size-7 items-center justify-center rounded-xs bg-accent-soft font-mono text-meta font-semibold text-accent">TF</span>
         <span className="min-w-0 flex-1">
-          <span className="block truncate text-[12.5px] font-medium text-fg">{workspace.name}</span>
-          <span className="block truncate text-[11px] text-fg-subtle">{workspace.org}</span>
+          <span className="block truncate text-small font-medium text-fg">{workspace.name}</span>
+          <span className="block truncate text-meta text-fg-subtle">{workspace.org}</span>
         </span>
         <ChevronsUpDown className="size-3.5 text-fg-subtle" aria-hidden />
       </DropdownMenuTrigger>
@@ -105,10 +109,10 @@ function ProfileMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex items-center gap-2 rounded-sm p-1 pr-2 hover:bg-surface-2" aria-label="Open profile menu">
-        <span className="flex size-7 items-center justify-center rounded-full bg-surface-3 font-mono text-[11px] font-medium text-fg">{me.initials}</span>
+        <span className="flex size-7 items-center justify-center rounded-full bg-surface-3 font-mono text-meta font-medium text-fg">{me.initials}</span>
         <span className="hidden text-left md:block">
-          <span className="block text-[12.5px] font-medium leading-tight text-fg">{me.name}</span>
-          <span className="block text-[11px] leading-tight text-fg-subtle">Demo persona</span>
+          <span className="block text-small font-medium leading-tight text-fg">{me.name}</span>
+          <span className="block text-meta leading-tight text-fg-subtle">Demo persona</span>
         </span>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-60">
@@ -172,22 +176,24 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <NavLinks onNavigate={() => setMobileOpen(false)} />
       </nav>
       <div className="mt-auto grid gap-3 border-t border-border px-1 pt-4">
-        <p className="text-[11.5px] leading-relaxed text-fg-subtle">{workspace.dataNotice}</p>
-        <Link href="/" className="text-[12px] text-fg-muted underline-offset-4 hover:text-fg hover:underline">
+        <p className="text-meta leading-relaxed text-fg-subtle">{workspace.dataNotice}</p>
+        <Link href="/" className="text-small text-fg-muted underline-offset-4 hover:text-fg hover:underline">
           Back to the website
         </Link>
       </div>
     </div>
   );
 
+  // On desktop the shell is exactly one screen tall: the page never scrolls, long panels scroll inside themselves.
+  // `relative` keeps absolutely positioned helpers (sr-only text) from stretching the document past the screen.
   return (
-    <div className="theme-ink min-h-dvh bg-bg text-fg">
-      <div className="border-b border-border bg-accent-soft/60 px-4 py-1.5 text-center text-[12px] text-fg-muted">
+    <div className="theme-ink relative flex min-h-dvh flex-col bg-bg text-fg lg:h-dvh lg:overflow-hidden">
+      <div className="shrink-0 border-b border-border bg-accent-soft/60 px-4 py-1.5 text-center text-small text-fg-muted">
         <span className="font-medium text-accent">Demo workspace.</span> Every record is fictional and actions are simulated. Nothing you do here is saved.
       </div>
-      <div className="flex">
+      <div className="flex lg:min-h-0 lg:flex-1">
         {/* Desktop sidebar */}
-        <aside className="sticky top-0 hidden h-dvh w-60 shrink-0 border-r border-border bg-surface lg:block">{sidebar}</aside>
+        <aside className="hidden w-60 shrink-0 overflow-y-auto border-r border-border bg-surface lg:block">{sidebar}</aside>
 
         {/* Mobile sidebar */}
         {mobileOpen ? (
@@ -197,7 +203,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </div>
         ) : null}
 
-        <div className="flex min-w-0 flex-1 flex-col">
+        <div className="flex min-w-0 flex-1 flex-col lg:min-h-0">
           <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-border bg-bg/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-bg/80 lg:px-6">
             <button className="rounded-xs p-1.5 text-fg-muted hover:bg-surface-2 hover:text-fg lg:hidden" onClick={() => setMobileOpen(true)} aria-label="Open navigation">
               <Menu className="size-5" />
@@ -205,9 +211,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <Link href="/app" className="text-fg lg:hidden" aria-label="Workspace overview">
               <Logo showName={false} />
             </Link>
+            {/* On desktop the search sits at the centre of the screen, not of the content column (15rem = sidebar width). */}
             <button
               onClick={() => setSearchOpen(true)}
-              className="flex h-8 w-full max-w-sm items-center gap-2 rounded-sm border border-border bg-surface px-2.5 text-[13px] text-fg-subtle hover:border-border-strong"
+              className="flex h-8 w-full max-w-sm items-center gap-2 rounded-sm border border-border bg-surface px-2.5 text-body text-fg-subtle hover:border-border-strong lg:absolute lg:left-[calc(50vw-15rem)] lg:-translate-x-1/2"
             >
               <Search className="size-4" aria-hidden />
               <span className="flex-1 truncate text-left">Search cases, entities, invoices</span>
@@ -217,7 +224,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <ProfileMenu />
             </div>
           </header>
-          <main id="main" className="min-w-0 flex-1">
+          <main id="main" className="flex min-w-0 flex-1 flex-col lg:min-h-0 lg:overflow-y-auto">
             {children}
           </main>
         </div>
