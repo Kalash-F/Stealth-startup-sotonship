@@ -30,12 +30,12 @@
       "description": "14-inch laptop computer, Intel Core i5, 16GB RAM, 512GB SSD",
       "quantity": 760.0,
       "unit": "pcs",
-      "unit_price": 617.62,
-      "line_total": 469391.2,
+      "unit_price": 1086.14,
+      "line_total": 825466.4,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 469391.2,
+  "stated_total": 825466.4,
   "source_file": "PI-0053-24.pdf",
   "is_synthetic": true
 }

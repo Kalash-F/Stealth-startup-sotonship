@@ -15,6 +15,7 @@ import datetime as dt
 import json
 import os
 import sys
+import time
 from pathlib import Path
 
 import numpy as np
@@ -60,6 +61,12 @@ COLS = [
 
 # Comtrade numeric reporter/partner codes and ISO3 for the routes (ISO3 -> route end).
 M49 = {"CN": 156, "GB": 826, "AE": 784, "CZ": 203}
+WORLD = 0  # Comtrade partnerCode for a reporter's all-partner total
+
+# The free Comtrade tier answers bursts with 429, so space calls out and retry.
+COMTRADE_MIN_INTERVAL = 2.0
+COMTRADE_RETRIES = 5
+_last_comtrade_call = 0.0
 
 # Approximate values used ONLY when APIs are unreachable. USD per benchmark unit.
 # Basis: order-of-magnitude public unit values 2022-24 (UK/EU import statistics, LME copper, ICO coffee).
@@ -91,21 +98,38 @@ def usd_per_unit(fx: pd.DataFrame, currency: str, year: int) -> float:
 
 
 # ---------------------------------------------------------------- fetching (3.1)
+def _retry_after(r: requests.Response, attempt: int) -> float:
+    """Seconds to wait after a 429: the Retry-After header if numeric, else exponential backoff."""
+    try:
+        return float(r.headers["Retry-After"])
+    except (KeyError, ValueError):
+        return float(2 ** (attempt + 1))
+
+
 def fetch_comtrade(
     hs6: str, year: int, key: str, reporter: str | None = None, partner: str | None = None
 ) -> list[dict]:
     """Imports (flow M) for one HS6/year. reporter/partner are ISO2 codes or None for all."""
+    global _last_comtrade_call
     params = {"cmdCode": hs6, "flowCode": "M", "period": str(year), "includeDesc": "false"}
     if reporter:
         params["reporterCode"] = str(M49[reporter])
     if partner:
         params["partnerCode"] = str(M49[partner])
-    r = requests.get(
-        "https://comtradeapi.un.org/data/v1/get/C/A/HS",
-        params=params,
-        headers={"Ocp-Apim-Subscription-Key": key},
-        timeout=60,
-    )
+    for attempt in range(COMTRADE_RETRIES):
+        wait = _last_comtrade_call + COMTRADE_MIN_INTERVAL - time.monotonic()
+        if wait > 0:
+            time.sleep(wait)
+        r = requests.get(
+            "https://comtradeapi.un.org/data/v1/get/C/A/HS",
+            params=params,
+            headers={"Ocp-Apim-Subscription-Key": key},
+            timeout=60,
+        )
+        _last_comtrade_call = time.monotonic()
+        if r.status_code != 429 or attempt == COMTRADE_RETRIES - 1:
+            break
+        time.sleep(_retry_after(r, attempt))
     r.raise_for_status()
     return r.json().get("data", [])
 
@@ -113,7 +137,10 @@ def fetch_comtrade(
 def fetch_hmrc(hs6: str, year: int) -> list[dict]:
     """HMRC OTS records (value GBP, NetMass kg, SuppUnit) for one HS6/year, imports only."""
     base = "https://api.uktradeinfo.com/OTS"
-    flt = f"Commodity/Hs6Code eq '{hs6}' and FlowTypeId in (1,3) and MonthId ge {year}01 and MonthId le {year}12"
+    flt = (
+        f"Commodity/Hs6Code eq '{hs6}' and (FlowTypeId eq 1 or FlowTypeId eq 3) "
+        f"and MonthId ge {year}01 and MonthId le {year}12"
+    )
     url = f"{base}?$filter={flt}&$expand=Country($select=CountryCodeAlpha),Commodity($select=Hs6Code)&$top=10000"
     out: list[dict] = []
     while url:
@@ -141,11 +168,14 @@ def cache_raw(source: str, hs6: str, year: int, tag: str, data: list[dict]) -> N
 
 # ------------------------------------------------------- unit values (3.2)
 def comtrade_records(raw: list[dict], hs6: str, year: int, route: str | None) -> list[dict]:
-    """Comtrade rows -> {hs6, year, source, route, value_usd, qty}, dropping rows with no usable
-    quantity (net weight for kg commodities, `qty` otherwise) or value."""
+    """Comtrade rows -> {hs6, year, source, route, value_usd, qty}, dropping World-total rows
+    (they repeat the bilateral rows) and rows with no usable quantity (net weight for kg
+    commodities, `qty` otherwise) or value."""
     unit = COMMODITIES[hs6][0]
     recs = []
     for d in raw:
+        if d.get("partnerCode") == WORLD:
+            continue
         qty = d.get("netWgt") if unit == "kg" else d.get("qty")
         val = d.get("primaryValue")
         if not qty or not val or qty <= 0 or val <= 0:
@@ -186,6 +216,31 @@ def hmrc_records(raw: list[dict], hs6: str, year: int, fx: pd.DataFrame) -> list
                 "qty": float(qty),
             }
         )
+    return recs
+
+
+def records_from_raw(fx: pd.DataFrame) -> list[dict]:
+    """Unit-value records rebuilt from cached raw responses (`*.json` or `*.json.gz`), newest fetch
+    per source/hs6/year/tag. Only sources whose raw files are present contribute."""
+    import gzip
+
+    latest: dict[tuple, Path] = {}
+    for path in sorted(RAW.glob("*.json*")):
+        parts = path.name.split(".json")[0].split("_")
+        if len(parts) < 5 or parts[0] not in ("hmrc", "comtrade"):
+            continue
+        source, hs6, year, tag = parts[0], parts[1], int(parts[2]), parts[3]
+        latest[(source, hs6, year, tag)] = path  # sorted, so the last (newest date) wins
+    recs: list[dict] = []
+    for (source, hs6, year, tag), path in sorted(latest.items()):
+        if hs6 not in COMMODITIES:
+            continue
+        raw = path.read_bytes()
+        payload = json.loads(gzip.decompress(raw) if path.suffix == ".gz" else raw)
+        if source == "hmrc":
+            recs += hmrc_records(payload["data"], hs6, year, fx)
+        else:
+            recs += comtrade_records(payload["data"], hs6, year, None if tag == "all" else tag)
     return recs
 
 
@@ -278,12 +333,29 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--mock", action="store_true", help="skip APIs, write bands_mock.json")
     ap.add_argument("--verify-hs", action="store_true")
+    ap.add_argument(
+        "--from-raw",
+        action="store_true",
+        help="no network: rebuild bands.json from the committed raw responses in data/benchmarks/raw",
+    )
     a = ap.parse_args()
     BENCH.mkdir(parents=True, exist_ok=True)
     if a.verify_hs:
         verify_hs6()
         return 0
     recs: list[dict] = []
+    if a.from_raw:
+        recs = records_from_raw(load_fx())
+        a.mock = True  # skip the network fetch below
+        df = pd.DataFrame(recs)
+        bands = compute_bands(df)
+        missing = sorted(set(COMMODITIES) - set(bands.hs6))
+        if missing:
+            print(f"raw data missing for {missing}; not writing bands.json", file=sys.stderr)
+            return 1
+        write_bands(bands, BENCH / "bands.json")
+        print(bands.to_string())
+        return 0
     if not a.mock:
         fx = load_fx()
         key = os.environ.get("COMTRADE_API_KEY")

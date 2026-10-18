@@ -30,8 +30,8 @@
       "description": "Sparkling flavoured water 500ml PET bottles",
       "quantity": 76000.0,
       "unit": "bottles",
-      "unit_price": 0.4711,
-      "line_total": 35803.6,
+      "unit_price": 0.5906,
+      "line_total": 44885.6,
       "extraction_confidence": 1.0
     },
     {
@@ -39,12 +39,12 @@
       "description": "M6 x 30mm hex bolts, zinc plated",
       "quantity": 321500.0,
       "unit": "pcs",
-      "unit_price": 0.0205,
-      "line_total": 6590.75,
+      "unit_price": 0.0588,
+      "line_total": 18904.2,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 42394.35,
+  "stated_total": 63789.8,
   "source_file": "TX240047.pdf",
   "is_synthetic": true
 }

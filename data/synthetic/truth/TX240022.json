@@ -25,8 +25,8 @@
       "description": "Copper cathodes Grade A, 99.99% Cu",
       "quantity": 101.9,
       "unit": "MT",
-      "unit_price": 8588.45,
-      "line_total": 875163.06,
+      "unit_price": 11866.4,
+      "line_total": 1209186.16,
       "extraction_confidence": 1.0
     },
     {
@@ -34,8 +34,8 @@
       "description": "USB 3.0 flash drive 64GB, metal casing",
       "quantity": 28500.0,
       "unit": "pcs",
-      "unit_price": 6.5653,
-      "line_total": 187111.05,
+      "unit_price": 395.08,
+      "line_total": 11259780.0,
       "extraction_confidence": 1.0
     },
     {
@@ -43,8 +43,8 @@
       "description": "Carriage bolts M10 x 100mm, galvanised steel",
       "quantity": 3900.0,
       "unit": "kg",
-      "unit_price": 2.7078,
-      "line_total": 10560.42,
+      "unit_price": 6.484,
+      "line_total": 25287.6,
       "extraction_confidence": 1.0
     },
     {
@@ -52,12 +52,12 @@
       "description": "Refined copper cathode sheets, LME Grade A",
       "quantity": 101500.0,
       "unit": "kg",
-      "unit_price": 9.1655,
-      "line_total": 930298.25,
+      "unit_price": 16.95,
+      "line_total": 1720425.0,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 2003132.78,
+  "stated_total": 14214678.76,
   "source_file": "TX240022.pdf",
   "is_synthetic": true
 }

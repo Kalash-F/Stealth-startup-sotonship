@@ -25,8 +25,8 @@
       "description": "Lemon soft drink 330ml cans, carton of 24",
       "quantity": 1650.0,
       "unit": "cartons",
-      "unit_price": 4.6891,
-      "line_total": 7737.01,
+      "unit_price": 7.4994,
+      "line_total": 12374.01,
       "extraction_confidence": 1.0
     },
     {
@@ -34,8 +34,8 @@
       "description": "Men's crew-neck T-shirt, 100% cotton jersey knit",
       "quantity": 37000.0,
       "unit": "pcs",
-      "unit_price": 3.488,
-      "line_total": 129056.0,
+      "unit_price": 6.9664,
+      "line_total": 257756.8,
       "extraction_confidence": 1.0
     },
     {
@@ -43,12 +43,12 @@
       "description": "Lemon soft drink 330ml cans, carton of 24",
       "quantity": 4900.0,
       "unit": "cartons",
-      "unit_price": 9.8359,
-      "line_total": 48195.91,
+      "unit_price": 10.03,
+      "line_total": 49147.0,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 184988.92,
+  "stated_total": 319277.81,
   "source_file": "PI-0003-24.pdf",
   "is_synthetic": true
 }

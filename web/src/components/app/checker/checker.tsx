@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { AlertTriangle, FileUp, Loader2, PlayCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -33,6 +34,13 @@ export function Checker() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
+  // The chosen sample lives in the URL (?sample=ID) so a check can be shared or reloaded.
+  const router = useRouter();
+  const pathname = usePathname();
+  const params = useSearchParams();
+  const linked = params.get("sample");
+  const autoRan = useRef(false);
+  const initialSample = useRef(linked); // read once when the samples load
 
   useEffect(() => {
     api.health().then(setHealth, (e: ApiError) => setHealthError(e.message));
@@ -42,7 +50,8 @@ export function Checker() {
         const order = { anomalous: 0, hard_negative: 1, clean: 2 } as const;
         const sorted = [...list].sort((a, b) => order[a.kind] - order[b.kind] || a.invoice_id.localeCompare(b.invoice_id));
         setSamples(sorted);
-        if (sorted[0]) setSelected(sorted[0].invoice_id);
+        const fromUrl = sorted.find((s) => s.invoice_id === initialSample.current);
+        if (fromUrl ?? sorted[0]) setSelected((fromUrl ?? sorted[0]).invoice_id);
       },
       () => setSamples([]),
     );
@@ -61,6 +70,18 @@ export function Checker() {
       setBusy(false);
     }
   }, []);
+
+  const choose = (invoiceId: string) => {
+    setSelected(invoiceId);
+    router.replace(`${pathname}?sample=${encodeURIComponent(invoiceId)}`, { scroll: false });
+  };
+
+  // Opening a shared link (?sample=ID) runs that check straight away, once.
+  useEffect(() => {
+    if (autoRan.current || !linked || selected !== linked) return;
+    autoRan.current = true;
+    void run(linked, () => api.checkSample(linked));
+  }, [linked, selected, run]);
 
   const onFile = (file: File | undefined) => {
     if (!file) return;
@@ -86,7 +107,7 @@ export function Checker() {
               <select
                 id="sample"
                 value={selected}
-                onChange={(e) => setSelected(e.target.value)}
+                onChange={(e) => choose(e.target.value)}
                 className="h-9 w-full min-w-0 rounded-sm border border-border-strong bg-surface px-2 text-[13px] text-fg"
                 disabled={!samples.length}
               >
@@ -107,7 +128,14 @@ export function Checker() {
                   {sample.n_lines} line{sample.n_lines === 1 ? "" : "s"} in {sample.currency}.
                 </p>
               ) : null}
-              <Button onClick={() => sample && run(sample.invoice_id, () => api.checkSample(sample.invoice_id))} disabled={!sample || busy}>
+              <Button
+                onClick={() => {
+                  if (!sample) return;
+                  choose(sample.invoice_id);
+                  void run(sample.invoice_id, () => api.checkSample(sample.invoice_id));
+                }}
+                disabled={!sample || busy}
+              >
                 {busy ? <Loader2 className="animate-spin" aria-hidden /> : <PlayCircle aria-hidden />}
                 Check sample
               </Button>
@@ -176,7 +204,7 @@ export function Checker() {
         </Panel>
       </div>
 
-      <div className="min-w-0">
+      <div className="min-w-0" aria-live="polite">
         {error ? (
           <Panel className="mb-4 border-risk-high/40">
             <p role="alert" className="flex items-start gap-2 p-4 text-[13px] text-risk-high">
@@ -195,7 +223,7 @@ export function Checker() {
         ) : (
           <Panel className="grid h-64 place-items-center p-6 text-center">
             <div className="grid max-w-md gap-3 text-left">
-              <p className="text-[15px] font-medium text-fg">Pick a sample on the left, or upload an invoice.</p>
+              <p className="text-[15px] font-medium text-fg">Pick a test invoice, or upload your own.</p>
               <p className="text-[13px] leading-relaxed text-fg-muted">
                 Each line gets a customs code, its price is compared with what that good normally trades for, and eight checks look
                 for the usual laundering signs. You get a priority and the reasons for it. Deciding whether it is laundering stays

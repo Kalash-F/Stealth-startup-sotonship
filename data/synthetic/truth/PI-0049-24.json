@@ -30,12 +30,12 @@
       "description": "Plain white cotton T-shirts, packed per dozen",
       "quantity": 1900.0,
       "unit": "dozen",
-      "unit_price": 27.76,
-      "line_total": 52744.0,
+      "unit_price": 80.66,
+      "line_total": 153254.0,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 52744.0,
+  "stated_total": 153254.0,
   "source_file": "PI-0049-24.pdf",
   "is_synthetic": true
 }

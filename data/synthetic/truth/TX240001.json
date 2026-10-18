@@ -25,12 +25,12 @@
       "description": "Women's V-neck T-shirt, cotton knitted, assorted sizes",
       "quantity": 6350.0,
       "unit": "pcs",
-      "unit_price": 1.7578,
-      "line_total": 11162.03,
+      "unit_price": 4.9518,
+      "line_total": 31443.93,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 11162.03,
+  "stated_total": 31443.93,
   "source_file": "TX240001.pdf",
   "is_synthetic": true
 }

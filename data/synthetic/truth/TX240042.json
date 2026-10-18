@@ -25,8 +25,8 @@
       "description": "Stainless steel machine screws M4 x 12mm",
       "quantity": 540000.0,
       "unit": "pcs",
-      "unit_price": 0.0116,
-      "line_total": 6264.0,
+      "unit_price": 0.0799,
+      "line_total": 43146.0,
       "extraction_confidence": 1.0
     },
     {
@@ -34,12 +34,12 @@
       "description": "Refined copper cathode sheets, LME Grade A",
       "quantity": 28000.0,
       "unit": "kg",
-      "unit_price": 7.7006,
-      "line_total": 215616.8,
+      "unit_price": 9.3039,
+      "line_total": 260509.2,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 221880.8,
+  "stated_total": 303655.2,
   "source_file": "TX240042.pdf",
   "is_synthetic": true
 }

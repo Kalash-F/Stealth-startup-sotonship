@@ -12,7 +12,8 @@ def check(
     benchmarks: list[Benchmark | None],
     warnings: list[str] | None = None,
 ) -> list[Flag]:
-    """Flag lines whose extraction or classification confidence is below `min_confidence`.
+    """Flag lines whose extraction or classification confidence is at or below `min_confidence`
+    (unverified numbers are capped at exactly 0.5 by extraction, so "below" missed them).
 
     Always low severity: it asks an officer to read the line, it does not say anything is wrong."""
     floor = config("low_confidence")["min_confidence"]
@@ -23,9 +24,9 @@ def check(
         extraction = item.extraction_confidence
         classification = e.classification_confidence if e is not None else None
         weak = []
-        if extraction < floor:
+        if extraction <= floor:
             weak.append(f"reading the text of the line ({extraction:.0%} sure)")
-        if classification is not None and classification < floor:
+        if classification is not None and classification <= floor:
             weak.append(f"identifying the product ({classification:.0%} sure)")
         if not weak:
             continue

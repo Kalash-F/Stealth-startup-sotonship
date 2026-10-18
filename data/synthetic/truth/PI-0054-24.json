@@ -25,8 +25,8 @@
       "description": "USB-C flash drive 128GB with keyring",
       "quantity": 10500.0,
       "unit": "pcs",
-      "unit_price": 5.291,
-      "line_total": 55555.5,
+      "unit_price": 183.25,
+      "line_total": 1924125.0,
       "extraction_confidence": 1.0
     },
     {
@@ -34,12 +34,12 @@
       "description": "Stainless steel machine screws M4 x 12mm",
       "quantity": 661000.0,
       "unit": "pcs",
-      "unit_price": 0.0136,
-      "line_total": 8989.6,
+      "unit_price": 0.1116,
+      "line_total": 73767.6,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 64545.1,
+  "stated_total": 1997892.6,
   "source_file": "PI-0054-24.pdf",
   "is_synthetic": true
 }

@@ -25,8 +25,8 @@
       "description": "Green Arabica coffee beans, unroasted, not decaffeinated",
       "quantity": 23500.0,
       "unit": "kg",
-      "unit_price": 15.24,
-      "line_total": 358140.0,
+      "unit_price": 27.24,
+      "line_total": 640140.0,
       "extraction_confidence": 1.0
     },
     {
@@ -34,8 +34,8 @@
       "description": "Robusta green coffee beans, 60kg jute bags",
       "quantity": 270.0,
       "unit": "bags",
-      "unit_price": 810.24,
-      "line_total": 218764.8,
+      "unit_price": 1355.8,
+      "line_total": 366066.0,
       "extraction_confidence": 1.0
     },
     {
@@ -43,8 +43,8 @@
       "description": "Green Arabica coffee beans, unroasted, not decaffeinated",
       "quantity": 21500.0,
       "unit": "kg",
-      "unit_price": 18.62,
-      "line_total": 400330.0,
+      "unit_price": 37.09,
+      "line_total": 797435.0,
       "extraction_confidence": 1.0
     },
     {
@@ -52,8 +52,8 @@
       "description": "Robusta green coffee beans, 60kg jute bags",
       "quantity": 160.0,
       "unit": "bags",
-      "unit_price": 1062.41,
-      "line_total": 169985.6,
+      "unit_price": 2058.84,
+      "line_total": 329414.4,
       "extraction_confidence": 1.0
     },
     {
@@ -61,12 +61,12 @@
       "description": "Robusta green coffee beans, 60kg jute bags",
       "quantity": 350.0,
       "unit": "bags",
-      "unit_price": 773.15,
-      "line_total": 270602.5,
+      "unit_price": 1261.31,
+      "line_total": 441458.5,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 1417822.9,
+  "stated_total": 2574513.9,
   "source_file": "TX240019.pdf",
   "is_synthetic": true
 }

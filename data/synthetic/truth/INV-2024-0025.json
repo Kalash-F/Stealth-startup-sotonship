@@ -25,12 +25,12 @@
       "description": "15.6-inch notebook PC, AMD Ryzen 7, 16GB RAM",
       "quantity": 110.0,
       "unit": "units",
-      "unit_price": 2406.46,
-      "line_total": 264710.6,
+      "unit_price": 1124.62,
+      "line_total": 123708.2,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 264710.6,
+  "stated_total": 123708.2,
   "source_file": "INV-2024-0025.pdf",
   "is_synthetic": true
 }

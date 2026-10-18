@@ -25,8 +25,8 @@
       "description": "Stainless steel machine screws M4 x 12mm (bulk order, volume discount applied)",
       "quantity": 2515500.0,
       "unit": "pcs",
-      "unit_price": 0.006252,
-      "line_total": 15726.91,
+      "unit_price": 0.005226,
+      "line_total": 13146.0,
       "extraction_confidence": 1.0
     },
     {
@@ -34,8 +34,8 @@
       "description": "Men's crew-neck T-shirt, 100% cotton jersey knit",
       "quantity": 29500.0,
       "unit": "pcs",
-      "unit_price": 2.1977,
-      "line_total": 64832.15,
+      "unit_price": 4.9058,
+      "line_total": 144721.1,
       "extraction_confidence": 1.0
     },
     {
@@ -43,8 +43,8 @@
       "description": "Men's crew-neck T-shirt, 100% cotton jersey knit",
       "quantity": 6950.0,
       "unit": "pcs",
-      "unit_price": 2.7003,
-      "line_total": 18767.08,
+      "unit_price": 5.7361,
+      "line_total": 39865.9,
       "extraction_confidence": 1.0
     },
     {
@@ -52,12 +52,12 @@
       "description": "Copper cathodes Grade A, 99.99% Cu",
       "quantity": 29.1,
       "unit": "MT",
-      "unit_price": 9499.0,
-      "line_total": 276420.9,
+      "unit_price": 20627.93,
+      "line_total": 600272.76,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 375747.04,
+  "stated_total": 798005.76,
   "source_file": "PI-0005-24.pdf",
   "is_synthetic": true
 }

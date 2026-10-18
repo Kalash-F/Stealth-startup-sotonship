@@ -83,3 +83,42 @@ def test_written_bands_load_as_benchmarks(tmp_path):
     ]
     assert [b.route for b in loaded] == [None, "CN-GB"]
     assert loaded[0].years == [2023] and loaded[0].sources == ["HMRC OTS"]
+
+
+def test_comtrade_records_drop_world_totals():
+    raw = [
+        dict(partnerCode=0, netWgt=100.0, primaryValue=500.0),
+        dict(partnerCode=156, netWgt=60.0, primaryValue=300.0),
+    ]
+    recs = fb.comtrade_records(raw, "090111", 2024, None)
+    assert [r["value_usd"] for r in recs] == [300.0]
+
+
+class _Resp:
+    def __init__(self, status, headers=None):
+        self.status_code, self.headers = status, headers or {}
+
+    def raise_for_status(self):
+        if self.status_code >= 400:
+            raise RuntimeError(self.status_code)
+
+    def json(self):
+        return {"data": [{"ok": True}]}
+
+
+def test_fetch_comtrade_retries_on_429(monkeypatch):
+    replies = [_Resp(429, {"Retry-After": "3"}), _Resp(429), _Resp(200)]
+    sleeps = []
+    monkeypatch.setattr(fb.requests, "get", lambda *a, **k: replies.pop(0))
+    monkeypatch.setattr(fb.time, "sleep", sleeps.append)
+    monkeypatch.setattr(fb, "COMTRADE_MIN_INTERVAL", 0.0)
+    assert fb.fetch_comtrade("090111", 2024, "key") == [{"ok": True}]
+    assert sleeps == [3.0, 4.0]
+
+
+def test_fetch_comtrade_gives_up_after_retries(monkeypatch):
+    monkeypatch.setattr(fb.requests, "get", lambda *a, **k: _Resp(429))
+    monkeypatch.setattr(fb.time, "sleep", lambda s: None)
+    monkeypatch.setattr(fb, "COMTRADE_MIN_INTERVAL", 0.0)
+    with pytest.raises(RuntimeError):
+        fb.fetch_comtrade("090111", 2024, "key")

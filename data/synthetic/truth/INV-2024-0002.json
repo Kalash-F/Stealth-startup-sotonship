@@ -25,8 +25,8 @@
       "description": "Merchandise",
       "quantity": 89.3,
       "unit": "MT",
-      "unit_price": 8951.52,
-      "line_total": 799370.74,
+      "unit_price": 14893.32,
+      "line_total": 1329973.48,
       "extraction_confidence": 1.0
     },
     {
@@ -34,8 +34,8 @@
       "description": "Plain white cotton T-shirts, packed per dozen",
       "quantity": 1250.0,
       "unit": "dozen",
-      "unit_price": 49.26,
-      "line_total": 61575.0,
+      "unit_price": 94.59,
+      "line_total": 118237.5,
       "extraction_confidence": 1.0
     },
     {
@@ -43,8 +43,8 @@
       "description": "M6 x 30mm hex bolts, zinc plated",
       "quantity": 407500.0,
       "unit": "pcs",
-      "unit_price": 0.0454,
-      "line_total": 18500.5,
+      "unit_price": 0.1,
+      "line_total": 40750.0,
       "extraction_confidence": 1.0
     },
     {
@@ -52,12 +52,12 @@
       "description": "USB 2.0 memory stick 32GB, carton of 100",
       "quantity": 190.0,
       "unit": "cartons",
-      "unit_price": 312.53,
-      "line_total": 59380.7,
+      "unit_price": 545.71,
+      "line_total": 103684.9,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 786954.96,
+  "stated_total": 1335007.05,
   "source_file": "INV-2024-0002.pdf",
   "is_synthetic": true
 }

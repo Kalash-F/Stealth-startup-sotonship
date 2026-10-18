@@ -25,8 +25,8 @@
       "description": "13-inch ultraportable laptop, 8GB RAM, 256GB SSD",
       "quantity": 410.0,
       "unit": "pcs",
-      "unit_price": 118767.84,
-      "line_total": 48694814.4,
+      "unit_price": 114865.93,
+      "line_total": 47095031.3,
       "extraction_confidence": 1.0
     },
     {
@@ -34,12 +34,12 @@
       "description": "Refined copper cathode sheets, LME Grade A",
       "quantity": 35000.0,
       "unit": "kg",
-      "unit_price": 9.0634,
-      "line_total": 317219.0,
+      "unit_price": 15.94,
+      "line_total": 557900.0,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 49012033.4,
+  "stated_total": 47652931.3,
   "source_file": "TX240057.pdf",
   "is_synthetic": true
 }

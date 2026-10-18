@@ -1,12 +1,16 @@
+"use client";
+
 import Link from "next/link";
 import { Panel, PanelHeader } from "@/components/ui/panel";
 import { recentActivity } from "@/data/workspace";
 import { formatDateShort } from "@/lib/format";
 import { cn } from "@/lib/utils";
+import { useLiveVersion } from "@/lib/live-cases";
 import { TimelineKindIcon } from "../shared/timeline-kind";
 
 /** The latest evidence and case events across the workspace. */
 export function ActivityFeed({ className, limit = 8 }: { className?: string; limit?: number }) {
+  useLiveVersion();
   const items = recentActivity(limit);
   return (
     <Panel className={cn("flex flex-col", className)}>

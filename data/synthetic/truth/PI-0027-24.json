@@ -25,8 +25,8 @@
       "description": "Lemon soft drink 330ml cans, carton of 24",
       "quantity": 3050.0,
       "unit": "cartons",
-      "unit_price": 6.107,
-      "line_total": 18626.35,
+      "unit_price": 7.8515,
+      "line_total": 23947.08,
       "extraction_confidence": 1.0
     },
     {
@@ -34,8 +34,8 @@
       "description": "13-inch ultraportable laptop, 8GB RAM, 256GB SSD",
       "quantity": 1500.0,
       "unit": "pcs",
-      "unit_price": 568.03,
-      "line_total": 852045.0,
+      "unit_price": 953.15,
+      "line_total": 1429725.0,
       "extraction_confidence": 1.0
     },
     {
@@ -43,12 +43,12 @@
       "description": "14-inch laptop computer, Intel Core i5, 16GB RAM, 512GB SSD",
       "quantity": 1350.0,
       "unit": "pcs",
-      "unit_price": 470.88,
-      "line_total": 635688.0,
+      "unit_price": 711.28,
+      "line_total": 960228.0,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 1506359.35,
+  "stated_total": 2413900.08,
   "source_file": "PI-0027-24.pdf",
   "is_synthetic": true
 }

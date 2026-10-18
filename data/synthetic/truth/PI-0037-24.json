@@ -25,12 +25,12 @@
       "description": "Enterprise-grade USB 2.0 memory stick 32GB, carton of 100",
       "quantity": 57.0,
       "unit": "cartons",
-      "unit_price": 1167.48,
-      "line_total": 66546.36,
+      "unit_price": 226828.8,
+      "line_total": 12929241.6,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 66546.36,
+  "stated_total": 12929241.6,
   "source_file": "PI-0037-24.pdf",
   "is_synthetic": true
 }

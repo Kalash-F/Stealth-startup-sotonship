@@ -25,8 +25,8 @@
       "description": "USB 3.0 flash drive 64GB, metal casing",
       "quantity": 38500.0,
       "unit": "pcs",
-      "unit_price": 5.5792,
-      "line_total": 214799.2,
+      "unit_price": 225.0,
+      "line_total": 8662500.0,
       "extraction_confidence": 1.0
     },
     {
@@ -34,12 +34,12 @@
       "description": "14-inch laptop computer, Intel Core i5, 16GB RAM, 512GB SSD",
       "quantity": 1350.0,
       "unit": "pcs",
-      "unit_price": 486.03,
-      "line_total": 656140.5,
+      "unit_price": 195.22,
+      "line_total": 263547.0,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 870939.7,
+  "stated_total": 8926047.0,
   "source_file": "PI-0060-24.pdf",
   "is_synthetic": true
 }

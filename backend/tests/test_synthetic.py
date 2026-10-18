@@ -17,7 +17,6 @@ from tbml.synthetic.generator import (
     invoices_csv,
     labels_csv,
     lines_csv,
-    load_bands,
 )
 
 SEED, N = 42, 60
@@ -39,7 +38,9 @@ def items():
 
 @pytest.fixture(scope="module")
 def bands():
-    return load_bands()
+    from tbml.synthetic.generator import DEFAULT_BANDS, load_route_bands
+
+    return load_route_bands(DEFAULT_BANDS)
 
 
 @pytest.fixture(scope="module")
@@ -137,14 +138,15 @@ def test_invoices_without_arithmetic_label_pass_arithmetic(items, labels):
 def test_planted_prices_sit_where_labels_say(items, bands):
     roles = {g.invoice.invoice_id: g for g in items}
     for r in _rows(lines_csv(items)):
-        b = bands[r["true_hs6"]]
-        usd = float(r["unit_price_usd"])
         g = roles[r["invoice_id"]]
+        route = f"{g.invoice.seller.country}-{g.invoice.buyer.country}"
+        b = bands.get((r["true_hs6"], route)) or bands[(r["true_hs6"], None)]
+        usd = float(r["unit_price_usd"])
         where = f"{r['invoice_id']} {r['line_id']} {r['label']} {usd}"
         if r["label"] == "OVER_PRICE":
-            assert usd >= 3 * b.median * 0.98, where
+            assert usd >= 2 * b.p90 * 0.98, where  # planted at 2-300x the p90 (D9.2)
         elif r["label"] == "UNDER_PRICE":
-            assert usd <= b.median / 3 * 1.02, where
+            assert usd <= b.p10 / 2 * 1.02, where  # planted at 1/2-1/30 of the p10
         elif r["label"] == "QTY_VALUE_IMPLAUSIBLE":
             assert usd >= 10 * b.p90, where
             assert float(r["normalised_quantity"]) / float(r["bench_units_per_unit"]) <= 20

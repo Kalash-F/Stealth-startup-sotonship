@@ -30,8 +30,8 @@
       "description": "Men's crew-neck T-shirt, 100% cotton jersey knit",
       "quantity": 23000.0,
       "unit": "pcs",
-      "unit_price": 0.3207,
-      "line_total": 7376.1,
+      "unit_price": 0.6436,
+      "line_total": 14802.8,
       "extraction_confidence": 1.0
     },
     {
@@ -39,12 +39,12 @@
       "description": "15.6-inch notebook PC, AMD Ryzen 7, 16GB RAM",
       "quantity": 840.0,
       "unit": "units",
-      "unit_price": 657.72,
-      "line_total": 552484.8,
+      "unit_price": 252.11,
+      "line_total": 211772.4,
       "extraction_confidence": 1.0
     }
   ],
-  "stated_total": 559860.9,
+  "stated_total": 226575.2,
   "source_file": "TX240024.pdf",
   "is_synthetic": true
 }
