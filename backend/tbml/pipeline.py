@@ -92,6 +92,7 @@ def check(pdf_path: str | Path) -> Report:
         priority_score=priority_score,
         priority_band=priority_band,
         summary=summary,
+        invoice=invoice,
         flags=flags,
         lines=lines,
         processing_ms=processing_ms,

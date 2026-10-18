@@ -1,0 +1,23 @@
+{
+  "state": {
+    "invoice_line": "15.6-INCH NOTEBOOK PC, AMD RYZEN 7, 16GB RAM",
+    "what_it_is": "A 15.6-inch laptop computer with an AMD Ryzen 7 processor and 16 gigabytes of RAM, made of various electronic components and plastics, which is a finished product for general computing tasks.",
+    "classified_so_far": "chapter 85: Electrical machinery and equipment and parts thereof; sound recorders and reproducers; television image and sound recor\u2026 > heading 8543: Electrical machines and apparatus; having individual functions, not specified or included elsewhere in this chapter"
+  },
+  "parent": "8543",
+  "probabilities": {
+    "854310": 0.0,
+    "854311": 0.0,
+    "854319": 0.08,
+    "854320": 0.0,
+    "854330": 0.0,
+    "854340": 0.0,
+    "854370": 0.34,
+    "854380": 0.03,
+    "854381": 0.0,
+    "854389": 0.05,
+    "854390": 0.01,
+    "none": 0.49
+  },
+  "confidence": 0.44
+}

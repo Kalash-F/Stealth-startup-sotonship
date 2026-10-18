@@ -3,17 +3,17 @@
 import { Bar, BarChart, LabelList, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { Panel, PanelHeader } from "@/components/ui/panel";
 import Link from "next/link";
-import { investigations } from "@/data/investigations";
+import type { Investigation } from "@/data/types";
 import { isOpen, valueByCorridor } from "@/data/workspace";
 import { formatMoney, formatMoneyCompact } from "@/lib/format";
 import { cn } from "@/lib/utils";
-import { useLiveVersion } from "@/lib/live-cases";
+import { useCases } from "@/lib/live-cases";
 import { axisTick, ChartTooltipBox } from "../shared/chart-tooltip";
 
-const largest = (corridor: string) =>
-  investigations.filter((i) => isOpen(i) && i.corridor === corridor).sort((a, b) => b.invoice.stated_total - a.invoice.stated_total)[0];
+const largest = (cases: readonly Investigation[], corridor: string) =>
+  cases.filter((i) => isOpen(i) && i.corridor === corridor).sort((a, b) => b.invoice.stated_total - a.invoice.stated_total)[0];
 
-const corridorRows = () => valueByCorridor().map((r) => ({ ...r, label: r.corridor.replace("-", " → ") }));
+const corridorRows = (cases: readonly Investigation[]) => valueByCorridor(cases).map((r) => ({ ...r, label: r.corridor.replace("-", " → ") }));
 type Row = ReturnType<typeof corridorRows>[number];
 
 function TooltipBody({ active, payload }: { active?: boolean; payload?: { payload: Row }[] }) {
@@ -32,15 +32,15 @@ function TooltipBody({ active, payload }: { active?: boolean; payload?: { payloa
 
 /** Where the money under review sits. */
 export function CorridorChart({ className }: { className?: string }) {
-  useLiveVersion();
-  const data = corridorRows();
+  const cases = useCases();
+  const data = corridorRows(cases);
   const total = data.reduce((s, r) => s + r.value, 0);
   return (
     <Panel className={cn("flex flex-col", className)}>
       <PanelHeader title="Where is the value under review?" description="Invoiced value under open cases, by trade corridor" />
       <div className="px-4 pt-3">
-        <p className="text-[12px] text-fg-subtle">Total under review</p>
-        <p className="font-mono text-[18px] tabular text-fg">{formatMoney(total)}</p>
+        <p className="text-small text-fg-subtle">Total under review</p>
+        <p className="font-mono text-display leading-none tabular text-fg">{formatMoney(total)}</p>
       </div>
       <div className="px-2 pb-3 pt-1" style={{ height: data.length * 40 + 16 }}>
         <ResponsiveContainer width="100%" height="100%" initialDimension={{ width: 420, height: data.length * 40 + 16 }}>
@@ -63,7 +63,7 @@ export function CorridorChart({ className }: { className?: string }) {
                   const { x = 0, y = 0, width = 0, height = 0, index = 0 } = p as { x?: number; y?: number; width?: number; height?: number; index?: number };
                   const r = data[index];
                   return (
-                    <text x={Number(x) + Number(width) + 6} y={Number(y) + Number(height) / 2} dominantBaseline="central" fontSize={11} fontFamily="var(--font-mono)">
+                    <text x={Number(x) + Number(width) + 6} y={Number(y) + Number(height) / 2} dominantBaseline="central" fontSize={12} fontFamily="var(--font-mono)">
                       <tspan fill="var(--fg)">{formatMoneyCompact(r.value).replace("USD ", "$")}</tspan>
                       <tspan fill="var(--fg-subtle)"> · {r.cases} {r.cases === 1 ? "case" : "cases"}</tspan>
                     </text>
@@ -78,10 +78,10 @@ export function CorridorChart({ className }: { className?: string }) {
         <p className="eyebrow px-4 pt-3">Largest open case per corridor</p>
         <ul className="divide-y divide-border pb-1">
           {data.map((r) => {
-            const c = largest(r.corridor);
+            const c = largest(cases, r.corridor);
             return (
-              <li key={r.corridor} className="relative flex items-baseline gap-3 px-4 py-2 text-[12.5px] hover:bg-surface-2">
-                <span className="w-14 shrink-0 font-mono text-[11px] text-fg-subtle">{r.corridor}</span>
+              <li key={r.corridor} className="relative flex items-baseline gap-3 px-4 py-2 text-small hover:bg-surface-2">
+                <span className="w-14 shrink-0 font-mono text-meta text-fg-subtle">{r.corridor}</span>
                 <Link href={`/app/investigations/${c.id}`} className="min-w-0 flex-1 truncate text-fg after:absolute after:inset-0 hover:underline">
                   <span className="font-mono text-fg-muted">{c.id}</span> {c.commodity}
                 </Link>

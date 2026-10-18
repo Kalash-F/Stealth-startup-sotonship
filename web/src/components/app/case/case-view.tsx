@@ -13,7 +13,6 @@ import { workspace } from "@/data/workspace";
 import { notify } from "../shared/notify";
 import { CaseActions } from "./case-actions";
 import { CaseFacts } from "./case-facts";
-import { CaseRail } from "./case-rail";
 import { InvoiceTab } from "./invoice-tab";
 import { NetworkTab } from "./network-tab";
 import { NotesTab } from "./notes-tab";
@@ -33,6 +32,7 @@ const tabs = [
   { value: "notes", label: "Notes" },
 ] as const;
 type TabValue = (typeof tabs)[number]["value"];
+const tabScroll = "xl:relative xl:min-h-0 xl:flex-1 xl:overflow-y-auto";
 
 let seq = 0;
 const nextId = (p: string) => `${p}-session-${++seq}`;
@@ -91,7 +91,7 @@ export function CaseView({ id }: { id: string }) {
   } as Record<string, number>;
 
   return (
-    <div>
+    <div className="flex flex-col xl:min-h-0 xl:flex-1">
       <PageHeader
         crumbs={[
           { label: workspace.name, href: "/app" },
@@ -101,17 +101,17 @@ export function CaseView({ id }: { id: string }) {
         title={inv.title}
         meta={
           <>
-            <span className="font-mono text-[13px] text-fg">{inv.id}</span>
+            <span className="font-mono text-body text-fg">{inv.id}</span>
             <CaseStatusLabel status={status} />
             <PriorityBadge band={inv.priority_band} />
             <SyntheticBadge />
           </>
         }
         actions={
-          <div className="flex items-center gap-3 rounded-md border border-border bg-surface px-3 py-2">
+          <div data-slot="panel" className="flex items-center gap-3 rounded-md border border-border bg-surface px-3 py-2">
             <div>
               <p className="eyebrow">Priority</p>
-              <p className="text-[12px] text-fg-muted">{inv.flags.length} flags, see Summary</p>
+              <p className="text-small text-fg-muted">{inv.flags.length} flags, see Summary</p>
             </div>
             <PriorityScore band={inv.priority_band} score={inv.priority_score} />
           </div>
@@ -135,38 +135,37 @@ export function CaseView({ id }: { id: string }) {
         }
       />
 
-      <div className="grid gap-4 p-4 lg:p-6 xl:grid-cols-[minmax(0,1fr)_288px] [&>*]:min-w-0">
-        <Tabs value={tab} onValueChange={(v) => setTab(v as TabValue)} className="min-w-0">
+      <div className="grid gap-4 p-4 lg:p-6 xl:min-h-0 xl:flex-1 xl:grid-rows-[minmax(0,1fr)] [&>*]:min-w-0">
+        <Tabs value={tab} onValueChange={(v) => setTab(v as TabValue)} className="min-w-0 xl:flex xl:min-h-0 xl:flex-col">
           <TabsList aria-label="Case sections" className="mb-4">
             {tabs.map((t) => (
               <TabsTrigger key={t.value} value={t.value}>
                 {t.label}
                 {counts[t.value] !== undefined ? (
-                  <span className="rounded-xs bg-surface-2 px-1 font-mono text-[10.5px] tabular text-fg-subtle">{counts[t.value]}</span>
+                  <span className="rounded-xs bg-surface-2 px-1 font-mono text-meta tabular text-fg-subtle">{counts[t.value]}</span>
                 ) : null}
               </TabsTrigger>
             ))}
           </TabsList>
-          <TabsContent value="summary">
+          <TabsContent className={tabScroll} value="summary">
             <SummaryTab inv={inv} />
           </TabsContent>
-          <TabsContent value="invoice">
+          <TabsContent className={tabScroll} value="invoice">
             <InvoiceTab inv={inv} />
           </TabsContent>
-          <TabsContent value="timeline">
+          <TabsContent className={tabScroll} value="timeline">
             <TimelineTab inv={inv} sessionEvents={events} />
           </TabsContent>
-          <TabsContent value="transactions">
+          <TabsContent className={tabScroll} value="transactions">
             <TransactionsTab inv={inv} />
           </TabsContent>
-          <TabsContent value="network">
+          <TabsContent className={tabScroll} value="network">
             <NetworkTab inv={inv} />
           </TabsContent>
-          <TabsContent value="notes">
+          <TabsContent className={tabScroll} value="notes">
             <NotesTab notes={notes} onAdd={addNote} textareaRef={noteRef} closed={status === "closed_nfa"} />
           </TabsContent>
         </Tabs>
-        <CaseRail inv={inv} />
       </div>
     </div>
   );

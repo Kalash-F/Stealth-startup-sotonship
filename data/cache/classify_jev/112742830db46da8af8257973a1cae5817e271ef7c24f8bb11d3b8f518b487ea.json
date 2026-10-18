@@ -1,0 +1,38 @@
+{
+  "state": {
+    "invoice_line": "USB 2.0 memory stick 32GB, carton of 100",
+    "what_it_is": "A carton of 100 USB 2.0 memory sticks, each with 32 gigabytes of storage, which are finished electronic products used for data storage.",
+    "classified_so_far": "chapter 39: Plastics and articles thereof"
+  },
+  "parent": "39",
+  "probabilities": {
+    "3901": 0.0,
+    "3902": 0.0,
+    "3903": 0.0,
+    "3904": 0.0,
+    "3905": 0.0,
+    "3906": 0.0,
+    "3907": 0.0,
+    "3908": 0.0,
+    "3909": 0.0,
+    "3910": 0.0,
+    "3911": 0.0,
+    "3912": 0.0,
+    "3913": 0.0,
+    "3914": 0.0,
+    "3915": 0.0,
+    "3916": 0.01,
+    "3917": 0.0,
+    "3918": 0.0,
+    "3919": 0.0,
+    "3920": 0.0,
+    "3921": 0.0,
+    "3922": 0.0,
+    "3923": 0.03,
+    "3924": 0.0,
+    "3925": 0.0,
+    "3926": 0.36,
+    "none": 0.6
+  },
+  "confidence": 0.58
+}

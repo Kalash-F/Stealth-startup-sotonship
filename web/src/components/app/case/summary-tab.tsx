@@ -18,7 +18,7 @@ export function SummaryTab({ inv }: { inv: Investigation }) {
       <Panel>
         <PanelHeader title="Case summary" />
         <PanelBody>
-          <p className="max-w-3xl text-[14px] leading-relaxed text-fg">{inv.summary}</p>
+          <p className="text-body leading-relaxed text-fg [text-wrap:pretty]">{inv.summary}</p>
         </PanelBody>
       </Panel>
 
@@ -55,14 +55,14 @@ export function SummaryTab({ inv }: { inv: Investigation }) {
                     <li key={a.id} className="grid gap-1.5">
                       <div className="flex flex-wrap items-start gap-x-3 gap-y-1">
                         <EvidenceClassTag value={a.class} />
-                        <p className="min-w-0 flex-1 text-[13px] font-medium leading-snug text-fg">{a.statement}</p>
+                        <p className="min-w-0 flex-1 text-body font-medium leading-snug text-fg">{a.statement}</p>
                       </div>
-                      <p className="text-[12.5px] leading-relaxed text-fg-muted">
+                      <p className="text-small leading-relaxed text-fg-muted">
                         <span className="text-fg-subtle">Basis: </span>
                         {a.basis}
                       </p>
                       {a.alternative ? (
-                        <p className="border-l-2 border-border-strong pl-2.5 text-[12.5px] leading-relaxed text-fg-muted">
+                        <p className="border-l-2 border-border-strong pl-2.5 text-small leading-relaxed text-fg-muted">
                           <span className="text-fg-subtle">Alternative explanation: </span>
                           {a.alternative}
                         </p>
@@ -81,11 +81,11 @@ export function SummaryTab({ inv }: { inv: Investigation }) {
                   <dt>
                     <EvidenceClassTag value={c} />
                   </dt>
-                  <dd className="text-[12px] leading-relaxed text-fg-muted">{evidenceClassMeta[c].definition}</dd>
+                  <dd className="text-small leading-relaxed text-fg-muted">{evidenceClassMeta[c].definition}</dd>
                 </div>
               ))}
             </dl>
-            <p className="mt-2 text-[11.5px] text-fg-subtle">The priority score orders the queue. It is not a finding and does not establish wrongdoing.</p>
+            <p className="mt-2 text-meta text-fg-subtle">The priority score orders the queue. It is not a finding and does not establish wrongdoing.</p>
           </footer>
         </Panel>
       </div>

@@ -4,7 +4,7 @@ Source of truth for the visual system. Tokens live in `src/app/globals.css`; com
 
 ## Direction
 
-Somewhere between financial infrastructure software and an investigator's case file. Precise, calm, high-signal. The marketing site reads like a well-set document on warm paper; the workspace is a dark graphite instrument. They share one type system, one accent, one status vocabulary and the same components, so a product preview on the marketing page is the real component in a dark frame.
+Somewhere between financial infrastructure software and an investigator's case file. Precise, calm, high-signal. The marketing site reads like a well-set document on warm paper; the workspace is a beige case file (`.theme-linen`: #DDD0C8 ground, #323232 type). They share one type system, one status vocabulary and the same components, so a product preview on the marketing page is the real component in a dark `.theme-ink` frame.
 
 What we deliberately avoid: gradients, glows, blobs, glassmorphism, pill buttons, three-identical-card rows, logo strips, testimonials, stock photography, emoji icons.
 
@@ -17,7 +17,24 @@ What we deliberately avoid: gradients, glows, blobs, glassmorphism, pill buttons
 
 ## Surfaces and colour tokens
 
-Two themes share token names. Wrap a subtree in `.theme-ink` to render it as the workspace.
+Themes share token names. The workspace (`/app/*`) uses `.theme-linen`; the app shell also puts it on `<body>` so portalled dialogs, menus and toasts match. Marketing product previews wrap app components in `.theme-ink`.
+
+### Linen (workspace)
+
+Two colours: beige `#DDD0C8` as the ground and dark grey `#323232` for type. One warm grey family derived from them; the accent *is* the type colour, so active nav, primary actions, money flows and focus are all dark grey. Every text pairing clears WCAG AA (4.5:1) on `bg`, `surface` and `surface-2`.
+
+| Token | Linen | Use |
+|---|---|---|
+| `frame` | `#d2c3b9` + `.grain` | shell frame: sidebar and demo notice; the content is an inset sheet raised off it (`rounded-xl`, `shadow-float`) |
+| `bg` | `#ddd0c8` | content sheet background |
+| `surface` / `surface-2` / `surface-3` | `#e7ded8` / `#d5c7be` / `#cbbbb1` | panels (a step lighter than bg), hover, selected |
+| `border` / `border-strong` | `#c7b7ad` / `#a39388` | 1px rules, inputs |
+| `fg` / `fg-muted` / `fg-subtle` | `#323232` / `#48423e` / `#57504b` | type |
+| `accent` | `#323232` | active nav (inverse chip), primary action, money edges, focus ring |
+| risk | low `#33583d`, review `#704708`, high `#922e15`, finding `#7a2215`, info `#2e5373` | earthy, each with a `-soft` pair |
+| `overlay`, `shadow-float` | warm-tinted, never neutral black | dialog scrims, floating cards |
+
+### Paper and ink (marketing)
 
 | Token | Paper (marketing) | Ink (app) | Use |
 |---|---|---|---|
@@ -60,7 +77,7 @@ Scale (rem): 0.6875 (badges/eyebrows), 0.75, 0.8125 (app body), 0.875, 1, 1.25, 
 - **Button**: rectangular, `sm`/`md`/`lg`. `primary` (ink on paper / paper on ink), `accent` (one per view at most), `secondary` (bordered), `ghost`, `link`.
 - **Badge**: square, mono, uppercase, 11px. Used for priority, severity, evidence class, "fictional data".
 - **Case status**: icon + plain text, not a badge, to keep tables calm.
-- **Panel**: flat surface, 1px border, `PanelHeader` with 13px semibold title and optional actions.
+- **Panel**: flat surface, 1px border, `radius-lg`, `PanelHeader` with 13px semibold title and optional actions.
 - **Tables**: 13px body, mono for ids and money, right-aligned numbers, row hover `surface-2`, whole row clickable via the primary cell link, sticky header on long tables, horizontal scroll container under `md`.
 - **Inputs**: 36px tall, `border-strong`, accent focus ring.
 - **Price band bar**: log-scale p10–p90 thin bar, p25–p75 thick bar, median tick, stated price diamond (red outside band, green inside). Always captioned with numbers.

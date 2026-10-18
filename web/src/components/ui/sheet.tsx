@@ -15,7 +15,7 @@ export const SheetClose = DialogPrimitive.Close;
 
 function Overlay() {
   return (
-    <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/45" />
+    <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-overlay" />
   );
 }
 
@@ -38,9 +38,9 @@ export function DialogContent({
       >
         <div className="mb-4 flex items-start justify-between gap-4">
           <div>
-            <DialogPrimitive.Title className="text-base font-semibold tracking-tight">{title}</DialogPrimitive.Title>
+            <DialogPrimitive.Title className="text-title font-semibold tracking-tight">{title}</DialogPrimitive.Title>
             {description ? (
-              <DialogPrimitive.Description className="mt-1 text-sm text-fg-muted">{description}</DialogPrimitive.Description>
+              <DialogPrimitive.Description className="mt-1 text-small text-fg-muted">{description}</DialogPrimitive.Description>
             ) : null}
           </div>
           <DialogPrimitive.Close className="rounded-xs p-1 text-fg-muted hover:bg-surface-2 hover:text-fg" aria-label="Close">
@@ -72,10 +72,10 @@ export function SheetContent({
       >
         <div className="flex items-start justify-between gap-4 border-b border-border px-5 py-4">
           <div className="min-w-0">
-            <DialogPrimitive.Title className="text-base font-semibold tracking-tight">{title}</DialogPrimitive.Title>
+            <DialogPrimitive.Title className="text-title font-semibold tracking-tight">{title}</DialogPrimitive.Title>
             {description ? (
               <DialogPrimitive.Description asChild>
-                <div className="mt-1 text-sm text-fg-muted">{description}</div>
+                <div className="mt-1 text-small text-fg-muted">{description}</div>
               </DialogPrimitive.Description>
             ) : null}
           </div>

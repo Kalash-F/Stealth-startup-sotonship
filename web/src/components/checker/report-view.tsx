@@ -13,7 +13,7 @@ export function ReportView({ report }: { report: Report }) {
       <Panel>
         <PanelBody className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <p className="font-mono text-xs text-fg-subtle">{report.invoice_id}</p>
+            <p className="font-mono text-small text-fg-subtle">{report.invoice_id}</p>
             <div className="mt-2 flex items-center gap-3">
               <PriorityBadge band={report.priority_band} />
               {isMock ? <SyntheticBadge label="Mock price bands" /> : null}
@@ -29,7 +29,7 @@ export function ReportView({ report }: { report: Report }) {
           {report.flags.length ? (
             <FlagList flags={report.flags} headingLevel="h3" />
           ) : (
-            <p className="text-[13px] text-fg-muted">No rule fired. Low is not proof the invoice is clean.</p>
+            <p className="text-body text-fg-muted">No rule fired. Low is not proof the invoice is clean.</p>
           )}
         </PanelBody>
       </Panel>
@@ -37,8 +37,8 @@ export function ReportView({ report }: { report: Report }) {
       <Panel>
         <PanelHeader title="Lines" description="Stated price against the benchmark band (p10 to p90)." />
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-[13px]">
-            <thead className="text-xs text-fg-subtle">
+          <table className="w-full text-left text-body">
+            <thead className="text-meta text-fg-subtle">
               <tr>
                 <th className="px-4 py-2 font-medium">Line</th>
                 <th className="px-4 py-2 font-medium">Description</th>
@@ -74,7 +74,7 @@ export function ReportView({ report }: { report: Report }) {
         <Panel>
           <PanelHeader title="Warnings" description="Checks that could not run. Not the same as passed." />
           <PanelBody>
-            <ul className="list-disc pl-5 text-[13px] text-fg-muted">
+            <ul className="list-disc pl-5 text-body text-fg-muted">
               {report.warnings.map((w) => (
                 <li key={w}>{w}</li>
               ))}

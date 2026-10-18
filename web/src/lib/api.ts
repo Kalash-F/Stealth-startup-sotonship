@@ -104,7 +104,7 @@ export function bandPosition(price: number, b: Pick<PriceBand, "p1" | "p5" | "p9
 }
 
 /** Report.lines: LineItem + EnrichedLine, plus the price band used (backend ReportLine). */
-export interface ReportLine extends Omit<LineItem, "hs6" | "unit_price_usd"> {
+export interface ReportLine extends Omit<LineItem, "hs6" | "unit_price_usd" | "benchmark"> {
   hs6: string | null;
   hs6_description: string | null;
   hs6_candidates: HS6Candidate[];
@@ -123,6 +123,7 @@ export interface Report {
   priority_band: PriorityBand;
   /** 1-2 sentence overview of the report (LLM-written, a template offline, null if the LLM call failed). */
   summary: string | null;
+  invoice: ReportInvoice;
   flags: (Omit<Flag, "evidence"> & { evidence: Record<string, unknown> })[];
   lines: ReportLine[];
   processing_ms: number;

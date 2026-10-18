@@ -41,24 +41,25 @@ export const bandLabel: Record<PriorityBand, string> = {
 
 export const isOpen = (i: Investigation) => i.status !== "closed_nfa";
 
-export function caseCounts() {
-  const open = investigations.filter(isOpen);
+// Every helper below takes the case list, so components pass the hydration-safe one from useCases().
+export function caseCounts(list: readonly Investigation[] = investigations) {
+  const open = list.filter(isOpen);
   return {
     open: open.length,
     reviewNow: open.filter((i) => i.priority_band === "review_now").length,
     review: open.filter((i) => i.priority_band === "review").length,
     low: open.filter((i) => i.priority_band === "low").length,
-    escalated: investigations.filter((i) => i.status === "escalated").length,
-    awaiting: investigations.filter((i) => i.status === "awaiting_info").length,
-    closed: investigations.length - open.length,
-    unassignedTriage: investigations.filter((i) => i.status === "new").length,
+    escalated: list.filter((i) => i.status === "escalated").length,
+    awaiting: list.filter((i) => i.status === "awaiting_info").length,
+    closed: list.length - open.length,
+    unassignedTriage: list.filter((i) => i.status === "new").length,
   };
 }
 
 /** Flag counts by rule across every case, highest first. */
-export function flagsByRule() {
+export function flagsByRule(list: readonly Investigation[] = investigations) {
   const counts = new Map<RuleId, { high: number; medium: number; low: number }>();
-  for (const inv of investigations) {
+  for (const inv of list) {
     for (const f of inv.flags) {
       const c = counts.get(f.rule) ?? { high: 0, medium: 0, low: 0 };
       c[f.severity] += 1;
@@ -71,9 +72,9 @@ export function flagsByRule() {
 }
 
 /** Invoiced value under open cases, grouped by plan.md §5.2 corridor. */
-export function valueByCorridor() {
+export function valueByCorridor(list: readonly Investigation[] = investigations) {
   const m = new Map<string, { corridor: string; value: number; cases: number }>();
-  for (const inv of investigations.filter(isOpen)) {
+  for (const inv of list.filter(isOpen)) {
     const row = m.get(inv.corridor) ?? { corridor: inv.corridor, value: 0, cases: 0 };
     row.value += inv.invoice.stated_total;
     row.cases += 1;
@@ -83,17 +84,17 @@ export function valueByCorridor() {
 }
 
 /** Most recent timeline events across all cases. */
-export function recentActivity(limit = 8) {
-  return investigations
+export function recentActivity(limit = 8, list: readonly Investigation[] = investigations) {
+  return list
     .flatMap((inv) => inv.timeline.map((e) => ({ ...e, caseId: inv.id, caseTitle: inv.title })))
     .sort((a, b) => b.at.localeCompare(a.at))
     .slice(0, limit);
 }
 
 /** Open cases that need attention, review-now first, then by score. */
-export function attentionQueue() {
+export function attentionQueue(list: readonly Investigation[] = investigations) {
   const order: Record<PriorityBand, number> = { review_now: 0, review: 1, low: 2 };
-  return investigations
+  return list
     .filter(isOpen)
     .sort((a, b) => order[a.priority_band] - order[b.priority_band] || b.priority_score - a.priority_score);
 }

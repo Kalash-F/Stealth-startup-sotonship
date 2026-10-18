@@ -6,11 +6,11 @@ export function PatternCallout() {
   const { flow, manufacturer, related, owner } = orchardGatePattern();
   const share = related ? Math.round((related.amount / flow.received) * 100) : 0;
   return (
-    <section aria-labelledby="pattern-heading" className="rounded-md border border-border border-l-2 border-l-accent bg-surface px-4 py-3">
-      <h2 id="pattern-heading" className="text-[13px] font-semibold text-fg">
+    <section data-slot="panel" aria-labelledby="pattern-heading" className="rounded-md border border-border border-l-2 border-l-accent bg-surface px-4 py-3">
+      <h2 id="pattern-heading" className="text-body font-semibold text-fg">
         What the network shows
       </h2>
-      <p className="mt-1 max-w-4xl text-[13px] leading-relaxed text-fg-muted">
+      <p className="mt-1 max-w-4xl text-body leading-relaxed text-fg-muted">
         {flow.buyer.name} paid <span className="font-mono tabular text-fg">{formatMoney(flow.received)}</span> to {flow.seller.name}.
         The manufacturer that shipped the goods received{" "}
         <span className="font-mono tabular text-fg">{formatMoney(manufacturer?.amount ?? 0)}</span>. Within days,{" "}

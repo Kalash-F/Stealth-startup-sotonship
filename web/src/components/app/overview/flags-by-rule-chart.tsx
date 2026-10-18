@@ -5,7 +5,7 @@ import { Panel, PanelHeader } from "@/components/ui/panel";
 import { rules } from "@/data/reference";
 import { flagsByRule } from "@/data/workspace";
 import { cn } from "@/lib/utils";
-import { useLiveVersion } from "@/lib/live-cases";
+import { useCases } from "@/lib/live-cases";
 import { axisTick, ChartTooltipBox } from "../shared/chart-tooltip";
 
 const severities = [
@@ -32,8 +32,7 @@ function TooltipBody({ active, payload }: { active?: boolean; payload?: { payloa
 
 /** Which rules are doing the work, and at what severity. */
 export function FlagsByRuleChart({ className }: { className?: string }) {
-  useLiveVersion();
-  const data = flagsByRule();
+  const data = flagsByRule(useCases());
   const total = data.reduce((s, r) => s + r.total, 0);
   return (
     <Panel className={cn("flex flex-col", className)}>
@@ -42,7 +41,7 @@ export function FlagsByRuleChart({ className }: { className?: string }) {
         description={`${total} flags across every case in the workspace, by rule and severity`}
       />
       <div className="flex flex-1 flex-col px-2 pb-3 pt-2">
-        <ul className="mb-1 flex gap-4 px-2 text-[11px] text-fg-muted" aria-label="Severity legend">
+        <ul className="mb-1 flex gap-4 px-2 text-meta text-fg-muted" aria-label="Severity legend">
           {severities.map((s) => (
             <li key={s.key} className="inline-flex items-center gap-1.5">
               <span className="size-2 rounded-[2px]" style={{ background: s.color }} aria-hidden />
@@ -59,7 +58,7 @@ export function FlagsByRuleChart({ className }: { className?: string }) {
                 type="category"
                 dataKey="label"
                 width={92}
-                tick={{ ...axisTick, fill: "var(--fg-muted)", fontFamily: "var(--font-sans)", fontSize: 12 }}
+                tick={{ ...axisTick, fill: "var(--fg-muted)", fontFamily: "var(--font-sans)", fontSize: 13 }}
                 tickLine={false}
                 axisLine={false}
               />
@@ -80,7 +79,7 @@ export function FlagsByRuleChart({ className }: { className?: string }) {
             </BarChart>
           </ResponsiveContainer>
         </div>
-        <p className="px-2 pt-2 text-[11px] text-fg-subtle">
+        <p className="px-2 pt-2 text-meta text-fg-subtle">
           A case usually carries several flags. Priority is the sum of severity weights (high 40, medium 15, low 5), capped at 100.
         </p>
       </div>

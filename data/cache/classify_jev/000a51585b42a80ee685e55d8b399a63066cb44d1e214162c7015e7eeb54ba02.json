@@ -1,0 +1,18 @@
+{
+  "state": {
+    "invoice_line": "HEX HEAD BOLTS M6, CARTON OF 1,000 PCS",
+    "what_it_is": "A carton of 1,000 zinc-plated steel hex head bolts, 6mm in diameter, for fastening.",
+    "classified_so_far": "chapter 72: Iron and steel > heading 7215: Iron or non-alloy steel; bars and rods, n.e.c. in chapter 72"
+  },
+  "parent": "7215",
+  "probabilities": {
+    "721510": 0.01,
+    "721520": 0.01,
+    "721530": 0.01,
+    "721540": 0.01,
+    "721550": 0.05,
+    "721590": 0.060000000000000005,
+    "none": 0.85
+  },
+  "confidence": 0.82
+}

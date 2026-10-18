@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 /** Square-cornered tags. Colour is never the only signal: every badge carries text. */
 const badgeVariants = cva(
-  "inline-flex items-center gap-1.5 whitespace-nowrap rounded-xs border px-1.5 py-0.5 text-[11.5px] font-medium leading-4",
+  "inline-flex items-center gap-1.5 whitespace-nowrap rounded-xs border px-1.5 py-0.5 text-meta font-medium leading-4",
   {
     variants: {
       tone: {

@@ -1,0 +1,27 @@
+{
+  "state": {
+    "invoice_line": "USB 2.0 memory stick 32GB, carton of 100",
+    "what_it_is": "A carton of 100 USB 2.0 memory sticks, each with 32 gigabytes of storage, which are finished electronic products used for data storage.",
+    "classified_so_far": "chapter 85: Electrical machinery and equipment and parts thereof; sound recorders and reproducers; television image and sound recor\u2026 > heading 8523: Discs, tapes, solid-state non-volatile storage devices, smart cards and other media for the recording of sound or of ot\u2026"
+  },
+  "parent": "8523",
+  "probabilities": {
+    "852311": 0.04,
+    "852312": 0.01,
+    "852313": 0.01,
+    "852320": 0.0,
+    "852321": 0.0,
+    "852329": 0.0,
+    "852330": 0.0,
+    "852340": 0.0,
+    "852341": 0.0,
+    "852349": 0.0,
+    "852351": 0.45,
+    "852352": 0.01,
+    "852359": 0.44,
+    "852380": 0.03,
+    "852390": 0.01,
+    "none": 0.0
+  },
+  "confidence": 0.41
+}

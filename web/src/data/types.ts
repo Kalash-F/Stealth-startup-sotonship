@@ -40,6 +40,8 @@ export interface LineItem {
    * benchmark unit. Filled from unit_price when the units already match.
    */
   unit_price_usd?: number | null;
+  /** Demo-only: the band this line was checked against, when the check supplied one (invoices checked in the workspace). */
+  benchmark?: Benchmark | null;
 }
 
 export interface Invoice {
@@ -56,7 +58,8 @@ export interface Invoice {
   line_items: LineItem[];
   stated_total: number;
   source_file: string;
-  is_synthetic: true;
+  /** True for the generated test documents; false for an uploaded PDF. */
+  is_synthetic: boolean;
 }
 
 export interface Benchmark {
@@ -72,8 +75,8 @@ export interface Benchmark {
   n_observations: number;
   years: number[];
   sources: string[];
-  /** Always true in this demo: bands are illustrative, not market prices. */
-  is_mock: true;
+  /** True for illustrative bands (all the seeded cases); false for bands built from real trade data. */
+  is_mock: boolean;
 }
 
 export type RuleId =

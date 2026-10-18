@@ -79,10 +79,10 @@ function GraphNodeView({ data }: NodeProps<Node<NodeData>>) {
         <Icon className="size-3.5" aria-hidden />
       </span>
       <span className="min-w-0">
-        <span className={cn("block truncate text-[12px] font-semibold leading-tight text-fg", !isEntity && "font-mono font-medium")}>
+        <span className={cn("block truncate text-small font-semibold leading-tight text-fg", !isEntity && "font-mono font-medium")}>
           {data.label}
         </span>
-        <span className="block truncate text-[10.5px] leading-tight text-fg-muted">{data.sublabel}</span>
+        <span className="block truncate text-meta leading-tight text-fg-muted">{data.sublabel}</span>
       </span>
       <span className="sr-only">{typeLabel[data.type]}</span>
     </div>
@@ -204,7 +204,7 @@ export function EntityGraph({ nodes, edges, selectedId = null, onSelect, interac
 export function GraphLegend({ className }: { className?: string }) {
   const item = "inline-flex items-center gap-1.5";
   return (
-    <ul className={cn("flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11px] text-fg-muted", className)}>
+    <ul className={cn("flex flex-wrap items-center gap-x-4 gap-y-1.5 text-meta text-fg-muted", className)}>
       <li className={item}>
         <span className="inline-block h-3 w-4 rounded-[3px] border border-border-strong bg-surface" aria-hidden /> Entity
       </li>

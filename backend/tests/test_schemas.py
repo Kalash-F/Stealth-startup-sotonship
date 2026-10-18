@@ -55,8 +55,8 @@ EXPECTED_FIELDS = {
         "reason", "evidence",
     ],
     Report: [
-        "invoice_id", "schema_version", "priority_score", "priority_band", "summary", "flags",
-        "lines", "processing_ms", "warnings",
+        "invoice_id", "schema_version", "priority_score", "priority_band", "summary", "invoice",
+        "flags", "lines", "processing_ms", "warnings",
     ],
 }  # fmt: skip
 

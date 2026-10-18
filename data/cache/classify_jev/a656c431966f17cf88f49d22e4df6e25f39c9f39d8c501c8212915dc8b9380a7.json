@@ -1,0 +1,16 @@
+{
+  "state": {
+    "invoice_line": "Men's crew-neck T-shirt, 100% cotton jersey knit",
+    "what_it_is": "A men's crew-neck t-shirt made from 100% cotton jersey knit fabric, which is a finished product for wearing.",
+    "classified_so_far": "chapter 62: Apparel and clothing accessories; not knitted or crocheted > heading 6205: Shirts; men's or boys' (not knitted or crocheted)"
+  },
+  "parent": "6205",
+  "probabilities": {
+    "620510": 0.0,
+    "620520": 0.48,
+    "620530": 0.01,
+    "620590": 0.0,
+    "none": 0.51
+  },
+  "confidence": 0.39
+}

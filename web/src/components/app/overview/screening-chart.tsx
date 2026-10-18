@@ -55,22 +55,22 @@ export function ScreeningChart({ className }: { className?: string }) {
         description="Invoices screened and flagged per month, whole portfolio"
         actions={<SyntheticBadge label="Synthetic series" />}
       />
-      <div className="grid grid-cols-3 border-b border-border text-[12px]">
+      <div className="grid grid-cols-3 border-b border-border text-small">
         <div className="border-r border-border px-4 py-2.5">
           <p className="text-fg-subtle">Screened in {last.month}</p>
-          <p className="font-mono text-[15px] tabular text-fg">{formatNumber(last.screened)}</p>
+          <p className="font-mono text-display leading-none tabular text-fg">{formatNumber(last.screened)}</p>
         </div>
         <div className="border-r border-border px-4 py-2.5">
           <p className="text-fg-subtle">Flag rate {last.month}</p>
-          <p className="font-mono text-[15px] tabular text-fg">{last.rate.toFixed(1)}%</p>
+          <p className="font-mono text-display leading-none tabular text-fg">{last.rate.toFixed(1)}%</p>
         </div>
         <div className="px-4 py-2.5">
           <p className="text-fg-subtle">5-month average</p>
-          <p className="font-mono text-[15px] tabular text-fg">{avgRate.toFixed(1)}%</p>
+          <p className="font-mono text-display leading-none tabular text-fg">{avgRate.toFixed(1)}%</p>
         </div>
       </div>
       <div className="flex flex-1 flex-col gap-1 px-2 pb-2 pt-3">
-        <p className="px-2 text-[11.5px] text-fg-muted">Invoices screened</p>
+        <p className="px-2 text-meta text-fg-muted">Invoices screened</p>
         <div className="min-h-[118px] flex-1">
           <ResponsiveContainer width="100%" height="100%" initialDimension={{ width: 520, height: 118 }}>
             <BarChart data={data} margin={margin} syncId="screening" barCategoryGap="28%">
@@ -87,8 +87,8 @@ export function ScreeningChart({ className }: { className?: string }) {
           </ResponsiveContainer>
         </div>
         <div className="flex flex-wrap items-center justify-between gap-2 px-2 pt-1">
-          <p className="text-[11.5px] text-fg-muted">Flagged for review</p>
-          <ul className="flex gap-3 text-[11px] text-fg-muted">
+          <p className="text-meta text-fg-muted">Flagged for review</p>
+          <ul className="flex gap-3 text-meta text-fg-muted">
             <li className="inline-flex items-center gap-1.5">
               <span className="size-2 rounded-[2px] bg-risk-high" aria-hidden /> Review now
             </li>
@@ -117,7 +117,7 @@ export function ScreeningChart({ className }: { className?: string }) {
             </BarChart>
           </ResponsiveContainer>
         </div>
-        <p className="px-2 pt-1 text-[11px] text-fg-subtle">
+        <p className="px-2 pt-1 text-meta text-fg-subtle">
           * October is month to date (to 17 Oct). Only flagged invoices become cases, so these volumes exceed the case list.
         </p>
       </div>

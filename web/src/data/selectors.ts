@@ -11,8 +11,6 @@ import type { GraphEdge, GraphNode, Investigation, LineItem, Transaction } from 
 
 // ── Investigations list ───────────────────────────────────────────────
 
-export const corridorOptions = [...new Set(investigations.map((i) => i.corridor))].sort();
-
 /** Text that the investigations search matches against. */
 export function caseSearchText(i: Investigation) {
   const inv = i.invoice;
@@ -59,10 +57,10 @@ export function invoiceArithmetic(i: Investigation) {
   return { sumOfLines, stated: i.invoice.stated_total, difference, matches: Math.abs(difference) < 0.01 };
 }
 
-/** Variance of the stated USD unit price against the illustrative median, in %. */
+/** Variance of the stated USD unit price against the comparison median, in %. Prefers the band the line was checked against. */
 export function lineVariance(l: LineItem) {
   if (!l.hs6 || l.unit_price_usd == null) return null;
-  const b = benchmarks[l.hs6];
+  const b = l.benchmark ?? benchmarks[l.hs6];
   if (!b) return null;
   return {
     pct: (l.unit_price_usd / b.median - 1) * 100,

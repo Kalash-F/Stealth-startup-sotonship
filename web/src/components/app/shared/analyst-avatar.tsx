@@ -15,7 +15,7 @@ export function AnalystAvatar({ id, className, withName = false }: { id: string;
       >
         {initials}
       </span>
-      {withName ? <span className="truncate text-[13px] text-fg">{name}</span> : <span className="sr-only">{name}</span>}
+      {withName ? <span className="truncate text-body text-fg">{name}</span> : <span className="sr-only">{name}</span>}
     </span>
   );
 }

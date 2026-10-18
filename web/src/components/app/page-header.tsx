@@ -1,13 +1,17 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { StackedPeaks } from "./stacked-peaks";
 
 export interface Crumb {
   label: string;
   href?: string;
 }
 
-/** Page title block used by every application screen. */
+/**
+ * Page title block used by every application screen.
+ * On desktop the stacked peaks sit behind the whole sheet (see AppShell), so here they only show on smaller screens.
+ */
 export function PageHeader({
   title,
   crumbs,
@@ -24,10 +28,11 @@ export function PageHeader({
   className?: string;
 }) {
   return (
-    <div className={cn("border-b border-border px-4 pb-5 pt-5 lg:px-6", className)}>
+    <div className={cn("ws-page-header-scope relative isolate shrink-0 overflow-hidden border-b border-border bg-page-header px-4 pb-5 pt-5 lg:px-6", className)}>
+      <StackedPeaks className="absolute inset-x-0 bottom-0 -z-10 h-[78%] w-full opacity-85 lg:hidden" />
       {crumbs?.length ? (
         <nav aria-label="Breadcrumb" className="mb-3">
-          <ol className="flex flex-wrap items-center gap-1 text-[12px] text-fg-subtle">
+          <ol className="flex flex-wrap items-center gap-1 text-small text-fg-subtle">
             {crumbs.map((c, i) => (
               <li key={c.label} className="flex items-center gap-1">
                 {i > 0 ? <ChevronRight className="size-3" aria-hidden /> : null}
@@ -47,8 +52,8 @@ export function PageHeader({
       ) : null}
       <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div className="min-w-0">
-          <h1 className="text-xl font-semibold tracking-[-0.015em] text-fg md:text-[22px]">{title}</h1>
-          {description ? <p className="mt-1 max-w-2xl text-[13px] text-fg-muted">{description}</p> : null}
+          <h1 className="text-page font-semibold leading-7 tracking-[-0.015em] text-fg">{title}</h1>
+          {description ? <p className="mt-1 max-w-2xl text-body text-fg-muted">{description}</p> : null}
           {meta ? <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">{meta}</div> : null}
         </div>
         {actions ? <div className="flex shrink-0 flex-wrap items-center gap-2">{actions}</div> : null}

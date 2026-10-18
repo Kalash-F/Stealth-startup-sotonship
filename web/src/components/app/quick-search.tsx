@@ -5,14 +5,15 @@ import { useRouter } from "next/navigation";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { Building2, FileText, FolderSearch, Search } from "lucide-react";
 import { entities } from "@/data/reference";
-import { investigations } from "@/data/investigations";
+import type { Investigation } from "@/data/types";
+import { useCases } from "@/lib/live-cases";
 import { cn } from "@/lib/utils";
 
 type Result = { id: string; href: string; kind: "Case" | "Entity" | "Invoice"; title: string; meta: string };
 
-const index: Result[] = [
-  ...investigations.map((i) => ({ id: i.id, href: `/app/investigations/${i.id}`, kind: "Case" as const, title: i.title, meta: i.id })),
-  ...investigations.map((i) => ({
+const buildIndex = (cases: readonly Investigation[]): Result[] => [
+  ...cases.map((i) => ({ id: i.id, href: `/app/investigations/${i.id}`, kind: "Case" as const, title: i.title, meta: i.id })),
+  ...cases.map((i) => ({
     id: `inv-${i.invoice.invoice_id}`,
     href: `/app/investigations/${i.id}`,
     kind: "Invoice" as const,
@@ -29,12 +30,14 @@ export function QuickSearch({ open, onOpenChange }: { open: boolean; onOpenChang
   const router = useRouter();
   const [q, setQ] = React.useState("");
   const [active, setActive] = React.useState(0);
+  const cases = useCases();
+  const index = React.useMemo(() => buildIndex(cases), [cases]);
 
   const results = React.useMemo(() => {
     const term = q.trim().toLowerCase();
     if (!term) return index.filter((r) => r.kind === "Case").slice(0, 6);
     return index.filter((r) => `${r.title} ${r.meta}`.toLowerCase().includes(term)).slice(0, 8);
-  }, [q]);
+  }, [q, index]);
 
   React.useEffect(() => setActive(0), [q]);
   React.useEffect(() => {
@@ -49,8 +52,8 @@ export function QuickSearch({ open, onOpenChange }: { open: boolean; onOpenChang
   return (
     <DialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
       <DialogPrimitive.Portal>
-        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/50" />
-        <DialogPrimitive.Content className="theme-ink fixed left-1/2 top-[12vh] z-50 w-[calc(100vw-2rem)] max-w-xl -translate-x-1/2 overflow-hidden rounded-md border border-border bg-surface text-fg shadow-frame">
+        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-overlay" />
+        <DialogPrimitive.Content className="fixed left-1/2 top-[12vh] z-50 w-[calc(100vw-2rem)] max-w-xl -translate-x-1/2 overflow-hidden rounded-lg border border-border bg-surface text-fg shadow-frame">
           <DialogPrimitive.Title className="sr-only">Search the workspace</DialogPrimitive.Title>
           <DialogPrimitive.Description className="sr-only">Search cases, invoices and entities. Use arrow keys to move and Enter to open.</DialogPrimitive.Description>
           <div className="flex items-center gap-2 border-b border-border px-3">
@@ -72,13 +75,13 @@ export function QuickSearch({ open, onOpenChange }: { open: boolean; onOpenChang
               }}
               placeholder="Try “Orchard Gate”, “CASE-0142” or “copper”"
               aria-label="Search the workspace"
-              className="h-12 flex-1 bg-transparent text-sm text-fg outline-none placeholder:text-fg-subtle"
+              className="h-12 flex-1 bg-transparent text-body text-fg outline-none placeholder:text-fg-subtle"
             />
             <kbd className="rounded-xs border border-border px-1 font-mono text-[10px] text-fg-subtle">Esc</kbd>
           </div>
           <ul className="max-h-80 overflow-y-auto p-1" role="listbox" aria-label="Results">
             {results.length === 0 ? (
-              <li className="px-3 py-6 text-center text-sm text-fg-muted">No matches in the sample workspace.</li>
+              <li className="px-3 py-6 text-center text-body text-fg-muted">No matches in the sample workspace.</li>
             ) : (
               results.map((r, i) => {
                 const Icon = icon[r.kind];
@@ -91,10 +94,10 @@ export function QuickSearch({ open, onOpenChange }: { open: boolean; onOpenChang
                     >
                       <Icon className="size-4 shrink-0 text-fg-subtle" aria-hidden />
                       <span className="min-w-0 flex-1">
-                        <span className="block truncate text-[13px] text-fg">{r.title}</span>
-                        <span className="block truncate text-[11.5px] text-fg-subtle">{r.meta}</span>
+                        <span className="block truncate text-body text-fg">{r.title}</span>
+                        <span className="block truncate text-meta text-fg-subtle">{r.meta}</span>
                       </span>
-                      <span className="font-mono text-2xs uppercase text-fg-subtle">{r.kind}</span>
+                      <span className="font-mono text-meta capitalize text-fg-subtle">{r.kind}</span>
                     </button>
                   </li>
                 );

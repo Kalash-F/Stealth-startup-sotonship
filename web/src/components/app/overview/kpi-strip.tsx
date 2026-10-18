@@ -2,18 +2,17 @@
 
 import Link from "next/link";
 import { ArrowUpRight, Clock, FolderSearch, ShieldAlert } from "lucide-react";
-import { investigations } from "@/data/investigations";
 import { caseCounts } from "@/data/workspace";
 import { cn } from "@/lib/utils";
-import { useLiveVersion } from "@/lib/live-cases";
+import { useCases } from "@/lib/live-cases";
 
 /**
  * Four headline counts in one ruled strip. The open-cases tile also carries
  * the priority distribution, which answers "how much of the queue is urgent?".
  */
 export function KpiStrip() {
-  useLiveVersion();
-  const c = caseCounts();
+  const cases = useCases();
+  const c = caseCounts(cases);
   const segments = [
     { key: "review_now", label: "Review now", glyph: "▲", count: c.reviewNow, color: "var(--risk-high)" },
     { key: "review", label: "Review", glyph: "■", count: c.review, color: "var(--risk-review)" },
@@ -48,24 +47,24 @@ export function KpiStrip() {
   ];
 
   return (
-    <section aria-labelledby="kpi-heading" className="grid grid-cols-3 overflow-hidden rounded-md border border-border bg-surface xl:grid-cols-[1.6fr_1fr_1fr_1fr]">
+    <section data-slot="panel" aria-labelledby="kpi-heading" className="grid grid-cols-3 overflow-hidden rounded-md border border-border bg-surface xl:grid-cols-[1.6fr_1fr_1fr_1fr]">
       <h2 id="kpi-heading" className="sr-only">
         Case counts
       </h2>
       <div className="col-span-3 border-b border-border p-4 xl:col-span-1 xl:border-b-0 xl:border-r">
         <div className="flex items-center justify-between gap-3">
-          <p className="flex items-center gap-2 text-[12.5px] text-fg-muted">
+          <p className="flex items-center gap-2 text-small text-fg-muted">
             <FolderSearch className="size-3.5 text-fg-subtle" aria-hidden />
             Open cases
           </p>
-          <Link href="/app/investigations" className="text-[12px] text-fg-subtle hover:text-fg">
+          <Link href="/app/investigations" className="text-small text-fg-subtle hover:text-fg">
             View all
           </Link>
         </div>
         <p className="mt-2 flex items-baseline gap-2">
-          <span className="font-mono text-[28px] font-medium leading-none tabular text-fg">{c.open}</span>
-          <span className="text-[12px] text-fg-subtle">
-            of {investigations.length} in workspace · {c.closed} closed
+          <span className="font-mono text-display font-medium leading-none tabular text-fg">{c.open}</span>
+          <span className="text-small text-fg-subtle">
+            of {cases.length} in workspace · {c.closed} closed
           </span>
         </p>
         <div className="mt-3 flex h-2 gap-0.5" role="img" aria-label={segments.map((s) => `${s.label} ${s.count}`).join(", ")}>
@@ -73,7 +72,7 @@ export function KpiStrip() {
             s.count ? <span key={s.key} className="h-full first:rounded-l-xs last:rounded-r-xs" style={{ flex: s.count, background: s.color }} /> : null,
           )}
         </div>
-        <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[11.5px] text-fg-muted">
+        <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-meta text-fg-muted">
           {segments.map((s) => (
             <li key={s.key} className="inline-flex items-center gap-1.5">
               <span aria-hidden className="text-[9px]" style={{ color: s.color }}>
@@ -96,12 +95,12 @@ export function KpiStrip() {
               idx < tiles.length - 1 && "border-r",
             )}
           >
-            <p className="flex items-start gap-1.5 text-[12px] leading-tight text-fg-muted sm:items-center sm:gap-2 sm:text-[12.5px]">
+            <p className="flex items-start gap-1.5 text-small leading-tight text-fg-muted sm:items-center sm:gap-2">
               <Icon className={cn("size-3.5 shrink-0", t.tone)} aria-hidden />
               {t.label}
             </p>
-            <p className="mt-2 font-mono text-[28px] font-medium leading-none tabular text-fg">{t.value}</p>
-            <p className="mt-3 hidden text-[11.5px] text-fg-subtle group-hover:text-fg-muted sm:block">{t.note}</p>
+            <p className="mt-2 font-mono text-display font-medium leading-none tabular text-fg">{t.value}</p>
+            <p className="mt-3 hidden text-meta text-fg-subtle group-hover:text-fg-muted sm:block">{t.note}</p>
           </Link>
         );
       })}

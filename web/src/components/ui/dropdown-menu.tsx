@@ -33,7 +33,7 @@ export function DropdownMenuItem({
   return (
     <DropdownMenuPrimitive.Item
       className={cn(
-        "flex cursor-default select-none items-center gap-2 rounded-xs px-2 py-1.5 text-[13px] outline-none data-[highlighted]:bg-surface-2 [&_svg]:size-4 [&_svg]:text-fg-muted",
+        "flex cursor-default select-none items-center gap-2 rounded-xs px-2 py-1.5 text-body outline-none data-[highlighted]:bg-surface-2 [&_svg]:size-4 [&_svg]:text-fg-muted",
         className,
       )}
       {...props}
@@ -42,7 +42,7 @@ export function DropdownMenuItem({
 }
 
 export function DropdownMenuLabel({ className, ...props }: React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label>) {
-  return <DropdownMenuPrimitive.Label className={cn("px-2 py-1.5 text-xs text-fg-muted", className)} {...props} />;
+  return <DropdownMenuPrimitive.Label className={cn("px-2 py-1.5 text-small text-fg-muted", className)} {...props} />;
 }
 
 export function DropdownMenuSeparator({ className, ...props }: React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator>) {

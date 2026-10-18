@@ -263,14 +263,16 @@ class ReportLine(LineItem, EnrichedLine):
 # §4.7
 class Report(_Contract):
     """The final response: priority score (0-100) and band, a one-or-two-sentence summary of the
-    rest, flags worst-first, every line with its enrichment and band, processing time, and
-    warnings about anything skipped or degraded."""
+    rest, the invoice as extracted (parties, dates, ports, currency, stated total), flags
+    worst-first, every line with its enrichment and band, processing time, and warnings about
+    anything skipped or degraded."""
 
     invoice_id: str
     schema_version: str
     priority_score: float = Field(ge=0, le=100)
     priority_band: PriorityBand
     summary: str | None = Field(description="1-2 sentence overview; null = LLM call failed")
+    invoice: Invoice
     flags: list[Flag]
     lines: list[ReportLine]
     processing_ms: int = Field(ge=0)

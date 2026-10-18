@@ -4,6 +4,51 @@
   "priority_score": 80.0,
   "priority_band": "review_now",
   "summary": "Review now (score 80): the price of screws and bolts on line L1 is about 1,460 times the typical China to UK price, and the line value is far too high for 900 kg.",
+  "invoice": {
+    "invoice_id": "INV-2024-0001",
+    "invoice_date": "2024-03-14",
+    "seller": {
+      "name": "Harbourline Fasteners Co., Ltd. (synthetic)",
+      "address": "No. 88 Xinghai Industrial Park Road, Beilun District, Ningbo 315800, China",
+      "country": "CN",
+      "address_type": "commercial"
+    },
+    "buyer": {
+      "name": "Kestrel Supply Ltd (synthetic)",
+      "address": "Unit 4, Brookfield Industrial Estate, Leeds LS99 7ZZ, United Kingdom",
+      "country": "GB",
+      "address_type": "commercial"
+    },
+    "consignee": null,
+    "country_of_origin": "China",
+    "port_of_loading": "Ningbo, China",
+    "port_of_discharge": "Felixstowe, United Kingdom",
+    "incoterm": "FOB",
+    "currency": "USD",
+    "line_items": [
+      {
+        "line_id": "L1",
+        "description": "M6 x 30mm hex bolts, zinc plated",
+        "quantity": 100000.0,
+        "unit": "pcs",
+        "unit_price": 50.0,
+        "line_total": 5000000.0,
+        "extraction_confidence": 0.97
+      },
+      {
+        "line_id": "L2",
+        "description": "Stainless steel machine screws M4 x 12mm",
+        "quantity": 50000.0,
+        "unit": "pcs",
+        "unit_price": 0.02,
+        "line_total": 1000.0,
+        "extraction_confidence": 0.95
+      }
+    ],
+    "stated_total": 5001000.0,
+    "source_file": "INV-2024-0001.pdf",
+    "is_synthetic": true
+  },
   "flags": [
     {
       "flag_id": "F1",

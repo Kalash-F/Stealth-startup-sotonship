@@ -9,7 +9,7 @@ export interface TooltipRow {
 /** Tooltip body shared by every workspace chart. Text stays in ink tokens. */
 export function ChartTooltipBox({ title, rows, className }: { title: string; rows: TooltipRow[]; className?: string }) {
   return (
-    <div className={cn("min-w-40 rounded-sm border border-border-strong bg-surface-3 px-2.5 py-2 text-xs text-fg shadow-frame", className)}>
+    <div className={cn("min-w-40 rounded-sm border border-border-strong bg-surface-3 px-2.5 py-2 text-small text-fg shadow-frame", className)}>
       <p className="mb-1.5 font-medium">{title}</p>
       <dl className="grid grid-cols-[auto_1fr_auto] items-center gap-x-2 gap-y-1">
         {rows.map((r) => (
@@ -24,4 +24,4 @@ export function ChartTooltipBox({ title, rows, className }: { title: string; row
   );
 }
 
-export const axisTick = { fill: "var(--fg-subtle)", fontSize: 11, fontFamily: "var(--font-mono)" };
+export const axisTick = { fill: "var(--fg-subtle)", fontSize: 12, fontFamily: "var(--font-mono)" };
