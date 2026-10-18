@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { CaseStatusLabel, PriorityBadge } from "@/components/domain/status";
 import { Panel, PanelHeader } from "@/components/ui/panel";
@@ -6,9 +8,11 @@ import { attentionQueue } from "@/data/workspace";
 import { formatDateShort, formatMoneyCompact } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { analystById } from "@/data/reference";
+import { useLiveVersion } from "@/lib/live-cases";
 
 /** Open cases in the order an investigator should look at them. */
 export function AttentionQueue({ className }: { className?: string }) {
+  useLiveVersion();
   const rows = attentionQueue();
   return (
     <Panel className={cn("flex flex-col", className)}>

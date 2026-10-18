@@ -45,7 +45,7 @@ The backend function is bundled from `backend/` alone and Vercel caps its size, 
 
 ## Layout
 
-- `backend/tbml/schemas.py`: the data contracts (plan §4), `SCHEMA_VERSION = "1.0"`.
+- `backend/tbml/schemas.py`: the data contracts (plan §4), `SCHEMA_VERSION = "1.1"`.
 - `backend/tbml/{extract,classify,benchmark,rules,score}/`, `pipeline.py`, `api.py`: pipeline stages.
 - `backend/tbml/synthetic/`: synthetic invoice generator and HTML templates.
 - `data/synthetic/`: generated, labelled synthetic invoices (fictional companies, clearly marked synthetic).

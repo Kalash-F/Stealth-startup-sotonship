@@ -1,9 +1,11 @@
-"""One LLM client for the whole backend (classification, extraction, and later flag summaries).
+"""One LLM client for the whole backend (classification, extraction, report summaries).
 
 Provider order, read from the environment or the repo-root .env:
   1. OpenRouter  - OPENROUTER_API_KEY + OPENROUTER_MODEL (or LLM_MODEL)
   2. Anthropic   - ANTHROPIC_API_KEY + LLM_MODEL
   3. none        - callers fall back to their offline path (keyword classifier, layout parser)
+
+SUMMARY_MODEL optionally picks a smaller, faster model for the report summary only.
 
 Every client exposes:
   - complete(system, messages, max_tokens) -> reply text
@@ -120,7 +122,14 @@ class OpenRouterClient:
 
     provider = "openrouter"
 
-    def __init__(self, model: str, api_key: str, session: Any = None, retries: int = 2):
+    def __init__(
+        self,
+        model: str,
+        api_key: str,
+        session: Any = None,
+        retries: int = 2,
+        timeout: float = TIMEOUT_S,
+    ):
         if not model:
             raise LLMError("no OpenRouter model set (OPENROUTER_MODEL)")
         if not api_key:
@@ -129,6 +138,7 @@ class OpenRouterClient:
         self._key = api_key
         self._http = session or _UrllibSession()
         self._retries = retries
+        self._timeout = timeout
         self.messages = _MessagesShim(self)
         self.last_usage: dict[str, Any] = {}
 
@@ -159,7 +169,7 @@ class OpenRouterClient:
         for attempt in range(self._retries + 1):
             try:
                 resp = self._http.post(
-                    OPENROUTER_URL, json=payload, headers=headers, timeout=TIMEOUT_S
+                    OPENROUTER_URL, json=payload, headers=headers, timeout=self._timeout
                 )
             except OSError as exc:  # URLError, timeouts, connection resets (requests' errors too)
                 last = f"network error: {exc}"
@@ -256,6 +266,18 @@ def configured_client() -> OpenRouterClient | AnthropicClient | None:
     if an_key and an_model:
         return AnthropicClient(an_model, an_key)
     return None
+
+
+def summary_client(timeout: float = 10) -> OpenRouterClient | AnthropicClient | None:
+    """Like configured_client(), but with SUMMARY_MODEL when set, a short timeout and no retries:
+    the summary is optional and must not hold the report back."""
+    client = configured_client()
+    model = os.environ.get("SUMMARY_MODEL")
+    if isinstance(client, OpenRouterClient):
+        return OpenRouterClient(model or client.model, client._key, retries=0, timeout=timeout)
+    if client and model:
+        client.model = model
+    return client
 
 
 def describe_provider() -> str:

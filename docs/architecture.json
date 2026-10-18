@@ -1,0 +1,386 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "TBML Invoice Checker",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1260,
+      640
+    ],
+    "repository": {
+      "url": "https://github.com/Kalash-F/Stealth-startup-sotonship",
+      "provider": "github",
+      "revision": "3aff1e45397152e06f28b1224f23027af9838cf9"
+    }
+  },
+  "components": [
+    {
+      "id": "web",
+      "type": "frontend",
+      "label": "Web app",
+      "sublabel": "Next.js · checker UI",
+      "pos": [
+        30,
+        300
+      ],
+      "size": [
+        120,
+        64
+      ],
+      "sources": [
+        {
+          "path": "web/src/lib/api.ts",
+          "label": "API client"
+        }
+      ]
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "FastAPI",
+      "sublabel": "tbml.api under /api",
+      "pos": [
+        270,
+        300
+      ],
+      "size": [
+        120,
+        64
+      ],
+      "sources": [
+        {
+          "path": "backend/tbml/api.py"
+        },
+        {
+          "path": "backend/tbml/asgi.py"
+        }
+      ]
+    },
+    {
+      "id": "extract",
+      "type": "backend",
+      "label": "Extract",
+      "sublabel": "PDF → Invoice",
+      "pos": [
+        450,
+        300
+      ],
+      "size": [
+        120,
+        64
+      ],
+      "sources": [
+        {
+          "path": "backend/tbml/extract/__init__.py"
+        }
+      ]
+    },
+    {
+      "id": "classify",
+      "type": "backend",
+      "label": "Classify",
+      "sublabel": "HS6 + normalise",
+      "pos": [
+        610,
+        300
+      ],
+      "size": [
+        120,
+        64
+      ],
+      "sources": [
+        {
+          "path": "backend/tbml/classify/__init__.py"
+        }
+      ]
+    },
+    {
+      "id": "benchmark",
+      "type": "backend",
+      "label": "Benchmark",
+      "sublabel": "price band / line",
+      "pos": [
+        770,
+        300
+      ],
+      "size": [
+        120,
+        64
+      ],
+      "sources": [
+        {
+          "path": "backend/tbml/benchmark/__init__.py"
+        }
+      ]
+    },
+    {
+      "id": "rules",
+      "type": "backend",
+      "label": "Rules R1–R8",
+      "sublabel": "red flags",
+      "pos": [
+        930,
+        300
+      ],
+      "size": [
+        120,
+        64
+      ],
+      "sources": [
+        {
+          "path": "backend/tbml/rules/__init__.py"
+        }
+      ]
+    },
+    {
+      "id": "score",
+      "type": "backend",
+      "label": "Score",
+      "sublabel": "priority band",
+      "pos": [
+        1090,
+        300
+      ],
+      "size": [
+        120,
+        64
+      ],
+      "sources": [
+        {
+          "path": "backend/tbml/score/__init__.py"
+        }
+      ]
+    },
+    {
+      "id": "llm",
+      "type": "external",
+      "label": "OpenRouter LLM",
+      "sublabel": "Anthropic fallback",
+      "pos": [
+        530,
+        100
+      ],
+      "size": [
+        120,
+        64
+      ],
+      "tag": "offline if unset",
+      "sources": [
+        {
+          "path": "backend/tbml/llm.py"
+        }
+      ]
+    },
+    {
+      "id": "cache",
+      "type": "database",
+      "label": "LLM cache",
+      "sublabel": "data/cache",
+      "pos": [
+        450,
+        500
+      ],
+      "size": [
+        120,
+        64
+      ],
+      "sources": [
+        {
+          "path": "backend/tbml/extract/llm.py"
+        }
+      ]
+    },
+    {
+      "id": "bands",
+      "type": "database",
+      "label": "Band table",
+      "sublabel": "bands(_mock).json",
+      "pos": [
+        770,
+        500
+      ],
+      "size": [
+        120,
+        64
+      ],
+      "sources": [
+        {
+          "path": "data/benchmarks/bands_mock.json"
+        }
+      ]
+    },
+    {
+      "id": "config",
+      "type": "database",
+      "label": "config.yaml",
+      "sublabel": "thresholds, weights",
+      "pos": [
+        930,
+        500
+      ],
+      "size": [
+        120,
+        64
+      ],
+      "sources": [
+        {
+          "path": "backend/tbml/rules/config.yaml"
+        }
+      ]
+    },
+    {
+      "id": "reports",
+      "type": "database",
+      "label": "Report store",
+      "sublabel": "data/reports or /tmp",
+      "pos": [
+        270,
+        500
+      ],
+      "size": [
+        120,
+        64
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "pipeline.check()",
+      "wraps": [
+        "extract",
+        "classify",
+        "benchmark",
+        "rules",
+        "score"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "web-check",
+      "from": "web",
+      "to": "api",
+      "label": "POST /api/check",
+      "variant": "emphasis"
+    },
+    {
+      "id": "api-run",
+      "from": "api",
+      "to": "extract",
+      "variant": "emphasis"
+    },
+    {
+      "id": "extract-classify",
+      "from": "extract",
+      "to": "classify",
+      "variant": "emphasis"
+    },
+    {
+      "id": "classify-benchmark",
+      "from": "classify",
+      "to": "benchmark",
+      "variant": "emphasis"
+    },
+    {
+      "id": "benchmark-rules",
+      "from": "benchmark",
+      "to": "rules",
+      "variant": "emphasis"
+    },
+    {
+      "id": "rules-score",
+      "from": "rules",
+      "to": "score",
+      "variant": "emphasis"
+    },
+    {
+      "id": "extract-llm",
+      "from": "extract",
+      "to": "llm",
+      "label": "structure",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "classify-llm",
+      "from": "classify",
+      "to": "llm",
+      "label": "propose HS6",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "extract-cache",
+      "from": "extract",
+      "to": "cache",
+      "label": "file hash",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        510,
+        432
+      ]
+    },
+    {
+      "id": "benchmark-bands",
+      "from": "benchmark",
+      "to": "bands",
+      "label": "(hs6, route)",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        830,
+        432
+      ]
+    },
+    {
+      "id": "rules-config",
+      "from": "rules",
+      "to": "config",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "api-reports",
+      "from": "api",
+      "to": "reports",
+      "label": "save Report",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        330,
+        432
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Deploy",
+      "items": [
+        "One Vercel project: /api/* → backend, rest → Next.js",
+        "Read-only bundle: caches and reports move to the temp dir"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Graceful fallback",
+      "items": [
+        "No LLM key: keyword classifier and layout parser",
+        "No bands.json: bands_mock.json, flagged is_mock"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Output",
+      "items": [
+        "Report: priority score + band, flags, lines, warnings",
+        "A review priority with reasons, never a fraud verdict"
+      ]
+    }
+  ]
+}

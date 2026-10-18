@@ -7,6 +7,7 @@ import { CorridorChart } from "@/components/app/overview/corridor-chart";
 import { FeaturedCase } from "@/components/app/overview/featured-case";
 import { FlagsByRuleChart } from "@/components/app/overview/flags-by-rule-chart";
 import { KpiStrip } from "@/components/app/overview/kpi-strip";
+import { CheckerClient } from "@/components/checker/checker-client";
 import { ScreeningChart } from "@/components/app/overview/screening-chart";
 import { SyntheticBadge } from "@/components/domain/synthetic-badge";
 import { Button } from "@/components/ui/button";
@@ -42,6 +43,7 @@ export default function OverviewPage() {
           <AttentionQueue />
           <FeaturedCase />
         </div>
+        <CheckerClient />
         <div className="grid gap-4 lg:grid-cols-12 [&>*]:min-w-0">
           <ScreeningChart className="lg:col-span-7" />
           <ActivityFeed className="lg:col-span-5" />
