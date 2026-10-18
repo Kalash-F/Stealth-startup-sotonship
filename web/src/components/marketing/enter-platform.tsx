@@ -4,7 +4,7 @@ import { TransactionsTab } from "@/components/app/case/transactions-tab";
 import { AttentionQueue } from "@/components/app/overview/attention-queue";
 import { KpiStrip } from "@/components/app/overview/kpi-strip";
 import { FlagList } from "@/components/domain/flag-list";
-import { CaseStatusLabel, PriorityBadge, PriorityScore } from "@/components/domain/status";
+import { CaseStatusLabel, PriorityScore } from "@/components/domain/status";
 import { Button } from "@/components/ui/button";
 import { investigationById } from "@/data/investigations";
 import { workspace } from "@/data/workspace";
@@ -84,7 +84,6 @@ export function EnterPlatform() {
                     <p className="font-mono text-xs text-fg-subtle">{inv.route}</p>
                     <p className="mt-1 text-[16px] font-semibold leading-snug tracking-tight">{inv.title}</p>
                     <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1">
-                      <PriorityBadge band={inv.priority_band} />
                       <CaseStatusLabel status={inv.status} />
                     </div>
                   </div>

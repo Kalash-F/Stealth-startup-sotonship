@@ -77,6 +77,11 @@ export interface Benchmark {
   sources: string[];
   /** True for illustrative bands (all the seeded cases); false for bands built from real trade data. */
   is_mock: boolean;
+  /** The tails, present on bands from the benchmark databases (checked invoices), absent on the seeded ones. */
+  p1?: number | null;
+  p5?: number | null;
+  p95?: number | null;
+  p99?: number | null;
 }
 
 export type RuleId =

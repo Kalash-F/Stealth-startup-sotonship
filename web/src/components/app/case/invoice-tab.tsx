@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { AlertTriangle, Check, Home } from "lucide-react";
-import { PriceBandBar } from "@/components/domain/price-band-bar";
+import { PriceBandBar, PriceBandLegend, unitLabel } from "@/components/domain/price-band-bar";
 import { SeverityTag } from "@/components/domain/status";
 import { SyntheticBadge } from "@/components/domain/synthetic-badge";
 import { Badge } from "@/components/ui/badge";
@@ -8,7 +8,7 @@ import { Panel, PanelBody, PanelHeader } from "@/components/ui/panel";
 import { countries, rules } from "@/data/reference";
 import { invoiceArithmetic, lineArithmetic, lineVariance } from "@/data/selectors";
 import type { Investigation, Party, RuleId } from "@/data/types";
-import { formatDate, formatMoney, formatNumber, formatVariance } from "@/lib/format";
+import { formatDate, formatMoney, formatNumber } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
 function PartyBlock({ role, party, flagged }: { role: string; party: Party | null; flagged?: boolean }) {
@@ -103,6 +103,9 @@ export function InvoiceTab({ inv }: { inv: Investigation }) {
           }
           actions={realBands ? undefined : <SyntheticBadge label="Illustrative synthetic band" />}
         />
+        {i.line_items.some((l) => l.benchmark || l.hs6) ? (
+          <PriceBandLegend tails={i.line_items.some((l) => l.benchmark?.p1 != null)} className="border-b border-border px-4 py-2.5" />
+        ) : null}
         <ol className="divide-y divide-border">
           {i.line_items.map((l) => {
             const v = lineVariance(l);
@@ -144,18 +147,13 @@ export function InvoiceTab({ inv }: { inv: Investigation }) {
                 </div>
 
                 {v ? (
-                  <div className="grid gap-2 rounded-sm border border-border bg-surface-2/40 p-3 md:grid-cols-[minmax(0,1fr)_150px] md:items-center md:gap-5">
+                  <div className="rounded-sm border border-border bg-surface-2/40 p-3">
                     <PriceBandBar benchmark={v.benchmark} stated={l.unit_price_usd!} />
-                    <div className="text-left md:text-right">
-                      <p className="text-meta text-fg-subtle">vs {v.benchmark.is_mock ? "illustrative " : ""}median</p>
-                      <p className={cn("font-mono text-title tabular", v.outside ? "text-risk-high" : "text-risk-low")}>
-                        {formatVariance(v.pct)}
+                    {l.unit_price_usd !== l.unit_price ? (
+                      <p className="mt-1 text-small text-fg-subtle">
+                        Converted from the invoice&apos;s price per {l.unit.replace(/s$/, "")} to a price per {unitLabel(v.benchmark.unit)}.
                       </p>
-                      <p className="text-meta text-fg-subtle">
-                        {v.outside ? "▲ Outside p10–p90" : "● Within p10–p90"} · per {v.benchmark.unit}
-                        {l.unit_price_usd !== l.unit_price ? `, converted from per ${l.unit.replace(/s$/, "")}` : ""}
-                      </p>
-                    </div>
+                    ) : null}
                   </div>
                 ) : (
                   <p className="rounded-sm border border-dashed border-border px-3 py-2 text-small text-fg-muted">

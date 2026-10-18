@@ -5,7 +5,7 @@ import { ScreeningChart } from "@/components/app/overview/screening-chart";
 import { InvoiceTab } from "@/components/app/case/invoice-tab";
 import { SummaryTab } from "@/components/app/case/summary-tab";
 import { TransactionsTab } from "@/components/app/case/transactions-tab";
-import { CaseStatusLabel, PriorityBadge, PriorityScore } from "@/components/domain/status";
+import { CaseStatusLabel, PriorityScore } from "@/components/domain/status";
 import { investigationById } from "@/data/investigations";
 import { workspace } from "@/data/workspace";
 import { Container, SectionIndex, displayClass } from "./primitives";
@@ -22,7 +22,6 @@ function CaseHeader() {
         </p>
         <h3 className="mt-1 text-[20px] font-semibold tracking-tight">{inv.title}</h3>
         <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1">
-          <PriorityBadge band={inv.priority_band} />
           <CaseStatusLabel status={inv.status} />
         </div>
       </div>

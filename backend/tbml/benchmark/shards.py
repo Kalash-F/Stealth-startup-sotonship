@@ -121,6 +121,20 @@ def supp_unit(cn8: str) -> str | None:
     return row["supp_unit"] if row else None
 
 
+@lru_cache(maxsize=4096)
+def cn8_codes(hs6: str) -> tuple[tuple[str, str], ...]:
+    """The CN8 codes HMRC lists under an HS6, with their descriptions, from `commodities`.
+    One code means the HS6 has no 8-digit subdivision, so the CN8 follows from the HS6."""
+    path = shard_path(hs6)
+    if path is None:
+        return ()
+    with closing(_connect(path)) as conn:
+        rows = conn.execute(
+            "SELECT cn8, description FROM commodities WHERE hs6 = ? ORDER BY cn8", (hs6,)
+        ).fetchall()
+    return tuple((r["cn8"], r["description"] or "") for r in rows)
+
+
 @lru_cache(maxsize=1)
 def build_info() -> dict[str, str]:
     """The `build_info` table (replicated in every shard): window, latest full year, counts."""
@@ -138,6 +152,7 @@ __all__ = [
     "Row",
     "available",
     "build_info",
+    "cn8_codes",
     "series",
     "shard_count",
     "shard_name",

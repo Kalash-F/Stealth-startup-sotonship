@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Panel, PanelHeader } from "@/components/ui/panel";
 import { FlagList } from "@/components/domain/flag-list";
 import { PriceBandBar } from "@/components/domain/price-band-bar";
-import { PriorityBadge, PriorityScore } from "@/components/domain/status";
+import { PriorityScore } from "@/components/domain/status";
 import { SyntheticBadge } from "@/components/domain/synthetic-badge";
 import type { Flag } from "@/data/types";
 import {
@@ -276,7 +276,6 @@ function ReportView({ report, source, busy, caseId }: { report: Report; source: 
             <p className="text-small text-fg-subtle">Checked {source}</p>
             <h2 className="text-title font-semibold tracking-tight text-fg">Invoice {report.invoice_id}</h2>
             <div className="flex flex-wrap items-center gap-2">
-              <PriorityBadge band={report.priority_band} />
               <span className="text-small text-fg-subtle">
                 {report.flags.length} flag{report.flags.length === 1 ? "" : "s"}, in {(report.processing_ms / 1000).toFixed(1)} s
               </span>

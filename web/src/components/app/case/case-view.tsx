@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { PageHeader } from "@/components/app/page-header";
-import { CaseStatusLabel, PriorityBadge, PriorityScore } from "@/components/domain/status";
+import { CaseStatusLabel, PriorityScore } from "@/components/domain/status";
 import { SyntheticBadge } from "@/components/domain/synthetic-badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { analystById, demoUserId } from "@/data/reference";
@@ -103,15 +103,16 @@ export function CaseView({ id }: { id: string }) {
           <>
             <span className="font-mono text-body text-fg">{inv.id}</span>
             <CaseStatusLabel status={status} />
-            <PriorityBadge band={inv.priority_band} />
             <SyntheticBadge />
           </>
         }
         actions={
-          <div data-slot="panel" className="flex items-center gap-3 rounded-md border border-border bg-surface px-3 py-2">
+          <div data-slot="panel" className="flex items-center gap-4 rounded-md border border-border bg-surface px-3 py-2">
             <div>
               <p className="eyebrow">Priority</p>
-              <p className="text-small text-fg-muted">{inv.flags.length} flags, see Summary</p>
+              <p className="text-small text-fg-muted">
+                {inv.flags.length} {inv.flags.length === 1 ? "flag" : "flags"}, see Summary
+              </p>
             </div>
             <PriorityScore band={inv.priority_band} score={inv.priority_score} />
           </div>
