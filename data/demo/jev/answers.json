@@ -1,0 +1,44 @@
+[
+  {
+    "invoice_id": "JEV-DEMO-01",
+    "description": "MBP 14 M3 16/512 SG",
+    "expected_hs6": "847130",
+    "tests": "brand abbreviation (MacBook Pro)"
+  },
+  {
+    "invoice_id": "JEV-DEMO-02",
+    "description": "HHB M10 x 50 8.8 ZP",
+    "expected_hs6": "731815",
+    "tests": "jargon (zinc-plated hex bolt)"
+  },
+  {
+    "invoice_id": "JEV-DEMO-03",
+    "description": "SanDisk Ultra Flair 64GB USB 3.0 flash drive",
+    "expected_hs6": "852351",
+    "tests": "brand name"
+  },
+  {
+    "invoice_id": "JEV-DEMO-04",
+    "description": "Arabica green coffee beans, Grade 2, 60kg jute bags",
+    "expected_hs6": "090111",
+    "tests": "plain wording"
+  },
+  {
+    "invoice_id": "JEV-DEMO-05",
+    "description": "Cu cathode Grade A, LME registered",
+    "expected_hs6": "740311",
+    "tests": "chemical symbol (refined copper)"
+  },
+  {
+    "invoice_id": "JEV-DEMO-06",
+    "description": "Men's crew-neck tee, 100% combed cotton 180gsm",
+    "expected_hs6": "610910",
+    "tests": "planted ~3x over-price: PRICE_OUTLIER expected once classified"
+  },
+  {
+    "invoice_id": "JEV-DEMO-07",
+    "description": "Spare parts as per PO 4471",
+    "expected_hs6": null,
+    "tests": "vague: should stay unclassified"
+  }
+]

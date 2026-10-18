@@ -1,0 +1,62 @@
+{
+  "invoice_id": "JEV-DEMO-02",
+  "schema_version": "1.1",
+  "priority_score": 0.0,
+  "priority_band": "low",
+  "summary": "This is a low-priority review. No flags were raised, and all one line items were classified.",
+  "flags": [],
+  "lines": [
+    {
+      "line_id": "L1",
+      "hs6": "731815",
+      "hs6_description": "Other screws and bolts, whether or not with their nuts or washers",
+      "hs6_candidates": [
+        {
+          "hs6": "731815",
+          "score": 0.7925
+        },
+        {
+          "hs6": "731819",
+          "score": 0.4228
+        },
+        {
+          "hs6": "731811",
+          "score": 0.2932
+        }
+      ],
+      "classification_confidence": 0.7925,
+      "normalised_quantity": 1800.0,
+      "benchmark_unit": "kg",
+      "unit_price_usd": 3.555556,
+      "normalisation_note": "HS path: read as \"A zinc-plated steel hex head bolt, 10mm in diameter and 50mm long, for fastenin\u2026\" > 73 Iron or steel articles (0.63) > 7318 Screws, bolts, nuts, coach screws, screw hooks, rivets, cot\u2026 (1.00) > 731815 Iron or steel; threaded screws and bolts n.e.c. in item no.\u2026 (0.79); 20,000 PCS x 0.09 kg/PCS (1 pcs = 1 pc; 1 pc = 0.09 kg (unit_weights.csv)) = 1,800 kg; invoice in USD so no FX; 0.32 USD/PCS -> 3.55556 USD/kg.",
+      "description": "HHB M10 X 50 8.8 ZP",
+      "quantity": 20000.0,
+      "unit": "PCS",
+      "unit_price": 0.32,
+      "line_total": 6400.0,
+      "extraction_confidence": 1.0,
+      "benchmark": {
+        "hs6": "731815",
+        "route": "CN-GB",
+        "unit": "kg",
+        "p10": 1.5108339234,
+        "p25": 2.1594402833,
+        "median": 4.0152804641,
+        "p75": 13.7574734968,
+        "p90": 41.9792305964,
+        "n_observations": 2310,
+        "years": [
+          2023,
+          2024,
+          2025
+        ],
+        "sources": [
+          "HMRC OTS"
+        ],
+        "is_mock": false
+      }
+    }
+  ],
+  "processing_ms": 669,
+  "warnings": []
+}

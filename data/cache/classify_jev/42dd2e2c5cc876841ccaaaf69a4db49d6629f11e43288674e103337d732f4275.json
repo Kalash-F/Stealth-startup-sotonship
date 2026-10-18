@@ -1,0 +1,21 @@
+{
+  "state": {
+    "invoice_line": "Energy drink 250ml cans, original flavour",
+    "what_it_is": "An energy drink in 250 milliliter cans, original flavor, made of liquid beverage, a finished product for human consumption.",
+    "classified_so_far": "chapter 22: Beverages, spirits and vinegar"
+  },
+  "parent": "22",
+  "probabilities": {
+    "2201": 0.0,
+    "2202": 0.98,
+    "2203": 0.0,
+    "2204": 0.0,
+    "2205": 0.0,
+    "2206": 0.0,
+    "2207": 0.0,
+    "2208": 0.0,
+    "2209": 0.0,
+    "none": 0.02
+  },
+  "confidence": 0.98
+}

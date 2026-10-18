@@ -1,0 +1,58 @@
+{
+  "invoice_id": "JEV-DEMO-04",
+  "schema_version": "1.1",
+  "priority_score": 0.0,
+  "priority_band": "low",
+  "summary": "This is a low priority review. No flags were raised. All 1 line item was classified.",
+  "flags": [],
+  "lines": [
+    {
+      "line_id": "L1",
+      "hs6": "090111",
+      "hs6_description": "Coffee, not roasted, not decaffeinated",
+      "hs6_candidates": [
+        {
+          "hs6": "090111",
+          "score": 0.9933
+        },
+        {
+          "hs6": "090112",
+          "score": 0.2714
+        }
+      ],
+      "classification_confidence": 0.9933,
+      "normalised_quantity": 19200.0,
+      "benchmark_unit": "kg",
+      "unit_price_usd": 7.0,
+      "normalisation_note": "HS path: read as \"Unroasted Arabica coffee beans, of grade 2 quality, packaged in 60-kilogram jut\u2026\" > 09 Coffee, tea, mate and spices (1.00) > 0901 Coffee, whether or not roasted or decaffeinated; husks and\u2026 (1.00) > 090111 Coffee; not roasted or decaffeinated (0.98); 320 BAGS x 60 kg/BAGS (1 bags = 60 kg (from description)) = 19,200 kg; invoice in USD so no FX; 420 USD/BAGS -> 7 USD/kg.",
+      "description": "ARABICA GREEN COFFEE BEANS, GRADE 2, 60KG JUTE BAGS",
+      "quantity": 320.0,
+      "unit": "BAGS",
+      "unit_price": 420.0,
+      "line_total": 134400.0,
+      "extraction_confidence": 1.0,
+      "benchmark": {
+        "hs6": "090111",
+        "route": "CN-GB",
+        "unit": "kg",
+        "p10": 4.4944977694,
+        "p25": 5.0032254453,
+        "median": 7.1480032342,
+        "p75": 10.9624501377,
+        "p90": 20.8608568818,
+        "n_observations": 37,
+        "years": [
+          2023,
+          2024,
+          2025
+        ],
+        "sources": [
+          "HMRC OTS"
+        ],
+        "is_mock": false
+      }
+    }
+  ],
+  "processing_ms": 1121,
+  "warnings": []
+}

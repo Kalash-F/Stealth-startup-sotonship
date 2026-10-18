@@ -1,0 +1,23 @@
+{
+  "state": {
+    "invoice_line": "M6 X 30MM HEX BOLTS, ZINC PLATED",
+    "what_it_is": "A zinc-plated steel hex head bolt, 6mm in diameter and 30mm long, used as a fastener.",
+    "classified_so_far": "chapter 83: Metal; miscellaneous products of base metal"
+  },
+  "parent": "83",
+  "probabilities": {
+    "8301": 0.0,
+    "8302": 0.01,
+    "8303": 0.0,
+    "8304": 0.0,
+    "8305": 0.0,
+    "8306": 0.0,
+    "8307": 0.0,
+    "8308": 0.05,
+    "8309": 0.01,
+    "8310": 0.0,
+    "8311": 0.0,
+    "none": 0.93
+  },
+  "confidence": 0.92
+}

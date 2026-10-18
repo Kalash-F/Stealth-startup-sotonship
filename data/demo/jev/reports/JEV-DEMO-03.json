@@ -1,0 +1,62 @@
+{
+  "invoice_id": "JEV-DEMO-03",
+  "schema_version": "1.1",
+  "priority_score": 0.0,
+  "priority_band": "low",
+  "summary": "This is a low-priority review. No flags were raised, and all one line items were classified.",
+  "flags": [],
+  "lines": [
+    {
+      "line_id": "L1",
+      "hs6": "852351",
+      "hs6_description": "Solid-state non-volatile storage devices",
+      "hs6_candidates": [
+        {
+          "hs6": "852351",
+          "score": 0.774
+        },
+        {
+          "hs6": "852359",
+          "score": 0.7208
+        },
+        {
+          "hs6": "852311",
+          "score": 0.2613
+        }
+      ],
+      "classification_confidence": 0.774,
+      "normalised_quantity": 1500.0,
+      "benchmark_unit": "u",
+      "unit_price_usd": 6.2,
+      "normalisation_note": "HS path: read as \"A SanDisk Ultra Flair 64 gigabyte USB 3.0 flash drive, which is a finished elec\u2026\" > 85 Electrical machinery and equipment and parts thereof; sound\u2026 (0.91) > 8523 Discs, tapes, solid-state non-volatile storage devices, sma\u2026 (0.98) > 852351 Semiconductor media; solid-state non-volatile storage devic\u2026 (0.52); 1,500 PCS x 1 u/PCS (1 pcs = 1 u) = 1,500 u; invoice in USD so no FX; 6.2 USD/PCS -> 6.2 USD/u.",
+      "description": "SANDISK ULTRA FLAIR 64GB USB 3.0 FLASH DRIVE",
+      "quantity": 1500.0,
+      "unit": "PCS",
+      "unit_price": 6.2,
+      "line_total": 9300.0,
+      "extraction_confidence": 1.0,
+      "benchmark": {
+        "hs6": "852351",
+        "route": "CN-GB",
+        "unit": "u",
+        "p10": 2.8496725649,
+        "p25": 4.7257675261,
+        "median": 9.0819192754,
+        "p75": 17.16609,
+        "p90": 44.3220607439,
+        "n_observations": 493,
+        "years": [
+          2023,
+          2024,
+          2025
+        ],
+        "sources": [
+          "HMRC OTS"
+        ],
+        "is_mock": false
+      }
+    }
+  ],
+  "processing_ms": 761,
+  "warnings": []
+}

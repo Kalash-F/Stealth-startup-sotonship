@@ -1,0 +1,94 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Unit 7, Kingsway Business Park, Manchester M19 1BB, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Harbourline Distribution UK Ltd"
+    },
+    "consignee": null,
+    "country_of_origin": "P.R. China",
+    "currency": "USD",
+    "incoterm": "FOB",
+    "invoice_date": "2026-10-01",
+    "invoice_id": "JEV-TEST-0001",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "MBP 14 M3 16/512 SG",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 47200.0,
+        "quantity": 40,
+        "unit": "PCS",
+        "unit_price": 1180.0
+      },
+      {
+        "description": "HHB M10 X 50 8.8 ZP",
+        "extraction_confidence": 1.0,
+        "line_id": "L2",
+        "line_total": 6400.0,
+        "quantity": 20000,
+        "unit": "PCS",
+        "unit_price": 0.32
+      },
+      {
+        "description": "SANDISK ULTRA FLAIR 64GB USB 3.0 FLASH DRIVE",
+        "extraction_confidence": 1.0,
+        "line_id": "L3",
+        "line_total": 9300.0,
+        "quantity": 1500,
+        "unit": "PCS",
+        "unit_price": 6.2
+      },
+      {
+        "description": "ARABICA GREEN COFFEE BEANS, GRADE 2, 60KG JUTE BAGS",
+        "extraction_confidence": 1.0,
+        "line_id": "L4",
+        "line_total": 134400.0,
+        "quantity": 320,
+        "unit": "BAGS",
+        "unit_price": 420.0
+      },
+      {
+        "description": "CU CATHODE GRADE A, LME REGISTERED",
+        "extraction_confidence": 1.0,
+        "line_id": "L5",
+        "line_total": 235000.0,
+        "quantity": 25,
+        "unit": "MT",
+        "unit_price": 9400.0
+      },
+      {
+        "description": "MEN'S CREW-NECK TEE, 100% COMBED COTTON 180GSM",
+        "extraction_confidence": 1.0,
+        "line_id": "L6",
+        "line_total": 190000.0,
+        "quantity": 5000,
+        "unit": "PCS",
+        "unit_price": 38.0
+      },
+      {
+        "description": "SPARE PARTS AS PER PO 4471",
+        "extraction_confidence": 1.0,
+        "line_id": "L7",
+        "line_total": 2500.0,
+        "quantity": 1,
+        "unit": "LOT",
+        "unit_price": 2500.0
+      }
+    ],
+    "port_of_discharge": "Felixstowe, United Kingdom",
+    "port_of_loading": "Shenzhen (Yantian), China",
+    "seller": {
+      "address": "Room 1208, Block B, Tianan Cyber Park, Futian District, Shenzhen 518040, China",
+      "address_type": "commercial",
+      "country": "CN",
+      "name": "Shenzhen Brightpath Trading Co., Ltd."
+    },
+    "source_file": "",
+    "stated_total": 624800.0
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

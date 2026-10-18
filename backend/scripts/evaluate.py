@@ -5,6 +5,8 @@ names, near-miss goods, vague filler) with the correct HS6. Each method classifi
   keyword       offline baseline (keyword lists in hs6.csv)
   flat          one LLM call straight to HS6
   hierarchical  three LLM calls: chapter -> heading -> HS6, each from the real HS list
+  jev           Jev (decision model) picks chapter -> heading -> HS6, beam search K=3; the chat
+                model, when configured, only reads the line first (see tbml/classify/jev.py)
 Scored on: exact HS6 accuracy on real goods, vague lines correctly left unclassified, and
 "confidently wrong" answers (a code given that is not the right one: the costly mistake).
 LLM methods use the configured provider (tbml/llm.py) and its caches; if the provider cannot be
@@ -40,6 +42,7 @@ sys.path.insert(0, str(ROOT / "backend"))
 from tbml import llm  # noqa: E402
 from tbml.classify import classify_description  # noqa: E402
 from tbml.classify.hierarchical import HierarchicalProposer  # noqa: E402
+from tbml.classify.jev import JevProposer  # noqa: E402
 from tbml.classify.placeholder import is_placeholder  # noqa: E402
 from tbml.classify.proposers import CachedProposer, KeywordProposer, LLMProposer  # noqa: E402
 from tbml.paths import SYNTHETIC_DIR  # noqa: E402
@@ -108,6 +111,9 @@ def part_a() -> dict:
         tag = f"{client.provider}:{client.model}"
         methods["flat"] = CachedProposer(LLMProposer(client=client), model=tag)
         methods["hierarchical"] = HierarchicalProposer(client=client)
+    jev = llm.jev_client()
+    if jev is not None:  # Jev needs only the OpenRouter key; the chat model is optional
+        methods["jev"] = JevProposer(jev=jev, chat=client)
 
     results = {}
     for name, proposer in methods.items():
@@ -159,6 +165,11 @@ def part_a() -> dict:
             "confidently_wrong": wrong_confident,
             "accuracy_by_kind": {k: f"{v[0]}/{v[1]}" for k, v in sorted(per_kind.items())},
             "lines": lines,
+            **(
+                {"model": proposer.jev.model, "cost_usd": round(proposer.jev.spent_usd, 6)}
+                if isinstance(proposer, JevProposer)
+                else {}
+            ),
         }
     return {"provider": note, "live": live, "n_lines": len(rows), "methods": results}
 
@@ -284,6 +295,9 @@ def to_markdown(a: dict | None, b: dict | None) -> str:
                 f"| {name} | {m['goods_correct']}/{m['goods_total']} ({_pct(m['goods_accuracy'])}){note} "
                 f"| {m['vague_left_unclassified']}/{m['vague_total']} | {m['confidently_wrong']} |"
             )
+        jev = a["methods"].get("jev")
+        if jev and jev["ran"]:
+            out += ["", f"jev: {jev['model']}, ${jev['cost_usd']:.6f} on uncached calls this run."]
         out += [
             "",
             "Accuracy by kind of wording:",

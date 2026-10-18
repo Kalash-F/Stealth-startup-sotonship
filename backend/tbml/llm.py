@@ -7,6 +7,11 @@ Provider order, read from the environment or the repo-root .env:
 
 SUMMARY_MODEL optionally picks a smaller, faster model for the report summary only.
 
+Jev (TypeSafe's decision model, used for HS classification) is NOT a chat model: it answers typed
+questions with probabilities on OpenRouter's Decisions API. It has its own client (JevClient), its
+own env var (JEV_MODEL) and shares only the OpenRouter key. A Jev id in OPENROUTER_MODEL, LLM_MODEL
+or SUMMARY_MODEL is ignored with a warning, so chat calls can never be sent to it.
+
 Every client exposes:
   - complete(system, messages, max_tokens) -> reply text
   - messages.create(model=, system=, messages=, max_tokens=, temperature=) -> object with
@@ -19,7 +24,9 @@ OpenRouter's chat-completions API is OpenAI-compatible and is called with the st
 from __future__ import annotations
 
 import json
+import logging
 import os
+import threading
 import time
 import urllib.error
 import urllib.request
@@ -29,9 +36,13 @@ from typing import Any
 from tbml.paths import REPO_ROOT
 
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
+JEV_URL = "https://openrouter.ai/api/alpha/decisions"
+DEFAULT_JEV_MODEL = "typesafe/jev-1.14"  # pinned, not ~typesafe/jev-latest, so caches stay valid
 APP_TITLE = "TBML Invoice Checker"
 TIMEOUT_S = 60
 RETRY_STATUSES = {429, 500, 502, 503, 504}
+
+log = logging.getLogger("tbml.llm")
 
 
 class LLMError(RuntimeError):
@@ -210,6 +221,89 @@ def _error_message(resp: Any) -> str:
         return (getattr(resp, "text", "") or "")[:200]
 
 
+# ---- Jev (decisions, not chat) ---------------------------------------------------------------
+
+
+class JevClient:
+    """TypeSafe's Jev through OpenRouter's Decisions API: typed questions (choice / noul / score)
+    against a `state`, answered with probabilities. Deliberately has no complete()/messages, so
+    it can never stand in for a chat client."""
+
+    provider = "jev"
+
+    def __init__(
+        self,
+        model: str,
+        api_key: str,
+        session: Any = None,
+        retries: int = 2,
+        timeout: float = 30,
+    ):
+        if not api_key:
+            raise LLMError("no OpenRouter key set (OPENROUTER_API_KEY)")
+        self.model = model or DEFAULT_JEV_MODEL
+        self._key = api_key
+        self._http = session or _UrllibSession()
+        self._retries = retries
+        self._timeout = timeout
+        self.last_usage: dict[str, Any] = {}
+        self.spent_usd = 0.0  # sum of usage.cost over this client's calls (beams run in threads)
+        self._lock = threading.Lock()
+
+    def decide(self, state: Any, questions: dict[str, dict[str, Any]]) -> dict[str, dict]:
+        """POST one request; returns `answers` keyed by question id."""
+        payload = {"model": self.model, "state": state, "questions": questions}
+        headers = {
+            "Authorization": f"Bearer {self._key}",
+            "Content-Type": "application/json",
+            "X-Title": APP_TITLE,
+        }
+        last = ""
+        for attempt in range(self._retries + 1):
+            try:
+                resp = self._http.post(
+                    JEV_URL, json=payload, headers=headers, timeout=self._timeout
+                )
+            except OSError as exc:
+                last = f"network error: {exc}"
+            else:
+                if resp.status_code == 200:
+                    return self._answers(resp, questions)
+                last = f"HTTP {resp.status_code}: {_error_message(resp)}"
+                if resp.status_code not in RETRY_STATUSES | {529}:  # 529: Jev overloaded
+                    break
+            if attempt < self._retries:
+                time.sleep(1.5 * (attempt + 1))
+        raise LLMError(f"Jev request failed ({last})")
+
+    def _answers(self, resp: Any, questions: dict[str, Any]) -> dict[str, dict]:
+        try:
+            data = resp.json()
+        except ValueError as exc:
+            raise LLMError("Jev returned non-JSON") from exc
+        if "error" in data:
+            raise LLMError(f"Jev error: {data['error']}")
+        self.last_usage = data.get("usage") or {}
+        with self._lock:
+            self.spent_usd += float(self.last_usage.get("cost") or 0)
+        answers = data.get("answers")
+        if not isinstance(answers, dict) or any(q not in answers for q in questions):
+            raise LLMError("Jev reply is missing answers")
+        return answers
+
+
+def is_decision_model(model: str | None) -> bool:
+    """True for Jev ids (typesafe/..., ~typesafe/...), which must never be used for chat."""
+    return bool(model) and model.lstrip("~").startswith("typesafe/")
+
+
+def jev_client() -> JevClient | None:
+    """Jev on the OpenRouter key, model JEV_MODEL (default DEFAULT_JEV_MODEL); None without a key."""
+    load_dotenv()
+    key = os.environ.get("OPENROUTER_API_KEY")
+    return JevClient(os.environ.get("JEV_MODEL") or DEFAULT_JEV_MODEL, key) if key else None
+
+
 # ---- Anthropic (fallback) ---------------------------------------------------------------------
 
 
@@ -259,10 +353,10 @@ def configured_client() -> OpenRouterClient | AnthropicClient | None:
     """The client the environment asks for, or None when no provider is configured."""
     load_dotenv()
     or_key = os.environ.get("OPENROUTER_API_KEY")
-    or_model = os.environ.get("OPENROUTER_MODEL") or os.environ.get("LLM_MODEL")
+    or_model = _chat_model(os.environ.get("OPENROUTER_MODEL") or os.environ.get("LLM_MODEL"))
     if or_key and or_model:
         return OpenRouterClient(or_model, or_key)
-    an_key, an_model = os.environ.get("ANTHROPIC_API_KEY"), os.environ.get("LLM_MODEL")
+    an_key, an_model = os.environ.get("ANTHROPIC_API_KEY"), _chat_model(os.environ.get("LLM_MODEL"))
     if an_key and an_model:
         return AnthropicClient(an_model, an_key)
     return None
@@ -272,12 +366,20 @@ def summary_client(timeout: float = 10) -> OpenRouterClient | AnthropicClient | 
     """Like configured_client(), but with SUMMARY_MODEL when set, a short timeout and no retries:
     the summary is optional and must not hold the report back."""
     client = configured_client()
-    model = os.environ.get("SUMMARY_MODEL")
+    model = _chat_model(os.environ.get("SUMMARY_MODEL"))
     if isinstance(client, OpenRouterClient):
         return OpenRouterClient(model or client.model, client._key, retries=0, timeout=timeout)
     if client and model:
         client.model = model
     return client
+
+
+def _chat_model(model: str | None) -> str | None:
+    """`model`, unless it is a Jev id (a decision model cannot answer chat calls)."""
+    if is_decision_model(model):
+        log.warning("%s is a decision model; set it as JEV_MODEL, not as a chat model", model)
+        return None
+    return model
 
 
 def describe_provider() -> str:

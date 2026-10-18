@@ -1,0 +1,11 @@
+{
+  "description": "SPARE PARTS AS PER PO 4471",
+  "parent": "__interpret__",
+  "choices": [
+    {
+      "code": "vague",
+      "score": 1.0
+    }
+  ],
+  "reason": "Spare parts."
+}

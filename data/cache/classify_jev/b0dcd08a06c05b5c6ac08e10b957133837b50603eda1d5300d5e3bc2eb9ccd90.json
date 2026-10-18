@@ -1,0 +1,35 @@
+{
+  "state": {
+    "invoice_line": "MBP 14 M3 16/512 SG",
+    "what_it_is": "An Apple MacBook Pro 14-inch laptop computer with an M3 processor, 16 gigabytes of RAM, and 512 gigabytes of storage, in Space Gray color. It is a finished product made of aluminum, glass, and electronic components, used for general computing tasks.",
+    "classified_so_far": "chapter 85: Electrical machinery and equipment and parts thereof; sound recorders and reproducers; television image and sound recor\u2026 > heading 8517: Telephone sets, including smartphones and other telephones for cellular/wireless networks; other apparatus for the tran\u2026"
+  },
+  "parent": "8517",
+  "probabilities": {
+    "851710": 0.0,
+    "851711": 0.0,
+    "851712": 0.01,
+    "851713": 0.01,
+    "851714": 0.0,
+    "851718": 0.0,
+    "851719": 0.04,
+    "851720": 0.01,
+    "851721": 0.0,
+    "851722": 0.01,
+    "851730": 0.01,
+    "851740": 0.01,
+    "851750": 0.01,
+    "851761": 0.0,
+    "851762": 0.09999999999999999,
+    "851769": 0.02,
+    "851770": 0.03,
+    "851771": 0.0,
+    "851779": 0.0,
+    "851780": 0.07,
+    "851781": 0.0,
+    "851782": 0.0,
+    "851790": 0.0,
+    "none": 0.67
+  },
+  "confidence": 0.66
+}

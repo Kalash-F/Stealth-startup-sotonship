@@ -1,0 +1,49 @@
+{
+  "invoice_id": "JEV-DEMO-07",
+  "schema_version": "1.1",
+  "priority_score": 5.0,
+  "priority_band": "low",
+  "summary": "This is a low-priority review. The system was not confident about the product on line L1, so the price check was skipped.",
+  "flags": [
+    {
+      "flag_id": "R8-L1",
+      "rule": "LOW_CONFIDENCE",
+      "line_id": "L1",
+      "severity": "low",
+      "expected": null,
+      "stated": null,
+      "variance_pct": null,
+      "reason": "The system was not confident about line L1: identifying the product (0% sure). Please check this line manually before relying on the other results for it.",
+      "evidence": {
+        "extraction_confidence": 1.0,
+        "classification_confidence": 0.0,
+        "min_confidence": 0.5
+      }
+    }
+  ],
+  "lines": [
+    {
+      "line_id": "L1",
+      "hs6": null,
+      "hs6_description": null,
+      "hs6_candidates": [],
+      "classification_confidence": 0.0,
+      "normalised_quantity": null,
+      "benchmark_unit": null,
+      "unit_price_usd": null,
+      "normalisation_note": "not classified: read as \"Spare parts.\"; stopped: too vague to identify the goods; not normalised: line has no HS6",
+      "description": "SPARE PARTS AS PER PO 4471",
+      "quantity": 1.0,
+      "unit": "LOT",
+      "unit_price": 2500.0,
+      "line_total": 2500.0,
+      "extraction_confidence": 1.0,
+      "benchmark": null
+    }
+  ],
+  "processing_ms": 756,
+  "warnings": [
+    "line L1 could not be classified",
+    "line L1: no price benchmark or usable price, so the price check was skipped"
+  ]
+}

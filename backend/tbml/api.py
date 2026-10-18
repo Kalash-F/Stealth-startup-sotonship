@@ -12,6 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from tbml.benchmark import band_file, benchmarks_are_mock
+from tbml.classify import describe_classifier
 from tbml.llm import describe_provider
 from tbml.paths import REPORTS_DIR, SYNTHETIC_DIR
 from tbml.pipeline import check as run_check
@@ -74,7 +75,8 @@ def health() -> dict[str, str | bool]:
         "schema_version": SCHEMA_VERSION,
         "stubs": mocks,
         "benchmarks": "mock" if mocks or benchmarks_are_mock() else "real",
-        "llm": describe_provider(),  # e.g. "openrouter:<model>" or "offline"
+        "llm": describe_provider(),  # chat model, e.g. "openrouter:<model>" or "offline"
+        "classifier": describe_classifier(),  # e.g. "jev:typesafe/jev-1.14" or "keyword"
         "bands": band_file(),
         "commit": os.environ.get("VERCEL_GIT_COMMIT_SHA", "")[:7] or "local",
     }

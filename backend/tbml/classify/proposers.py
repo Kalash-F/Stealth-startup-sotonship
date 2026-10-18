@@ -155,17 +155,31 @@ class CachedProposer:
         return candidates
 
 
+def classifier_method() -> str:
+    """CLASSIFIER, lower-cased: jev (default), hierarchical, flat or keyword."""
+    return os.environ.get("CLASSIFIER", "jev").lower()
+
+
 def default_proposer() -> Proposer:
-    """LLM when a provider is configured (OpenRouter, else Anthropic: see tbml/llm.py), else
-    the offline keyword baseline.
+    """The classifier the environment asks for, else the offline keyword baseline.
 
-    CLASSIFIER picks the method: "hierarchical" (default: chapter -> heading -> HS6, each step
-    from the real code list), "flat" (one call straight to HS6), or "keyword" (offline
-    baseline even when a key is set, for evaluation).
+    CLASSIFIER picks the method:
+      - "jev" (default): Jev decides chapter -> heading -> HS6 with beam search (classify/jev.py);
+        needs OPENROUTER_API_KEY. The chat model, when configured, only reads the line first.
+      - "hierarchical": the chat model decides the same three steps (classify/hierarchical.py).
+      - "flat": one chat call straight to HS6.
+      - "keyword": offline baseline even when a key is set, for evaluation.
     """
-    from tbml.llm import configured_client
+    from tbml.llm import configured_client, jev_client
 
-    method = os.environ.get("CLASSIFIER", "hierarchical").lower()
+    method = classifier_method()
+    if method == "jev":
+        jev = jev_client()
+        if jev is None:
+            return KeywordProposer()
+        from tbml.classify.jev import JevProposer
+
+        return JevProposer(jev=jev, chat=configured_client())
     client = None if method == "keyword" else configured_client()
     if client is None:
         return KeywordProposer()
@@ -174,3 +188,15 @@ def default_proposer() -> Proposer:
     from tbml.classify.hierarchical import HierarchicalProposer
 
     return HierarchicalProposer(client=client)
+
+
+def describe_classifier() -> str:
+    """'jev:<model>', 'hierarchical:<model>', 'flat:<model>' or 'keyword', for /health."""
+    from tbml.llm import configured_client, jev_client
+
+    method = classifier_method()
+    if method == "jev":
+        jev = jev_client()
+        return f"jev:{jev.model}" if jev else "keyword"
+    client = None if method == "keyword" else configured_client()
+    return f"{method}:{client.model}" if client else "keyword"

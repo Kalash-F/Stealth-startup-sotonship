@@ -1,0 +1,30 @@
+{
+  "state": {
+    "invoice_line": "CU CATHODE GRADE A, LME REGISTERED",
+    "what_it_is": "Refined copper cathode, Grade A, registered on the London Metal Exchange, used as a raw material for various industrial applications.",
+    "classified_so_far": "chapter 71: Natural, cultured pearls; precious, semi-precious stones; precious metals, metals clad with precious metal, and article\u2026"
+  },
+  "parent": "71",
+  "probabilities": {
+    "7101": 0.0,
+    "7102": 0.0,
+    "7103": 0.0,
+    "7104": 0.0,
+    "7105": 0.0,
+    "7106": 0.09,
+    "7107": 0.01,
+    "7108": 0.01,
+    "7109": 0.0,
+    "7110": 0.01,
+    "7111": 0.01,
+    "7112": 0.0,
+    "7113": 0.0,
+    "7114": 0.0,
+    "7115": 0.0,
+    "7116": 0.0,
+    "7117": 0.0,
+    "7118": 0.0,
+    "none": 0.87
+  },
+  "confidence": 0.86
+}
