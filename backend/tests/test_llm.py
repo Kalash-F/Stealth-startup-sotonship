@@ -144,7 +144,7 @@ def test_provider_selection(monkeypatch):
 def test_default_proposer_uses_openrouter(monkeypatch):
     monkeypatch.setenv("OPENROUTER_API_KEY", "sk-or")
     monkeypatch.setenv("OPENROUTER_MODEL", "vendor/model-x")
-    monkeypatch.delenv("CLASSIFIER", raising=False)
+    monkeypatch.setenv("CLASSIFIER", "hierarchical")  # the default is jev (tests/test_jev.py)
     prop = default_proposer()
     assert isinstance(prop, HierarchicalProposer)
     assert isinstance(prop.client, llm.OpenRouterClient) and prop.model == "vendor/model-x"

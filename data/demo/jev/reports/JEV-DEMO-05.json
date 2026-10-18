@@ -1,0 +1,62 @@
+{
+  "invoice_id": "JEV-DEMO-05",
+  "schema_version": "1.1",
+  "priority_score": 0.0,
+  "priority_band": "low",
+  "summary": "This is a low priority review. No flags were found. All 1 line item was classified.",
+  "flags": [],
+  "lines": [
+    {
+      "line_id": "L1",
+      "hs6": "740311",
+      "hs6_description": "Refined copper cathodes and sections of cathodes",
+      "hs6_candidates": [
+        {
+          "hs6": "740311",
+          "score": 0.946
+        },
+        {
+          "hs6": "740200",
+          "score": 0.2771
+        },
+        {
+          "hs6": "740312",
+          "score": 0.2052
+        }
+      ],
+      "classification_confidence": 0.946,
+      "normalised_quantity": 25000.0,
+      "benchmark_unit": "kg",
+      "unit_price_usd": 9.4,
+      "normalisation_note": "HS path: read as \"Refined copper cathode, Grade A, registered on the London Metal Exchange, used\u2026\" > 74 Copper and articles thereof (0.96) > 7403 Copper; refined and copper alloys, unwrought (0.90) > 740311 Copper; refined, unwrought, cathodes and sections of cathod\u2026 (0.98); 25 MT x 1000 kg/MT (1 mt = 1000 kg) = 25,000 kg; invoice in USD so no FX; 9,400 USD/MT -> 9.4 USD/kg.",
+      "description": "CU CATHODE GRADE A, LME REGISTERED",
+      "quantity": 25.0,
+      "unit": "MT",
+      "unit_price": 9400.0,
+      "line_total": 235000.0,
+      "extraction_confidence": 1.0,
+      "benchmark": {
+        "hs6": "740311",
+        "route": null,
+        "unit": "kg",
+        "p10": 8.5101631192,
+        "p25": 9.2049716044,
+        "median": 10.1774672555,
+        "p75": 20.6398891535,
+        "p90": 70.0948166667,
+        "n_observations": 196,
+        "years": [
+          2023,
+          2024,
+          2025
+        ],
+        "sources": [
+          "HMRC OTS"
+        ],
+        "is_mock": false
+      }
+    }
+  ],
+  "processing_ms": 924,
+  "warnings": []
+}

@@ -5,14 +5,18 @@
 ## Classification
 
 1. **Placeholder check** (`placeholder.py`). Descriptions made only of filler words ("Goods as per contract", "Product ABC") are never sent to a model, because it would invent a code. Such a line gets no HS6 and a confidence of 0.05.
-2. **Propose** (`proposers.py`). A `Proposer` returns up to three scored HS6 guesses.
-   - `KeywordProposer`: offline baseline using keyword and exclusion patterns from `data/reference/hs6.csv`.
-   - `AnthropicProposer`: asks the model for JSON; retries once on bad output.
-   - `CachedProposer`: stores answers on disk so reruns are free and repeatable.
-   - `default_proposer()` picks the cached LLM when `ANTHROPIC_API_KEY` and `LLM_MODEL` are set, else the keywords.
-3. **Validate** (`classifier.py`). Proposals are untrusted: codes not in `hs6.csv` are dropped, the best remaining score must reach 0.5, else the line stays unclassified and the reason is recorded.
+2. **Propose**. A `Proposer` returns up to three scored HS6 guesses. `default_proposer()` (`proposers.py`) picks one from `CLASSIFIER`:
+   - `jev` (default, `jev.py`): **Jev**, TypeSafe's decision model on OpenRouter (`JEV_MODEL`, default `typesafe/jev-1.14`; needs only `OPENROUTER_API_KEY`).
+     - If a chat model is configured (`OPENROUTER_MODEL`), it first reads the line in plain words and can stop a vague line ("spare parts"). This is the same step as below, cached in the same place.
+     - Jev then decides chapter → heading → HS6. Each level is one Choice question over the real child codes from `hs.db`, plus a `none` option. Jev returns a probability for every option.
+     - Beam search keeps the best 3 paths at every level, ranked by the geometric mean of their step probabilities. A level with a single child is taken without a call.
+     - Answers are cached in `data/cache/classify_jev/`.
+   - `hierarchical` (`hierarchical.py`): the chat model does the same three steps itself, greedily. Its scores are the model's own estimates, and the weakest step caps the final score.
+   - `flat`: `LLMProposer`, one chat call straight to HS6, wrapped in `CachedProposer`.
+   - `keyword`: `KeywordProposer`, the offline baseline using the keyword patterns in `data/reference/hs6.csv`. It is used whenever no key is set.
+3. **Validate** (`classifier.py`). Proposals are untrusted. Codes not in the HS list are dropped, and the best remaining score must reach 0.5; otherwise the line stays unclassified and the reason is recorded. The chosen path (`read as "…" > 84 … (0.97) > 8471 … > 847130 …`) is prepended to `normalisation_note`.
 
-The reference list is small and partial (see `data/reference/hs6.csv`; the codes are not yet verified against an official source).
+The chat model and Jev are kept apart: Jev's client (`tbml.llm.JevClient`) has no chat methods, and a Jev id put in `OPENROUTER_MODEL`, `LLM_MODEL` or `SUMMARY_MODEL` is ignored with a warning.
 
 ## Normalisation (`normalise.py`)
 

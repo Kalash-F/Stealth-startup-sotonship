@@ -1,0 +1,15 @@
+{
+  "state": {
+    "invoice_line": "HHB M10 X 50 8.8 ZP",
+    "what_it_is": "A zinc-plated steel hex head bolt, 10mm in diameter and 50mm long, for fastening.",
+    "classified_so_far": "chapter 83: Metal; miscellaneous products of base metal > heading 8308: Clasps, frames with clasps, buckles, buckle-clasps, hooks, eyes, eyelets etc for clothing & accessories, footwear, jewe\u2026"
+  },
+  "parent": "8308",
+  "probabilities": {
+    "830810": 0.01,
+    "830820": 0.03,
+    "830890": 0.01,
+    "none": 0.95
+  },
+  "confidence": 0.93
+}

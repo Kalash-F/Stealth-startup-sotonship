@@ -1,0 +1,24 @@
+{
+  "state": {
+    "invoice_line": "HHB M10 X 50 8.8 ZP",
+    "what_it_is": "A zinc-plated steel hex head bolt, 10mm in diameter and 50mm long, for fastening.",
+    "classified_so_far": "chapter 73: Iron or steel articles > heading 7318: Screws, bolts, nuts, coach screws, screw hooks, rivets, cotters, cotter-pins, washers (including spring washers) and si\u2026"
+  },
+  "parent": "7318",
+  "probabilities": {
+    "731811": 0.04,
+    "731812": 0.01,
+    "731813": 0.0,
+    "731814": 0.01,
+    "731815": 0.79,
+    "731816": 0.01,
+    "731819": 0.12,
+    "731821": 0.0,
+    "731822": 0.0,
+    "731823": 0.0,
+    "731824": 0.0,
+    "731829": 0.0,
+    "none": 0.02
+  },
+  "confidence": 0.77
+}

@@ -1,0 +1,23 @@
+{
+  "state": {
+    "invoice_line": "CARRIAGE BOLTS M10 X 100MM, GALVANISED STEEL",
+    "what_it_is": "Galvanised steel carriage bolts, 10mm in diameter and 100mm long, which are finished products used for fastening wood to wood or wood to metal.",
+    "classified_so_far": "chapter 83: Metal; miscellaneous products of base metal"
+  },
+  "parent": "83",
+  "probabilities": {
+    "8301": 0.0,
+    "8302": 0.06999999999999999,
+    "8303": 0.0,
+    "8304": 0.0,
+    "8305": 0.0,
+    "8306": 0.0,
+    "8307": 0.0,
+    "8308": 0.14,
+    "8309": 0.0,
+    "8310": 0.0,
+    "8311": 0.0,
+    "none": 0.79
+  },
+  "confidence": 0.77
+}

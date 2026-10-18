@@ -14,8 +14,10 @@ export interface Health {
   schema_version: string;
   stubs: boolean;
   benchmarks: "mock" | "real";
-  /** "openrouter:<model>", "anthropic:<model>" or "offline". */
+  /** Chat model: "openrouter:<model>", "anthropic:<model>" or "offline". */
   llm?: string;
+  /** HS classifier: "jev:<model>", "hierarchical:<model>", "flat:<model>" or "keyword". */
+  classifier?: string;
 }
 
 export interface Sample {

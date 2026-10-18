@@ -198,30 +198,9 @@ class HierarchicalProposer:
 
     def _interpret(self, description: str) -> tuple[str, bool]:
         """(plain description, vague?). Failures fall back to ('', False): classify the raw text."""
-        cached = self._cache_get(description, "__interpret__")
-        if cached is not None:
-            choices, reason = cached
-            return reason, bool(choices)
-        try:
-            msg = self.client.messages.create(
-                model=self.model,
-                max_tokens=200,
-                temperature=0,
-                system=_INTERPRET_SYSTEM,
-                messages=[{"role": "user", "content": f"Invoice line: {description}"}],
-            )
-        except LLMError as exc:
-            raise ProposerError(str(exc)) from exc
-        text = "".join(getattr(b, "text", "") for b in msg.content)
-        try:
-            data = json.loads(text[text.find("{") : text.rfind("}") + 1])
-            goods = " ".join(str(data.get("goods", "")).split())
-            vague = bool(data.get("vague", False))
-        except (json.JSONDecodeError, ValueError, AttributeError):
-            return "", False
-        # cached in the step format: choices non-empty means vague, reason holds the reading
-        self._cache_put(description, "__interpret__", ([("vague", 1.0)] if vague else [], goods))
-        return goods, vague
+        return interpret(
+            self.client, self.model, description, self._cache_path(description, "__interpret__")
+        )
 
     # ---- one LLM step ---------------------------------------------------------------------
 
@@ -272,11 +251,14 @@ class HierarchicalProposer:
     # ---- cache ----------------------------------------------------------------------------
 
     def _cache_path(self, description: str, parent: str | None) -> Path | None:
-        if self.cache_dir is None:
-            return None
-        norm = " ".join(description.lower().split())
-        key = f"{self.model}\0{PROMPT_VERSION}\0{self.nomenclature.source}\0{parent}\0{norm}"
-        return self.cache_dir / f"{hashlib.sha256(key.encode()).hexdigest()}.json"
+        return cache_path(
+            self.cache_dir,
+            self.model,
+            PROMPT_VERSION,
+            self.nomenclature.source,
+            parent,
+            description,
+        )
 
     def _cache_get(self, description, parent):
         path = self._cache_path(description, parent)
@@ -290,21 +272,81 @@ class HierarchicalProposer:
         return [(c["code"], c["score"]) for c in data["choices"]], data["reason"]
 
     def _cache_put(self, description, parent, result):
-        path = self._cache_path(description, parent)
-        if path is None:
-            return
-        choices, reason = result
-        payload = {
-            "description": description,
-            "parent": parent,
-            "choices": [{"code": c, "score": s} for c, s in choices],
-            "reason": reason,
-        }
-        try:
-            path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_text(json.dumps(payload, indent=2) + "\n")
-        except OSError:
-            pass  # a read-only disk must not break classification; the answer is still used
+        cache_write(self._cache_path(description, parent), description, parent, result)
+
+
+# ---- shared with JevProposer (classify/jev.py) ---------------------------------------------------
+
+
+def interpret(client: Any, model: str, description: str, path: Path | None) -> tuple[str, bool]:
+    """Step 0 with a chat model: (plain description, vague?). Cached at `path`. A reply that is
+    not JSON falls back to ('', False), i.e. classify the raw text."""
+    cached = cache_read(path)
+    if cached is not None:
+        choices, reason = cached
+        return reason, bool(choices)
+    try:
+        msg = client.messages.create(
+            model=model,
+            max_tokens=200,
+            temperature=0,
+            system=_INTERPRET_SYSTEM,
+            messages=[{"role": "user", "content": f"Invoice line: {description}"}],
+        )
+    except LLMError as exc:
+        raise ProposerError(str(exc)) from exc
+    text = "".join(getattr(b, "text", "") for b in msg.content)
+    try:
+        data = json.loads(text[text.find("{") : text.rfind("}") + 1])
+        goods = " ".join(str(data.get("goods", "")).split())
+        vague = bool(data.get("vague", False))
+    except (json.JSONDecodeError, ValueError, AttributeError):
+        return "", False
+    # cached in the step format: choices non-empty means vague, reason holds the reading
+    cache_write(path, description, "__interpret__", ([("vague", 1.0)] if vague else [], goods))
+    return goods, vague
+
+
+def cache_path(
+    cache_dir: Path | None | object,
+    model: str,
+    version: str,
+    source: str,
+    parent: str | None,
+    description: str,
+) -> Path | None:
+    """One cached answer per (model, prompt version, nomenclature, parent, description)."""
+    if not isinstance(cache_dir, Path):
+        return None
+    norm = " ".join(description.lower().split())
+    key = f"{model}\0{version}\0{source}\0{parent}\0{norm}"
+    return cache_dir / f"{hashlib.sha256(key.encode()).hexdigest()}.json"
+
+
+def cache_read(path: Path | None) -> tuple[list[tuple[str, float]], str] | None:
+    if path is None or not path.exists():
+        return None
+    data = json.loads(path.read_text())
+    return [(c["code"], c["score"]) for c in data["choices"]], data["reason"]
+
+
+def cache_write(
+    path: Path | None, description: str, parent: str | None, result: tuple[list, str]
+) -> None:
+    if path is None:
+        return
+    choices, reason = result
+    payload = {
+        "description": description,
+        "parent": parent,
+        "choices": [{"code": c, "score": s} for c, s in choices],
+        "reason": reason,
+    }
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(payload, indent=2) + "\n")
+    except OSError:
+        pass  # a read-only disk must not break classification; the answer is still used
 
 
 def _norm_code(code: object, width: int) -> str:

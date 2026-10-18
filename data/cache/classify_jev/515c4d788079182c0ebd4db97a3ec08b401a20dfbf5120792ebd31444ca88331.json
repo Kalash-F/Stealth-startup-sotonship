@@ -1,0 +1,20 @@
+{
+  "state": {
+    "invoice_line": "COPPER CATHODES GRADE A, 99.99% CU",
+    "what_it_is": "Refined copper cathodes, made of 99.99% pure copper, used as a raw material in various industrial processes.",
+    "classified_so_far": "chapter 74: Copper and articles thereof > heading 7403: Copper; refined and copper alloys, unwrought"
+  },
+  "parent": "7403",
+  "probabilities": {
+    "740311": 0.99,
+    "740312": 0.0,
+    "740313": 0.0,
+    "740319": 0.01,
+    "740321": 0.0,
+    "740322": 0.0,
+    "740323": 0.0,
+    "740329": 0.0,
+    "none": 0.0
+  },
+  "confidence": 0.99
+}

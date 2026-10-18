@@ -1,0 +1,40 @@
+{
+  "invoice": {
+    "buyer": {
+      "address": "Unit 7, Kingsway Business Park, Manchester M19 1BB, United Kingdom",
+      "address_type": "commercial",
+      "country": "GB",
+      "name": "Harbourline Distribution UK Ltd"
+    },
+    "consignee": null,
+    "country_of_origin": "P.R. China",
+    "currency": "USD",
+    "incoterm": "FOB",
+    "invoice_date": "2026-10-01",
+    "invoice_id": "JEV-DEMO-02",
+    "is_synthetic": false,
+    "line_items": [
+      {
+        "description": "HHB M10 X 50 8.8 ZP",
+        "extraction_confidence": 1.0,
+        "line_id": "L1",
+        "line_total": 6400.0,
+        "quantity": 20000,
+        "unit": "PCS",
+        "unit_price": 0.32
+      }
+    ],
+    "port_of_discharge": "Felixstowe, United Kingdom",
+    "port_of_loading": "Shenzhen (Yantian), China",
+    "seller": {
+      "address": "Room 1208, Block B, Tianan Cyber Park, Futian District, Shenzhen 518040, China",
+      "address_type": "commercial",
+      "country": "CN",
+      "name": "Shenzhen Brightpath Trading Co., Ltd."
+    },
+    "source_file": "",
+    "stated_total": 6400.0
+  },
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "1"
+}

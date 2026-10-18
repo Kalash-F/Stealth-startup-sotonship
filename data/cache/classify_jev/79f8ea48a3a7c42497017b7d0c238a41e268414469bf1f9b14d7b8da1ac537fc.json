@@ -1,0 +1,17 @@
+{
+  "state": {
+    "invoice_line": "SANDISK ULTRA FLAIR 64GB USB 3.0 FLASH DRIVE",
+    "what_it_is": "A SanDisk Ultra Flair 64 gigabyte USB 3.0 flash drive, which is a finished electronic product made of plastic and metal, used for digital data storage and transfer.",
+    "classified_so_far": "chapter 39: Plastics and articles thereof > heading 3926: Articles of plastics and articles of other materials of heading no. 3901 to 3914, n.e.c. in chapter 39"
+  },
+  "parent": "3926",
+  "probabilities": {
+    "392610": 0.01,
+    "392620": 0.0,
+    "392630": 0.0,
+    "392640": 0.0,
+    "392690": 0.8,
+    "none": 0.19
+  },
+  "confidence": 0.76
+}

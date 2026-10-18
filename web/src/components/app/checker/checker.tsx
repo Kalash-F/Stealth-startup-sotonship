@@ -23,6 +23,16 @@ const kindLabel: Record<Sample["kind"], string> = {
   clean: "clean",
 };
 
+/** "jev:typesafe/jev-1.14" -> "Jev 1.14 (decision model)"; older backends only report `llm`. */
+function classifierLabel(health: Health): string {
+  const cls = health.classifier ?? (health.llm && health.llm !== "offline" ? health.llm : "keyword");
+  if (cls === "keyword") return "Keyword matching only (AI not connected)";
+  const [method, ...rest] = cls.split(":");
+  const model = rest.join(":");
+  if (method === "jev") return `Jev ${model.replace(/^~?typesafe\/jev-/, "")} (decision model)`;
+  return `AI model ${model || method}`;
+}
+
 /** The officer's checker: pick a sample or upload a PDF, get the explained review report. */
 export function Checker() {
   const [health, setHealth] = useState<Health | null>(null);
@@ -186,9 +196,7 @@ export function Checker() {
               <>
                 <dt className="text-fg-subtle">Classifier</dt>
                 <dd className="flex items-center gap-1.5 text-fg">
-                  {health.llm && health.llm !== "offline"
-                    ? `AI model ${health.llm.replace(/^[a-z]+:/, "")}`
-                    : "Keyword matching only (AI not connected)"}
+                  {classifierLabel(health)}
                 </dd>
                 <dt className="text-fg-subtle">Price data</dt>
                 <dd>

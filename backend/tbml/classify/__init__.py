@@ -2,6 +2,7 @@
 
 from tbml.classify.classifier import Classification, classify_description
 from tbml.classify.hierarchical import HierarchicalProposer
+from tbml.classify.jev import JevProposer
 from tbml.classify.nomenclature import Nomenclature, default_nomenclature, load_nomenclature
 from tbml.classify.normalise import Normalised, normalise
 from tbml.classify.proposers import (
@@ -12,6 +13,7 @@ from tbml.classify.proposers import (
     Proposer,
     ProposerError,
     default_proposer,
+    describe_classifier,
 )
 from tbml.schemas import EnrichedLine, Invoice
 
@@ -51,6 +53,7 @@ __all__ = [
     "CachedProposer",
     "Classification",
     "HierarchicalProposer",
+    "JevProposer",
     "Nomenclature",
     "KeywordProposer",
     "LLMProposer",
@@ -60,6 +63,7 @@ __all__ = [
     "classify_description",
     "default_nomenclature",
     "default_proposer",
+    "describe_classifier",
     "enrich",
     "load_nomenclature",
     "normalise",

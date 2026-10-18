@@ -1,0 +1,62 @@
+{
+  "invoice_id": "JEV-DEMO-01",
+  "schema_version": "1.1",
+  "priority_score": 0.0,
+  "priority_band": "low",
+  "summary": "This is a low-priority review. No flags were raised, and all one line items were classified.",
+  "flags": [],
+  "lines": [
+    {
+      "line_id": "L1",
+      "hs6": "847130",
+      "hs6_description": "Portable automatic data processing machines, weighing not more than 10 kg, with at least a central processing unit, a keyboard and a display",
+      "hs6_candidates": [
+        {
+          "hs6": "847130",
+          "score": 0.6285
+        },
+        {
+          "hs6": "854370",
+          "score": 0.4087
+        },
+        {
+          "hs6": "851762",
+          "score": 0.2806
+        }
+      ],
+      "classification_confidence": 0.6285,
+      "normalised_quantity": 40.0,
+      "benchmark_unit": "u",
+      "unit_price_usd": 1180.0,
+      "normalisation_note": "HS path: read as \"An Apple MacBook Pro 14-inch laptop computer with an M3 processor, 16 gigabytes\u2026\" > 84 Machinery and mechanical appliances, boilers, nuclear react\u2026 (0.30) > 8471 Automatic data processing machines and units thereof, magne\u2026 (0.89) > 847130 Automatic data processing machines; portable, weighing not\u2026 (0.93); 40 PCS x 1 u/PCS (1 pcs = 1 u) = 40 u; invoice in USD so no FX; 1,180 USD/PCS -> 1,180 USD/u.",
+      "description": "MBP 14 M3 16/512 SG",
+      "quantity": 40.0,
+      "unit": "PCS",
+      "unit_price": 1180.0,
+      "line_total": 47200.0,
+      "extraction_confidence": 1.0,
+      "benchmark": {
+        "hs6": "847130",
+        "route": "CN-GB",
+        "unit": "u",
+        "p10": 44.1143273307,
+        "p25": 144.3957044637,
+        "median": 470.9674953553,
+        "p75": 807.3982232016,
+        "p90": 1368.4301454545,
+        "n_observations": 471,
+        "years": [
+          2023,
+          2024,
+          2025
+        ],
+        "sources": [
+          "HMRC OTS"
+        ],
+        "is_mock": false
+      }
+    }
+  ],
+  "processing_ms": 972,
+  "warnings": []
+}

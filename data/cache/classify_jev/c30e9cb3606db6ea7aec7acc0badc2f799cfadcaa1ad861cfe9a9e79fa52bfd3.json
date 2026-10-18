@@ -1,0 +1,29 @@
+{
+  "state": {
+    "invoice_line": "MEN'S CREW-NECK TEE, 100% COMBED COTTON 180GSM",
+    "what_it_is": "A men's crew-neck t-shirt made from 100% combed cotton fabric weighing 180 grams per square meter, which is a finished product for wearing.",
+    "classified_so_far": "chapter 61: Apparel and clothing accessories; knitted or crocheted"
+  },
+  "parent": "61",
+  "probabilities": {
+    "6101": 0.0,
+    "6102": 0.0,
+    "6103": 0.0,
+    "6104": 0.0,
+    "6105": 0.08,
+    "6106": 0.0,
+    "6107": 0.0,
+    "6108": 0.0,
+    "6109": 0.92,
+    "6110": 0.0,
+    "6111": 0.0,
+    "6112": 0.0,
+    "6113": 0.0,
+    "6114": 0.0,
+    "6115": 0.0,
+    "6116": 0.0,
+    "6117": 0.0,
+    "none": 0.0
+  },
+  "confidence": 0.92
+}

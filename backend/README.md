@@ -57,6 +57,8 @@ python -m tbml.extract.scoring                  # extraction accuracy over data/
 | `ANTHROPIC_API_KEY`, `LLM_MODEL` | Both set: extraction and classification use the LLM (cached on disk). Either missing: offline paths. Also read from a repo-root `.env`. |
 | `OPENROUTER_API_KEY`, `OPENROUTER_MODEL` | Preferred provider: used instead of Anthropic when both are set. |
 | `SUMMARY_MODEL` | Optional model for `Report.summary` only (e.g. a flash-lite or haiku-class model). Default: the main model. With no provider the summary is a fixed template. |
+| `JEV_MODEL` | Jev model for HS classification (default `typesafe/jev-1.14`), called on OpenRouter's Decisions API with `OPENROUTER_API_KEY`. A decision model, never used for chat. |
+| `CLASSIFIER` | `jev` (default), `hierarchical`, `flat` or `keyword`. Without `OPENROUTER_API_KEY` the keyword baseline is used. |
 | `TBML_CACHE_DIR` | Where extraction caches LLM replies (default `data/cache`). |
 | `COMTRADE_API_KEY` | Used only by `scripts/fetch_benchmarks.py`. |
 

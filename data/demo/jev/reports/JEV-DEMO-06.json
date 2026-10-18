@@ -1,0 +1,88 @@
+{
+  "invoice_id": "JEV-DEMO-06",
+  "schema_version": "1.1",
+  "priority_score": 40.0,
+  "priority_band": "review",
+  "summary": "Review this invoice. Line 1's T-shirt price of $38.00 is 6.3 times higher than typical, exceeding the normal range of $3.12 to $11.05. All lines were checked.",
+  "flags": [
+    {
+      "flag_id": "R1-L1",
+      "rule": "PRICE_OUTLIER",
+      "line_id": "L1",
+      "severity": "high",
+      "expected": "$3.12 to $11.05 per item",
+      "stated": "$38.00 per item",
+      "variance_pct": 530.3,
+      "reason": "Over-invoiced: the stated price of $38.00 per item for T-shirts, singlets and other vests, of cotton, knitted or crocheted is about 6.3 times the typical price of $6.03 per item, far outside the normal range of $3.12 to $11.05 per item.",
+      "evidence": {
+        "unit_price_usd": 38.0,
+        "median": 6.0291608426,
+        "p10": 3.1164689393,
+        "p90": 11.0533699081,
+        "log_dev": 1.84,
+        "spread": 1.27,
+        "direction": "over",
+        "benchmark_unit": "item",
+        "benchmark_route": "CN-GB",
+        "benchmark_sources": [
+          "HMRC OTS"
+        ],
+        "benchmark_is_mock": false
+      }
+    }
+  ],
+  "lines": [
+    {
+      "line_id": "L1",
+      "hs6": "610910",
+      "hs6_description": "T-shirts, singlets and other vests, of cotton, knitted or crocheted",
+      "hs6_candidates": [
+        {
+          "hs6": "610910",
+          "score": 0.9462
+        },
+        {
+          "hs6": "610510",
+          "score": 0.4163
+        },
+        {
+          "hs6": "620520",
+          "score": 0.2464
+        }
+      ],
+      "classification_confidence": 0.9462,
+      "normalised_quantity": 5000.0,
+      "benchmark_unit": "u",
+      "unit_price_usd": 38.0,
+      "normalisation_note": "HS path: read as \"A men's crew-neck t-shirt made from 100% combed cotton fabric weighing 180 gram\u2026\" > 61 Apparel and clothing accessories; knitted or crocheted (0.93) > 6109 T-shirts, singlets and other vests; knitted or crocheted (0.92) > 610910 T-shirts, singlets and other vests; of cotton, knitted or c\u2026 (0.99); 5,000 PCS x 1 u/PCS (1 pcs = 1 u) = 5,000 u; invoice in USD so no FX; 38 USD/PCS -> 38 USD/u.",
+      "description": "MEN'S CREW-NECK TEE, 100% COMBED COTTON 180GSM",
+      "quantity": 5000.0,
+      "unit": "PCS",
+      "unit_price": 38.0,
+      "line_total": 190000.0,
+      "extraction_confidence": 1.0,
+      "benchmark": {
+        "hs6": "610910",
+        "route": "CN-GB",
+        "unit": "u",
+        "p10": 3.1164689393,
+        "p25": 4.3926686884,
+        "median": 6.0291608426,
+        "p75": 8.021318606,
+        "p90": 11.0533699081,
+        "n_observations": 621,
+        "years": [
+          2023,
+          2024,
+          2025
+        ],
+        "sources": [
+          "HMRC OTS"
+        ],
+        "is_mock": false
+      }
+    }
+  ],
+  "processing_ms": 4540,
+  "warnings": []
+}
